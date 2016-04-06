@@ -1,5 +1,25 @@
-<p>This is the partial for view 2.</p>
-<p>
-  Showing of 'interpolate' filter:
-  {{ 'Current version is v%VERSION%.' | interpolate }}
-</p>
+<form id="login-form" action="" method="post" role="form" style="display: block;">
+  <div class="form-group">
+    <input type="text" name="name" id="name" tabindex="1" class="form-control" placeholder="Name" value="">
+  </div>
+  <div class="form-group">
+    <input type="text" name="surname" id="surname" tabindex="2" class="form-control" placeholder="Surname">
+  </div>
+  <div class="form-group">
+    <input type="email" name="email" id="email" tabindex="3" class="form-control" placeholder="Email">
+  </div>
+  <div class="form-group">
+    <input type="password" name="password" id="password" tabindex="4" class="form-control" placeholder="Password">
+  </div>
+  <div class="form-group">
+    <input type="password" name="confirmPassword" id="confirmPassword" tabindex="5" class="form-control" placeholder="Confirm password">
+  </div>
+
+  <div class="form-group">
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3">
+        <input type="submit" name="register" id="register" tabindex="6" class="form-control btn btn-login" value="Register">
+      </div>
+    </div>
+  </div>
+</form>
