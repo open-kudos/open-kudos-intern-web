@@ -8,7 +8,7 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies'])
         });
     }])
 
-    .controller('loginController', ['$scope', '$http', '$cookies', '$window', 'SERVER', 'LoginService', function($scope, $http, $cookies, $window, SERVER, LoginService){
+    .controller('loginController', ['$scope', '$http', '$cookies', '$window', 'SERVER', 'LoginService', function ($scope, $http, $cookies, $window, SERVER, LoginService) {
         var language;
 
         check();                                        // TODO THIS IS TEMPORARY
@@ -27,7 +27,7 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies'])
             $scope.forgotPassword = 'Forgot password';
             $scope.loginButton = 'Login';
             $scope.rememberMe = 'Remember me';
-        } else if (language == 'lt'){
+        } else if (language == 'lt') {
             $scope.title = "Prisijungimas";
             $scope.registration = 'Registracija';
             $scope.name = "Vartotojo vardas";
@@ -37,7 +37,7 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies'])
             $scope.rememberMe = 'Prisiminti';
         }
 
-        $scope.lt = function() {
+        $scope.lt = function () {
             $scope.title = "Prisijungimas";
             $scope.registration = 'Registracija';
             $scope.name = "Vartotojo vardas";
@@ -48,7 +48,7 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies'])
             $cookies.put('language', 'lt');
         };
 
-        $scope.en = function() {
+        $scope.en = function () {
             $scope.title = "Login";
             $scope.registration = 'Registration';
             $scope.name = "Username";
@@ -67,7 +67,7 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies'])
                 password: $scope.password
             });
             login(data);
-        //    LoginService.login(data);
+            //    LoginService.login(data);
         };
 
         function login(data) {
@@ -78,13 +78,14 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies'])
                 withCredentials: true
             }).then(function successCallback(response) {
                 console.log("Loged in successfully");               // TODO TEST PURPOSE, REMOVE LATER
+                check();
             }, function errorCallback(response) {
                 console.log("Log in failed");                       // TODO TEST PURPOSE, REMOVE LATER
             });
         };
 
         /* Method to check is user connected or not, can
-        @return true/false */
+         @return true/false */
         $scope.checkConnection = function () {
             check();
         };
@@ -96,7 +97,11 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies'])
                 withCredentials: true
             }).then(function successCallback(response) {
                 console.log("Logged in: " + response.data.logged);  // TODO TEST PURPOSE, REMOVE LATER
-                $window.location.href = "http://" + $window.location.host + "/open-kudos-intern-web/app/index.html#/profile";
+                if (response.data.logged) {
+                    $window.location.href = "http://" + $window.location.host + "/open-kudos-intern-web/app/index.html#/profile";
+                }else {
+                    $window.location.href = "http://" + $window.location.host + "/open-kudos-intern-web/app/index.html#/login";
+                }
                 return response.data;
             }, function errorCallback(response) {
                 console.log("Logged in: " + response.data.logged);  // TODO TEST PURPOSE, REMOVE LATER
