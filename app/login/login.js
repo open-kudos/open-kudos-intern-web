@@ -8,8 +8,10 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies'])
         });
     }])
 
-    .controller('loginController', ['$scope', '$http', '$cookies', 'SERVER', 'LoginService', function($scope, $http, $cookies, SERVER, LoginService){
+    .controller('loginController', ['$scope', '$http', '$cookies', '$window', 'SERVER', 'LoginService', function($scope, $http, $cookies, $window, SERVER, LoginService){
         var language;
+
+        check();                                        // TODO THIS IS TEMPORARY SOLUTION
 
         if (!$cookies.get('language')) {
             $cookies.put('language', 'en');
@@ -84,12 +86,17 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies'])
         /* Method to check is user connected or not, can
         @return true/false */
         $scope.checkConnection = function () {
+            check();
+        };
+
+        function check() {
             $http({
                 method: 'GET',
                 url: SERVER.ip,
                 withCredentials: true
             }).then(function successCallback(response) {
                 console.log("Logged in: " + response.data.logged);  // TODO TEST PURPOSE, REMOVE LATER
+                $window.location.href = "http://" + $window.location.host + "/open-kudos-intern-web/app/index.html#/profile";
                 return response.data;
             }, function errorCallback(response) {
                 console.log("Logged in: " + response.data.logged);  // TODO TEST PURPOSE, REMOVE LATER
