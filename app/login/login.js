@@ -11,7 +11,7 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies'])
     .controller('loginController', ['$scope', '$http', '$cookies', '$window', 'SERVER', 'LoginService', function($scope, $http, $cookies, $window, SERVER, LoginService){
         var language;
 
-        check();                                        // TODO THIS IS TEMPORARY SOLUTION
+        check();                                        // TODO THIS IS TEMPORARY
 
         if (!$cookies.get('language')) {
             $cookies.put('language', 'en');
