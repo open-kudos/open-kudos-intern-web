@@ -47,6 +47,7 @@ angular.module('myApp.registration', ['ngRoute', 'ngCookies'])
         $scope.password = 'Slaptažodis';
         $scope.confirmPassword = 'Pakartokite slaptažodį';
         $scope.registerButton = 'Registruotis';
+        $cookies.put('language', 'lt');
     };
 
     $scope.en = function() {
@@ -58,5 +59,6 @@ angular.module('myApp.registration', ['ngRoute', 'ngCookies'])
         $scope.password = 'Password';
         $scope.confirmPassword = 'Confirm password';
         $scope.registerButton = 'Register';
+        $cookies.put('language', 'en');
     };
 });
