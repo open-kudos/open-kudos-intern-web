@@ -75,38 +75,40 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies'])
                 url: SERVER.ip + "/login?" + data,
                 withCredentials: true
             }).then(function successCallback(response) {
-
-                console.log(response);
-            //    console.log(authdata);
-            //    console.log(value);
+                console.log("Loged in successfully");               // TODO TEST PURPOSE, REMOVE LATER
             }, function errorCallback(response) {
-                console.log(response.data);
+                console.log("Log in failed");                       // TODO TEST PURPOSE, REMOVE LATER
             });
-        }
+        };
 
+        /* Method to check is user connected or not, can
+        @return true/false */
         $scope.checkConnection = function () {
             $http({
                 method: 'GET',
                 url: SERVER.ip,
                 withCredentials: true
             }).then(function successCallback(response) {
-                console.log("IN: " + response.data.logged);
+                console.log("Logged in: " + response.data.logged);  // TODO TEST PURPOSE, REMOVE LATER
+                return response.data;
             }, function errorCallback(response) {
-                console.log(response.data)
+                console.log("Logged in: " + response.data.logged);  // TODO TEST PURPOSE, REMOVE LATER
             });
         };
 
-            $scope.checkHome = function () {
-                $http({
-                    method: 'GET',
-                    url: SERVER.ip + "/user/home",
-                    withCredentials: true
-                }).then(function successCallback(response) {
-                    console.log(response);
-                }, function errorCallback(response) {
-                    console.log(response.data)
-                });
-            }
-
+        /* If user is connected response will be user profile information
+         @return user */
+        $scope.checkHome = function () {
+            $http({
+                method: 'GET',
+                url: SERVER.ip + "/user/home",
+                withCredentials: true
+            }).then(function successCallback(response) {
+                console.log("User car access information");     // TODO TEST PURPOSE, REMOVE LATER
+                return response.data;
+            }, function errorCallback(response) {
+                console.log("User car access information");     // TODO TEST PURPOSE, REMOVE LATER
+            });
+        }
 
     }]);
