@@ -1,14 +1,14 @@
 'use strict';
 
-angular.module('myApp.view2', ['ngRoute'])
+angular.module('myApp.registration', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/registration', {
     templateUrl: 'registration/registration.html',
-    controller: 'View2Ctrl'
+    controller: 'registrationController'
   });
 }])
 
-.controller('View2Ctrl', [function() {
+.controller('registrationController', function() {
 
-}]);
+});
