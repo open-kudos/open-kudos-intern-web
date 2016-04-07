@@ -10,5 +10,11 @@ angular.module('myApp.login', ['ngRoute'])
 }])
 
 .controller('loginController', function($scope) {
-    $scope.tekstas = 'Login message';
+    $scope.title = "Prisijungimas";
+    $scope.registration = 'Registracija';
+    $scope.name = "Vartotojo vardas";
+    $scope.password = 'Slaptažodis';
+    $scope.forgotPassword = 'Pamiršai slaptažodį';
+    $scope.loginButton = 'Prisijungti';
+    $scope.rememberMe = 'Prisiminti';
 });
