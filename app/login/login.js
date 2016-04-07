@@ -9,14 +9,53 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies'])
     }])
 
     .controller('loginController', ['$scope', '$http', '$cookies', 'SERVER', 'LoginService', function($scope, $http, $cookies, SERVER, LoginService){
+        var language;
 
-        $scope.title = "Prisijungimas";
-        $scope.registration = 'Registracija';
-        $scope.name = "Vartotojo vardas";
-        $scope.password = 'Slaptažodis';
-        $scope.forgotPassword = 'Pamiršai slaptažodį';
-        $scope.loginButton = 'Prisijungti';
-        $scope.rememberMe = 'Prisiminti';
+        if (!$cookies.get('language')) {
+            $cookies.put('language', 'en');
+            language = $cookies.get('language');
+
+        } else language = $cookies.get('language');
+
+        if (language == 'en') {
+            $scope.title = "Login";
+            $scope.registration = 'Registration';
+            $scope.name = "Username";
+            $scope.password = 'Password';
+            $scope.forgotPassword = 'Forgot password';
+            $scope.loginButton = 'Login';
+            $scope.rememberMe = 'Remember me';
+        } else if (language == 'lt'){
+            $scope.title = "Prisijungimas";
+            $scope.registration = 'Registracija';
+            $scope.name = "Vartotojo vardas";
+            $scope.password = 'Slaptažodis';
+            $scope.forgotPassword = 'Pamiršai slaptažodį';
+            $scope.loginButton = 'Prisijungti';
+            $scope.rememberMe = 'Prisiminti';
+        }
+
+        $scope.lt = function() {
+            $scope.title = "Prisijungimas";
+            $scope.registration = 'Registracija';
+            $scope.name = "Vartotojo vardas";
+            $scope.password = 'Slaptažodis';
+            $scope.forgotPassword = 'Pamiršai slaptažodį';
+            $scope.loginButton = 'Prisijungti';
+            $scope.rememberMe = 'Prisiminti';
+            $cookies.put('language', 'lt');
+        };
+
+        $scope.en = function() {
+            $scope.title = "Login";
+            $scope.registration = 'Registration';
+            $scope.name = "Username";
+            $scope.password = 'Password';
+            $scope.forgotPassword = 'Forgot password';
+            $scope.loginButton = 'Login';
+            $scope.rememberMe = 'Remember me';
+            $cookies.put('language', 'en');
+        };
 
         /*  Login function which takes values from form in login.html
          and makes POST call to the api  */

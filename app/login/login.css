@@ -5,6 +5,9 @@ body {
     background: -moz-linear-gradient(right, #ff6c00, #ffdd00); /* For Firefox 3.6 to 15 */
     background: linear-gradient(to right, #ff6c00 , #ffdd00); /* Standard syntax */
 }
+.hidden {
+    visibility: hidden;
+}
 .panel-login {
     border-color: #ccc;
     -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
