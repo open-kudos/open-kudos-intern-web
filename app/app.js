@@ -5,8 +5,10 @@ angular.module('myApp', [
   'ngRoute',
   'myApp.login',
   'myApp.registration',
+  'myApp.profile',
   'myApp.version'
 ]).
+
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/login'});
 }]);
