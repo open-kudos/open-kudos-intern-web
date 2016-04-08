@@ -24,15 +24,15 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies'])
             $scope.title = "Login";
             $scope.registration = 'Registration';
             $scope.name = "Email";
-            $scope.password = 'Password';
+            $scope.password2 = 'Password';
             $scope.forgotPassword = 'Forgot password';
             $scope.loginButton = 'Login';
             $scope.rememberMe = 'Remember me';
         } else if (language == 'lt') {
             $scope.title = "Prisijungimas";
             $scope.registration = 'Registracija';
-            $scope.name = "Paštas";
-            $scope.password = 'Slaptažodis';
+            $scope.name = "El. paštas";
+            $scope.password2 = 'Slaptažodis';
             $scope.forgotPassword = 'Pamiršai slaptažodį';
             $scope.loginButton = 'Prisijungti';
             $scope.rememberMe = 'Prisiminti';
@@ -41,8 +41,8 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies'])
         $scope.lt = function () {
             $scope.title = "Prisijungimas";
             $scope.registration = 'Registracija';
-            $scope.name = "Paštas";
-            $scope.password = 'Slaptažodis';
+            $scope.name = "El. paštas";
+            $scope.password2 = 'Slaptažodis';
             $scope.forgotPassword = 'Pamiršai slaptažodį';
             $scope.loginButton = 'Prisijungti';
             $scope.rememberMe = 'Prisiminti';
@@ -53,7 +53,7 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies'])
             $scope.title = "Login";
             $scope.registration = 'Registration';
             $scope.name = "Email";
-            $scope.password = 'Password';
+            $scope.password2 = 'Password';
             $scope.forgotPassword = 'Forgot password';
             $scope.loginButton = 'Login';
             $scope.rememberMe = 'Remember me';
