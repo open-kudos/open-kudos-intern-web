@@ -20,8 +20,12 @@ function Auth($http, SERVER) {
     }
     return service;
 
-    function Login(requestData) {
-        return $http.post(SERVER.ip + "/login", requestData).then(function(response) {
+    function Login(data) {
+        return $http({
+            method: 'POST',
+            url: SERVER.ip + "/login?" + data,
+            withCredentials: true
+        }).then(function successCallback(response) {
             return response.data;
         });
     }

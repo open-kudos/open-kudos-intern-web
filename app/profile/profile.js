@@ -29,7 +29,7 @@ angular.module('myApp.profile', ['ngRoute'])
             console.log(response)
         });
 
-        $scope.logout = function(){
+        $scope.logout = function () {
             console.log("Logging out");
             $http({
                 method: 'GET',
@@ -52,7 +52,7 @@ angular.module('myApp.profile', ['ngRoute'])
                 console.log("Logged in: " + response.data.logged);  // TODO TEST PURPOSE, REMOVE LATER
                 if (response.data.logged) {
                     $window.location.href = "http://" + $window.location.host + "/open-kudos-intern-web/app/index.html#/profile";
-                }else {
+                } else {
                     $window.location.href = "http://" + $window.location.host + "/open-kudos-intern-web/app/index.html#/login";
                 }
                 return response.data;
@@ -60,5 +60,20 @@ angular.module('myApp.profile', ['ngRoute'])
                 console.log("Logged in: " + response.data.logged);  // TODO TEST PURPOSE, REMOVE LATER
             });
         };
+
+        /* If user is connected response will be user profile information
+         @return user */
+        $scope.checkHome = function () {
+            $http({
+                method: 'GET',
+                url: SERVER.ip + "/user/home",
+                withCredentials: true
+            }).then(function successCallback(response) {
+                console.log("User car access information");     // TODO TEST PURPOSE, REMOVE LATER
+                return response.data;
+            }, function errorCallback(response) {
+                console.log("User car access information");     // TODO TEST PURPOSE, REMOVE LATER
+            });
+        }
 
     });
