@@ -43,7 +43,7 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-6 col-sm-offset-3">
-                                                <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="{{ loginButton }}">
+                                                <input ng-click="Login()" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="{{ loginButton }}">
                                             </div>
                                         </div>
                                     </div>
@@ -63,10 +63,6 @@
                 </div>
             </div>
         </div>
-
-    <button class="btn" ng-click="Login()">TEST LOGGIN</button>
-    <button class="btn" ng-click="checkConnection()">TEST CONNECTION</button>
-    <button class="btn" ng-click="checkHome()">TEST HOME</button>
 
     </div>
 
