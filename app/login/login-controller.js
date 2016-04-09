@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.login', ['ngRoute', 'ngCookies'])
+angular.module('myApp.login', ['ngRoute', 'ngCookies', 'base64'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/login', {
             templateUrl: 'login/login.html',
@@ -9,10 +9,10 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies'])
         });
     }])
 
-    .controller('loginController', ['$scope', '$http', '$cookies', '$window', 'SERVER', 'LoginService', function ($scope, $http, $cookies, $window, SERVER, LoginService) {
+    .controller('loginController', ['$scope', '$http', '$cookies', '$window', '$base64', 'SERVER', 'LoginService', function ($scope, $http, $cookies, $window, $base64, SERVER, LoginService) {
         var language;
 
-        LoginService.checkUser();
+        initView();
 
         if (!$cookies.get('language')) {
             $cookies.put('language', 'en');
@@ -60,19 +60,34 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies'])
             $cookies.put('language', 'en');
         };
 
-
         /**
          * Login function which takes values from form in login.html
-         * and makes POST call to the api via LoginService
+         * and makes POST call to the api via LoginService also
          */
         $scope.Login = function () {
+
+            var rememberMe = $scope.rememberMeCheckbox;
 
             var data = $.param({
                 email: this.email,
                 password: this.password
             });
 
-            LoginService.login(data);
+            if (rememberMe) {
+                LoginService.rememberMe(data);
+            } else {
+                LoginService.login(data);
+            }
+
         };
+
+        function initView() {
+            var ru = $cookies.get('ru');
+            if (ru === 'true') {
+                LoginService.login($base64.decode($cookies.get('e')));
+            } else {
+                LoginService.checkUser();
+            }
+        }
 
     }]);

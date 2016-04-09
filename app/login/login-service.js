@@ -10,13 +10,16 @@ LoginService.$inject = [
     "$q",
     "$http",
     "$window",
-    "SERVER"
+    "$cookies",
+    "SERVER",
+    "$base64"
 ];
 
-function LoginService(authBackend, q, http, window, SERVER) {
+function LoginService(authBackend, q, http, window, cookies, SERVER, $base64) {
     var service = {
         login: LoginUser,
-        checkUser: CheckUser
+        checkUser: CheckUser,
+        rememberMe: RememberMe
     };
     return service;
 
@@ -28,6 +31,7 @@ function LoginService(authBackend, q, http, window, SERVER) {
             deferred.resolve(response);
         }).catch(function (error) {
             changeViewToLogin();
+            rememberMe() ? changeViewToProfile() : changeViewToLogin();
             deferred.reject(error);
         });
 
@@ -40,23 +44,36 @@ function LoginService(authBackend, q, http, window, SERVER) {
             url: SERVER.ip,
             withCredentials: true
         }).then(function successCallback(response) {
-            console.log("Logged in: " + response.data.logged);  // TODO TEST PURPOSE, REMOVE LATER
-            if (response.data.logged) {
-                changeViewToProfile()
-            } else {
-                changeViewToLogin()
-            }
+            userLoggedIn(response.data.logged) ? changeViewToProfile() : changeViewToLogin();
         }, function errorCallback(response) {
-            changeViewToLogin()
+            rememberMe() ? changeViewToProfile() : changeViewToLogin();
         });
     }
 
-    function changeViewToLogin(){
+    function RememberMe(loginInfo) {
+        var expireDate = new Date();
+        expireDate.setDate(expireDate.getDate() + 180); // Setting expiration date to 180 days
+
+        cookies.put('ru', 'true', {expires: expireDate});
+        cookies.put('e', $base64.encode(loginInfo), {expires: expireDate});
+
+        LoginUser(loginInfo);
+    }
+
+    function changeViewToLogin() {
         window.location.href = "#/login";
     }
 
-    function changeViewToProfile(){
+    function changeViewToProfile() {
         window.location.href = "#/profile";
+    }
+
+    function userLoggedIn(loginInfo) {
+        return loginInfo == true;
+    }
+
+    function rememberMe() {
+        return cookies.get('ru') === "true";
     }
 
 }

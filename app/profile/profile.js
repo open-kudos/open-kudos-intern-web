@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('myApp.profile', ['ngRoute'])
+angular.module('myApp.profile', ['ngRoute', 'ngCookies'])
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/profile', {
@@ -12,7 +12,7 @@ angular.module('myApp.profile', ['ngRoute'])
         });
     }])
 
-    .controller('profileController', function ($http, $scope, $window, SERVER) {
+    .controller('profileController', function ($http, $scope, $window, $cookies, SERVER) {
 
         check();
 
@@ -36,9 +36,10 @@ angular.module('myApp.profile', ['ngRoute'])
                 withCredentials: true,
                 url: 'http://localhost:8080/logout'
             }).then(function successCallback(response) {
-                console.log(response);
+                clear();
                 check();
             }, function errorCallback(response) {
+                clear();
                 check();
             });
         }
@@ -74,6 +75,11 @@ angular.module('myApp.profile', ['ngRoute'])
             }, function errorCallback(response) {
                 console.log("User car access information");     // TODO TEST PURPOSE, REMOVE LATER
             });
+        }
+
+        function clear(){
+            $cookies.put('ru', 'false');
+            $cookies.put('e', '');
         }
 
     });
