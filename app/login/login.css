@@ -3,24 +3,28 @@ body {
     background: -webkit-linear-gradient(left, #ff6c00, #ffdd00); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(right, #ff6c00, #ffdd00); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(right, #ff6c00, #ffdd00); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(to right, #ff6c00 , #ffdd00); /* Standard syntax */
+    background: linear-gradient(to right, #ff6c00, #ffdd00); /* Standard syntax */
 }
+
 .hidden {
     visibility: hidden;
 }
+
 .panel-login {
     border-color: #ccc;
-    -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
-    -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
-    box-shadow: 0px 2px 3px 0px rgba(0,0,0.5,0.5);
+    -webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 2px 3px 0px rgba(0, 0, 0.5, 0.5);
 }
-.panel-login>.panel-heading {
+
+.panel-login > .panel-heading {
     color: #00415d;
     background-color: #fff;
     border-color: #fff;
-    text-align:center;
+    text-align: center;
 }
-.panel-login>.panel-heading a{
+
+.panel-login > .panel-heading a {
     text-decoration: none;
     color: #666;
     font-weight: bold;
@@ -29,22 +33,25 @@ body {
     -moz-transition: all 0.1s linear;
     transition: all 0.1s linear;
 }
-.panel-login>.panel-heading a.active{
+
+.panel-login > .panel-heading a.active {
     color: #eba205;
     font-size: 18px;
 }
-.panel-login>.panel-heading hr{
+
+.panel-login > .panel-heading hr {
     margin-top: 10px;
     margin-bottom: 0px;
     clear: both;
     border: 0;
     height: 1px;
-    background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.15),rgba(0, 0, 0, 0));
-    background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
-    background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
-    background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+    background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+    background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+    background-image: -ms-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+    background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
 }
-.panel-login input[type="text"],.panel-login input[type="email"],.panel-login input[type="password"] {
+
+.panel-login input[type="text"], .panel-login input[type="email"], .panel-login input[type="password"] {
     height: 45px;
     border: 1px solid #ddd;
     font-size: 16px;
@@ -52,14 +59,16 @@ body {
     -moz-transition: all 0.1s linear;
     transition: all 0.1s linear;
 }
+
 .panel-login input:hover,
 .panel-login input:focus {
-    outline:none;
+    outline: none;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
     border-color: #ccc;
 }
+
 .btn-login {
     background-color: #FF7A09;
     outline: none;
@@ -71,16 +80,19 @@ body {
     text-transform: uppercase;
     border-color: #b04809;
 }
+
 .btn-login:hover,
 .btn-login:focus {
     color: #fff;
     background-color: #FF5A09;
     border-color: #772c07;
 }
+
 .forgot-password {
     text-decoration: underline;
     color: #888;
 }
+
 .forgot-password:hover,
 .forgot-password:focus {
     text-decoration: underline;
@@ -98,6 +110,7 @@ body {
     text-transform: uppercase;
     border-color: #1CB94A;
 }
+
 .btn-register:hover,
 .btn-register:focus {
     color: #fff;

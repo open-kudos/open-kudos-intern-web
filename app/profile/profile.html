@@ -1,5 +1,74 @@
-<h5>Name: {{userName}}</h5>
-<h5>Surname: {{userSurname}}</h5>
-<h5>Email: {{userEmail}}</h5>
 
-<button ng-click="logout()" class="btn btn-primary">Logout</button>
+
+
+<div class="container">
+
+    <div class="row">
+
+        <button ng-click="logout()" class="btn btn-primary pull-right">Logout</button>
+
+        <h4>Acorns: <b>{{userKudos}}</b></h4>
+
+        <div class="col-md-4">
+
+            <h3>{{userName}} {{userSurname}}</h3>
+            <h4>{{userPosition}}</h4>
+
+            <p>Location: {{userLocation}}</p>
+            <p>Email: {{userEmail}}</p>
+            <p>Phone: {{userPhone}}</p>
+            <p>Team: {{userTeam}}</p>
+            <p>Started to work: {{userStartedToWork}}</p>
+            <p>Birthday: {{userBirthday}}</p>
+
+        </div>
+
+        <div class="col-md-6">
+            <h3>Corns</h3>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Colleague</th>
+                    <th>Acorn type</th>
+                    <th>Acorns</th>
+                    <th>Message</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Lorem</td>
+                    <td>Ipsum</td>
+                    <td>Dolores</td>
+                    <td>Sit</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <h3>Endorsments</h3>
+
+            <h3>Chalenges</h3>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Colleague</th>
+                    <th>Chalenge</th>
+                    <th>Status</th>
+                    <th>Chalenge Date</th>
+                    <th>Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Lorem</td>
+                    <td>Ipsum</td>
+                    <td>Dolores</td>
+                    <td>2020-20-20</td>
+                    <td>Sit</td>
+                </tr>
+                </tbody>
+        </div>
+
+    </div>
+
+</div>

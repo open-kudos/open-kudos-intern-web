@@ -17,21 +17,25 @@ function Auth($http, SERVER) {
         register: Register,
         reset: ResetPassword,
         confirm: ConfirmRegistration
-    }
+    };
     return service;
 
     function Login(data) {
         return $http({
             method: 'POST',
-            url: SERVER.ip + "/login?" + data,
-            withCredentials: true
+            withCredentials: true,
+            url: SERVER.ip + "/login?" + data
         }).then(function successCallback(response) {
             return response.data;
         });
     }
 
     function Logout() {
-        return $http.get(SERVER.ip + "/logout").then(function(response) {
+        return $http({
+            method: 'GET',
+            withCredentials: true,
+            url : SERVER.ip + "/logout"
+        }).then(function(response) {
             return response.data;
         });
     }
