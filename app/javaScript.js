@@ -12,3 +12,19 @@ function getCookie(name)
     var value = re.exec(document.cookie);
     return (value != null) ? unescape(value[1]) : null;
 }
+
+function validation(){
+    var email = document.getElementById('email');
+    var pass = document.getElementById('password');
+    if (email.value == '') {
+        email.className = 'notValid';
+    } else {
+        email.className = 'valid';
+    }
+
+    if (pass.value == '') {
+        pass.className = 'notValid';
+    } else {
+        pass.className = 'valid';
+    }
+}
