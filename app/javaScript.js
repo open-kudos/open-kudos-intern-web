@@ -13,7 +13,7 @@ function getCookie(name)
     return (value != null) ? unescape(value[1]) : null;
 }
 
-function validation(){
+function validationLogin(){
     var email = document.getElementById('email');
     var pass = document.getElementById('password');
     if (email.value == '') {
@@ -26,5 +26,39 @@ function validation(){
         pass.className = 'notValid';
     } else {
         pass.className = 'valid';
+    }
+}
+
+function validationRegistration() {
+    var name = document.getElementById('name');
+    var surname = document.getElementById('surname');
+    var email = document.getElementById('email');
+    var password = document.getElementById('password');
+    var confirmPassword = document.getElementById('confirmPassword');
+
+    if (name.value == '') {
+        name.className = 'notValid';
+    } else {
+        name.className = 'valid';
+    }
+    if (surname.value == '') {
+        surname.className = 'notValid';
+    } else {
+        surname.className = 'valid';
+    }
+    if (confirmPassword.value == '') {
+        confirmPassword.className = 'notValid';
+    } else {
+        confirmPassword.className = 'valid';
+    }
+    if (email.value == '') {
+        email.className = 'notValid';
+    } else {
+        email.className = 'valid';
+    }
+    if (password.value == '') {
+        password.className = 'notValid';
+    } else {
+        password.className = 'valid';
     }
 }
