@@ -36,8 +36,8 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies'])
         });
 
         $scope.logout = function () {
+            clearCookies();
             ProfileService.logout().catch(function (val) {
-                clearCookies();
                 $window.location.href = "#/login";
             });
         };

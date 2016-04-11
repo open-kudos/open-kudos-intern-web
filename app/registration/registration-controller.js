@@ -9,7 +9,7 @@ angular.module('myApp.registration', ['ngRoute', 'ngCookies'])
   });
 }])
 
-.controller('registrationController', function($scope, $cookies) {
+.controller('registrationController', function($scope, $cookies, $window, RegistrationService) {
     var language;
 
     if (!$cookies.get('language')) {
@@ -61,4 +61,29 @@ angular.module('myApp.registration', ['ngRoute', 'ngCookies'])
         $scope.registerButton = 'Register';
         $cookies.put('language', 'en');
     };
+
+    /**
+     * Registration method
+     * Correct requestData needed to make call it also confirms user for now
+     * TODO fix user confirmation in backend
+     */
+    $scope.Register = function () {
+
+        var requestData = $.param({
+            email: this.email,
+            firstName: this.firstName,
+            lastName: this.lastName,
+            password: this.password,
+            confirmPassword: this.confirmPassword
+        });
+
+        RegistrationService.register(requestData).then(function (val) {
+            RegistrationService.confirm(val.emailHash).then(function (val) {
+                $window.location.href = "#/login"
+            });
+        }).catch(function (error){
+            console.log(error);      //TODO DELETE AFTER TEST
+        })
+    };
+
 });

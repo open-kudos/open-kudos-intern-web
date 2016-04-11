@@ -1,13 +1,26 @@
+<div class="container panel panel-body">
 
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">ACORN</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Me</a></li>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">People</a></li>
+                <li><a href="#">Rewards</a></li>
+                <li><a href="#">Endorsements</a></li>
+                <li><a href="#">Challenges</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a ng-click="logout()" href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            </ul>
+        </div>
+    </nav>
 
-
-<div class="container">
 
     <div class="row">
-
-        <button ng-click="logout()" class="btn btn-primary pull-right">Logout</button>
-
-        <h4>Acorns: <b>{{userKudos}}</b></h4>
 
         <div class="col-md-4">
 
@@ -21,9 +34,26 @@
             <p>Started to work: {{userStartedToWork}}</p>
             <p>Birthday: {{userBirthday}}</p>
 
+            <button type="button" class="btn btn-default btn-sm">Edit</button>
         </div>
 
         <div class="col-md-6">
+
+            <div class="row">
+                <div class="col-xs-4">
+                    <h3><b>{{userKudos}}</b></h3>
+                    <h4>Corns</h4>
+                </div>
+                <div class="col-xs-4">
+                    <h3><b>{{userKudos}}</b></h3>
+                    <h4>Following</h4>
+                </div>
+                <div class="col-xs-4">
+                    <h3><b>{{userKudos}}</b></h3>
+                    <h4>Challenges</h4>
+                </div>
+            </div>
+
             <h3>Corns</h3>
 
             <table class="table">
@@ -44,10 +74,12 @@
                 </tr>
                 </tbody>
             </table>
+            <button type="button" class="btn btn-default btn-sm">Show more</button>
 
-            <h3>Endorsments</h3>
+            <h3>Endorsements</h3>
+            <button type="button" class="btn btn-default btn-sm">Show more</button>
 
-            <h3>Chalenges</h3>
+            <h3>Challenges</h3>
             <table class="table">
                 <thead>
                 <tr>
@@ -67,8 +99,34 @@
                     <td>Sit</td>
                 </tr>
                 </tbody>
+            </table>
+            <button type="button" class="btn btn-default btn-sm">Show more</button>
         </div>
 
+        <div class="col-md-2">
+            <div class="btn-group-vertical" role="group" aria-label="...">
+                <button type="button" class="btn btn-default">Give Acorn</button>
+                <button type="button" class="btn btn-default">Endorse</button>
+                <button type="button" class="btn btn-default dropdown-toggle">Challenge</button>
+            </div>
+
+            <h4>Today's birthday</h4>
+            <p>Lorem</p>
+
+            <h4>Challenge winner</h4>
+            <p><u>Foosball</u></p>
+            <h5><small>2020-20-20</small></h5>
+
+            <h4>Engagement Leaders</h4>
+            <p>Top receivers</p>
+            <p>Top senders</p>
+
+            <h4>Wisdom wall</h4>
+            <p>"Dolores sit amit"</p>
+
+        </div>
     </div>
+
+</div>
 
 </div>

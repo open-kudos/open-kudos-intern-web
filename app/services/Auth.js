@@ -42,7 +42,10 @@ function Auth($http, SERVER) {
 
     function Register(requestData) {
         if(requestData.password === requestData.confirmPassword) {
-            return $http.post(SERVER.ip + "/register", requestData).then(function(response) {
+            return $http({
+                    method: 'POST',
+                    withCredentials: true,
+                    url: SERVER.ip + "/register?" + requestData}).then(function(response) {
                 return response.data;
             });
         } else {
@@ -59,8 +62,11 @@ function Auth($http, SERVER) {
         });
     }
 
-    function ConfirmRegistration(requestData) {
-        return  $http.post(SERVER.ip + "/confirm", requestData).then(function(response) {
+    function ConfirmRegistration(id) {
+        return  $http({
+            method: 'POST',
+            withCredentials: true,
+            url: SERVER.ip + "/confirm?id=" + id}).then(function(response) {
             return response.data;
         });
     }
