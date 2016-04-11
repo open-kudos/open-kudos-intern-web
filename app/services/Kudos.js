@@ -21,16 +21,15 @@ function Kudos($http, SERVER) {
     return kudos;
 
     function sendKudos(requestData) {
-        if(angular.isDefined(requestData.amount) && requestData.amount > 0) {
-            return $http.post(SERVER.ip + "/kudos/send", requestData).then(function(response) {
+    //    if (angular.isDefined(requestData.amount) && requestData.amount > 0) {
+            return $http({
+                method: 'POST',
+                url: SERVER.ip + "/kudos/send?" + requestData,
+                withCredentials: true
+            }).then(function (response) {
                 return response.data;
             });
-        } else {
-            var error = {
-                message: "INVALID_AMOUNT"
-            }
-            return error;
-        }
+    //    }
     }
 
     function getIncomingKudos() {
@@ -44,7 +43,11 @@ function Kudos($http, SERVER) {
     }
 
     function getOutgoingKudos() {
-        return $http.get(SERVER.ip + "/kudos/outgoing").then(function(response) {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/kudos/outgoing",
+            withCredentials: true
+        }).then(function (response) {
             return response.data;
         });
     }
@@ -60,7 +63,11 @@ function Kudos($http, SERVER) {
     }
 
     function getReceivedKudos() {
-        return $http.get(SERVER.ip + "/kudos/received").then(function(response) {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/kudos/received",
+            withCredentials: true
+        }).then(function (response) {
             return response.data;
         });
     }

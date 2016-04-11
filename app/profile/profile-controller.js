@@ -14,9 +14,7 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies'])
 
     .controller('profileController', ['$http', '$scope', '$window', '$cookies', 'ProfileService', 'SERVER', function ($http, $scope, $window, $cookies, ProfileService, SERVER) {
 
-        ProfileService.checkUser().then(function (val) {
-            val.logged ? $window.location.href = "#/profile" : $window.location.href = "#/login";
-        });
+        checkUser();
 
         ProfileService.userHome().then(function (val) {
             var user = val.user;
@@ -35,6 +33,27 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies'])
             $scope.userKudos = val;
         });
 
+        ProfileService.receivedKudos().then(function (val) {
+            $scope.userReceivedKudos = val;
+        });
+
+        $scope.updateProfile = function () {
+            var updateInfo = $.param({
+                birthday: this.birthday,
+                department: this.department,
+                location: this.location,
+                phone: "",                                  // <-- TODO FIX PHONE
+                position: this.position,
+                startToWork: this.startToWork,
+                team: this.team
+            });
+
+            ProfileService.update(updateInfo).then(function (val) {
+                $('#userDetailsModal').modal('hide');
+                checkUser();
+            })
+        };
+
         $scope.logout = function () {
             clearCookies();
             ProfileService.logout().catch(function (val) {
@@ -42,9 +61,30 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies'])
             });
         };
 
+        $scope.sendKudos = function(){
+            var kudosParams = $.param({
+                receiverEmail : $scope.sendKudosTo,
+                amount: $scope.sendKudosAmount
+            });
+
+            ProfileService.send(kudosParams).then(function (val){
+                $('#sendKudosModal').modal('hide');
+            });
+
+        };
+
+        function checkUser() {
+            ProfileService.checkUser().then(function (val) {
+                val.logged ? $window.location.href = "#/profile" : $window.location.href = "#/login";
+            });
+
+        }
+
         function clearCookies() {
             $cookies.put('ru', 'false');
             $cookies.put('e', '');
         }
+
+
 
     }]);

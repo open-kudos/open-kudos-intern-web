@@ -41,19 +41,23 @@ function User($http, SERVER) {
     }
 
     function disableUser() {
-        return $http.get(SERVER.ip + "/user/disable").then(function(response) {
+        return $http({
+            method: 'POST',
+            withCredentials: true,
+            url: SERVER.ip + "/user/disable"
+        }).then(function (response) {
             return response.data;
         })
     }
 
     function updateUserInfo(userInfo) {
-        return $http.post(SERVER.ip + "/user/update", userInfo).then(function(response) {
+        return $http.post(SERVER.ip + "/user/update?" + userInfo).then(function (response) {
             return response.data;
         })
     }
 
     function listUsers(searchFilter) {
-        return $http.post(SERVER.ip + "/user/list", searchFilter).then(function(response) {
+        return $http.post(SERVER.ip + "/user/list", searchFilter).then(function (response) {
             return response.data;
         })
     }
