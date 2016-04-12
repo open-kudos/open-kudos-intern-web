@@ -34,6 +34,8 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies'])
             $scope.userBirthday = user.birthday;
         });
 
+        //TEST TODO DLETE
+
         ProfileService.remainingKudos().then(function (val) {
             $scope.userKudos = val;
         });
