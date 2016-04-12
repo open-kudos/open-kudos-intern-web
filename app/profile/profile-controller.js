@@ -12,11 +12,14 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies'])
         });
     }])
 
-    .controller('profileController', ['$http', '$scope', '$window', '$cookies', 'ProfileService', 'SERVER', function ($http, $scope, $window, $cookies, ProfileService, SERVER) {
-
-        $scope.incomingKudosCollection = [];
+    .controller('profileController', function ($http, $scope, $window, $cookies, ProfileService) {
 
         checkUser();
+
+        $scope.incomingKudosCollection = [];
+        $scope.updateProfile = updateProfile;
+        $scope.logout = logout;
+        $scope.sendKudos = sendKudos;
 
         ProfileService.userHome().then(function (val) {
             var user = val.user;
@@ -39,11 +42,11 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies'])
             $scope.userReceivedKudos = val;
         });
 
-        ProfileService.incomingKudos().then(function (val){
+        ProfileService.incomingKudos().then(function (val) {
             $scope.incomingKudosCollection = val;
         });
 
-        $scope.updateProfile = function () {
+        function updateProfile() {
             var updateInfo = $.param({
                 birthday: this.birthday,
                 department: this.department,
@@ -53,40 +56,36 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies'])
                 startToWork: this.startToWork,
                 team: this.team
             });
-
             ProfileService.update(updateInfo).then(function (val) {
                 $('#userDetailsModal').modal('hide');
                 checkUser();
             })
-        };
+        }
 
-        $scope.logout = function () {
+        function logout() {
             clearCookies();
             ProfileService.logout().catch(function (val) {
                 $window.location.href = "#/login";
             });
-        };
+        }
 
-        $scope.sendKudos = function(){
-            var kudosParams = $.param({
-                receiverEmail : $scope.sendKudosTo,
-                amount: $scope.sendKudosAmount
-            });
-
-            ProfileService.send(kudosParams).then(function (val){
+        function sendKudos() {
+            ProfileService.send(getSendKudosPopupParams()).then(function (val) {
                 $('#sendKudosModal').modal('hide');
             });
-
-        };
-
-
-
+        }
 
         function checkUser() {
             ProfileService.checkUser().then(function (val) {
                 val.logged ? $window.location.href = "#/profile" : $window.location.href = "#/login";
             });
+        }
 
+        function getSendKudosPopupParams() {
+            return $.param({
+                receiverEmail: $scope.sendKudosTo,
+                amount: $scope.sendKudosAmount
+            });
         }
 
         function clearCookies() {
@@ -94,6 +93,4 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies'])
             $cookies.put('e', '');
         }
 
-
-
-    }]);
+    });

@@ -9,10 +9,11 @@ ProfileService.$inject = [
     "User",
     "Kudos",
     "Auth",
-    "$q"
+    "$q",
+    "$rootScope"
 ];
 
-function ProfileService(userBackend, kudosBackend, authBackend, q) {
+function ProfileService(userBackend, kudosBackend, authBackend, q, $rootScope) {
     var service = {
         userHome : UserHome,
         updateUser: UpdateUser,
@@ -38,6 +39,7 @@ function ProfileService(userBackend, kudosBackend, authBackend, q) {
     function CheckUser(){
         var deferred = q.defer();
         userBackend.check().then(function (response) {
+            $rootScope.loggedIn = response.logged;
             deferred.resolve(response);
         }).catch(function (error) {
             deferred.reject(error);
