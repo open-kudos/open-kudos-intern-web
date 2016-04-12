@@ -23,18 +23,18 @@ angular.module('myApp.registration', ['ngRoute', 'ngCookies'])
             $scope.login = 'Login';
             $scope.name = "Username";
             $scope.surname = "Surname";
-            $scope.email = 'Email';
-            $scope.password = 'Password';
-            $scope.confirmPassword = 'Confirm password';
+            $scope.emailRegistration = 'Email';
+            $scope.passwordRegistration = 'Password';
+            $scope.confirmPasswordRegistration = 'Confirm password';
             $scope.registerButton = 'Register';
         } else if (language == 'lt') {
             $scope.title = "Registracija";
             $scope.login = 'Prisijungimas';
             $scope.name = "Vardas";
             $scope.surname = "Pavardė";
-            $scope.email = 'El. paštas';
-            $scope.password = 'Slaptažodis';
-            $scope.confirmPassword = 'Pakartokite slaptažodį';
+            $scope.emailRegistration = 'El. paštas';
+            $scope.passwordRegistration = 'Slaptažodis';
+            $scope.confirmPasswordRegistration = 'Pakartokite slaptažodį';
             $scope.registerButton = 'Registruotis';
         }
 
@@ -43,9 +43,9 @@ angular.module('myApp.registration', ['ngRoute', 'ngCookies'])
             $scope.login = 'Prisijungimas';
             $scope.name = "Vardas";
             $scope.surname = "Pavardė";
-            $scope.email = 'El. paštas';
-            $scope.password = 'Slaptažodis';
-            $scope.confirmPassword = 'Pakartokite slaptažodį';
+            $scope.emailRegistration = 'El. paštas';
+            $scope.passwordRegistration = 'Slaptažodis';
+            $scope.confirmPasswordRegistration = 'Pakartokite slaptažodį';
             $scope.registerButton = 'Registruotis';
             $cookies.put('language', 'lt');
         };
@@ -55,9 +55,9 @@ angular.module('myApp.registration', ['ngRoute', 'ngCookies'])
             $scope.login = 'Login';
             $scope.name = "Username";
             $scope.surname = "Surname";
-            $scope.email = 'Email';
-            $scope.password = 'Password';
-            $scope.confirmPassword = 'Confirm password';
+            $scope.emailRegistration = 'Email';
+            $scope.passwordRegistration = 'Password';
+            $scope.confirmPasswordRegistration = 'Confirm password';
             $scope.registerButton = 'Register';
             $cookies.put('language', 'en');
         };

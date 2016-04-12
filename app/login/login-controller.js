@@ -76,9 +76,12 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies', 'base64'])
             if (rememberMe) {
                 LoginService.rememberMe(data);
             } else {
-                LoginService.login(data);
+                LoginService.login(data).then(function (val) {
+                    $scope.loginError = '';
+                }).catch(function () {
+                    loginValidation($scope.email, $scope.password);
+                });
             }
-
         };
 
         function initView() {
@@ -87,6 +90,14 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies', 'base64'])
                 LoginService.login($base64.decode($cookies.get('e')));
             } else {
                 LoginService.checkUser();
+            }
+        }
+
+        function loginValidation (email, password){
+            if ((email == '') || (password == '')){
+                $scope.loginError = 'Enter Email and Password';
+            } else {
+                $scope.loginError = 'Wrong Email or Password';
             }
         }
 
