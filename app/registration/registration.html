@@ -31,21 +31,25 @@
           <div class="row">
             <div class="col-lg-12">
               <form id="registration-form" role="form" style="display: block;">
-
                 <form id="login-form" action="" method="post" role="form" style="display: block;">
                   <div class="form-group">
+                      <errorMessage id="nameError"></errorMessage>
                     <input ng-model="firstName" type="text" name="name" id="name" tabindex="1" class="valid" placeholder="{{ name }}" value="">
                   </div>
                   <div class="form-group">
+                      <errorMessage id="surnameError"></errorMessage>
                     <input ng-model="lastName" type="text" name="surname" id="surname" tabindex="2" class="valid" placeholder="{{ surname }}">
                   </div>
                   <div class="form-group">
+                      <errorMessage id="emailError"></errorMessage>
                     <input ng-model="email" type="email" name="email" id="email" tabindex="3" class="valid" placeholder="{{ emailRegistration }}" required>
                   </div>
                   <div class="form-group">
+                      <errorMessage id="passwordError"></errorMessage>
                     <input ng-model="password" type="password" name="password" id="password" tabindex="4" class="valid" placeholder="{{ passwordRegistration }}">
                   </div>
                   <div class="form-group">
+                      <errorMessage id="confirmPasswordError"></errorMessage>
                     <input ng-model="confirmPassword" type="password" name="confirmPassword" id="confirmPassword" tabindex="5" class="valid" placeholder="{{ confirmPasswordRegistration }}">
                   </div>
 

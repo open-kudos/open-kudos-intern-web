@@ -81,9 +81,11 @@ angular.module('myApp.registration', ['ngRoute', 'ngCookies'])
                 RegistrationService.confirm(val.emailHash).then(function (val) {
                     $window.location.href = "#/login"
                 });
-            }).catch(function (error) {
-                console.log(error);      //TODO DELETE AFTER TEST
+            }).catch(function () {
+                //TODO DELETE AFTER TEST
             })
         };
+
+
 
     });
