@@ -5,5 +5,14 @@
   "loginPassword" : "Slaptažodis",
   "loginForgotPassword" : "Pamiršai slaptažodį",
   "loginButton" : "Prisijungti",
-  "loginRememberMe" : "Prisiminti"
+  "loginRememberMe" : "Prisiminti",
+
+  "registrationTitle" : "Registracija",
+  "registrationLogin" : "Prisijungimas",
+  "registrationName" : "Vardas",
+  "registrationSurname" : "Pavardė",
+  "registrationEmail" : "El. paštas",
+  "registrationPassword" : "Slaptažodis",
+  "registrationConfirmPassword" : "Pakartokite slaptažodį",
+  "registrationButton" : "Registruotis"
 }

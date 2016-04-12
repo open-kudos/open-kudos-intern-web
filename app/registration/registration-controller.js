@@ -9,59 +9,7 @@ angular.module('myApp.registration', ['ngRoute', 'ngCookies'])
         });
     }])
 
-    .controller('registrationController', function ($scope, $cookies, $window, RegistrationService) {
-        var language;
-
-        if (!$cookies.get('language')) {
-            $cookies.put('language', 'en');
-            language = $cookies.get('language');
-
-        } else language = $cookies.get('language');
-
-        if (language == 'en') {
-            $scope.title = "Registration";
-            $scope.login = 'Login';
-            $scope.name = "Username";
-            $scope.surname = "Surname";
-            $scope.emailRegistration = 'Email';
-            $scope.passwordRegistration = 'Password';
-            $scope.confirmPasswordRegistration = 'Confirm password';
-            $scope.registerButton = 'Register';
-        } else if (language == 'lt') {
-            $scope.title = "Registracija";
-            $scope.login = 'Prisijungimas';
-            $scope.name = "Vardas";
-            $scope.surname = "Pavardė";
-            $scope.emailRegistration = 'El. paštas';
-            $scope.passwordRegistration = 'Slaptažodis';
-            $scope.confirmPasswordRegistration = 'Pakartokite slaptažodį';
-            $scope.registerButton = 'Registruotis';
-        }
-
-        $scope.lt = function () {
-            $scope.title = "Registracija";
-            $scope.login = 'Prisijungimas';
-            $scope.name = "Vardas";
-            $scope.surname = "Pavardė";
-            $scope.emailRegistration = 'El. paštas';
-            $scope.passwordRegistration = 'Slaptažodis';
-            $scope.confirmPasswordRegistration = 'Pakartokite slaptažodį';
-            $scope.registerButton = 'Registruotis';
-            $cookies.put('language', 'lt');
-        };
-
-        $scope.en = function () {
-            $scope.title = "Registration";
-            $scope.login = 'Login';
-            $scope.name = "Username";
-            $scope.surname = "Surname";
-            $scope.emailRegistration = 'Email';
-            $scope.passwordRegistration = 'Password';
-            $scope.confirmPasswordRegistration = 'Confirm password';
-            $scope.registerButton = 'Register';
-            $cookies.put('language', 'en');
-        };
-
+    .controller('registrationController', function ($scope, $http, $cookies, $window, RegistrationService) {
         /**
          * Registration method
          * Correct requestData needed to make call it also confirms user for now
@@ -85,7 +33,34 @@ angular.module('myApp.registration', ['ngRoute', 'ngCookies'])
                 //TODO DELETE AFTER TEST
             })
         };
+        /**
+         ************************ Set language section ***********************
+         */
+        var lang = $cookies.get('language');
 
+        if (lang == null) {
+            $cookies.put('language', 'en');
+            setLanguage('en');
+        } else {
+            setLanguage(lang);
+        }
 
+        $scope.lt = function () {
+            setLanguage('lt');
+            $cookies.put('language', 'lt');
+        };
 
+        $scope.en = function () {
+            setLanguage('en');
+            $cookies.put('language', 'en');
+        };
+
+        function setLanguage(language) {
+            $http.get('../app/translations/' + language + '.json').success(function (data) {
+                $scope.language = data;
+            })
+        }
+        /**
+         *  ****************** End of language section ***********************
+         */
     });
