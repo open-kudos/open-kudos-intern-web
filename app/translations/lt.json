@@ -1,0 +1,9 @@
+{
+  "loginTitle" : "Prisijungimas",
+  "loginRegistration" : "Registracija",
+  "loginEmail" : "El. paštas",
+  "loginPassword" : "Slaptažodis",
+  "loginForgotPassword" : "Pamiršai slaptažodį",
+  "loginButton" : "Prisijungti",
+  "loginRememberMe" : "Prisiminti"
+}

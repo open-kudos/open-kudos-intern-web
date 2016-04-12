@@ -1,0 +1,9 @@
+{
+  "loginTitle" : "Login",
+  "loginRegistration" : "Registration",
+  "loginEmail" : "Email",
+  "loginPassword" : "Password",
+  "loginForgotPassword" : "Forgot password",
+  "loginButton" : "Login",
+  "loginRememberMe" : "Remember me"
+}
