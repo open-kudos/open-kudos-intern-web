@@ -145,17 +145,15 @@
                 <thead>
                 <tr>
                     <th>Colleague</th>
-                    <th>Acorn type</th>
                     <th>Acorns</th>
                     <th>Message</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Lorem</td>
-                    <td>Ipsum</td>
-                    <td>Dolores</td>
-                    <td>Sit</td>
+                <tr ng-repeat="incomingKudos in incomingKudosCollection">
+                    <td>{{incomingKudos.senderEmail}}</td>
+                    <td>{{incomingKudos.amount}}</td>
+                    <td>{{incomingKudos.message}}</td>
                 </tr>
                 </tbody>
             </table>

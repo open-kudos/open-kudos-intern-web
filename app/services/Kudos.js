@@ -34,7 +34,7 @@ function Kudos($http, SERVER) {
 
     function getIncomingKudos() {
         return $http({
-            method: 'POST',
+            method: 'GET',
             url: SERVER.ip + "/kudos/incoming",
             withCredentials: true
         }).then(function successCallback(response) {

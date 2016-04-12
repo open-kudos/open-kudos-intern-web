@@ -14,6 +14,8 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies'])
 
     .controller('profileController', ['$http', '$scope', '$window', '$cookies', 'ProfileService', 'SERVER', function ($http, $scope, $window, $cookies, ProfileService, SERVER) {
 
+        $scope.incomingKudosCollection = [];
+
         checkUser();
 
         ProfileService.userHome().then(function (val) {
@@ -35,6 +37,10 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies'])
 
         ProfileService.receivedKudos().then(function (val) {
             $scope.userReceivedKudos = val;
+        });
+
+        ProfileService.incomingKudos().then(function (val){
+            $scope.incomingKudosCollection = val;
         });
 
         $scope.updateProfile = function () {
@@ -72,6 +78,9 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies'])
             });
 
         };
+
+
+
 
         function checkUser() {
             ProfileService.checkUser().then(function (val) {
