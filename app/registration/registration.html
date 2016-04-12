@@ -1,6 +1,6 @@
 
 <head>
-  <title>{{ title }}</title>
+  <title>{{ language.registrationTitle }}</title>
   <link rel="stylesheet" href="login/login.css">
 </head>
 
@@ -19,10 +19,10 @@
         <div class="panel-heading">
           <div class="row">
             <div class="col-xs-6">
-              <a href="#/login" class="" id="login-form-link">{{ login }}</a>
+              <a href="#/login" class="" id="login-form-link">{{ language.registrationLogin }}</a>
             </div>
             <div class="col-xs-6">
-              <a href="" class="active" id="register-form-link">{{ title }}</a>
+              <a href="" class="active" id="register-form-link">{{ language.registrationTitle }}</a>
             </div>
           </div>
           <hr>
@@ -34,29 +34,31 @@
                 <form id="login-form" action="" method="post" role="form" style="display: block;">
                   <div class="form-group">
                       <errorMessage id="nameError"></errorMessage>
-                    <input ng-model="firstName" type="text" name="name" id="name" tabindex="1" class="valid" placeholder="{{ name }}" value="">
+                    <input ng-model="firstName" type="text" name="name" id="name" tabindex="1" class="valid" placeholder="{{ language.registrationName }}" value="">
                   </div>
                   <div class="form-group">
                       <errorMessage id="surnameError"></errorMessage>
-                    <input ng-model="lastName" type="text" name="surname" id="surname" tabindex="2" class="valid" placeholder="{{ surname }}">
+                    <input ng-model="lastName" type="text" name="surname" id="surname" tabindex="2" class="valid" placeholder="{{ language.registrationSurname }}">
                   </div>
                   <div class="form-group">
                       <errorMessage id="emailError"></errorMessage>
-                    <input ng-model="email" type="email" name="email" id="email" tabindex="3" class="valid" placeholder="{{ emailRegistration }}" required>
+                    <input ng-model="email" type="email" name="email" id="email" tabindex="3" class="valid" placeholder="{{ language.registrationEmail }}">
                   </div>
                   <div class="form-group">
                       <errorMessage id="passwordError"></errorMessage>
-                    <input ng-model="password" type="password" name="password" id="password" tabindex="4" class="valid" placeholder="{{ passwordRegistration }}">
+                    <input ng-model="password" type="password" name="password" id="password" tabindex="4" class="valid" placeholder="{{ language.registrationPassword }}">
                   </div>
                   <div class="form-group">
                       <errorMessage id="confirmPasswordError"></errorMessage>
-                    <input ng-model="confirmPassword" type="password" name="confirmPassword" id="confirmPassword" tabindex="5" class="valid" placeholder="{{ confirmPasswordRegistration }}">
+                    <input ng-model="confirmPassword" type="password" name="confirmPassword" id="confirmPassword" tabindex="5" class="valid" placeholder="{{ language.registrationConfirmPassword }}">
                   </div>
 
                   <div class="form-group">
                     <div class="row">
                       <div class="col-sm-6 col-sm-offset-3">
-                        <input ng-click="Register()" onclick="validationRegistration();" name="register" id="register" tabindex="6" class="valid btn btn-login" value="{{ registerButton }}">
+                        <button ng-click="Register()" onclick="validationRegistration();" name="register" id="register" tabindex="6" class="valid btn btn-login">
+                            {{ language.registrationButton }}
+                        </button>
                       </div>
                     </div>
                   </div>
