@@ -35,30 +35,49 @@ function validationRegistration() {
     var email = document.getElementById('email');
     var password = document.getElementById('password');
     var confirmPassword = document.getElementById('confirmPassword');
+    var nameError = document.getElementById('nameError');
+    var surnameError = document.getElementById('surnameError');
+    var emailError = document.getElementById('emailError');
+    var passwordError = document.getElementById('passwordError');
+    var confirmPasswordError = document.getElementById('confirmPasswordError');
+    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
     if (name.value == '') {
+        nameError.innerHTML = 'Enter name';
         name.className = 'notValid';
     } else {
+        nameError.innerHTML = '';
         name.className = 'valid';
     }
     if (surname.value == '') {
+        surnameError.innerHTML = 'Enter surname';
         surname.className = 'notValid';
     } else {
+        surnameError.innerHTML = '';
         surname.className = 'valid';
     }
     if (confirmPassword.value == '') {
+        confirmPasswordError.innerHTML = 'Confirm password';
         confirmPassword.className = 'notValid';
     } else {
+        confirmPasswordError.innerHTML = '';
         confirmPassword.className = 'valid';
     }
     if (email.value == '') {
+        emailError.innerHTML = 'Enter email';
+        email.className = 'notValid';
+    } else if (!filter.test(email.value)) {
+        emailError.innerHTML = 'Wrong email format';
         email.className = 'notValid';
     } else {
+        emailError.innerHTML = '';
         email.className = 'valid';
     }
     if (password.value == '') {
+        passwordError.innerHTML = 'Enter password';
         password.className = 'notValid';
     } else {
+        passwordError.innerHTML = '';
         password.className = 'valid';
     }
 }
