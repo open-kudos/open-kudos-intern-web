@@ -7,15 +7,12 @@ angular.module("myApp")
 
 LoginService.$inject = [
     "Auth",
-    "$q",
-    "$http",
     "$window",
     "$cookies",
-    "SERVER",
     "$base64"
 ];
 
-function LoginService(authBackend, q, http, window, cookies, SERVER, $base64) {
+function LoginService(authBackend, $window, $cookies, $base64) {
     var service = {
         login: LoginUser,
         checkUser: CheckUser,
@@ -24,56 +21,35 @@ function LoginService(authBackend, q, http, window, cookies, SERVER, $base64) {
     return service;
 
     function LoginUser(loginInfo) {
-        var deferred = q.defer();
-
-        authBackend.login(loginInfo).then(function (response) {
+        return authBackend.login(loginInfo).then(function () {
             changeViewToProfile();
-            deferred.resolve(response);
-        }).catch(function (error) {
-            changeViewToLogin();
-            rememberMe() ? changeViewToProfile() : changeViewToLogin();
-            deferred.reject(error);
-        });
-
-        return deferred.promise;
+        })
     }
 
     function CheckUser() {
-        http({
-            method: 'GET',
-            url: SERVER.ip,
-            withCredentials: true
-        }).then(function successCallback(response) {
-            userLoggedIn(response.data.logged) ? changeViewToProfile() : changeViewToLogin();
-        }, function errorCallback(response) {
-            rememberMe() ? changeViewToProfile() : changeViewToLogin();
+        authBackend.check().then(function (val){
+            userLoggedIn(val.data.logged) ? changeViewToProfile() : changeViewToLogin();
         });
     }
 
     function RememberMe(loginInfo) {
         var expireDate = new Date();
         expireDate.setDate(expireDate.getDate() + 180); // Setting expiration date to 180 days
-
-        cookies.put('ru', 'true', {expires: expireDate});
-        cookies.put('e', $base64.encode(loginInfo), {expires: expireDate});
-
+        $cookies.put('remember_user', 'true', {expires: expireDate});
+        $cookies.put('user_credentials', $base64.encode(loginInfo), {expires: expireDate});
         LoginUser(loginInfo);
     }
 
     function changeViewToLogin() {
-        window.location.href = "#/login";
+        $window.location.href = "#/login";
     }
 
     function changeViewToProfile() {
-        window.location.href = "#/profile";
+        $window.location.href = "#/profile";
     }
 
     function userLoggedIn(loginInfo) {
         return loginInfo == true;
-    }
-
-    function rememberMe() {
-        return cookies.get('ru') === "true";
     }
 
 }

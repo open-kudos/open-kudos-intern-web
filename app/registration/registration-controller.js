@@ -62,13 +62,7 @@ angular.module('myApp.registration', ['ngRoute', 'ngCookies'])
             $cookies.put('language', 'en');
         };
 
-        /**
-         * Registration method
-         * Correct requestData needed to make call it also confirms user for now
-         * TODO fix user confirmation in backend
-         */
         $scope.Register = function () {
-
             var requestData = $.param({
                 email: this.email,
                 firstName: this.firstName,
@@ -82,7 +76,7 @@ angular.module('myApp.registration', ['ngRoute', 'ngCookies'])
                     $window.location.href = "#/login"
                 });
             }).catch(function () {
-                //TODO DELETE AFTER TEST
+                //TODO Catch error show error message
             })
         };
 

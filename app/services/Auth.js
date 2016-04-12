@@ -14,6 +14,7 @@ function Auth($http, SERVER) {
     var service = {
         login: Login,
         logout: Logout,
+        check: CheckUser,
         register: Register,
         reset: ResetPassword,
         confirm: ConfirmRegistration
@@ -37,6 +38,18 @@ function Auth($http, SERVER) {
             url : SERVER.ip + "/logout"
         }).then(function(response) {
             return response.data;
+        });
+    }
+
+    function CheckUser() {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip,
+            withCredentials: true
+        }).then(function successCallback(response) {
+            return response;
+        }, function errorCallback(error) {
+            return error;
         });
     }
 
@@ -64,8 +77,8 @@ function Auth($http, SERVER) {
 
     function ConfirmRegistration(id) {
         return  $http({
-            method: 'POST',
             withCredentials: true,
+            method: 'POST',
             url: SERVER.ip + "/confirm?id=" + id}).then(function(response) {
             return response.data;
         });

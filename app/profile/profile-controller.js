@@ -34,8 +34,6 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies'])
             $scope.userBirthday = user.birthday;
         });
 
-        //TEST TODO DLETE
-
         ProfileService.remainingKudos().then(function (val) {
             $scope.userKudos = val;
         });
@@ -53,7 +51,7 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies'])
                 birthday: this.birthday,
                 department: this.department,
                 location: this.location,
-                phone: "",                                  // <-- TODO FIX PHONE
+                phone: "",              // <-- TODO FIX PHONE
                 position: this.position,
                 startToWork: this.startToWork,
                 team: this.team
@@ -62,13 +60,6 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies'])
                 $('#userDetailsModal').modal('hide');
                 checkUser();
             })
-        }
-
-        function logout() {
-            clearCookies();
-            ProfileService.logout().catch(function (val) {
-                $window.location.href = "#/login";
-            });
         }
 
         function sendKudos() {
@@ -90,9 +81,16 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies'])
             });
         }
 
+        function logout() {
+            clearCookies();
+            ProfileService.logout().catch(function (val) {
+                $window.location.href = "#/login";
+            });
+        }
+
         function clearCookies() {
-            $cookies.put('ru', 'false');
-            $cookies.put('e', '');
+            $cookies.put('remember_user', 'false');
+            $cookies.put('user_credentials', '');
         }
 
     });

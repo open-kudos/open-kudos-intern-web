@@ -8,105 +8,53 @@ angular.module("myApp")
 ProfileService.$inject = [
     "User",
     "Kudos",
-    "Auth",
-    "$q",
-    "$rootScope"
+    "Auth"
 ];
 
-function ProfileService(userBackend, kudosBackend, authBackend, q, $rootScope) {
+function ProfileService(userBackend, kudosBackend, authBackend) {
     var service = {
-        userHome : UserHome,
+        userHome: UserHome,
         updateUser: UpdateUser,
         remainingKudos: RemainingKudos,
         incomingKudos: IncomingKudos,
         receivedKudos: ReceivedKudos,
         send: SendKudos,
-        checkUser : CheckUser,
+        checkUser: CheckUser,
         logout: Logout
     };
     return service;
 
-    function UserHome(){
-        var deferred = q.defer();
-        userBackend.home().then(function (response) {
-            deferred.resolve(response);
-        }).catch(function (error) {
-            deferred.reject(error);
-        });
-        return deferred.promise;
+    function UserHome() {
+        return userBackend.home();
     }
 
-    function CheckUser(){
-        var deferred = q.defer();
-        userBackend.check().then(function (response) {
-            $rootScope.loggedIn = response.logged;
-            deferred.resolve(response);
-        }).catch(function (error) {
-            deferred.reject(error);
-        });
-        return deferred.promise;
+    function CheckUser() {
+        return userBackend.check();
     }
 
-    function UpdateUser(updateInfo){
-        var deferred = q.defer();
-        userBackend.update(updateInfo).then(function (response) {
-            deferred.resolve(response);
-        }).catch(function (error) {
-            deferred.reject(error);
-        });
-        return deferred.promise;
+    function UpdateUser(updateInfo) {
+        return userBackend.update(updateInfo);
     }
 
-    function SendKudos(sendTo){
-        var deferred = q.defer();
-        kudosBackend.send(sendTo).then(function (response) {
-            deferred.resolve(response);
-        }).catch(function (error) {
-            deferred.reject(error);
-        });
-        return deferred.promise;
+    function SendKudos(sendTo) {
+        return kudosBackend.send(sendTo);
     }
 
     function RemainingKudos() {
-        var deferred = q.defer();
-        kudosBackend.remaining().then(function (response) {
-            deferred.resolve(response);
-        }).catch(function (error) {
-            deferred.reject(error);
-        });
-        return deferred.promise;
+        return kudosBackend.remaining();
     }
 
     function IncomingKudos() {
-        var deferred = q.defer();
-        kudosBackend.incoming().then(function (response) {
-            deferred.resolve(response);
-        }).catch(function(error) {
-            deferred.reject(error);
-        });
-        return deferred.promise;
+        return kudosBackend.incoming();
     }
 
-    function ReceivedKudos(){
-        var deferred = q.defer();
-        kudosBackend.received().then(function (response) {
-            deferred.resolve(response);
-        }).catch(function(error) {
-            deferred.reject(error);
-        });
-        return deferred.promise;
+    function ReceivedKudos() {
+        return kudosBackend.received();
     }
 
-    function Logout(){
-        var deferred = q.defer();
-        authBackend.logout().then(function (response) {
-            deferred.resolve(response);
-        }).catch(function(error) {
-            deferred.reject(error);
-        });
-        return deferred.promise;
+    function Logout() {
+        return authBackend.logout();
     }
-
 
 
 }
