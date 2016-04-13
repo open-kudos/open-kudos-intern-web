@@ -18,11 +18,14 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
 
         checkUser();
 
+        $scope.sendKudosErrorMessage = "";
+
         $scope.incomingKudosCollection = [];
         $scope.usersCollection = [];
         $scope.updateProfile = updateProfile;
         $scope.logout = logout;
         $scope.sendKudos = sendKudos;
+        $scope.isValid = isValid;
 
         ProfileService.userHome().then(function (val) {
             var user = val.user;
@@ -71,14 +74,25 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
         }
 
         function sendKudos() {
-            var sendTo = $.param({
-                receiverEmail: $scope.selectedPerson.originalObject.email,
-                amount: $scope.sendKudosAmount,
-                message: $scope.sendKudosMessage
-            });
+            if (isValid($scope.selectedPerson)){
+                $scope.sendKudosErrorMessage = "Something went wrong"
+            }else {
+                var sendTo = $.param({
+                    receiverEmail: $scope.selectedPerson.originalObject.email,
+                    amount: $scope.sendKudosAmount,
+                    message: $scope.sendKudosMessage
+                });
+            }
 
             ProfileService.send(sendTo).then(function () {
                 $('#sendKudosModal').modal('hide');
+            }).catch(function (val) {
+                if (val.status === 400){
+                    $scope.sendKudosErrorMessage = "Enter receiver";
+                }
+                if (val.status === 500){
+                    $scope.sendKudosErrorMessage = "Enter amount";
+                }
             });
         }
 
@@ -99,5 +113,14 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
             $cookies.put('remember_user', 'false');
             $cookies.put('user_credentials', '');
         }
+
+        function isValid(value){
+            if (typeof value !== "undefined"){
+                return false;
+            } else {
+                return true;
+            }
+        }
+
 
     });

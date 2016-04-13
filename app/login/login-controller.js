@@ -21,10 +21,12 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies', 'base64'])
 
             function login() {
                 var rememberMe = $scope.rememberMeCheckbox;
-                var loginInfo = $.param({email: $scope.email, password: $scope.password});
+                var loginInfo = $.param({email: $scope.email,
+                    password: $scope.password});
                 if (rememberMe) {
                     rememberMeAndLogin(loginInfo)
                 } else {
+                    console.log(loginInfo);
                     loginAndValidate(loginInfo)
                 }
             }
@@ -76,7 +78,7 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies', 'base64'])
                 })
             }
 
-            function initView() {å
+            function initView() {
                 // Language init
                 if (selectedLanguage == null) {
                     $cookies.put('language', 'en');
@@ -90,7 +92,7 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies', 'base64'])
 
                 // Remember User init
                 if (isRememberedUser()) {
-                    LoginService.login($base64.decode($cookies.get('e')));
+                    LoginService.login($base64.decode($cookies.get('user_credentials')));
                 } else {
                     LoginService.checkUser();
                 }

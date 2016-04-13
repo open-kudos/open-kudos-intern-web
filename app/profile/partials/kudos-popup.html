@@ -9,9 +9,12 @@
             </div>
             <div class="modal-body form-group">
 
-
                 <div class="form-group col-sm-6">
-                    <angucomplete ng-model="sendKudosTo" placeholder="Sending to" pause="300" selectedobject="selectedPerson" localdata="usersCollection" searchfields="firstName,lastName" titlefield="firstName,lastName" descriptionfield="email" minlength="1" inputclass="form-control form-control-small" matchclass="highlight" />
+                    <angucomplete ng-model="sendKudosTo" placeholder="Sending to" pause="300"
+                                  selectedobject="selectedPerson" localdata="usersCollection"
+                                  searchfields="firstName,lastName" titlefield="firstName,lastName"
+                                  descriptionfield="email" minlength="1" inputclass="form-control form-control-small"
+                                  matchclass="highlight"/>
                     <div class="" ng-show="selectedPerson.originalObject.email">
                         <span class="bold-span">{{selectedPerson.originalObject.firstName}} {{selectedPerson.originalObject.lastName}}</span>
                     </div>
@@ -27,10 +30,14 @@
                            class="form-control" placeholder="Message" value="">
                 </div>
 
+                <div class="form-group col-sm-12" id="sendKudosErrorMessage">
+                    <p class="text-center">{{sendKudosErrorMessage}}</p>
+                </div>
+
             </div>
 
             <button ng-click="sendKudos()" name="sendKudos" id="sendKudos"
-                    class="form-control btn btn-login">Send
+                    class="form-control btn btn-login">Give
             </button>
         </div>
     </div>
