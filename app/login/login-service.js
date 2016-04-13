@@ -22,7 +22,9 @@ function LoginService(authBackend, $window, $cookies, $base64) {
 
     function LoginUser(loginInfo) {
         return authBackend.login(loginInfo).then(function () {
-            changeViewToProfile();
+            CheckUser();
+        }).catch(function (){
+            CheckUser();
         })
     }
 
