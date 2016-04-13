@@ -76,7 +76,8 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies', 'base64'])
                 })
             }
 
-            function initView() {
+            function initView() {å
+                // Language init
                 if (selectedLanguage == null) {
                     $cookies.put('language', 'en');
                     setLanguage('en');
@@ -87,6 +88,7 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies', 'base64'])
                     selectedLanguage == 'lt' ? hideLtButton() : hideEnButton();
                 }
 
+                // Remember User init
                 if (isRememberedUser()) {
                     LoginService.login($base64.decode($cookies.get('e')));
                 } else {

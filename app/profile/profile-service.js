@@ -15,6 +15,7 @@ function ProfileService(userBackend, kudosBackend, authBackend) {
     var service = {
         userHome: UserHome,
         updateUser: UpdateUser,
+        listUsers: ListUsers,
         remainingKudos: RemainingKudos,
         incomingKudos: IncomingKudos,
         receivedKudos: ReceivedKudos,
@@ -30,6 +31,10 @@ function ProfileService(userBackend, kudosBackend, authBackend) {
 
     function CheckUser() {
         return userBackend.check();
+    }
+
+    function ListUsers(){
+        return userBackend.list();
     }
 
     function UpdateUser(updateInfo) {

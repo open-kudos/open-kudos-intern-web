@@ -56,8 +56,12 @@ function User($http, SERVER) {
         })
     }
 
-    function listUsers(searchFilter) {
-        return $http.post(SERVER.ip + "/user/list", searchFilter).then(function (response) {
+    function listUsers() {
+        return $http({
+            method: 'POST',
+            withCredentials: true,
+            url: SERVER.ip + "/user/list"
+        }).then(function (response) {
             return response.data;
         })
     }

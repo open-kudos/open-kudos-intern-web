@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('myApp.profile', ['ngRoute', 'ngCookies'])
+angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/profile', {
@@ -13,10 +13,13 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies'])
     }])
 
     .controller('profileController', function ($http, $scope, $window, $cookies, ProfileService) {
+        console.log($scope.people);
+        // Test
 
         checkUser();
 
         $scope.incomingKudosCollection = [];
+        $scope.usersCollection = [];
         $scope.updateProfile = updateProfile;
         $scope.logout = logout;
         $scope.sendKudos = sendKudos;
@@ -46,6 +49,11 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies'])
             $scope.incomingKudosCollection = val;
         });
 
+        ProfileService.listUsers().then(function (val){
+            $scope.usersCollection = val.userList;
+            console.log($scope.usersCollection);
+        });
+
         function updateProfile() {
             var updateInfo = $.param({
                 birthday: this.birthday,
@@ -63,7 +71,13 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies'])
         }
 
         function sendKudos() {
-            ProfileService.send(getSendKudosPopupParams()).then(function (val) {
+            var sendTo = $.param({
+                receiverEmail: $scope.selectedPerson.originalObject.email,
+                amount: $scope.sendKudosAmount,
+                message: $scope.sendKudosMessage
+            });
+
+            ProfileService.send(sendTo).then(function () {
                 $('#sendKudosModal').modal('hide');
             });
         }
@@ -71,13 +85,6 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies'])
         function checkUser() {
             ProfileService.checkUser().then(function (val) {
                 val.logged ? $window.location.href = "#/profile" : $window.location.href = "#/login";
-            });
-        }
-
-        function getSendKudosPopupParams() {
-            return $.param({
-                receiverEmail: $scope.sendKudosTo,
-                amount: $scope.sendKudosAmount
             });
         }
 
