@@ -1,0 +1,136 @@
+/* app css stylesheet */
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+}
+
+.menu:before {
+  content: "[";
+}
+
+.menu:after {
+  content: "]";
+}
+
+.menu > li {
+  display: inline;
+}
+
+.menu > li:before {
+  content: "|";
+  padding-right: 0.3em;
+}
+
+.menu > li:nth-child(1):before {
+  content: "";
+  padding: 0;
+}
+
+.large-padded-row {
+  margin-top: 20px;
+}
+
+.padded-row {
+  margin-top: 10px;
+}
+
+.highlight {
+  color: #ff0000;
+}
+
+.bold-span {
+  font-family: "bariol_boldbold";
+  margin-left: 5px;
+}
+
+.bold-span a {
+  color: #000000;
+}
+
+.dropdown-description {
+  display: none;
+}
+
+.dropdown {
+  width: 53px;
+  position: absolute;
+  right: 4px;
+  top: 50px;
+  z-index: 100;
+  padding: 0px;
+  text-align: left;
+  text-align: center;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  text-align: center;
+}
+
+.dropdown-icon {
+  margin-bottom: 0px;
+  padding: 5px;
+  cursor: pointer;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.dropdown-icon:hover {
+  background-color: #fb8200;
+}
+
+.dropdown-orange {
+  background-color: #FFA300;
+  color: #ffffff;
+}
+
+@media screen and (min-width: 400px) {
+  .dropdown-description {
+    display: block;
+    position: absolute;
+    right: 70px;
+    top: 15px;
+    max-width: 200px;
+    background-color: #000000;
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+    opacity: 0.8;
+  }
+}
+
+.criterion-rating-dropdown {
+  padding: 2px;
+  border-radius: 0px;
+  color: #ACACAC;
+  margin-left: 0px;
+  font-size: 12px;
+  margin-top: -3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  cursor: pointer;
+  display: block;
+}
+
+.criterion-rating-dropdown:hover {
+  color: #383736;
+}
+
+.criterion-dropdown {
+  width: 60px;
+  text-align: left;
+  top: 60px;
+  left: 100px;
+  padding: 2px;
+  background-color: #e0e0e0;
+  z-index: 9999;
+  position: relative;
+}
+
+.row {
+  margin-top: 10px;
+  display: block;
+}
