@@ -64,7 +64,7 @@
                 </div>
             </div>
 
-            <h3>{{language.ProfileMeCorns}}</h3>
+            <h3>{{language.ProfileMeReceivedCorns}}</h3>
 
             <table class="table">
                 <thead>
@@ -83,6 +83,25 @@
                 </tbody>
             </table>
             <button type="button" class="btn btn-default btn-sm">{{language.ProfileShowMore}}</button>
+
+
+            <h3>{{language.ProfileMeSentCorns}}</h3>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>{{language.ProfileMeColleague}}</th>
+                    <th>{{language.ProfileACorn}}</th>
+                    <th>{{language.ProfileMeMessage}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="outgoingKudos in outgoingKudosCollection">
+                    <td>{{outgoingKudos.receiver}}</td>
+                    <td>{{outgoingKudos.amount}}</td>
+                    <td>{{outgoingKudos.message}}</td>
+                </tr>
+                </tbody>
+            </table>
 
             <h3>{{language.ProfileEndorsements}}</h3>
             <button type="button" class="btn btn-default btn-sm">{{language.ProfileShowMore}}</button>

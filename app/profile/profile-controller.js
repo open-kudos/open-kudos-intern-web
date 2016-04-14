@@ -24,6 +24,7 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
         $scope.sendKudosErrorMessage = "";
 
         $scope.incomingKudosCollection = [];
+        $scope.outgoingKudosCollection = [];
         $scope.usersCollection = [];
         $scope.updateProfile = updateProfile;
         $scope.logout = logout;
@@ -54,6 +55,10 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
         ProfileService.incomingKudos().then(function (val) {
             $scope.incomingKudosCollection = val;
         });
+
+        ProfileService.outgoingKudos().then(function (val) {
+            $scope.outgoingKudosCollection = val;
+        })
 
         ProfileService.listUsers().then(function (val){
             $scope.usersCollection = val.userList;
