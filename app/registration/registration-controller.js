@@ -11,19 +11,15 @@ angular.module('myApp.registration', ['ngRoute', 'ngCookies'])
 
     .controller('registrationController', function ($scope, $http, $cookies, $window, RegistrationService) {
         var selectedLanguage = $cookies.get('language');
-        $scope.changeLanguageToLT = changeLanguageToLT;
-        $scope.changeLanguageToENG = changeLanguageToENG;
 
         initView();
 
-        /**
-         * Registration method
-         * Correct requestData needed to make call it also confirms user for now
-         * TODO fix user confirmation in backend
-         */
-        $scope.Register = function () {
-            validationRegistration();
+        $scope.register = register();
+        $scope.changeLanguageToLT = changeLanguageToLT;
+        $scope.changeLanguageToENG = changeLanguageToENG;
 
+        function register() {
+            validationRegistration();
             var requestData = $.param({
                 email: this.email,
                 firstName: this.firstName,
@@ -37,12 +33,10 @@ angular.module('myApp.registration', ['ngRoute', 'ngCookies'])
                     $window.location.href = "#/login"
                 });
             }).catch(function () {
-                //TODO DELETE AFTER TEST
+                // TODO CATCH THIS
             })
         };
-        /**
-         ************************ Set language section ***********************
-         */
+
         function initView() {
             if (selectedLanguage == null) {
                 $cookies.put('language', 'en');
@@ -82,9 +76,7 @@ angular.module('myApp.registration', ['ngRoute', 'ngCookies'])
             document.getElementById('enButton').className = 'btn btn-sm hidden';    // TODO Please do this in angular way
             document.getElementById('ltButton').className = 'btn btn-sm';           // TODO Please do this in angular way
         }
-        /**
-         *  ****************** End of language section ***********************
-         */
+
         /**
          * Registration form validations
          */
