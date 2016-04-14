@@ -1,5 +1,5 @@
 <!-- Success modal -->
-<div id="succresSendKudosModal" ng-controller="profileController" class="modal fade" role="dialog">
+<div id="successSendKudosModal" ng-controller="profileController" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
         <div class="modal-content">
@@ -7,10 +7,12 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title text-center"> {{'SEND_KUDOS_SUCCESS_MESSAGE' | translate}}</h4>
             </div>
-
+            <div class="modal-footer">
+                <button id="sendKudosOkButton" data-dismiss="modal" class="form-control btn btn-send-kudos">Ok</button>
+            </div>
         </div>
 
-        <button id="sendKudosOkButton" data-dismiss="modal" class="form-control btn btn-send-kudos">Ok</button>
+
     </div>
 </div>
 <!-- Success modal -->
@@ -24,12 +26,13 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">{{ 'SEND_KUDOS_POPUP_TITLE' | translate }}</h4>
             </div>
-            <div class="modal-body form-group">
 
+            <div class="modal-body">
                 <div class="form-group col-sm-6">
-                    <angucomplete ng-model="sendKudosTo" placeholder="{{ 'SEND_KUDOS_SENDING_TO_HINT' | translate}}" pause="300"
+                    <angucomplete ng-model="sendKudosTo" placeholder="{{ 'SEND_KUDOS_SENDING_TO_HINT' | translate}}"
+                                  pause="300"
                                   selectedobject="selectedPerson" localdata="usersCollection"
-                                  searchfields="firstName,lastName" titlefield="firstName,lastName"
+                                  searchfields="firstName,lastName,email" titlefield="firstName,lastName"
                                   descriptionfield="email" minlength="1" ng-change="inputChanged()"
                                   inputclass="form-control form-control-small"
                                   matchclass="highlight"/>
@@ -49,15 +52,18 @@
                 </div>
 
                 <div class="form-group col-sm-12" id="sendKudosErrorMessage">
-                    <p class="text-center">{{sendKudosErrorMessage}}</p>
+                    <p ng-class="errorClass" class="text-center">{{sendKudosErrorMessage}}</p>
                 </div>
+
+                <button ng-click="sendKudos()" name="sendKudosButton" id="sendKudosButton"
+                        class="form-control btn btn-login" ng-disabled="buttonDisabled">Give
+                </button>
 
             </div>
 
-            <button ng-click="sendKudos()" name="sendKudosButton" id="sendKudosButton"
-                    class="form-control btn btn-login" disabled="true">Give
-            </button>
+
         </div>
+
     </div>
 </div>
 

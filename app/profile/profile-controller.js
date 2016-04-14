@@ -22,6 +22,7 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
         $scope.incomingKudosCollection = [];
         $scope.outgoingKudosCollection = [];
         $scope.usersCollection = [];
+        $scope.buttonDisabled = true;
 
         $scope.updateProfile = updateProfile;
         $scope.logout = logout;
@@ -83,10 +84,6 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
             }
         }
 
-        $scope.toggleCustom = function () {
-            $scope.custom = $scope.custom === false ? true : false;
-        };
-
         function updateProfile() {
             var updateInfo = $.param({
                 birthday: this.birthday,
@@ -112,14 +109,13 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
                     amount: $scope.sendKudosAmount,
                     message: $scope.sendKudosMessage
                 });
-
-                console.log(sendTo);
-
             }
 
-            ProfileService.send(sendTo).then(function () {
+            ProfileService.send(sendTo).then(function (val) {
                 $('#sendKudosModal').modal('hide');
-                $('#succresSendKudosModal').modal('show');
+                $('#successSendKudosModal').modal('show');
+                console.log($scope.userKudos);
+                $scope.userKudos = $scope.userKudos - val.amount;
             }).catch(function (val) {
                 if (val.status === 400) {
                     $scope.sendKudosErrorMessage = "Enter receiver";
@@ -130,7 +126,15 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
             });
         }
 
+        function inputChanged() {
+            if (inputChangedPromise) {
+                $timeout.cancel(inputChangedPromise);
+            }
+            inputChangedPromise = $timeout(kudosValidation, 100);
+        }
+
         function kudosValidation() {
+            $scope.errorClass = "error-message";
             if ($scope.sendKudosAmount > $scope.userKudos) {
                 $scope.sendKudosErrorMessage = "You don't have enough Acorns";
                 disableSendKudosButton();
@@ -140,16 +144,10 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
             } else if (isValid($scope.selectedPerson)) {
                 $scope.sendKudosErrorMessage = "Please enter receiver"
             } else {
-                $scope.sendKudosErrorMessage = "";
+                $scope.errorClass = "success-message";
+                $scope.sendKudosErrorMessage = "Ok, you'r good to go!";
                 enableSendKudosButton();
             }
-        }
-
-        function inputChanged() {
-            if (inputChangedPromise) {
-                $timeout.cancel(inputChangedPromise);
-            }
-            inputChangedPromise = $timeout(kudosValidation, 500);
         }
 
         function checkUser() {
@@ -175,11 +173,11 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
         }
 
         function enableSendKudosButton() {
-            $('#sendKudosButton').prop('disabled', false);
+            $scope.buttonDisabled = false;
         }
 
         function disableSendKudosButton() {
-            $('#sendKudosButton').prop('disabled', true);
+            $scope.buttonDisabled = true;
         }
 
     });

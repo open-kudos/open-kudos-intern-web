@@ -20,15 +20,11 @@ config(['$routeProvider', '$translateProvider', function ($routeProvider, $trans
     $translateProvider.preferredLanguage('en');
     $translateProvider.useCookieStorage();
 }]).
-controller('AppController', function ($scope, $translate, $window) {
+controller('AppController', function ($scope, $translate) {
     $scope.changeLanguage = changeLanguage;
 
     function changeLanguage(key){
         $translate.use(key);
-    }
-
-    if ($window.location.href == "#/profile"){
-        angular.element('multi-files');
     }
 
 });

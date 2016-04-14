@@ -32,59 +32,27 @@
 
     <div class="row">
 
-        <div class="col-md-3">
-
-            <div class="row">
-
-                <div class="col-md-12">
-                    <button name="giveKudosButton" id="giveKudosButton" ng-click="showSendKudosModal()"
-                            data-toggle="modal" data-target="#sendKudosModal"
-                            class="btn profile-buttons">{{ 'ProfileMeGiveACorn' | translate }}
-                    </button>
-                </div>
-
-                <div class="col-md-12">
-                    <button name="giveKudosButton" id="endorse"
-                            class="btn profile-buttons">{{ 'ProfileMeEndorse' | translate }}
-                    </button>
-                </div>
-
-                <div class="col-sm-12">
-                    <button name="giveKudosButton" id="challenge"
-                            class="btn profile-buttons">{{ 'ProfileMeChallenge' | translate }}
-                    </button>
-                </div>
-            </div>
-
-            <h4>{{ 'ProfileMeTodayBirthday' | translate }}</h4>
-            <p>Lorem</p>
-
-            <h4>{{ 'ProfileMeChallengeWinner' | translate }}</h4>
-            <p>Foosbal</p>
-            <h5>
-                <small>2020-20-20</small>
-            </h5>
-
-            <h4>{{ 'ProfileMeEngagementLeaders' | translate }}</h4>
-            <p>{{ 'ProfileMeTopReceivers' | translate }}</p>
-            <p>{{ 'ProfileMeTopSenders' | translate }}</p>
-
-            <h4>{{ 'ProfileMeWisdomWall' | translate }}</h4>
-            <p>"Dolores sit amit"</p>
-
-        </div>
-
-
-        <div class="col-md-6">
+        <div class="col-sm-6 col-sm-push-3">
 
             <div class="row text-center ">
                 <div class="col-xs-6">
                     <h1><b>{{userKudos}}</b></h1>
                     <h4>{{ 'ProfileMeCorns' | translate }}</h4>
+                    <div class="col-md-12">
+                        <button name="giveKudosButton" id="giveKudosButton" ng-click="showSendKudosModal()"
+                                data-toggle="modal" data-target="#sendKudosModal"
+                                class="btn profile-buttons">{{ 'ProfileMeGiveACorn' | translate }}
+                        </button>
+                    </div>
                 </div>
                 <div class="col-xs-6">
                     <h1><b>{{userReceivedKudos}}</b></h1>
                     <h4>{{ 'ProfileMeReceivedCorns' | translate }}</h4>
+                    <div class="col-md-12">
+                        <button name="giveKudosButton" id="challenge"
+                                class="btn profile-buttons">{{ 'ProfileMeChallenge' | translate }}
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -129,7 +97,27 @@
 
         </div>
 
-        <div class="col-md-3">
+        <div class="col-sm-3 col-sm-pull-6">
+
+            <h4>{{ 'ProfileMeTodayBirthday' | translate }}</h4>
+            <p>Lorem</p>
+
+            <h4>{{ 'ProfileMeChallengeWinner' | translate }}</h4>
+            <p>Foosbal</p>
+            <h5>
+                <small>2020-20-20</small>
+            </h5>
+
+            <h4>{{ 'ProfileMeEngagementLeaders' | translate }}</h4>
+            <p>{{ 'ProfileMeTopReceivers' | translate }}</p>
+            <p>{{ 'ProfileMeTopSenders' | translate }}</p>
+
+            <h4>{{ 'ProfileMeWisdomWall' | translate }}</h4>
+            <p>"Dolores sit amit"</p>
+
+        </div>
+
+        <div class="col-sm-3">
 
             <h3>{{userName}} {{userSurname}}</h3>
             <h4>{{userPosition}}</h4>
