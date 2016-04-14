@@ -22,7 +22,7 @@
   "registrationErrorPassword" : "Enter password",
   "registrationErrorConfirmPassword" : "Confirm password",
 
-  "ProfileACorn" : "ACorn",
+  "ProfileACorn" : "Acorn",
   "ProfileMe" : "Me",
   "ProfileHome" : "Home",
   "ProfilePeople" : "People",
@@ -30,6 +30,7 @@
   "ProfileEndorsements" : "Endorsements",
   "ProfileChallenges" : "Challenges",
   "ProfileShowMore" : "Show more",
+  "ProfileShowLess" : "Show less",
 
   "ProfileMeSendingTo" : "Sending to...",
   "ProfileMeAmount" : "Amount",
@@ -39,8 +40,8 @@
   "ProfileMeTeam" : "Team",
   "ProfileMeStartedToWork" : "Started to work",
   "ProfileMeBirthday" : "Birthday",
-  "ProfileMeCorns" : "Corns",
-  "ProfileMeReceivedCorns" : "Received Corns",
+  "ProfileMeCorns" : "Available Acorns",
+  "ProfileMeReceivedCorns" : "Received Acorns",
   "ProfileMeSentCorns" : "Sent Corns",
   "ProfileMeChallenges" : "Challenges",
   "ProfileMeColleague" : "Colleague",
@@ -49,7 +50,7 @@
   "ProfileMeStatus" : "Status",
   "ProfileMeChallengeDate" : "Challenge Date",
   "ProfileMeDescription" : "Description",
-  "ProfileMeGiveACorn" : "Give ACorn",
+  "ProfileMeGiveACorn" : "Give Acorn",
   "ProfileMeEndorse" : "Endorse",
   "ProfileMeTodayBirthday" : "Today's birthday",
   "ProfileMeChallengeWinner" : "Challenge winner",
@@ -60,5 +61,12 @@
   "ProfileMeLogout" : "Logout",
   "ProfileMeEdit" : "Edit",
   "ProfileMeGiveButton" : "Give",
-  "ProfileMeMessage" : "Message"
+  "ProfileMeMessage" : "Message",
+
+  "SEND_KUDOS_POPUP_TITLE" : "Give Acorns",
+  "SEND_KUDOS_SENDING_TO_HINT" : "Sending to",
+  "SEND_KUDOS_AMOUNT_HINT" : "Amount",
+  "SEND_KUDOS_MESSAGE_HINT" : "Message",
+  "SEND_KUDOS_SUCCESS_MESSAGE" : "Your Acors was sent successfully!",
+  "SEND_KUDOS_GIVE_BUTTON" : "Give"
 }

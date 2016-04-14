@@ -1,23 +1,15 @@
-<title>{{ language.registrationTitle }}</title>
+<title>{{ 'registrationTitle' | translate }}</title>
 <div class="container">
   <div class="row">
-      <div class="col-sm-2 col-md-offset-3">
-          <div class="languages panel-body">
-
-              <button type="button" id="ltButton" class="btn btn-sm" ng-click="changeLanguageToLT()"> LT</button>
-              <button type="button" id="enButton" class="btn btn-sm" ng-click="changeLanguageToENG()"> EN</button>
-
-          </div>
-      </div>
     <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-login">
         <div class="panel-heading">
           <div class="row">
             <div class="col-xs-6">
-              <a href="#/login" class="" id="login-form-link">{{ language.registrationLogin }}</a>
+              <a href="#/login" class="" id="login-form-link">{{ 'registrationLogin' | translate }}</a>
             </div>
             <div class="col-xs-6">
-              <a href="" class="active" id="register-form-link">{{ language.registrationTitle }}</a>
+              <a href="" class="active" id="register-form-link">{{ 'registrationTitle' | translate }}</a>
             </div>
           </div>
           <hr>
@@ -28,31 +20,31 @@
               <form id="registration-form" role="form" style="display: block;">
                 <form id="login-form" action="" method="post" role="form" style="display: block;">
                   <div class="form-group">
-                      <errorMessage id="nameError" class="hidden">{{language.registrationErrorName}}</errorMessage>
-                    <input ng-model="firstName" type="text" name="name" id="name" tabindex="1" class="valid" placeholder="{{ language.registrationName }}" value="">
+                      <errorMessage id="nameError" class="hidden">{{ 'registrationErrorName' | translate }}</errorMessage>
+                    <input ng-model="firstName" type="text" name="name" id="name" tabindex="1" class="valid" placeholder="{{ 'registrationName' | translate }}" value="">
                   </div>
                   <div class="form-group">
-                      <errorMessage id="surnameError" class="hidden">{{language.registrationErrorSurname}}</errorMessage>
-                    <input ng-model="lastName" type="text" name="surname" id="surname" tabindex="2" class="valid" placeholder="{{ language.registrationSurname }}">
+                      <errorMessage id="surnameError" class="hidden">{{ 'registrationErrorSurname' | translate }}</errorMessage>
+                    <input ng-model="lastName" type="text" name="surname" id="surname" tabindex="2" class="valid" placeholder="{{ 'registrationSurname' | translate  }}">
                   </div>
                   <div class="form-group">
-                      <errorMessage id="emailError" class="hidden">{{language.registrationErrorEmail}}</errorMessage>
-                    <input ng-model="email" type="text" name="email" id="email" tabindex="3" class="valid" placeholder="{{ language.registrationEmail }}">
+                      <errorMessage id="emailError" class="hidden">{{ 'registrationErrorEmail' | translate }}</errorMessage>
+                    <input ng-model="email" type="text" name="email" id="email" tabindex="3" class="valid" placeholder="{{ 'registrationEmail' | translate  }}">
                   </div>
                   <div class="form-group">
-                      <errorMessage id="passwordError" class="hidden">{{language.registrationErrorPassword}}</errorMessage>
-                    <input ng-model="password" type="password" name="password" id="password" tabindex="4" class="valid" placeholder="{{ language.registrationPassword }}">
+                      <errorMessage id="passwordError" class="hidden">{{ 'registrationErrorPassword' | translate }}</errorMessage>
+                    <input ng-model="password" type="password" name="password" id="password" tabindex="4" class="valid" placeholder="{{ 'registrationPassword' | translate  }}">
                   </div>
                   <div class="form-group">
-                      <errorMessage id="confirmPasswordError" class="hidden">{{language.registrationErrorConfirmPassword}}</errorMessage>
-                    <input ng-model="confirmPassword" type="password" name="confirmPassword" id="confirmPassword" tabindex="5" class="valid" placeholder="{{ language.registrationConfirmPassword }}">
+                      <errorMessage id="confirmPasswordError" class="hidden">{{ 'registrationErrorConfirmPassword' | translate }}</errorMessage>
+                    <input ng-model="confirmPassword" type="password" name="confirmPassword" id="confirmPassword" tabindex="5" class="valid" placeholder="{{ 'registrationConfirmPassword' | translate }}">
                   </div>
 
                   <div class="form-group">
                     <div class="row">
                       <div class="col-sm-6 col-sm-offset-3">
                         <button ng-click="register()" name="register" id="register" tabindex="6" class="valid btn btn-login">
-                            {{ language.registrationButton }}
+                            {{ 'registrationButton' | translate  }}
                         </button>
                       </div>
                     </div>
