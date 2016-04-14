@@ -209,6 +209,14 @@ errorMessage {
   display: none;
 }
 
+.forgotPassword{
+  background-color: Transparent;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+}
+
 .dropdown {
   width: 53px;
   position: absolute;

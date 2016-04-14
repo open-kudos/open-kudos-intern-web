@@ -6,6 +6,7 @@
   "loginForgotPassword" : "Forgot password",
   "loginButton" : "Login",
   "loginRememberMe" : "Remember me",
+  "loginErrorMessage" : "Wrong Email or Password",
 
   "registrationTitle" : "Registration",
   "registrationLogin" : "Login",
@@ -15,6 +16,11 @@
   "registrationPassword" : "Password",
   "registrationConfirmPassword" : "Confirm password",
   "registrationButton" : "Register",
+  "registrationErrorName" : "Enter name",
+  "registrationErrorSurname" : "Enter surname",
+  "registrationErrorEmail" : "Wrong email format",
+  "registrationErrorPassword" : "Enter password",
+  "registrationErrorConfirmPassword" : "Confirm password",
 
   "ProfileACorn" : "ACorn",
   "ProfileMe" : "Me",

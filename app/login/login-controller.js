@@ -41,12 +41,22 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies', 'base64'])
 
             function loginAndValidate(loginInfo) {
                 LoginService.login(loginInfo).then(function () {
-                    $scope.loginError = 'aa';
+                    showErrorMessage(); // TODO | FIX THE PROBLEM AND CHANGE THIS LINE TO hideErrorMessage();
                 }).catch(function () {
-                    $scope.loginError = 'Wrong Email or Password';
+                    showErrorMessage();
                 });
             }
 
+            function showErrorMessage() {
+                var errorMessage = document.getElementById('errorMessage');
+                errorMessage.className = '';
+            }
+            
+            function hideErrorMessage() {
+                var errorMessage = document.getElementById('errorMessage');
+                errorMessage.className = 'hidden';
+            }
+            
             function isRememberedUser() {
                 return $cookies.get('remember_user') === 'true'
             }

@@ -102,41 +102,41 @@ angular.module('myApp.registration', ['ngRoute', 'ngCookies'])
             var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
             if (name.value == '') {
-                nameError.innerHTML = 'Enter name';
+                nameError.className = '';
                 name.className = 'notValid';
             } else {
-                nameError.innerHTML = '';
+                nameError.className = 'hidden';
                 name.className = 'valid';
             }
             if (surname.value == '') {
-                surnameError.innerHTML = 'Enter surname';
+                surnameError.className = '';
                 surname.className = 'notValid';
             } else {
-                surnameError.innerHTML = '';
+                surnameError.className = 'hidden';
                 surname.className = 'valid';
             }
             if (confirmPassword.value == '') {
-                confirmPasswordError.innerHTML = 'Confirm password';
+                confirmPasswordError.className = '';
                 confirmPassword.className = 'notValid';
             } else {
-                confirmPasswordError.innerHTML = '';
+                confirmPasswordError.className = 'hidden';
                 confirmPassword.className = 'valid';
             }
             if (email.value == '') {
-                emailError.innerHTML = 'Enter email';
+                emailError.className = '';
                 email.className = 'notValid';
             } else if (!filter.test(email.value)) {
-                emailError.innerHTML = 'Wrong email format';
+                emailError.className = '';
                 email.className = 'notValid';
             } else {
-                emailError.innerHTML = '';
+                emailError.className = 'hidden';
                 email.className = 'valid';
             }
             if (password.value == '') {
-                passwordError.innerHTML = 'Enter password';
+                passwordError.className = '';
                 password.className = 'notValid';
             } else {
-                passwordError.innerHTML = '';
+                passwordError.className = 'hidden';
                 password.className = 'valid';
             }
         }

@@ -6,6 +6,7 @@
   "loginForgotPassword" : "Pamiršai slaptažodį",
   "loginButton" : "Prisijungti",
   "loginRememberMe" : "Prisiminti",
+  "loginErrorMessage" : "Blogas El. Paštas arba slaptažodis",
 
   "registrationTitle" : "Registracija",
   "registrationLogin" : "Prisijungimas",
@@ -15,6 +16,11 @@
   "registrationPassword" : "Slaptažodis",
   "registrationConfirmPassword" : "Pakartokite slaptažodį",
   "registrationButton" : "Registruotis",
+  "registrationErrorName" : "Įveskite vardą",
+  "registrationErrorSurname" : "Įveskite pavardę",
+  "registrationErrorEmail" : "Blogas El. Pašto formatas",
+  "registrationErrorPassword" : "Įveskite slaptažodį",
+  "registrationErrorConfirmPassword" : "Pakartokite slaptažodį",
 
   "ProfileACorn" : "Gilės",
   "ProfileMe" : "Profilis",
