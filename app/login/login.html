@@ -1,3 +1,4 @@
+<title>{{language.loginTitle}}</title>
 <div class="container">
         <div class="row">
             <div class="col-sm-2 col-md-offset-3">
@@ -25,12 +26,12 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <form id="login-form" role="form" style="display: block;">
-                                    <div class="loginError">{{ loginError }}</div>
+                                    <errorMessage>{{ loginError }}</errorMessage>
                                     <div class="form-group">
-                                        <input ng-model="email" type="text" id="email" name="username" class="valid" placeholder="{{ language.loginEmail }}">
+                                        <input ng-model="email" type="text" id="email" name="username" class='valid' placeholder="{{ language.loginEmail }}">
                                     </div>
                                     <div class="form-group">
-                                        <input ng-model="password" type="password" name="password" id="password" tabindex="2" class="valid" ng-class="" placeholder="{{ language.loginPassword }}">
+                                        <input ng-model="password" type="password" name="password" id="password" tabindex="2" class="valid" placeholder="{{ language.loginPassword }}">
                                     </div>
                                     <div class="form-group text-center">
                                         <input ng-model="rememberMeCheckbox" type="checkbox" tabindex="3" class="" name="remember" id="remember">

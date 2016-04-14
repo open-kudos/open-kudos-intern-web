@@ -13,9 +13,12 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
     }])
 
     .controller('profileController', function ($http, $scope, $window, $cookies, ProfileService) {
+        var selectedLanguage = $cookies.get('language');
+        $scope.changeLanguageToLT = changeLanguageToLT;
+        $scope.changeLanguageToENG = changeLanguageToENG;
         console.log($scope.people);
         // Test
-
+        initView();
         checkUser();
 
         $scope.sendKudosErrorMessage = "";
@@ -121,6 +124,50 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
                 return true;
             }
         }
+        /**
+         ************************ Set language section ***********************
+         */
+        function initView() {
+            if (selectedLanguage == null) {
+                $cookies.put('language', 'en');
+                setLanguage('en');
+                selectedLanguage = $cookies.get('language');
+                hideEnButton();
+            } else {
+                selectedLanguage == 'lt' ? hideLtButton() : hideEnButton();
+                setLanguage(selectedLanguage);
+            }
+        }
 
+        function changeLanguageToLT() {
+            setLanguage('lt');
+            $cookies.put('language', 'lt');
+            hideLtButton();
+        }
+
+        function changeLanguageToENG() {
+            setLanguage('en');
+            $cookies.put('language', 'en');
+            hideEnButton();
+        }
+
+        function setLanguage(language) {
+            $http.get('../app/translations/' + language + '.json').success(function (data) {
+                $scope.language = data;
+            })
+        }
+
+        function hideLtButton(){
+            document.getElementById('enButton').className = 'btn btn-sm';           // TODO Please do this in angular way
+            document.getElementById('ltButton').className = 'btn btn-sm hidden';    // TODO Please do this in angular way
+        }
+
+        function hideEnButton(){
+            document.getElementById('enButton').className = 'btn btn-sm hidden';    // TODO Please do this in angular way
+            document.getElementById('ltButton').className = 'btn btn-sm';           // TODO Please do this in angular way
+        }
+        /**
+         *  ****************** End of language section ***********************
+         */
 
     });

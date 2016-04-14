@@ -1,12 +1,14 @@
+<title>{{language.ProfileMe}}</title>
+
 <div class="container panel panel-body">
 
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">ACORN</a>
+                <a class="navbar-brand" href="#">{{language.ProfileACorn}}</a>
             </div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Me</a></li>
+                <li class="active"><a href="#">{{language.ProfileMe}}</a></li>
                 <li><a href="#">Home</a></li>
                 <li><a href="#">People</a></li>
                 <li><a href="#">Rewards</a></li>
@@ -14,17 +16,19 @@
                 <li><a href="#">Challenges</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a ng-click="logout()" href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                <li><a ng-click="logout()" href="#"><span class="glyphicon glyphicon-log-in"></span> {{language.ProfileMeLogout}}</a></li>
             </ul>
         </div>
     </nav>
+
+    <button type="button" id="ltButton" class="btn btn-sm" ng-click="changeLanguageToLT()"> LT</button>
+    <button type="button" id="enButton" class="btn btn-sm" ng-click="changeLanguageToENG()"> EN</button>
 
     <!-- User Profile Edit Modal -->
     <ng-include src="'profile/partials/user-detail-popup.html'"></ng-include>
 
     <!-- Send Kudos Modal -->
     <ng-include src="'profile/partials/kudos-popup.html'"></ng-include>
-
 
     <div class="row">
 
@@ -33,14 +37,14 @@
             <h3>{{userName}} {{userSurname}}</h3>
             <h4>{{userPosition}}</h4>
 
-            <p>Location: {{userLocation}}</p>
-            <p>Email: {{userEmail}}</p>
-            <p>Phone: {{userPhone}}</p>
-            <p>Team: {{userTeam}}</p>
-            <p>Started to work: {{userStartedToWork}}</p>
-            <p>Birthday: {{userBirthday}}</p>
+            <p>{{language.ProfileMeLocation}}: {{userLocation}}</p>
+            <p>{{language.ProfileMeEmail}}: {{userEmail}}</p>
+            <p>{{language.ProfileMePhone}}: {{userPhone}}</p>
+            <p>{{language.ProfileMeTeam}}: {{userTeam}}</p>
+            <p>{{language.ProfileMeStartedToWork}}: {{userStartedToWork}}</p>
+            <p>{{language.ProfileMeBirthday}}: {{userBirthday}}</p>
 
-            <button type="button" data-toggle="modal" data-target="#userDetailsModal" class="btn btn-default btn-sm">Edit</button>
+            <button type="button" data-toggle="modal" data-target="#userDetailsModal" class="btn btn-default btn-sm">{{language.ProfileMeEdit}}</button>
         </div>
 
         <div class="col-md-6">
@@ -48,26 +52,26 @@
             <div class="row">
                 <div class="col-xs-3">
                     <h3><b>{{userKudos}}</b></h3>
-                    <h4>Corns</h4>
+                    <h4>{{language.ProfileMeCorns}}</h4>
                 </div>
                 <div class="col-xs-3">
                     <h3><b>{{userReceivedKudos}}</b></h3>
-                    <h4>Received Corns</h4>
+                    <h4>{{language.ProfileMeReceivedCorns}}</h4>
                 </div>
                 <div class="col-xs-3">
                     <h3><b>{{userKudos}}</b></h3>
-                    <h4>Challenges</h4>
+                    <h4>{{language.ProfileMeChallenges}}</h4>
                 </div>
             </div>
 
-            <h3>Corns</h3>
+            <h3>{{language.ProfileMeCorns}}</h3>
 
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Colleague</th>
-                    <th>Acorns</th>
-                    <th>Message</th>
+                    <th>{{language.ProfileMeColleague}}</th>
+                    <th>{{language.ProfileACorn}}</th>
+                    <th>{{language.ProfileMeMessage}}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -78,20 +82,20 @@
                 </tr>
                 </tbody>
             </table>
-            <button type="button" class="btn btn-default btn-sm">Show more</button>
+            <button type="button" class="btn btn-default btn-sm">{{language.ProfileShowMore}}</button>
 
-            <h3>Endorsements</h3>
-            <button type="button" class="btn btn-default btn-sm">Show more</button>
+            <h3>{{language.ProfileEndorsements}}</h3>
+            <button type="button" class="btn btn-default btn-sm">{{language.ProfileShowMore}}</button>
 
-            <h3>Challenges</h3>
+            <h3>{{language.ProfileMeChallenges}}</h3>
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Colleague</th>
-                    <th>Chalenge</th>
-                    <th>Status</th>
-                    <th>Chalenge Date</th>
-                    <th>Description</th>
+                    <th>{{language.ProfileMeColleague}}</th>
+                    <th>{{language.ProfileMeChallenge}}</th>
+                    <th>{{language.ProfileMeStatus}}</th>
+                    <th>{{language.ProfileMeChallengeDate}}</th>
+                    <th>{{language.ProfileMeDescription}}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -104,30 +108,30 @@
                 </tr>
                 </tbody>
             </table>
-            <button type="button" class="btn btn-default btn-sm">Show more</button>
+            <button type="button" class="btn btn-default btn-sm">{{language.ProfileShowMore}}</button>
         </div>
 
         <div class="col-md-3">
             <div class="btn-group-vertical" role="group" aria-label="...">
-                <button ng-click="showSendKudosModal()" data-toggle="modal" data-target="#sendKudosModal" type="button" class="btn btn-default">Give Acorn</button>
-                <button type="button" class="btn btn-default">Endorse</button>
-                <button type="button" class="btn btn-default dropdown-toggle">Challenge</button>
+                <button ng-click="showSendKudosModal()" data-toggle="modal" data-target="#sendKudosModal" type="button" class="btn btn-default">{{language.ProfileMeGiveACorn}}</button>
+                <button type="button" class="btn btn-default">{{language.ProfileMeEndorse}}</button>
+                <button type="button" class="btn btn-default dropdown-toggle">{{language.ProfileMeChallenge}}</button>
             </div>
 
-            <h4>Today's birthday</h4>
+            <h4>{{language.ProfileMeTodayBirthday}}</h4>
             <p>Lorem</p>
 
-            <h4>Challenge winner</h4>
-            <p><Foosball</p>
+            <h4>{{language.ProfileMeChallengeWinner}}</h4>
+            <p>ssss</p>
             <h5>
                 <small>2020-20-20</small>
             </h5>
 
-            <h4>Engagement Leaders</h4>
-            <p>Top receivers</p>
-            <p>Top senders</p>
+            <h4>{{language.ProfileMeEngagementLeaders}}</h4>
+            <p>{{language.ProfileMeTopReceivers}}</p>
+            <p>{{language.ProfileMeTopSenders}}</p>
 
-            <h4>Wisdom wall</h4>
+            <h4>{{language.ProfileMeWisdomWall}}</h4>
             <p>"Dolores sit amit"</p>
 
         </div>

@@ -10,12 +10,19 @@ angular.module('myApp.registration', ['ngRoute', 'ngCookies'])
     }])
 
     .controller('registrationController', function ($scope, $http, $cookies, $window, RegistrationService) {
+        var selectedLanguage = $cookies.get('language');
+        $scope.changeLanguageToLT = changeLanguageToLT;
+        $scope.changeLanguageToENG = changeLanguageToENG;
+
+        initView();
+
         /**
          * Registration method
          * Correct requestData needed to make call it also confirms user for now
          * TODO fix user confirmation in backend
          */
         $scope.Register = function () {
+            validationRegistration();
 
             var requestData = $.param({
                 email: this.email,
@@ -36,31 +43,101 @@ angular.module('myApp.registration', ['ngRoute', 'ngCookies'])
         /**
          ************************ Set language section ***********************
          */
-        var lang = $cookies.get('language');
-
-        if (lang == null) {
-            $cookies.put('language', 'en');
-            setLanguage('en');
-        } else {
-            setLanguage(lang);
+        function initView() {
+            if (selectedLanguage == null) {
+                $cookies.put('language', 'en');
+                setLanguage('en');
+                selectedLanguage = $cookies.get('language');
+                hideEnButton();
+            } else {
+                selectedLanguage == 'lt' ? hideLtButton() : hideEnButton();
+                setLanguage(selectedLanguage);
+            }
         }
 
-        $scope.lt = function () {
+        function changeLanguageToLT() {
             setLanguage('lt');
             $cookies.put('language', 'lt');
-        };
+            hideLtButton();
+        }
 
-        $scope.en = function () {
+        function changeLanguageToENG() {
             setLanguage('en');
             $cookies.put('language', 'en');
-        };
+            hideEnButton();
+        }
 
         function setLanguage(language) {
             $http.get('../app/translations/' + language + '.json').success(function (data) {
                 $scope.language = data;
             })
         }
+
+        function hideLtButton(){
+            document.getElementById('enButton').className = 'btn btn-sm';           // TODO Please do this in angular way
+            document.getElementById('ltButton').className = 'btn btn-sm hidden';    // TODO Please do this in angular way
+        }
+
+        function hideEnButton(){
+            document.getElementById('enButton').className = 'btn btn-sm hidden';    // TODO Please do this in angular way
+            document.getElementById('ltButton').className = 'btn btn-sm';           // TODO Please do this in angular way
+        }
         /**
          *  ****************** End of language section ***********************
          */
+        /**
+         * Registration form validations
+         */
+        function validationRegistration() {
+            var name = document.getElementById('name');
+            var surname = document.getElementById('surname');
+            var email = document.getElementById('email');
+            var password = document.getElementById('password');
+            var confirmPassword = document.getElementById('confirmPassword');
+            var nameError = document.getElementById('nameError');
+            var surnameError = document.getElementById('surnameError');
+            var emailError = document.getElementById('emailError');
+            var passwordError = document.getElementById('passwordError');
+            var confirmPasswordError = document.getElementById('confirmPasswordError');
+            var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+            if (name.value == '') {
+                nameError.innerHTML = 'Enter name';
+                name.className = 'notValid';
+            } else {
+                nameError.innerHTML = '';
+                name.className = 'valid';
+            }
+            if (surname.value == '') {
+                surnameError.innerHTML = 'Enter surname';
+                surname.className = 'notValid';
+            } else {
+                surnameError.innerHTML = '';
+                surname.className = 'valid';
+            }
+            if (confirmPassword.value == '') {
+                confirmPasswordError.innerHTML = 'Confirm password';
+                confirmPassword.className = 'notValid';
+            } else {
+                confirmPasswordError.innerHTML = '';
+                confirmPassword.className = 'valid';
+            }
+            if (email.value == '') {
+                emailError.innerHTML = 'Enter email';
+                email.className = 'notValid';
+            } else if (!filter.test(email.value)) {
+                emailError.innerHTML = 'Wrong email format';
+                email.className = 'notValid';
+            } else {
+                emailError.innerHTML = '';
+                email.className = 'valid';
+            }
+            if (password.value == '') {
+                passwordError.innerHTML = 'Enter password';
+                password.className = 'notValid';
+            } else {
+                passwordError.innerHTML = '';
+                password.className = 'valid';
+            }
+        }
     });

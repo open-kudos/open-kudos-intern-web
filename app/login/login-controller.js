@@ -23,10 +23,10 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies', 'base64'])
                 var rememberMe = $scope.rememberMeCheckbox;
                 var loginInfo = $.param({email: $scope.email,
                     password: $scope.password});
+                validationLogin();
                 if (rememberMe) {
                     rememberMeAndLogin(loginInfo)
                 } else {
-                    console.log(loginInfo);
                     loginAndValidate(loginInfo)
                 }
             }
@@ -41,18 +41,10 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies', 'base64'])
 
             function loginAndValidate(loginInfo) {
                 LoginService.login(loginInfo).then(function () {
-                    $scope.loginError = '';
+                    $scope.loginError = 'aa';
                 }).catch(function () {
-                    loginValidation($scope.email, $scope.password);
-                });
-            }
-
-            function loginValidation(email, password) {
-                if ((email == '') || (password == '')) {
-                    $scope.loginError = 'Wrong Email and Password';
-                } else {
                     $scope.loginError = 'Wrong Email or Password';
-                }
+                });
             }
 
             function isRememberedUser() {
@@ -76,6 +68,23 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies', 'base64'])
                 $http.get('../app/translations/' + language + '.json').success(function (data) {
                     $scope.language = data;
                 })
+            }
+            
+            function validationLogin(){
+                var email = document.getElementById('email');
+                var psw = document.getElementById('password');
+
+                if (email.value == '') {
+                    email.className = 'notValid';
+                } else {
+                    email.className = 'valid';
+                }
+
+                if (psw.value == '') {
+                    psw.className = 'notValid';
+                } else {
+                    psw.className = 'valid';
+                }
             }
 
             function initView() {
