@@ -6,11 +6,10 @@ angular.module("myApp")
     .factory("RegistrationService", RegistrationService);
 
 RegistrationService.$inject = [
-    "Auth",
-    "$q"
+    "Auth"
 ];
 
-function RegistrationService(authBackend, q) {
+function RegistrationService(authBackend) {
     var service = {
         register : Register,
         confirm : Confirm
@@ -18,23 +17,11 @@ function RegistrationService(authBackend, q) {
     return service;
 
     function Register(requestData){
-        var deferred = q.defer();
-        authBackend.register(requestData).then(function (response){
-            deferred.resolve(response);
-        }).catch(function (error){
-            deferred.reject(error);
-        });
-        return deferred.promise;
+        return authBackend.register(requestData);
     }
 
     function Confirm(requestData){
-        var deferred = q.defer();
-        authBackend.confirm(requestData).then(function (response){
-            deferred.resolve(response);
-        }).catch(function (error){
-            deferred.reject(error);
-        });
-        return deferred.promise;
+        return authBackend.confirm(requestData);
     }
 
 }

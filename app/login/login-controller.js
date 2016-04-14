@@ -21,7 +21,9 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies', 'base64'])
 
             function login() {
                 var rememberMe = $scope.rememberMeCheckbox;
-                var loginInfo = $.param({email: $scope.email, password: $scope.password});
+                var loginInfo = $.param({email: $scope.email,
+                    password: $scope.password});
+                validationLogin();
                 if (rememberMe) {
                     rememberMeAndLogin(loginInfo)
                 } else {
@@ -39,20 +41,22 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies', 'base64'])
 
             function loginAndValidate(loginInfo) {
                 LoginService.login(loginInfo).then(function () {
-                    $scope.loginError = '';
+                    showErrorMessage(); // TODO | FIX THE PROBLEM AND CHANGE THIS LINE TO hideErrorMessage();
                 }).catch(function () {
-                    loginValidation($scope.email, $scope.password);
+                    showErrorMessage();
                 });
             }
 
-            function loginValidation(email, password) {
-                if ((email == '') || (password == '')) {
-                    $scope.loginError = 'Wrong Email and Password';
-                } else {
-                    $scope.loginError = 'Wrong Email or Password';
-                }
+            function showErrorMessage() {
+                var errorMessage = document.getElementById('errorMessage');
+                errorMessage.className = '';
             }
-
+            
+            function hideErrorMessage() {
+                var errorMessage = document.getElementById('errorMessage');
+                errorMessage.className = 'hidden';
+            }
+            
             function isRememberedUser() {
                 return $cookies.get('remember_user') === 'true'
             }
@@ -75,8 +79,25 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies', 'base64'])
                     $scope.language = data;
                 })
             }
+            
+            function validationLogin(){
+                var email = document.getElementById('email');
+                var psw = document.getElementById('password');
 
-            function initView() {å
+                if (email.value == '') {
+                    email.className = 'notValid';
+                } else {
+                    email.className = 'valid';
+                }
+
+                if (psw.value == '') {
+                    psw.className = 'notValid';
+                } else {
+                    psw.className = 'valid';
+                }
+            }
+
+            function initView() {
                 // Language init
                 if (selectedLanguage == null) {
                     $cookies.put('language', 'en');
@@ -90,7 +111,7 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies', 'base64'])
 
                 // Remember User init
                 if (isRememberedUser()) {
-                    LoginService.login($base64.decode($cookies.get('e')));
+                    LoginService.login($base64.decode($cookies.get('user_credentials')));
                 } else {
                     LoginService.checkUser();
                 }

@@ -4,7 +4,7 @@
  * By Daryl Rowland
  */
 
-angular.module('angucomplete', [] )
+angular.module('angucomplete', [])
     .directive('angucomplete', function ($parse, $http, $sce, $timeout) {
         return {
             restrict: 'EA',
@@ -27,7 +27,7 @@ angular.module('angucomplete', [] )
             },
             template: '<div class="angucomplete-holder"><input id="{{id}}_value" ng-model="searchStr" type="text" placeholder="{{placeholder}}" class="{{inputClass}}" onmouseup="this.select();" ng-focus="resetHideResults()" ng-blur="hideResults()" /><div id="{{id}}_dropdown" class="angucomplete-dropdown" ng-if="showDropdown"><div class="angucomplete-searching" ng-show="searching">Searching...</div><div class="angucomplete-searching" ng-show="!searching && (!results || results.length == 0)">No results found</div><div class="angucomplete-row" ng-repeat="result in results" ng-mousedown="selectResult(result)" ng-mouseover="hoverRow()" ng-class="{\'angucomplete-selected-row\': $index == currentIndex}"><div ng-if="imageField" class="angucomplete-image-holder"><img ng-if="result.image && result.image != \'\'" ng-src="{{result.image}}" class="angucomplete-image"/><div ng-if="!result.image && result.image != \'\'" class="angucomplete-image-default"></div></div><div class="angucomplete-title" ng-if="matchClass" ng-bind-html="result.title"></div><div class="angucomplete-title" ng-if="!matchClass">{{ result.title }}</div><div ng-if="result.description && result.description != \'\'" class="angucomplete-description">{{result.description}}</div></div></div></div>',
 
-            link: function($scope, elem, attrs) {
+            link: function ($scope, elem, attrs) {
                 $scope.lastSearchTerm = null;
                 $scope.currentIndex = null;
                 $scope.justChanged = false;
@@ -46,11 +46,11 @@ angular.module('angucomplete', [] )
                     $scope.pause = $scope.userPause;
                 }
 
-                isNewSearchNeeded = function(newTerm, oldTerm) {
+                isNewSearchNeeded = function (newTerm, oldTerm) {
                     return newTerm.length >= $scope.minLength && newTerm != oldTerm
                 }
 
-                $scope.processResults = function(responseData, str) {
+                $scope.processResults = function (responseData, str) {
                     if (responseData && responseData.length > 0) {
                         $scope.results = [];
 
@@ -86,7 +86,7 @@ angular.module('angucomplete', [] )
                             if ($scope.matchClass) {
                                 var re = new RegExp(str, 'i');
                                 var strPart = text.match(re)[0];
-                                text = $sce.trustAsHtml(text.replace(re, '<span class="'+ $scope.matchClass +'">'+ strPart +'</span>'));
+                                text = $sce.trustAsHtml(text.replace(re, '<span class="' + $scope.matchClass + '">' + strPart + '</span>'));
                             }
 
                             var resultRow = {
@@ -105,7 +105,7 @@ angular.module('angucomplete', [] )
                     }
                 }
 
-                $scope.searchTimerComplete = function(str) {
+                $scope.searchTimerComplete = function (str) {
                     // Begin the search
 
                     if (str.length >= $scope.minLength) {
@@ -130,35 +130,34 @@ angular.module('angucomplete', [] )
                             $scope.processResults(matches, str);
 
                         } else {
-                            $http.get($scope.url + str, {}).
-                            success(function(responseData, status, headers, config) {
+                            $http.get($scope.url + str, {}).success(function (responseData, status, headers, config) {
                                 $scope.searching = false;
                                 $scope.processResults((($scope.dataField) ? responseData[$scope.dataField] : responseData ), str);
-                            }).
-                            error(function(data, status, headers, config) {
+                            }).error(function (data, status, headers, config) {
                                 console.log("error");
                             });
                         }
                     }
                 }
 
-                $scope.hideResults = function() {
-                    $scope.hideTimer = $timeout(function() {
+                $scope.hideResults = function () {
+                    $scope.hideTimer = $timeout(function () {
                         $scope.showDropdown = false;
                     }, $scope.pause);
                 };
 
-                $scope.resetHideResults = function() {
-                    if($scope.hideTimer) {
+                $scope.resetHideResults = function () {
+                    if ($scope.hideTimer) {
                         $timeout.cancel($scope.hideTimer);
-                    };
+                    }
+                    ;
                 };
 
-                $scope.hoverRow = function(index) {
+                $scope.hoverRow = function (index) {
                     $scope.currentIndex = index;
                 }
 
-                $scope.keyPressed = function(event) {
+                $scope.keyPressed = function (event) {
                     if (!(event.which == 38 || event.which == 40 || event.which == 13)) {
                         if (!$scope.searchStr || $scope.searchStr == "") {
                             $scope.showDropdown = false;
@@ -175,7 +174,7 @@ angular.module('angucomplete', [] )
 
                             $scope.searching = true;
 
-                            $scope.searchTimer = $timeout(function() {
+                            $scope.searchTimer = $timeout(function () {
                                 $scope.searchTimerComplete($scope.searchStr);
                             }, $scope.pause);
                         }
@@ -184,7 +183,7 @@ angular.module('angucomplete', [] )
                     }
                 }
 
-                $scope.selectResult = function(result) {
+                $scope.selectResult = function (result) {
                     if ($scope.matchClass) {
                         result.title = result.title.toString().replace(/(<([^>]+)>)/ig, '');
                     }
@@ -200,18 +199,18 @@ angular.module('angucomplete', [] )
                 inputField.on('keyup', $scope.keyPressed);
 
                 elem.on("keyup", function (event) {
-                    if(event.which === 40) {
+                    if (event.which === 40) {
                         if ($scope.results && ($scope.currentIndex + 1) < $scope.results.length) {
-                            $scope.currentIndex ++;
+                            $scope.currentIndex++;
                             $scope.$apply();
                             event.preventDefault;
                             event.stopPropagation();
                         }
 
                         $scope.$apply();
-                    } else if(event.which == 38) {
+                    } else if (event.which == 38) {
                         if ($scope.currentIndex >= 1) {
-                            $scope.currentIndex --;
+                            $scope.currentIndex--;
                             $scope.$apply();
                             event.preventDefault;
                             event.stopPropagation();

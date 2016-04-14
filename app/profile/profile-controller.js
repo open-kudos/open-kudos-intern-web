@@ -11,18 +11,26 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
             controller: 'profileController'
         });
     }])
-
-    .controller('profileController', function ($http, $scope, $window, $cookies, ProfileService) {
-        console.log($scope.people);
-        // Test
-
+    .controller('profileController', function ($http, $scope, $window, $cookies, $timeout, ProfileService) {
         checkUser();
+        initView();
 
+        var inputChangedPromise;
+        var selectedLanguage = $cookies.get('language');
+
+        $scope.sendKudosErrorMessage = "Please enter receiver and amount";
         $scope.incomingKudosCollection = [];
+        $scope.outgoingKudosCollection = [];
         $scope.usersCollection = [];
+
+        $scope.changeLanguageToLT = changeLanguageToLT;
+        $scope.changeLanguageToENG = changeLanguageToENG;
         $scope.updateProfile = updateProfile;
         $scope.logout = logout;
         $scope.sendKudos = sendKudos;
+        $scope.inputChanged = inputChanged;
+        $scope.kudosValidation = kudosValidation;
+        $scope.isValid = isValid;
 
         ProfileService.userHome().then(function (val) {
             var user = val.user;
@@ -49,9 +57,12 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
             $scope.incomingKudosCollection = val;
         });
 
-        ProfileService.listUsers().then(function (val){
+        ProfileService.outgoingKudos().then(function (val) {
+            $scope.outgoingKudosCollection = val;
+        })
+
+        ProfileService.listUsers().then(function (val) {
             $scope.usersCollection = val.userList;
-            console.log($scope.usersCollection);
         });
 
         function updateProfile() {
@@ -71,15 +82,49 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
         }
 
         function sendKudos() {
-            var sendTo = $.param({
-                receiverEmail: $scope.selectedPerson.originalObject.email,
-                amount: $scope.sendKudosAmount,
-                message: $scope.sendKudosMessage
-            });
+            if (isValid($scope.selectedPerson)) {
+                $scope.sendKudosErrorMessage = "Something went wrong"
+            } else {
+                var sendTo = $.param({
+                    receiverEmail: $scope.selectedPerson.originalObject.email,
+                    amount: $scope.sendKudosAmount,
+                    message: $scope.sendKudosMessage
+                });
+            }
 
             ProfileService.send(sendTo).then(function () {
                 $('#sendKudosModal').modal('hide');
+                $('#succresSendKudosModal').modal('show');
+            }).catch(function (val) {
+                if (val.status === 400) {
+                    $scope.sendKudosErrorMessage = "Enter receiver";
+                }
+                if (val.status === 500) {
+                    $scope.sendKudosErrorMessage = "Enter amount";
+                }
             });
+        }
+
+        function kudosValidation() {
+            if ($scope.sendKudosAmount > $scope.userKudos) {
+                $scope.sendKudosErrorMessage = "You don't have enough Acorns";
+                $('#sendKudosButton').prop('disabled', true);
+            } else if ($scope.sendKudosAmount == null) {
+                $scope.sendKudosErrorMessage = "Please enter amount";
+                $('#sendKudosButton').prop('disabled', true);
+            } else if (isValid($scope.selectedPerson)) {
+                $scope.sendKudosErrorMessage = "Please enter receiver"
+            } else {
+                $scope.sendKudosErrorMessage = "";
+                $('#sendKudosButton').prop('disabled', false);
+            }
+        }
+
+        function inputChanged() {
+            if (inputChangedPromise) {
+                $timeout.cancel(inputChangedPromise);
+            }
+            inputChangedPromise = $timeout(kudosValidation, 500);
         }
 
         function checkUser() {
@@ -90,7 +135,7 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
 
         function logout() {
             clearCookies();
-            ProfileService.logout().catch(function (val) {
+            ProfileService.logout().catch(function () {
                 $window.location.href = "#/login";
             });
         }
@@ -98,6 +143,54 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
         function clearCookies() {
             $cookies.put('remember_user', 'false');
             $cookies.put('user_credentials', '');
+        }
+
+        function isValid(value) {
+            if (typeof value !== "undefined") {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function initView() {
+            if (selectedLanguage == null) {
+                $cookies.put('language', 'en');
+                setLanguage('en');
+                selectedLanguage = $cookies.get('language');
+                hideEnButton();
+            } else {
+                selectedLanguage == 'lt' ? hideLtButton() : hideEnButton();
+                setLanguage(selectedLanguage);
+            }
+        }
+
+        function changeLanguageToLT() {
+            setLanguage('lt');
+            $cookies.put('language', 'lt');
+            hideLtButton();
+        }
+
+        function changeLanguageToENG() {
+            setLanguage('en');
+            $cookies.put('language', 'en');
+            hideEnButton();
+        }
+
+        function setLanguage(language) {
+            $http.get('../app/translations/' + language + '.json').success(function (data) {
+                $scope.language = data;
+            })
+        }
+
+        function hideLtButton() {
+            document.getElementById('enButton').className = 'btn btn-sm';           // TODO Please do this in angular way
+            document.getElementById('ltButton').className = 'btn btn-sm hidden';    // TODO Please do this in angular way
+        }
+
+        function hideEnButton() {
+            document.getElementById('enButton').className = 'btn btn-sm hidden';    // TODO Please do this in angular way
+            document.getElementById('ltButton').className = 'btn btn-sm';           // TODO Please do this in angular way
         }
 
     });
