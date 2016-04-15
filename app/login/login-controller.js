@@ -80,4 +80,5 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies', 'base64'])
                     LoginService.checkUser();
                 }
             }
+
         });

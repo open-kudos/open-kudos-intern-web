@@ -11,7 +11,7 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
             controller: 'profileController'
         });
     }])
-    .controller('profileController', function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, ProfileService) {
+    .controller('profileController', function ($http, $scope, $rootScope, $window, $cookies, $timeout, $httpParamSerializer, ProfileService) {
         checkUser();
 
         var inputChangedPromise;
@@ -47,7 +47,7 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
         });
 
         ProfileService.remainingKudos().then(function (val) {
-            $scope.userKudos = val;
+            $rootScope.userKudos = val;
         });
 
         ProfileService.receivedKudos().then(function (val) {
@@ -115,7 +115,7 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
                 $('#sendKudosModal').modal('hide');
                 $('#successSendKudosModal').modal('show');
                 console.log($scope.userKudos);
-                $scope.userKudos = $scope.userKudos - val.amount;
+                $rootScope.userKudos = $rootScope.userKudos - val.amount;
             }).catch(function (val) {
                 if (val.status === 400) {
                     $scope.sendKudosErrorMessage = "Enter receiver";

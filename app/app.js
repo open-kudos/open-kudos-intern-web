@@ -9,8 +9,11 @@ angular.module('myApp', [
     'myApp.profile',
     'myApp.version'
 ]).
-config(['$routeProvider', '$translateProvider', function ($routeProvider, $translateProvider) {
-    $routeProvider.otherwise({redirectTo: '/login'});
+config(function ($routeProvider, $translateProvider) {
+
+    $routeProvider.otherwise({
+        redirectTo: '/login'
+    });
 
     $translateProvider.useStaticFilesLoader({
         prefix: 'translations/locale-',
@@ -19,7 +22,7 @@ config(['$routeProvider', '$translateProvider', function ($routeProvider, $trans
 
     $translateProvider.preferredLanguage('en');
     $translateProvider.useCookieStorage();
-}]).
+}).
 controller('AppController', function ($scope, $translate) {
     $scope.changeLanguage = changeLanguage;
 
