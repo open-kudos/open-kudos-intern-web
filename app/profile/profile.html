@@ -36,21 +36,21 @@
 
             <div class="row text-center ">
                 <div class="col-xs-6">
-                    <h1><b>{{userKudos}}</b></h1>
+                    <h1><b class="acorn-color">{{userKudos}}</b></h1>
                     <h4>{{ 'ProfileMeCorns' | translate }}</h4>
                     <div class="col-md-12">
                         <button name="giveKudosButton" id="giveKudosButton" ng-click="showSendKudosModal()"
                                 data-toggle="modal" data-target="#sendKudosModal"
-                                class="btn profile-buttons">{{ 'ProfileMeGiveACorn' | translate }}
+                                class="btn profile-buttons hvr-underline-from-center">{{ 'ProfileMeGiveACorn' | translate }}
                         </button>
                     </div>
                 </div>
                 <div class="col-xs-6">
-                    <h1><b>{{userReceivedKudos}}</b></h1>
+                    <h1><b class="acorn-color">{{userReceivedKudos}}</b></h1>
                     <h4>{{ 'ProfileMeReceivedCorns' | translate }}</h4>
                     <div class="col-md-12">
                         <button name="giveKudosButton" id="challenge"
-                                class="btn profile-buttons">{{ 'ProfileMeChallenge' | translate }}
+                                class="btn profile-buttons hvr-underline-from-center">{{ 'ProfileMeChallenge' | translate }}
                         </button>
                     </div>
                 </div>
@@ -67,14 +67,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="incomingKudos in incomingKudosCollection | limitTo: incomingKudosShowLimit">
+                <tr ng-repeat="incomingKudos in incomingKudosCollection | orderBy:'-timestamp' | limitTo: incomingKudosShowLimit">
                     <td>{{incomingKudos.senderEmail}}</td>
                     <td>{{incomingKudos.amount}}</td>
                     <td>{{incomingKudos.message}}</td>
                 </tr>
                 </tbody>
             </table>
-            <button type="button" ng-click="showMoreIncomingKudos()" class="btn btn-default btn-sm">{{ 'ProfileShowMore' | translate }}</button>
+            <button type="button" ng-click="showMoreIncomingKudos()" class="btn btn-default btn-sm">{{ 'ProfileShowMore'
+                | translate }}
+            </button>
 
             <h3>{{ 'ProfileMeSentCorns' | translate }}</h3>
             <table class="table">
@@ -86,7 +88,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="outgoingKudos in outgoingKudosCollection | limitTo: outgoingKudosShowLimit">
+                <tr ng-repeat="outgoingKudos in outgoingKudosCollection | orderBy:'-timestamp' | limitTo: outgoingKudosShowLimit">
                     <td>{{outgoingKudos.receiver}}</td>
                     <td>{{outgoingKudos.amount}}</td>
                     <td>{{outgoingKudos.message}}</td>
@@ -97,44 +99,62 @@
 
         </div>
 
-        <div class="col-sm-3 col-sm-pull-6">
+        <div class="col-sm-3 col-sm-push-3">
 
-            <h4>{{ 'ProfileMeTodayBirthday' | translate }}</h4>
-            <p>Lorem</p>
 
-            <h4>{{ 'ProfileMeChallengeWinner' | translate }}</h4>
-            <p>Foosbal</p>
-            <h5>
-                <small>2020-20-20</small>
-            </h5>
+            <div class="box4">
+                <h4><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> {{ 'ProfileMeTodayBirthday' | translate }}</h4>
+                <p>Lorem</p>
+            </div>
 
-            <h4>{{ 'ProfileMeEngagementLeaders' | translate }}</h4>
-            <p>{{ 'ProfileMeTopReceivers' | translate }}</p>
-            <p>{{ 'ProfileMeTopSenders' | translate }}</p>
+            <div class="box4">
+                <h4><span class="glyphicon glyphicon-king" aria-hidden="true"></span> {{ 'ProfileMeChallengeWinner' | translate }}</h4>
+                <p>Foosbal</p>
+                <h5>
+                    <small>2020-20-20</small>
+                </h5>
+            </div>
 
-            <h4>{{ 'ProfileMeWisdomWall' | translate }}</h4>
-            <p>"Dolores sit amit"</p>
+            <div class="box4">
+                <h4><span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{ 'ProfileMeEngagementLeaders' | translate }}</h4>
+                <p>Dolor Matil</p>
+            </div>
 
+            <div class="box4">
+                <p>{{ 'ProfileMeTopReceivers' | translate }}</p>
+            </div>
+            <div class="box4">
+                <p>{{ 'ProfileMeTopSenders' | translate }}</p>
+            </div>
+
+            <div class="box4">
+                <h4>{{ 'ProfileMeWisdomWall' | translate }}</h4>
+                <p>"Dolores sit amit"</p>
+            </div>
         </div>
 
-        <div class="col-sm-3">
+        <div class="col-sm-3 col-sm-pull-9">
 
-            <h3>{{userName}} {{userSurname}}</h3>
-            <h4>{{userPosition}}</h4>
+            <div class="box4">
+                <h3>{{userName}} {{userSurname}}</h3>
+                <h4>{{userPosition}}</h4>
 
-            <p>{{'ProfileMeLocation' | translate }}: {{userLocation}}</p>
-            <p>{{'ProfileMeEmail' | translate }}: {{userEmail}}</p>
-            <p>{{'ProfileMePhone' | translate }}: {{userPhone}}</p>
-            <p>{{'ProfileMeTeam' | translate }}: {{userTeam}}</p>
-            <p>{{'ProfileMeStartedToWork' | translate }}: {{userStartedToWork}}</p>
-            <p>{{'ProfileMeBirthday' | translate }}: {{userBirthday}}</p>
+                <p>{{'ProfileMeLocation' | translate }}: {{userLocation}}</p>
+                <p>{{'ProfileMeEmail' | translate }}: {{userEmail}}</p>
+                <p>{{'ProfileMePhone' | translate }}: {{userPhone}}</p>
+                <p>{{'ProfileMeTeam' | translate }}: {{userTeam}}</p>
+                <p>{{'ProfileMeStartedToWork' | translate }}: {{userStartedToWork}}</p>
+                <p>{{'ProfileMeBirthday' | translate }}: {{userBirthday}}</p>
 
-            <button type="button" data-toggle="modal" data-target="#userDetailsModal" class="btn btn-default btn-sm">
-                {{'ProfileMeEdit' | translate }}
-            </button>
+                <button type="button" data-toggle="modal" data-target="#userDetailsModal"
+                        class="btn btn-default btn-sm">
+                    {{'ProfileMeEdit' | translate }}
+                </button>
+
+            </div>
         </div>
-
     </div>
+</div>
 
 </div>
 

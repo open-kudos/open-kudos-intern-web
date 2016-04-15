@@ -81,7 +81,7 @@ errorMessage {
 }
 
 .panel-login > .panel-heading a.active {
-  color: #eba205;
+  color: #FF6100;
   font-size: 18px;
 }
 
@@ -107,7 +107,7 @@ errorMessage {
 }
 
 .btn-login {
-     background-color: #FF7A09;
+     background-color: #FF6500;
      outline: none;
      color: #fff;
      font-size: 14px;
@@ -120,7 +120,7 @@ errorMessage {
 .btn-login:hover,
 .btn-login:focus {
   color: #fff;
-  background-color: #FF5A09;
+  background-color: #FF9A09;
 }
 
 .forgot-password {
@@ -296,7 +296,7 @@ errorMessage {
 }
 
 .btn-send-kudos {
-  background-color: #FF7A09;
+  background-color: #FF6100;
   color: #fff;
   font-size: 14px;
   height: auto;
@@ -306,7 +306,7 @@ errorMessage {
 }
 
 .profile-buttons {
-  background-color: #FF7A09;
+  background-color: #FF6100;
   color: #fff;
   width: 90%;
   height: auto;
@@ -316,6 +316,50 @@ errorMessage {
   text-transform: uppercase;
 }
 
+.profile-buttons:hover{
+  color: #fff;
+  background-color: #FF9A09
+}
+
+.profile-buttons:focus{
+  color: #fff;
+  background-color: #FF9A09
+}
+
+.hvr-underline-from-center {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  overflow: hidden;
+}
+
+.hvr-underline-from-center:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  right: 50%;
+  bottom: 0;
+  background: #FF6100;
+  height: 4px;
+  -webkit-transition-property: left, right;
+  transition-property: left, right;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+
+.hvr-underline-from-center:hover:before, .hvr-underline-from-center:focus:before, .hvr-underline-from-center:active:before {
+  left: 0;
+  right: 0;
+}
 .angucomplete-holder {
   position: relative;
 }
@@ -390,4 +434,26 @@ errorMessage {
 
 .underline {
   text-decoration: underline;
+}
+
+.acorn-color {
+  color: #FF6100;
+}
+
+div.box4 {
+  position: relative;
+  float: left;
+  width: 95%;
+  margin-top: 10px;
+  background-color: #FAFAFA;
+  border: 1px solid #E1E1E1;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.box5 {
+  border-style: solid;
+  border-width: 1px;
+  background: #FAFAFA;
+  border-color: #E1E1E1;
 }
