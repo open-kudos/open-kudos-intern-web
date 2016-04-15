@@ -31,16 +31,16 @@ angular.module('myApp.registration', ['ngRoute', 'ngCookies'])
          * Registration form validations
          */
         function registrationValidation() {
-            var name = document.getElementById('name');
-            var surname = document.getElementById('surname');
-            var email = document.getElementById('email');
-            var password = document.getElementById('password');
-            var confirmPassword = document.getElementById('confirmPassword');
-            var nameError = document.getElementById('nameError');
-            var surnameError = document.getElementById('surnameError');
-            var emailError = document.getElementById('emailError');
-            var passwordError = document.getElementById('passwordError');
-            var confirmPasswordError = document.getElementById('confirmPasswordError');
+            var name = angular.element('#name').get(0);
+            var surname = angular.element('#surname').get(0);
+            var email = angular.element('#email').get(0);
+            var password = angular.element('#password').get(0);
+            var confirmPassword = angular.element('#confirmPassword').get(0);
+            var nameError = angular.element('#nameError').get(0);
+            var surnameError = angular.element('#surnameError').get(0);
+            var emailError = angular.element('#emailError').get(0);
+            var passwordError = angular.element('#passwordError').get(0);
+            var confirmPasswordError = angular.element('#confirmPasswordError').get(0);
             var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
             if (name.value == '') {
