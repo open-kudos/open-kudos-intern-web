@@ -1,15 +1,6 @@
 <title>{{language.loginTitle}}</title>
 <div class="container">
         <div class="row">
-            <div class="col-sm-2 col-md-offset-3">
-                <div class="languages panel-body">
-
-                    <button type="button" id="ltButton" class="btn btn-sm" ng-click="changeLanguageToLT()"> LT</button>
-                    <button type="button" id="enButton" class="btn btn-sm" ng-click="changeLanguageToENG()"> EN</button>
-
-                </div>
-            </div>
-
             <ng-include src="'login/partials/forgot-password.html'"></ng-include>
 
             <div class="col-md-6 col-md-offset-3">
@@ -17,10 +8,10 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-6">
-                                <a href="" class="active" id="login-form-link">{{ language.loginTitle }}</a>
+                                <a href="" class="active" id="login-form-link">{{ 'loginTitle' | translate }}</a>
                             </div>
                             <div class="col-xs-6">
-                                <a href="#/registration" class="" id="register-form-link">{{ language.loginRegistration }}</a>
+                                <a href="#/registration" class="" id="register-form-link">{{ 'loginRegistration' | translate  }}</a>
                             </div>
                         </div>
                         <hr>
@@ -29,21 +20,21 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <form id="login-form" role="form" style="display: block;">
-                                    <errorMessage id="errorMessage" class="hidden">{{ language.loginErrorMessage }}</errorMessage>
+                                    <errorMessage id="errorMessage" class="hidden">{{ 'loginErrorMessage' | translate  }}</errorMessage>
                                     <div class="form-group">
-                                        <input ng-model="email" type="text" id="email" name="username" class='valid' placeholder="{{ language.loginEmail }}">
+                                        <input ng-model="email" type="text" id="email" name="username" class='valid' placeholder="{{ 'loginEmail' | translate }}">
                                     </div>
                                     <div class="form-group">
-                                        <input ng-model="password" type="password" name="password" id="password" tabindex="2" class="valid" placeholder="{{ language.loginPassword }}">
+                                        <input ng-model="password" type="password" name="password" id="password" tabindex="2" class="valid" placeholder="{{ 'loginPassword' | translate }}">
                                     </div>
                                     <div class="form-group text-center">
                                         <input ng-model="rememberMeCheckbox" type="checkbox" tabindex="3" class="" name="remember" id="remember">
-                                        <label for="remember"> {{ language.loginRememberMe }}</label>
+                                        <label for="remember"> {{ 'loginRememberMe' | translate  }}</label>
                                     </div>
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-6 col-sm-offset-3">
-                                                <button ng-click="login()" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login">{{ language.loginButton }}</button>
+                                                <button ng-click="login()" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login">{{ 'loginButton' | translate }}</button>
                                             </div>
                                         </div>
                                     </div>
@@ -51,7 +42,7 @@
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="text-center">
-                                                    <button data-toggle="modal" data-target="#forgotPassword" tabindex="5" ng-click="forgotPassword()" class="forgot-password forgotPassword">{{ language.loginForgotPassword }}?</button>
+                                                    <button data-toggle="modal" data-target="#forgotPassword" tabindex="5" ng-click="forgotPassword()" class="forgot-password forgotPassword">{{ 'loginForgotPassword' | translate }}?</button>
                                                 </div>
                                             </div>
                                         </div>

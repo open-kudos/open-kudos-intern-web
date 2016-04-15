@@ -1,86 +1,36 @@
 'use strict';
 
 angular.module('myApp.registration', ['ngRoute', 'ngCookies'])
-
-    .config(['$routeProvider', function ($routeProvider) {
+    .config(['$routeProvider', '$cookiesProvider', function ($routeProvider) {
         $routeProvider.when('/registration', {
             templateUrl: 'registration/registration.html',
             controller: 'registrationController'
         });
     }])
+    .controller('registrationController', function ($scope, $http, $cookies, $window, $translate, $httpParamSerializer, RegistrationService) {
 
-    .controller('registrationController', function ($scope, $http, $cookies, $window, RegistrationService) {
-        var selectedLanguage = $cookies.get('language');
-
-        initView();
-
-        $scope.register = register();
-        $scope.changeLanguageToLT = changeLanguageToLT;
-        $scope.changeLanguageToENG = changeLanguageToENG;
+        $scope.register = register;
 
         function register() {
-            validationRegistration();
-            var requestData = $.param({
-                email: this.email,
-                firstName: this.firstName,
-                lastName: this.lastName,
-                password: this.password,
-                confirmPassword: this.confirmPassword
+            registrationValidation();
+            var requestData = $httpParamSerializer({
+                email: $scope.email,
+                firstName: $scope.firstName,
+                lastName: $scope.lastName,
+                password: $scope.password,
+                confirmPassword: $scope.confirmPassword
             });
-
             RegistrationService.register(requestData).then(function (val) {
                 RegistrationService.confirm(val.emailHash).then(function (val) {
                     $window.location.href = "#/login"
                 });
-            }).catch(function () {
-                // TODO CATCH THIS
-            })
-        };
-
-        function initView() {
-            if (selectedLanguage == null) {
-                $cookies.put('language', 'en');
-                setLanguage('en');
-                selectedLanguage = $cookies.get('language');
-                hideEnButton();
-            } else {
-                selectedLanguage == 'lt' ? hideLtButton() : hideEnButton();
-                setLanguage(selectedLanguage);
-            }
-        }
-
-        function changeLanguageToLT() {
-            setLanguage('lt');
-            $cookies.put('language', 'lt');
-            hideLtButton();
-        }
-
-        function changeLanguageToENG() {
-            setLanguage('en');
-            $cookies.put('language', 'en');
-            hideEnButton();
-        }
-
-        function setLanguage(language) {
-            $http.get('../app/translations/' + language + '.json').success(function (data) {
-                $scope.language = data;
-            })
-        }
-
-        function hideLtButton(){
-            document.getElementById('enButton').className = 'btn btn-sm';           // TODO Please do this in angular way
-            document.getElementById('ltButton').className = 'btn btn-sm hidden';    // TODO Please do this in angular way
-        }
-
-        function hideEnButton(){
-            document.getElementById('enButton').className = 'btn btn-sm hidden';    // TODO Please do this in angular way
-            document.getElementById('ltButton').className = 'btn btn-sm';           // TODO Please do this in angular way
+            });
         }
 
         /**
          * Registration form validations
          */
-        function validationRegistration() {
+        function registrationValidation() {
             var name = document.getElementById('name');
             var surname = document.getElementById('surname');
             var email = document.getElementById('email');
@@ -132,4 +82,5 @@ angular.module('myApp.registration', ['ngRoute', 'ngCookies'])
                 password.className = 'valid';
             }
         }
+
     });
