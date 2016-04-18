@@ -9,10 +9,11 @@ LoginService.$inject = [
     "Auth",
     "$window",
     "$cookies",
-    "$base64"
+    "$base64",
+    "$location"
 ];
 
-function LoginService(authBackend, $window, $cookies, $base64) {
+function LoginService(authBackend, $window, $cookies, $base64, $location) {
     var service = {
         login: LoginUser,
         checkUser: CheckUser,
@@ -43,11 +44,13 @@ function LoginService(authBackend, $window, $cookies, $base64) {
     }
 
     function changeViewToLogin() {
-        $window.location.href = "#/login";
+        //$window.location.href = "#/login";
+        $location.path("/login");
     }
 
     function changeViewToProfile() {
-        $window.location.href = "#/profile";
+        //$window.location.href = "#/profile";
+        $location.path("/profile");
     }
 
     function userLoggedIn(loginInfo) {

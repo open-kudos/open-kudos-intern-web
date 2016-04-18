@@ -1,16 +1,21 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('myApp', [
+angular
+
+    .module('myApp', [
     'ngRoute',
     'pascalprecht.translate',
     'myApp.login',
     'myApp.registration',
     'myApp.profile',
     'myApp.version'
-]).
-config(['$routeProvider', '$translateProvider', function ($routeProvider, $translateProvider) {
-    $routeProvider.otherwise({redirectTo: '/login'});
+    ])
+    
+    .config(function ($routeProvider, $translateProvider, $locationProvider) {
+        $routeProvider.otherwise({
+            redirectTo: '/login'
+        });
 
     $translateProvider.useStaticFilesLoader({
         prefix: 'translations/locale-',
@@ -19,8 +24,8 @@ config(['$routeProvider', '$translateProvider', function ($routeProvider, $trans
 
     $translateProvider.preferredLanguage('en');
     $translateProvider.useCookieStorage();
-}]).
-controller('AppController', function ($scope, $translate) {
+})
+    .controller('AppController', function ($scope, $translate) {
     $scope.changeLanguage = changeLanguage;
 
     function changeLanguage(key){

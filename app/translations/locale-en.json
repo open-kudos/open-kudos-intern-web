@@ -18,6 +18,7 @@
   "registrationButton" : "Register",
   "registrationErrorName" : "Enter name",
   "registrationErrorSurname" : "Enter surname",
+  "registrationEnterEmail" : "Enter Email",
   "registrationErrorEmail" : "Wrong email format",
   "registrationErrorPassword" : "Enter password",
   "registrationErrorConfirmPassword" : "Confirm password",

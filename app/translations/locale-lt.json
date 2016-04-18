@@ -18,6 +18,7 @@
   "registrationButton" : "Registruotis",
   "registrationErrorName" : "Įveskite vardą",
   "registrationErrorSurname" : "Įveskite pavardę",
+  "registrationEnterEmail" : "Įveskite El. Paštą",
   "registrationErrorEmail" : "Blogas El. Pašto formatas",
   "registrationErrorPassword" : "Įveskite slaptažodį",
   "registrationErrorConfirmPassword" : "Pakartokite slaptažodį",

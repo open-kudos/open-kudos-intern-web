@@ -1,12 +1,19 @@
 'use strict';
 
-angular.module('myApp.registration', ['ngRoute', 'ngCookies'])
-    .config(['$routeProvider', '$cookiesProvider', function ($routeProvider) {
+angular
+    .module('myApp.registration', [
+        'ngRoute',
+        'ngCookies',
+        'ngMessages'
+    ])
+
+    .config(function ($routeProvider) {
         $routeProvider.when('/registration', {
             templateUrl: 'registration/registration.html',
             controller: 'registrationController'
         });
-    }])
+    })
+
     .controller('registrationController', function ($scope, $http, $cookies, $window, $translate, $httpParamSerializer, RegistrationService) {
 
         $scope.register = register;
