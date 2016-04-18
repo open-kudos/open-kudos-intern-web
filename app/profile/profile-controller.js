@@ -101,15 +101,12 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
         }
 
         function sendKudos() {
-            if (isValid($scope.selectedPerson)) {
-                $scope.sendKudosErrorMessage = "Something went wrong"
-            } else {
-                var sendTo = $httpParamSerializer({
-                    receiverEmail: $scope.selectedPerson.originalObject.email,
-                    amount: $scope.sendKudosAmount,
-                    message: $scope.sendKudosMessage
-                });
-            }
+
+            var sendTo = $httpParamSerializer({
+                receiverEmail: $scope.sendKudosTo,
+                amount: $scope.sendKudosAmount,
+                message: $scope.sendKudosMessage
+            });
 
             ProfileService.send(sendTo).then(function (val) {
                 console.log(sendTo.receiverEmail + " : " + $scope.userEmail);
@@ -130,7 +127,7 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
             if (inputChangedPromise) {
                 $timeout.cancel(inputChangedPromise);
             }
-            inputChangedPromise = $timeout(kudosValidation, 100);
+            inputChangedPromise = $timeout(kudosValidation, 500);
         }
 
         function kudosValidation() {
@@ -140,11 +137,18 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
                 disableSendKudosButton();
             } else if ($scope.sendKudosAmount == null) {
                 $scope.sendKudosErrorMessage = "Please enter amount";
+                $scope.sendKudosAmountClass = "notValid";
                 disableSendKudosButton();
-            } else if (isValid($scope.selectedPerson)) {
+            } else if ($scope.sendKudosTo == null) {
+                $scope.sendKudosToClass = "notValid";
                 $scope.sendKudosErrorMessage = "Please enter receiver"
+            } else if (!validateEmail($scope.sendKudosTo)) {
+                $scope.sendKudosToClass = "notValid";
+                $scope.sendKudosErrorMessage = "Please enter valid receiver email"
             } else {
                 $scope.errorClass = "success-message";
+                $scope.sendKudosToClass = "";
+                $scope.sendKudosAmountClass = "";
                 $scope.sendKudosErrorMessage = "Ok, you'r good to go!";
                 enableSendKudosButton();
             }
@@ -170,6 +174,11 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
 
         function isValid(value) {
             return typeof value === "undefined";
+        }
+
+        function validateEmail(email) {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
         }
 
         function enableSendKudosButton() {

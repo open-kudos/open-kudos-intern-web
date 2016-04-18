@@ -28,20 +28,13 @@
 
             <div class="modal-body">
                 <div class="form-group col-sm-6">
-                    <angucomplete ng-model="sendKudosTo" placeholder="{{ 'SEND_KUDOS_SENDING_TO_HINT' | translate}}"
-                                  pause="300"
-                                  selectedobject="selectedPerson" localdata="usersCollection"
-                                  searchfields="firstName,lastName,email" titlefield="firstName,lastName"
-                                  descriptionfield="email" minlength="1" ng-change="inputChanged()"
-                                  inputclass="form-control form-control-small"
-                                  matchclass="highlight"/>
-                    <div class="" ng-show="selectedPerson.originalObject.email">
-                        <span class="bold-span">{{selectedPerson.originalObject.firstName}} {{selectedPerson.originalObject.lastName}}</span>
-                    </div>
+                    <input ng-model="sendKudosTo" ng-change="inputChanged()" ng-class="sendKudosToClass" id="sendKudosTo" type="email"
+                           class="form-control" placeholder="{{ 'SEND_KUDOS_SENDING_TO_HINT' | translate }}"
+                           value="">
                 </div>
 
                 <div class="form-group col-sm-6">
-                    <input ng-model="sendKudosAmount" ng-change="inputChanged()" id="sendKudosAmount" type="number"
+                    <input ng-model="sendKudosAmount" ng-change="inputChanged()" ng-class="sendKudosAmountClass" id="sendKudosAmount" type="number"
                            class="form-control" placeholder="{{'SEND_KUDOS_AMOUNT_HINT' | translate }}" value="">
                 </div>
 
