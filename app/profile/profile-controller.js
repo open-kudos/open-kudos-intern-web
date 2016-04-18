@@ -112,9 +112,9 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
             }
 
             ProfileService.send(sendTo).then(function (val) {
+                console.log(sendTo.receiverEmail + " : " + $scope.userEmail);
                 $('#sendKudosModal').modal('hide');
                 $('#successSendKudosModal').modal('show');
-                console.log($scope.userKudos);
                 $rootScope.userKudos = $rootScope.userKudos - val.amount;
             }).catch(function (val) {
                 if (val.status === 400) {
