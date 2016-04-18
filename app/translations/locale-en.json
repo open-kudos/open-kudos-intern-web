@@ -41,7 +41,7 @@
   "ProfileMeTeam" : "Team",
   "ProfileMeStartedToWork" : "Started to work",
   "ProfileMeBirthday" : "Birthday",
-  "ProfileMeCorns" : "Available Acorns",
+  "ProfileMeCorns" : "Weekly Acorns",
   "ProfileMeReceivedCorns" : "Received Acorns",
   "ProfileMeSentCorns" : "Sent Corns",
   "ProfileMeChallenges" : "Challenges",
@@ -68,6 +68,6 @@
   "SEND_KUDOS_SENDING_TO_HINT" : "Sending to",
   "SEND_KUDOS_AMOUNT_HINT" : "Amount",
   "SEND_KUDOS_MESSAGE_HINT" : "Message",
-  "SEND_KUDOS_SUCCESS_MESSAGE" : "Your Acors was sent successfully!",
+  "SEND_KUDOS_SUCCESS_MESSAGE" : "Your Acorns was sent successfully!",
   "SEND_KUDOS_GIVE_BUTTON" : "Give"
 }

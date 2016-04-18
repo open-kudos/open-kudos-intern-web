@@ -88,4 +88,5 @@ angular
                     LoginService.checkUser();
                 }
             }
+
         });
