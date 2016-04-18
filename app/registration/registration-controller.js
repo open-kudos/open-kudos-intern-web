@@ -19,7 +19,6 @@ angular
         $scope.register = register;
 
         function register() {
-            registrationValidation();
             var requestData = $httpParamSerializer({
                 email: $scope.email,
                 firstName: $scope.firstName,
