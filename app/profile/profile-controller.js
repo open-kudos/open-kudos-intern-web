@@ -16,9 +16,11 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
 
         var inputChangedPromise;
 
+        $rootScope.userKudos = 0;
+        $rootScope.sendKudosErrorMessage = "Please enter receiver and amount";
+
         $scope.incomingKudosShowLimit = 3;
         $scope.outgoingKudosShowLimit = 3;
-        $scope.sendKudosErrorMessage = "Please enter receiver and amount";
         $scope.incomingKudosCollection = [];
         $scope.outgoingKudosCollection = [];
         $scope.usersCollection = [];
@@ -101,7 +103,6 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
         }
 
         function sendKudos() {
-
             var sendTo = $httpParamSerializer({
                 receiverEmail: $scope.sendKudosTo,
                 amount: $scope.sendKudosAmount,
@@ -109,16 +110,18 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
             });
 
             ProfileService.send(sendTo).then(function (val) {
-                console.log(sendTo.receiverEmail + " : " + $scope.userEmail);
                 $('#sendKudosModal').modal('hide');
                 $('#successSendKudosModal').modal('show');
-                $rootScope.userKudos = $rootScope.userKudos - val.amount;
+                $rootScope.userKudos = $rootScope.userKudos - val.data.amount;
+                clearSendKudosFormValues();
             }).catch(function (val) {
+                $scope.errorClass = "error-message";
+                $rootScope.sendKudosErrorMessage = "Receiver does not exist";
                 if (val.status === 400) {
-                    $scope.sendKudosErrorMessage = "Enter receiver";
+                    $rootScope.sendKudosErrorMessage = "Enter receiver";
                 }
                 if (val.status === 500) {
-                    $scope.sendKudosErrorMessage = "Enter amount";
+                    $rootScope.sendKudosErrorMessage = "Enter amount";
                 }
             });
         }
@@ -133,23 +136,23 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
         function kudosValidation() {
             $scope.errorClass = "error-message";
             if ($scope.sendKudosAmount > $scope.userKudos) {
-                $scope.sendKudosErrorMessage = "You don't have enough Acorns";
+                $rootScope.sendKudosErrorMessage = "You don't have enough Acorns";
                 disableSendKudosButton();
-            } else if ($scope.sendKudosAmount == null) {
-                $scope.sendKudosErrorMessage = "Please enter amount";
+            } else if ($scope.sendKudosAmount == null || $scope.sendKudosAmount <= 0) {
+                $rootScope.sendKudosErrorMessage = "Please enter amount";
                 $scope.sendKudosAmountClass = "notValid";
                 disableSendKudosButton();
             } else if ($scope.sendKudosTo == null) {
                 $scope.sendKudosToClass = "notValid";
-                $scope.sendKudosErrorMessage = "Please enter receiver"
+                $rootScope.sendKudosErrorMessage = "Please enter receiver"
             } else if (!validateEmail($scope.sendKudosTo)) {
                 $scope.sendKudosToClass = "notValid";
-                $scope.sendKudosErrorMessage = "Please enter valid receiver email"
+                $rootScope.sendKudosErrorMessage = "Please enter valid receiver email"
             } else {
                 $scope.errorClass = "success-message";
                 $scope.sendKudosToClass = "";
                 $scope.sendKudosAmountClass = "";
-                $scope.sendKudosErrorMessage = "Ok, you'r good to go!";
+                $rootScope.sendKudosErrorMessage = "Ok, you'r good to go!";
                 enableSendKudosButton();
             }
         }
@@ -170,6 +173,13 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
         function clearCookies() {
             $cookies.put('remember_user', 'false');
             $cookies.put('user_credentials', '');
+        }
+
+        function clearSendKudosFormValues(){
+            $scope.sendKudosTo = "";
+            $scope.sendKudosAmount = "";
+            $scope.sendKudosMessage = "";
+            $rootScope.sendKudosErrorMessage = "Please enter receiver and amount";
         }
 
         function isValid(value) {
