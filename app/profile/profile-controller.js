@@ -212,13 +212,12 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'ngAnimate', 'angucompl
         }
 
         function pushOutgoingTransferIntoCollection(val) {
-            var item = {
+            var itemToAdd = {
                 receiver: val.receiver,
                 message: val.message,
                 amount: val.amount,
-                timestamp: val.timestamp
-            };
-            $scope.outgoingKudosCollection.push(item);
+                timestamp: val.timestamp};
+            $scope.outgoingKudosCollection.push(itemToAdd);
         }
 
 
