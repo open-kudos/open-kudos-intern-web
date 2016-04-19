@@ -18,6 +18,7 @@
   "registrationButton" : "Registruotis",
   "registrationErrorName" : "Įveskite vardą",
   "registrationErrorSurname" : "Įveskite pavardę",
+  "registrationEnterEmail" : "Įveskite El. Paštą",
   "registrationErrorEmail" : "Blogas El. Pašto formatas",
   "registrationErrorPassword" : "Įveskite slaptažodį",
   "registrationErrorConfirmPassword" : "Pakartokite slaptažodį",
@@ -30,6 +31,7 @@
   "ProfileEndorsements" : "",
   "ProfileChallenges" : "",
   "ProfileShowMore" : "Plačiau",
+  "ProfileShowLess" : "Rodyti mažiau",
 
   "ProfileMeSendingTo" : "Gavėjas",
   "ProfileMeAmount" : "Kiekis",
@@ -39,7 +41,7 @@
   "ProfileMeTeam" : "Komanda",
   "ProfileMeStartedToWork" : "Pradėjo dirbti",
   "ProfileMeBirthday" : "Gimtadienis",
-  "ProfileMeCorns" : "Gilės",
+  "ProfileMeCorns" : "Likusios Gilės",
   "ProfileMeReceivedCorns" : "Gautos Gilės",
   "ProfileMeSentCorns" : "Išsiustos Gilės",
   "ProfileMeChallenges" : "Iššūkiai",
@@ -60,5 +62,12 @@
   "ProfileMeLogout" : "Atsijungti",
   "ProfileMeEdit" : "Redaguoti",
   "ProfileMeGiveButton" : "Duoti",
-  "ProfileMeMessage" : "Žinutė"
+  "ProfileMeMessage" : "Žinutė",
+
+  "SEND_KUDOS_POPUP_TITLE" : "Siųsk giliukus",
+  "SEND_KUDOS_SENDING_TO_HINT" : "Gavėjas",
+  "SEND_KUDOS_AMOUNT_HINT" : "Keikis",
+  "SEND_KUDOS_MESSAGE_HINT" : "Žinutė",
+  "SEND_KUDOS_SUCCESS_MESSAGE" : "Giliukai sėkmingai išsiųsti",
+  "SEND_KUDOS_GIVE_BUTTON" : "Siųsti"
 }

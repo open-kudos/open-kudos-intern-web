@@ -1,163 +1,161 @@
-<title>{{language.ProfileMe}}</title>
+<title>{{ 'ProfileMe' | translate }}</title>
 
-<div class="container panel panel-body">
-
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">{{language.ProfileACorn}}</a>
-            </div>
+<nav class="navbar navbar-default navbar-fixed-top kudos-navbar" id="mainnavbar">
+    <div class="container-fluid container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">{{ 'ProfileACorn' | translate }}</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">{{language.ProfileMe}}</a></li>
-                <li><a href="#">Home</a></li>
+                <li class="active"><a href="#">{{ 'ProfileMe' | translate }}</a></li>
                 <li><a href="#">People</a></li>
-                <li><a href="#">Rewards</a></li>
-                <li><a href="#">Endorsements</a></li>
-                <li><a href="#">Challenges</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a ng-click="logout()" href="#"><span class="glyphicon glyphicon-log-in"></span> {{language.ProfileMeLogout}}</a></li>
+                <li><a ng-click="logout()" href="#"><span class="glyphicon glyphicon-log-in"></span>
+                    {{ 'ProfileMeLogout' | translate }}</a></li>
             </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <button type="button" id="ltButton" class="btn btn-sm" ng-click="changeLanguageToLT()"> LT</button>
-    <button type="button" id="enButton" class="btn btn-sm" ng-click="changeLanguageToENG()"> EN</button>
-
+<div class="container panel panel-body">
     <!-- User Profile Edit Modal -->
     <ng-include src="'profile/partials/user-detail-popup.html'"></ng-include>
 
     <!-- Send Kudos Modal -->
     <ng-include src="'profile/partials/kudos-popup.html'"></ng-include>
 
-
     <div class="row">
 
-        <div class="col-md-3">
+        <div class="col-sm-6 col-sm-push-3">
 
-            <h3>{{userName}} {{userSurname}}</h3>
-            <h4>{{userPosition}}</h4>
-
-            <p>{{language.ProfileMeLocation}}: {{userLocation}}</p>
-            <p>{{language.ProfileMeEmail}}: {{userEmail}}</p>
-            <p>{{language.ProfileMePhone}}: {{userPhone}}</p>
-            <p>{{language.ProfileMeTeam}}: {{userTeam}}</p>
-            <p>{{language.ProfileMeStartedToWork}}: {{userStartedToWork}}</p>
-            <p>{{language.ProfileMeBirthday}}: {{userBirthday}}</p>
-
-            <button type="button" data-toggle="modal" data-target="#userDetailsModal" class="btn btn-default btn-sm">{{language.ProfileMeEdit}}</button>
-        </div>
-
-        <div class="col-md-6">
-
-            <div class="row">
-                <div class="col-xs-3">
-                    <h3><b>{{userKudos}}</b></h3>
-                    <h4>{{language.ProfileMeCorns}}</h4>
+            <div class="row text-center ">
+                <div class="col-xs-6">
+                    <h1><b class="acorn-color">{{userKudos}}</b></h1>
+                    <h4>{{ 'ProfileMeCorns' | translate }}</h4>
+                    <div class="col-md-12">
+                        <button name="giveKudosButton" id="giveKudosButton" ng-click="showSendKudosModal()"
+                                data-toggle="modal" data-target="#sendKudosModal"
+                                class="btn profile-buttons hvr-underline-from-center">{{ 'ProfileMeGiveACorn' | translate }}
+                        </button>
+                    </div>
                 </div>
-                <div class="col-xs-3">
-                    <h3><b>{{userReceivedKudos}}</b></h3>
-                    <h4>{{language.ProfileMeReceivedCorns}}</h4>
-                </div>
-                <div class="col-xs-3">
-                    <h3><b>{{userKudos}}</b></h3>
-                    <h4>{{language.ProfileMeChallenges}}</h4>
+                <div class="col-xs-6">
+                    <h1><b class="acorn-color">{{userReceivedKudos}}</b></h1>
+                    <h4>{{ 'ProfileMeReceivedCorns' | translate }}</h4>
+                    <div class="col-md-12">
+                        <button name="giveKudosButton" id="challenge"
+                                class="btn profile-buttons hvr-underline-from-center">{{ 'ProfileMeChallenge' | translate }}
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <h3>{{language.ProfileMeReceivedCorns}}</h3>
+            <h3>{{ 'ProfileMeReceivedCorns' | translate }}</h3>
 
             <table class="table">
                 <thead>
                 <tr>
-                    <th>{{language.ProfileMeColleague}}</th>
-                    <th>{{language.ProfileACorn}}</th>
-                    <th>{{language.ProfileMeMessage}}</th>
+                    <th>{{ 'ProfileMeColleague' | translate }}</th>
+                    <th>{{ 'ProfileACorn' | translate }}</th>
+                    <th>{{ 'ProfileMeMessage' | translate }}</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="incomingKudos in incomingKudosCollection">
+                <tr ng-repeat="incomingKudos in incomingKudosCollection | orderBy:'-timestamp' | limitTo: incomingKudosShowLimit">
                     <td>{{incomingKudos.senderEmail}}</td>
                     <td>{{incomingKudos.amount}}</td>
                     <td>{{incomingKudos.message}}</td>
                 </tr>
                 </tbody>
             </table>
-            <button type="button" class="btn btn-default btn-sm">{{language.ProfileShowMore}}</button>
+            <button type="button" ng-click="showMoreIncomingKudos()" class="btn btn-default btn-sm">{{ 'ProfileShowMore'
+                | translate }}
+            </button>
 
-            <h3>Endorsements</h3>
-            <button type="button" class="btn btn-default btn-sm">Show more</button>
-
-            <h3>{{language.ProfileMeSentCorns}}</h3>
+            <h3>{{ 'ProfileMeSentCorns' | translate }}</h3>
             <table class="table">
                 <thead>
                 <tr>
-                    <th>{{language.ProfileMeColleague}}</th>
-                    <th>{{language.ProfileACorn}}</th>
-                    <th>{{language.ProfileMeMessage}}</th>
+                    <th>{{ 'ProfileMeColleague' | translate }}</th>
+                    <th>{{'ProfileACorn' | translate }}</th>
+                    <th>{{'ProfileMeMessage' | translate }}</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="outgoingKudos in outgoingKudosCollection">
+                <tr ng-repeat="outgoingKudos in outgoingKudosCollection | orderBy:'-timestamp' | limitTo: outgoingKudosShowLimit">
                     <td>{{outgoingKudos.receiver}}</td>
                     <td>{{outgoingKudos.amount}}</td>
                     <td>{{outgoingKudos.message}}</td>
                 </tr>
                 </tbody>
             </table>
+            <button ng-click="showMoreOutgoingKudos()" type="button" class="btn btn-default btn-sm">{{ 'ProfileShowMore'
+                | translate }}</button>
 
-            <h3>{{language.ProfileEndorsements}}</h3>
-            <button type="button" class="btn btn-default btn-sm">{{language.ProfileShowMore}}</button>
-
-            <h3>{{language.ProfileMeChallenges}}</h3>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>{{language.ProfileMeColleague}}</th>
-                    <th>{{language.ProfileMeChallenge}}</th>
-                    <th>{{language.ProfileMeStatus}}</th>
-                    <th>{{language.ProfileMeChallengeDate}}</th>
-                    <th>{{language.ProfileMeDescription}}</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Lorem</td>
-                    <td>Ipsum</td>
-                    <td>Dolores</td>
-                    <td>2020-20-20</td>
-                    <td>Sit</td>
-                </tr>
-                </tbody>
-            </table>
-            <button type="button" class="btn btn-default btn-sm">{{language.ProfileShowMore}}</button>
         </div>
 
-        <div class="col-md-3">
-            <div class="btn-group-vertical" role="group" aria-label="...">
-                <button ng-click="showSendKudosModal()" data-toggle="modal" data-target="#sendKudosModal" type="button" class="btn btn-default">{{language.ProfileMeGiveACorn}}</button>
-                <button type="button" class="btn btn-default">{{language.ProfileMeEndorse}}</button>
-                <button type="button" class="btn btn-default dropdown-toggle">{{language.ProfileMeChallenge}}</button>
+        <div class="col-sm-3 col-sm-push-3">
+            <div class="box4">
+                <h4><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> {{ 'ProfileMeTodayBirthday' | translate }}</h4>
+                <p>Lorem</p>
             </div>
 
-            <h4>{{language.ProfileMeTodayBirthday}}</h4>
-            <p>Lorem</p>
+            <div class="box4">
+                <h4><span class="glyphicon glyphicon-king" aria-hidden="true"></span> {{ 'ProfileMeChallengeWinner' | translate }}</h4>
+                <p>Foosbal</p>
+                <h5>
+                    <small>2020-20-20</small>
+                </h5>
+            </div>
 
-            <h4>{{language.ProfileMeChallengeWinner}}</h4>
-            <p>Foosbal</p>
-            <h5>
-                <small>2020-20-20</small>
-            </h5>
+            <div class="box4">
+                <h4><span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{ 'ProfileMeEngagementLeaders' | translate }}</h4>
+                <p>Dolor Matil</p>
+            </div>
 
-            <h4>{{language.ProfileMeEngagementLeaders}}</h4>
-            <p>{{language.ProfileMeTopReceivers}}</p>
-            <p>{{language.ProfileMeTopSenders}}</p>
+            <div class="box4">
+                <h4>{{ 'ProfileMeWisdomWall' | translate }}</h4>
+                <p>"Dolores sit amit"</p>
+            </div>
 
-            <h4>{{language.ProfileMeWisdomWall}}</h4>
-            <p>"Dolores sit amit"</p>
+            <div class="box4">
+                <h4>{{ 'ProfileMeTopReceivers' | translate }}</h4>
+            </div>
+            <div class="box4">
+                <h4>{{ 'ProfileMeTopSenders' | translate }}</h4>
+            </div>
+
 
         </div>
+
+        <div class="col-sm-3 col-sm-pull-9">
+
+            <div class="box4">
+                <h3>{{userName}} {{userSurname}}</h3>
+                <h4>{{userPosition}}</h4>
+
+                <p>{{'ProfileMeLocation' | translate }}: {{userLocation}}</p>
+                <p>{{'ProfileMeEmail' | translate }}: {{userEmail}}</p>
+                <p>{{'ProfileMePhone' | translate }}: {{userPhone}}</p>
+                <p>{{'ProfileMeTeam' | translate }}: {{userTeam}}</p>
+                <p>{{'ProfileMeStartedToWork' | translate }}: {{userStartedToWork}}</p>
+                <p>{{'ProfileMeBirthday' | translate }}: {{userBirthday}}</p>
+
+                <button type="button" data-toggle="modal" data-target="#userDetailsModal"
+                        class="btn btn-default btn-sm">
+                    {{'ProfileMeEdit' | translate }}
+                </button>
+
+            </div>
+        </div>
     </div>
+</div>
 
 </div>
 
