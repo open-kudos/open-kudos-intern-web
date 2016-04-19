@@ -120,14 +120,14 @@
                 <tr>
                     <th>{{ 'ProfileMeColleague' | translate }}</th>
                     <th>{{ 'ProfileACorn' | translate }}</th>
-                    <th>{{ 'ProfileMeMessage' | translate }}</th>
+                    <th>{{ 'ProfileMeDate' | translate }}</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr class="animate-repeat" ng-repeat="incomingKudos in incomingKudosCollection | orderBy:'-timestamp' | limitTo: incomingKudosShowLimit">
                     <td>{{incomingKudos.senderEmail}}</td>
                     <td>{{incomingKudos.amount}}</td>
-                    <td>{{incomingKudos.message}}</td>
+                    <td>{{incomingKudos.timestamp}}</td>
                 </tr>
                 </tbody>
             </table>
@@ -141,14 +141,14 @@
                 <tr>
                     <th>{{ 'ProfileMeColleague' | translate }}</th>
                     <th>{{'ProfileACorn' | translate }}</th>
-                    <th>{{'ProfileMeMessage' | translate }}</th>
+                    <th>{{'ProfileMeDate' | translate }}</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr class="animate-repeat" ng-repeat="outgoingKudos in outgoingKudosCollection | orderBy:'-timestamp' | limitTo: outgoingKudosShowLimit">
                     <td>{{outgoingKudos.receiver}}</td>
                     <td>{{outgoingKudos.amount}}</td>
-                    <td>{{outgoingKudos.message}}</td>
+                    <td>{{outgoingKudos.timestamp}}</td>
                 </tr>
                 </tbody>
             </table>
