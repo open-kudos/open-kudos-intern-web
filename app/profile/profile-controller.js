@@ -15,11 +15,13 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'ngAnimate', 'angucompl
 
         var inputChangedPromise;
 
-        $scope.userKudos = 0;
+        $scope.userAvailableKudos
+            = 0;
         $scope.sendKudosErrorMessage = "Please enter receiver and amount";
         $scope.incomingKudosShowLimit = 3;
         $scope.outgoingKudosShowLimit = 3;
-        $scope.maxSendKudosLength = $scope.userKudos;
+        $scope.maxSendKudosLength = $scope.userAvailableKudos
+        ;
         $scope.incomingKudosCollection = [];
         $scope.outgoingKudosCollection = [];
         $scope.usersCollection = [];
@@ -50,7 +52,8 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'ngAnimate', 'angucompl
         });
 
         ProfileService.remainingKudos().then(function (val) {
-            $scope.userKudos = val;
+            $scope.userAvailableKudos
+                = val;
         });
 
         ProfileService.receivedKudos().then(function (val) {
@@ -110,7 +113,9 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'ngAnimate', 'angucompl
             ProfileService.send(sendTo).then(function (val) {
                 $scope.showSendKudosModal = false;
                 $scope.showSuccess = true;
-                $scope.userKudos = $scope.userKudos - val.data.amount;
+                $scope.userAvailableKudos
+                    = $scope.userAvailableKudos
+                    - val.data.amount;
                 pushOutgoingTransferIntoCollection(val.data);
                 clearSendKudosFormValues();
             }).catch(function () {
@@ -120,7 +125,8 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'ngAnimate', 'angucompl
 
         function kudosValidation() {
             $scope.errorClass = "error-message";
-            if ($scope.sendKudosAmount > $scope.userKudos) {
+            if ($scope.sendKudosAmount > $scope.userAvailableKudos
+            ) {
                 showSendKudosErrorMessage("You don't have enough Acorns");
                 $scope.sendKudosForm.sendKudosAmount.$invalid = true;
             } else if ($scope.sendKudosAmount == null) {

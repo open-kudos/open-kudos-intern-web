@@ -61,7 +61,8 @@
                             <input ng-model="sendKudosAmount" ng-change="inputChanged()"
                                    ng-class="{invalid : sendKudosForm.sendKudosAmount.$invalid}" id="sendKudosAmount"
                                    name="sendKudosAmount" type="number"
-                                   class="form-control" min="1" max="{userKudos}"
+                                   class="form-control" min="1" max="{userAvailableKudos
+                                  }"
                                    placeholder="{{'SEND_KUDOS_AMOUNT_HINT' | translate }}" required>
                         </div>
 
@@ -92,7 +93,7 @@
 
             <div class="row text-center ">
                 <div class="col-xs-6">
-                    <h1><b class="acorn-color">{{userKudos}}</b></h1>
+                    <h1><b class="acorn-color">{{userAvailableKudos}}</b></h1>
                     <h4>{{ 'ProfileMeCorns' | translate }}</h4>
                     <div class="col-md-12">
                         <button name="giveKudosButton" id="giveKudosButton" ng-click="showSendKudosModal()"
