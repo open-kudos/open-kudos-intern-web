@@ -8,10 +8,11 @@ angular.module("myApp")
 ProfileService.$inject = [
     "User",
     "Kudos",
-    "Auth"
+    "Auth",
+    "$q"
 ];
 
-function ProfileService(userBackend, kudosBackend, authBackend) {
+function ProfileService(userBackend, kudosBackend, authBackend, $q) {
     var service = {
         userHome: UserHome,
         updateUser: UpdateUser,
@@ -43,7 +44,13 @@ function ProfileService(userBackend, kudosBackend, authBackend) {
     }
 
     function SendKudos(sendTo) {
-        return kudosBackend.send(sendTo);
+        var deferred = $q.defer();
+        kudosBackend.send(sendTo).then(function (response) {
+            deferred.resolve(response);
+        }).catch(function(response){
+            deferred.reject(response);
+        });
+        return deferred.promise;
     }
 
     function RemainingKudos() {
@@ -65,6 +72,5 @@ function ProfileService(userBackend, kudosBackend, authBackend) {
     function Logout() {
         return authBackend.logout();
     }
-
 
 }

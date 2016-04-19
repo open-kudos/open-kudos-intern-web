@@ -24,11 +24,68 @@
 </nav>
 
 <div class="container panel panel-body">
-    <!-- User Profile Edit Modal -->
+
+    <!-- Profile Edit Modal -->
     <ng-include src="'profile/partials/user-detail-popup.html'"></ng-include>
 
     <!-- Send Kudos Modal -->
-    <ng-include src="'profile/partials/kudos-popup.html'"></ng-include>
+    <div id="sendKudosModal" class="modal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Success Body -->
+            <div ng-show="showSuccess" class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" ng-click="resetModal()" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title text-center"> {{'SEND_KUDOS_SUCCESS_MESSAGE' | translate}}</h4>
+                </div>
+                <div class="modal-footer">
+                    <button id="sendKudosOkButton" ng-click="resetModal()" data-dismiss="modal" class="form-control btn btn-login">Ok</button>
+                </div>
+            </div>
+
+            <div ng-show="showSendKudosModal" class="modal-content">
+                <div class="modal-header">
+                    <button type="button"  class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">{{ 'SEND_KUDOS_POPUP_TITLE' | translate }}</h4>
+                </div>
+
+                <div class="modal-body">
+                    <form name="sendKudosForm">
+                        <div class="form-group col-sm-6">
+                            <input ng-model="sendKudosTo" class="form-control"
+                                   ng-class="{invalid : sendKudosForm.sendKudosTo.$invalid}" ng-change="inputChanged()"
+                                   id="sendKudosTo" name="sendKudosTo" type="email"
+                                   placeholder="{{ 'SEND_KUDOS_SENDING_TO_HINT' | translate }}" required>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <input ng-model="sendKudosAmount" ng-change="inputChanged()"
+                                   ng-class="{invalid : sendKudosForm.sendKudosAmount.$invalid}" id="sendKudosAmount"
+                                   name="sendKudosAmount" type="number"
+                                   class="form-control" min="1" max="{userAvailableKudos
+                                  }"
+                                   placeholder="{{'SEND_KUDOS_AMOUNT_HINT' | translate }}" required>
+                        </div>
+
+                        <div class="form-group col-sm-12">
+                            <input ng-model="sendKudosMessage" ng-change="inputChanged()" type="text" id="sendKudosMessage"
+                                   class="form-control" placeholder="{{ 'SEND_KUDOS_MESSAGE_HINT' | translate}}" value="">
+                        </div>
+
+                        <div class="form-group col-sm-12" id="sendKudosErrorMessage">
+                            <p ng-class="errorClass" class="text-center">{{sendKudosErrorMessage}}</p>
+                        </div>
+                    </form>
+
+                    <button ng-click="sendKudos()" name="sendKudosButton" id="sendKudosButton"
+                            class="form-control btn btn-login" ng-disabled="buttonDisabled">Give
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Send Kudos Modal content end -->
 
     <div class="row">
 
@@ -36,7 +93,7 @@
 
             <div class="row text-center ">
                 <div class="col-xs-6">
-                    <h1><b class="acorn-color">{{userKudos}}</b></h1>
+                    <h1><b class="acorn-color">{{userAvailableKudos}}</b></h1>
                     <h4>{{ 'ProfileMeCorns' | translate }}</h4>
                     <div class="col-md-12">
                         <button name="giveKudosButton" id="giveKudosButton" ng-click="showSendKudosModal()"
@@ -67,7 +124,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="incomingKudos in incomingKudosCollection | orderBy:'-timestamp' | limitTo: incomingKudosShowLimit">
+                <tr class="animate-repeat" ng-repeat="incomingKudos in incomingKudosCollection | orderBy:'-timestamp' | limitTo: incomingKudosShowLimit">
                     <td>{{incomingKudos.senderEmail}}</td>
                     <td>{{incomingKudos.amount}}</td>
                     <td>{{incomingKudos.message}}</td>
@@ -88,7 +145,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="outgoingKudos in outgoingKudosCollection | orderBy:'-timestamp' | limitTo: outgoingKudosShowLimit">
+                <tr class="animate-repeat" ng-repeat="outgoingKudos in outgoingKudosCollection | orderBy:'-timestamp' | limitTo: outgoingKudosShowLimit">
                     <td>{{outgoingKudos.receiver}}</td>
                     <td>{{outgoingKudos.amount}}</td>
                     <td>{{outgoingKudos.message}}</td>
