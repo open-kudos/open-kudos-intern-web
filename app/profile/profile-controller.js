@@ -15,13 +15,11 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'ngAnimate', 'angucompl
 
         var inputChangedPromise;
 
-        $scope.userAvailableKudos
-            = 0;
+        $scope.userAvailableKudos = 0;
         $scope.sendKudosErrorMessage = "Please enter receiver and amount";
         $scope.incomingKudosShowLimit = 3;
         $scope.outgoingKudosShowLimit = 3;
-        $scope.maxSendKudosLength = $scope.userAvailableKudos
-        ;
+        $scope.maxSendKudosLength = $scope.userAvailableKudos;
         $scope.incomingKudosCollection = [];
         $scope.outgoingKudosCollection = [];
         $scope.usersCollection = [];
@@ -52,8 +50,7 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'ngAnimate', 'angucompl
         });
 
         ProfileService.remainingKudos().then(function (val) {
-            $scope.userAvailableKudos
-                = val;
+            $scope.userAvailableKudos = val;
         });
 
         ProfileService.receivedKudos().then(function (val) {
@@ -108,14 +105,13 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'ngAnimate', 'angucompl
             var sendTo = $httpParamSerializer({
                 receiverEmail: $scope.sendKudosTo,
                 amount: $scope.sendKudosAmount,
-                message: $scope.sendKudosMessage});
+                message: $scope.sendKudosMessage
+            });
 
             ProfileService.send(sendTo).then(function (val) {
                 $scope.showSendKudosModal = false;
                 $scope.showSuccess = true;
-                $scope.userAvailableKudos
-                    = $scope.userAvailableKudos
-                    - val.data.amount;
+                $scope.userAvailableKudos = $scope.userAvailableKudos - val.data.amount;
                 pushOutgoingTransferIntoCollection(val.data);
                 clearSendKudosFormValues();
             }).catch(function () {
@@ -212,7 +208,7 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'ngAnimate', 'angucompl
             $scope.sendKudosErrorMessage = "Please enter receiver and amount";
         }
 
-        function resetModal(){
+        function resetModal() {
             $scope.showSuccess = false;
             $scope.showSendKudosModal = true;
         }
@@ -222,7 +218,8 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'ngAnimate', 'angucompl
                 receiver: val.receiver,
                 message: val.message,
                 amount: val.amount,
-                timestamp: val.timestamp};
+                timestamp: val.timestamp
+            };
             $scope.outgoingKudosCollection.push(itemToAdd);
         }
 
