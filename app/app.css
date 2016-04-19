@@ -492,3 +492,20 @@ div.box4 {
   opacity:1;
   max-height:30px;
 }
+
+.fade-modal.ng-hide {
+  opacity: 0;
+}
+
+.fade-modal.ng-hide-remove,
+.fade-modal.ng-hide-add {
+  display: block !important;
+}
+
+.fade-modal.ng-hide-remove {
+  transition: all linear 1000ms;
+}
+
+.fade-modal.ng-hide-add {
+  transition: all linear 500ms;
+}
