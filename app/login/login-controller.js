@@ -52,12 +52,12 @@ angular
 
             function showErrorMessage() {
                 var errorMessage = document.getElementById('errorMessage');
-                errorMessage.className = '';
+                errorMessage.className = 'errorMessage';
             }
             
             function hideErrorMessage() {
                 var errorMessage = document.getElementById('errorMessage');
-                errorMessage.className = 'hidden';
+                errorMessage.className = 'errorMessage hidden';
             }
             
             function isRememberedUser() {
