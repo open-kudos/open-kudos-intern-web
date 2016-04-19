@@ -73,5 +73,4 @@ function ProfileService(userBackend, kudosBackend, authBackend, $q) {
         return authBackend.logout();
     }
 
-
 }

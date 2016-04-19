@@ -67,7 +67,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="incomingKudos in incomingKudosCollection | orderBy:'-timestamp' | limitTo: incomingKudosShowLimit">
+                <tr class="animate-repeat" ng-repeat="incomingKudos in incomingKudosCollection | orderBy:'-timestamp' | limitTo: incomingKudosShowLimit">
                     <td>{{incomingKudos.senderEmail}}</td>
                     <td>{{incomingKudos.amount}}</td>
                     <td>{{incomingKudos.message}}</td>
@@ -88,7 +88,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="outgoingKudos in outgoingKudosCollection | orderBy:'-timestamp' | limitTo: outgoingKudosShowLimit">
+                <tr class="animate-repeat" ng-repeat="outgoingKudos in outgoingKudosCollection | orderBy:'-timestamp' | limitTo: outgoingKudosShowLimit">
                     <td>{{outgoingKudos.receiver}}</td>
                     <td>{{outgoingKudos.amount}}</td>
                     <td>{{outgoingKudos.message}}</td>

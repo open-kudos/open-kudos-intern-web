@@ -21,6 +21,7 @@ config(function ($routeProvider, $translateProvider) {
     });
 
     $translateProvider.preferredLanguage('en');
+    $translateProvider.useSanitizeValueStrategy('escape');
     $translateProvider.useCookieStorage();
 }).
 controller('AppController', function ($scope, $translate) {
