@@ -2,28 +2,30 @@
  * Created by vytautassugintas on 20/04/16.
  */
 angular
-    .module("myApp").config(function ($routeProvider, $translateProvider) {
+    .module("myApp").config(function ($routeProvider, $translateProvider, $locationProvider) {
     $routeProvider
         .otherwise({
             redirectTo: '/login'
         })
         .when('/login', {
-            templateUrl: '/open-kudos-intern-web/src/app/login/login.html',
+            templateUrl: 'app/login/login.html',
             controller: 'loginController'
         })
         .when('/profile', {
-            templateUrl: '/open-kudos-intern-web/src/app/profile/profile.html',
+            templateUrl: 'app/profile/profile.html',
             controller: 'profileController'
         })
         .when('/registration', {
-            templateUrl: '/open-kudos-intern-web/src/app/registration/registration.html',
+            templateUrl: 'app/registration/registration.html',
             controller: 'registrationController'
         });
 
     $translateProvider.useStaticFilesLoader({
-        prefix: '/open-kudos-intern-web/src/app/translations/locale-',
+        prefix: 'app/translations/locale-',
         suffix: '.json'
     });
+
+    //$locationProvider.html5Mode(true);
 
     $translateProvider.preferredLanguage('en');
     $translateProvider.useSanitizeValueStrategy('escape');

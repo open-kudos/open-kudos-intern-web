@@ -60,11 +60,6 @@
                                    placeholder="{{'SEND_KUDOS_AMOUNT_HINT' | translate }}" required>
                         </div>
 
-                        <div class="form-group col-sm-12">
-                            <input ng-model="sendKudosMessage" ng-change="inputChanged()" type="text" id="sendKudosMessage"
-                                   class="form-control" placeholder="{{ 'SEND_KUDOS_MESSAGE_HINT' | translate}}" value="">
-                        </div>
-
                         <div class="form-group col-sm-12" id="sendKudosErrorMessage">
                             <p ng-class="errorClass" class="text-center">{{sendKudosErrorMessage}}</p>
                         </div>

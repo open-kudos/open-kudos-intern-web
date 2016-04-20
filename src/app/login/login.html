@@ -22,7 +22,7 @@
                                 <form id="login-form" role="form" style="display: block;">
                                     <div id="errorMessage" class="errorMessage hidden">{{ 'loginErrorMessage' | translate  }}</div>
                                     <div class="form-group">
-                                        <input ng-model="email" type="text" id="email" name="username" class='valid' placeholder="{{ 'loginEmail' | translate }}">
+                                        <input ng-model="email" type="text" id="email" name="username" class='valid' placeholder="{{ 'loginEmail' | translate }}" tabindex="1">
                                     </div>
                                     <div class="form-group">
                                         <input ng-model="password" type="password" name="password" id="password" tabindex="2" class="valid" placeholder="{{ 'loginPassword' | translate }}">
