@@ -38,8 +38,8 @@ angular.module('myApp', [
 })
 
     .controller('AppController', function ($scope, $translate, $cookies) {
-        languageButtons($cookies.get('NG_TRANSLATE_LANG_KEY'));
         $scope.changeLanguage = changeLanguage;
+        languageButtons($cookies.get('NG_TRANSLATE_LANG_KEY'));
 
         function changeLanguage(key){
             $translate.use(key);
