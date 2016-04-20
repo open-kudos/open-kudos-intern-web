@@ -29,11 +29,11 @@
     <ng-include src="'profile/partials/user-detail-popup.html'"></ng-include>
 
     <!-- Send Kudos Modal -->
-    <div id="sendKudosModal" class="modal fade" role="dialog">
+    <div id="sendKudosModal" class="modal fade" role="dialog" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button"  class="close" data-dismiss="modal">&times;</button>
+                    <button type="button" ng-click="clearSendKudosFormValues()"  class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">{{ 'SEND_KUDOS_POPUP_TITLE' | translate }}</h4>
                 </div>
 

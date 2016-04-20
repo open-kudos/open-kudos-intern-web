@@ -32,6 +32,7 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'ngAnimate', 'angucompl
         $scope.inputChanged = inputChanged;
         $scope.kudosValidation = kudosValidation;
         $scope.isValid = isValid;
+        $scope.clearSendKudosFormValues = clearSendKudosFormValues;
         $scope.showMoreIncomingKudos = showMoreIncomingKudos;
         $scope.showMoreOutgoingKudos = showMoreOutgoingKudos;
 
