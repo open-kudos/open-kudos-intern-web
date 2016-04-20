@@ -512,7 +512,7 @@ div.box4 {
 }
 
 @media (min-width: 1200px) {
-    .panel {
+    .profile-body {
         width: 50%;
     }
 }
