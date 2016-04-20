@@ -75,3 +75,12 @@
     </div>
   </div>
 </div>
+
+<div ng-class="class='text-center'" class="container" ng-controller="AppController">
+  <div ng-hide="lt">
+    <a id="ltButton" ng-click="lt=true; en=false; changeLanguage('lt')">Lietuvių</a>
+  </div>
+  <div ng-hide="en">
+    <a id="enButton" ng-click="lt=false; en=true; changeLanguage('en')">English</a>
+  </div>
+</div>

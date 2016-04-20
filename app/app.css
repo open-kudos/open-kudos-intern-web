@@ -208,6 +208,7 @@ body {
 
 .bold-span a {
   color: #000000;
+  cursor: pointer;
 }
 
 .dropdown-description {

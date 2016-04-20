@@ -37,12 +37,22 @@ angular.module('myApp', [
     $translateProvider.useCookieStorage();
 })
 
-    .controller('AppController', function ($scope, $translate) {
-    $scope.changeLanguage = changeLanguage;
+    .controller('AppController', function ($scope, $translate, $cookies) {
+        languageButtons($cookies.get('NG_TRANSLATE_LANG_KEY'));
+        $scope.changeLanguage = changeLanguage;
 
-    function changeLanguage(key){
-        $translate.use(key);
-    }
+        function changeLanguage(key){
+            $translate.use(key);
+        }
 
+        function languageButtons(language){
+            if (language == '"en"'){
+                $scope.lt = false;
+                $scope.en = true;
+            } else if (language == '"lt"') {
+                $scope.lt = true;
+                $scope.en = false;
+            }
+        }
 });
 
