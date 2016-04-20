@@ -16,6 +16,7 @@ angular
         var inputChangedPromise;
 
         $scope.userAvailableKudos = 0;
+        $scope.userReceivedKudos = 0;
         $scope.sendKudosErrorMessage = "Please enter receiver and amount";
         $scope.incomingKudosShowLimit = 3;
         $scope.outgoingKudosShowLimit = 3;
@@ -23,8 +24,6 @@ angular
         $scope.incomingKudosCollection = [];
         $scope.outgoingKudosCollection = [];
         $scope.usersCollection = [];
-        $scope.showSuccess = false;
-        $scope.showSendKudosModal = true;
         $scope.buttonDisabled = true;
 
         $scope.updateProfile = updateProfile;
@@ -33,6 +32,7 @@ angular
         $scope.inputChanged = inputChanged;
         $scope.kudosValidation = kudosValidation;
         $scope.isValid = isValid;
+        $scope.clearSendKudosFormValues = clearSendKudosFormValues;
         $scope.showMoreIncomingKudos = showMoreIncomingKudos;
         $scope.showMoreOutgoingKudos = showMoreOutgoingKudos;
 
@@ -113,6 +113,8 @@ angular
                 $scope.showSendKudosModal = false;
                 $scope.showSuccess = true;
                 $scope.userAvailableKudos = $scope.userAvailableKudos - val.data.amount;
+                $('#sendKudosModal').modal('hide');
+                toastr.success('You successfully sent ' + acornPlural(val.data.amount) + ' to ' + val.data.receiver);
                 pushOutgoingTransferIntoCollection(val.data);
                 clearSendKudosFormValues();
             }).catch(function () {
@@ -206,8 +208,6 @@ angular
 
         function showSendKudosSuccessMessage(message) {
             $scope.errorClass = "success-message";
-            $scope.sendKudosToClass = "";
-            $scope.sendKudosAmountClass = "";
             $scope.sendKudosErrorMessage = message;
             enableSendKudosButton();
         }
@@ -218,11 +218,7 @@ angular
             $scope.sendKudosMessage = "";
             $scope.errorClass = "error-message";
             $scope.sendKudosErrorMessage = "Please enter receiver and amount";
-        }
-
-        function resetModal() {
-            $scope.showSuccess = false;
-            $scope.showSendKudosModal = true;
+            disableSendKudosButton();
         }
 
         function pushOutgoingTransferIntoCollection(val) {
@@ -233,6 +229,10 @@ angular
                 timestamp: val.timestamp
             };
             $scope.outgoingKudosCollection.push(itemToAdd);
+        }
+
+        function acornPlural(amount) {
+            return amount > 1 ? amount + " Acorns" : amount + " Acorn"
         }
 
 

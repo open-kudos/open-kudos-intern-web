@@ -29,22 +29,11 @@
     <ng-include src="'profile/partials/user-detail-popup.html'"></ng-include>
 
     <!-- Send Kudos Modal -->
-    <div id="sendKudosModal" class="modal" role="dialog">
+    <div id="sendKudosModal" class="modal fade" role="dialog" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog">
-            <!-- Success Body -->
-            <div ng-show="showSuccess" class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="close" ng-click="resetModal()" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title text-center"> {{'SEND_KUDOS_SUCCESS_MESSAGE' | translate}}</h4>
-                </div>
-                <div class="modal-footer">
-                    <button id="sendKudosOkButton" ng-click="resetModal()" data-dismiss="modal" class="form-control btn btn-login">Ok</button>
-                </div>
-            </div>
-
-            <div ng-show="showSendKudosModal" class="modal-content">
+            <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button"  class="close" data-dismiss="modal">&times;</button>
+                    <button type="button" ng-click="clearSendKudosFormValues()"  class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">{{ 'SEND_KUDOS_POPUP_TITLE' | translate }}</h4>
                 </div>
 
@@ -65,12 +54,10 @@
                                   }"
                                    placeholder="{{'SEND_KUDOS_AMOUNT_HINT' | translate }}" required>
                         </div>
-
-                        <div class="form-group col-sm-12">
+                        <!-- <div class="form-group col-sm-12">
                             <input ng-model="sendKudosMessage" ng-change="inputChanged()" type="text" id="sendKudosMessage"
                                    class="form-control" placeholder="{{ 'SEND_KUDOS_MESSAGE_HINT' | translate}}" value="">
-                        </div>
-
+                        </div> -->
                         <div class="form-group col-sm-12" id="sendKudosErrorMessage">
                             <p ng-class="errorClass" class="text-center">{{sendKudosErrorMessage}}</p>
                         </div>
