@@ -37,7 +37,6 @@ angular
         $scope.showMoreOutgoingKudos = showMoreOutgoingKudos;
         $scope.showLessIncomingKudos = showLessIncomingKudos;
         $scope.showLessOutgoingKudos = showLessOutgoingKudos;
-        $scope.resetModal = resetModal;
 
         ProfileService.userHome().then(function (val) {
             $scope.userEmail = val.email;
