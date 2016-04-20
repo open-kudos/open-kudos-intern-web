@@ -131,9 +131,10 @@
                 </tr>
                 </tbody>
             </table>
-            <button type="button" ng-click="showMoreIncomingKudos()" class="btn btn-default btn-sm">{{ 'ProfileShowMore'
-                | translate }}
-            </button>
+            <button ng-click="showMoreIncomingKudos(); lessIncoming = true" type="button" class="btn btn-default btn-sm">
+                {{'ProfileShowMore' | translate}}</button>
+            <button ng-show="lessIncoming" ng-click="showLessIncomingKudos(); lessIncoming = false" type="button" class="btn btn-default btn-sm">
+                {{'ProfileShowLess' | translate}}</button>
 
             <h3>{{ 'ProfileMeSentCorns' | translate }}</h3>
             <table class="table">
@@ -152,8 +153,10 @@
                 </tr>
                 </tbody>
             </table>
-            <button ng-click="showMoreOutgoingKudos()" type="button" class="btn btn-default btn-sm">{{ 'ProfileShowMore'
-                | translate }}</button>
+            <button ng-click="showMoreOutgoingKudos(); lessOutgoing = true" type="button" class="btn btn-default btn-sm">
+                {{'ProfileShowMore' | translate}}</button>
+            <button ng-show="lessOutgoing" ng-click="showLessOutgoingKudos(); lessOutgoing = false" type="button" class="btn btn-default btn-sm">
+                {{'ProfileShowLess' | translate}}</button>
 
         </div>
 

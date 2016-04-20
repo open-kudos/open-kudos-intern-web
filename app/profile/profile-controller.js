@@ -37,6 +37,8 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'ngAnimate', 'angucompl
         $scope.isValid = isValid;
         $scope.showMoreIncomingKudos = showMoreIncomingKudos;
         $scope.showMoreOutgoingKudos = showMoreOutgoingKudos;
+        $scope.showLessIncomingKudos = showLessIncomingKudos;
+        $scope.showLessOutgoingKudos = showLessOutgoingKudos;
         $scope.resetModal = resetModal;
 
         ProfileService.userHome().then(function (val) {
@@ -75,17 +77,21 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'ngAnimate', 'angucompl
         function showMoreIncomingKudos() {
             if ($scope.incomingKudosShowLimit <= $scope.incomingKudosCollection.length) {
                 $scope.incomingKudosShowLimit += 5;
-            } else {
-                $scope.incomingKudosShowLimit = 3;
             }
         }
 
         function showMoreOutgoingKudos() {
             if ($scope.outgoingKudosShowLimit <= $scope.outgoingKudosCollection.length) {
                 $scope.outgoingKudosShowLimit += 5;
-            } else {
-                $scope.outgoingKudosShowLimit = 3;
             }
+        }
+
+        function showLessOutgoingKudos() {
+            $scope.outgoingKudosShowLimit = 3;
+        }
+
+        function showLessIncomingKudos() {
+            $scope.incomingKudosShowLimit = 3;
         }
 
         function updateProfile() {
