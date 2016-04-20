@@ -10,7 +10,7 @@ angular
         'angucomplete'
     ])
     
-    .controller('profileController', function ($http, $scope, $rootScope, $window, $cookies, $timeout, $httpParamSerializer, ProfileService) {
+    .controller('profileController', function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, ProfileService) {
         checkUser();
 
         var inputChangedPromise;
@@ -49,7 +49,7 @@ angular
         });
 
         ProfileService.remainingKudos().then(function (val) {
-            $rootScope.userKudos = val;
+            $scope.userAvailableKudos = val;
         });
 
         ProfileService.receivedKudos().then(function (val) {

@@ -15,7 +15,11 @@
                 <li class="active"><a href="#">{{ 'ProfileMe' | translate }}</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">{{userName}} {{userSurname}}</a></li>
+                <li ng-controller="AppController">
+                    <a ng-hide="lt" id="ltButton" ng-click="lt=true; en=false; changeLanguage('lt')">Lietuvių</a>
+                    <a ng-hide="en" id="enButton" ng-click="lt=false; en=true; changeLanguage('en')">English</a>
+                </li>
+                <li><a href="">{{userName}} {{userSurname}}</a></li>
                 <li><a ng-click="logout()" href="#"><span class="glyphicon glyphicon-log-in"></span>
                     {{ 'ProfileMeLogout' | translate }}</a></li>
             </ul>
