@@ -33,6 +33,7 @@ angular.module('myApp', [
     });
     
     $translateProvider.preferredLanguage('en');
+    $translateProvider.useSanitizeValueStrategy('escape');
     $translateProvider.useCookieStorage();
 })
 

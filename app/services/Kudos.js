@@ -21,15 +21,13 @@ function Kudos($http, SERVER) {
     return kudos;
 
     function sendKudos(requestData) {
-    //    if (angular.isDefined(requestData.amount) && requestData.amount > 0) {
             return $http({
                 method: 'POST',
                 url: SERVER.ip + "/kudos/send?" + requestData,
                 withCredentials: true
             }).then(function (response) {
-                return response.data;
+                return response;
             });
-    //    }
     }
 
     function getIncomingKudos() {
