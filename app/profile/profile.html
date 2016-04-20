@@ -13,9 +13,9 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">{{ 'ProfileMe' | translate }}</a></li>
-                <li><a href="#">People</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">{{userName}} {{userSurname}}</a></li>
                 <li><a ng-click="logout()" href="#"><span class="glyphicon glyphicon-log-in"></span>
                     {{ 'ProfileMeLogout' | translate }}</a></li>
             </ul>
@@ -33,7 +33,8 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" ng-click="clearSendKudosFormValues()"  class="close" data-dismiss="modal">&times;</button>
+                    <button type="button" ng-click="clearSendKudosFormValues()" class="close"
+                            data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">{{ 'SEND_KUDOS_POPUP_TITLE' | translate }}</h4>
                 </div>
 
@@ -54,10 +55,6 @@
                                   }"
                                    placeholder="{{'SEND_KUDOS_AMOUNT_HINT' | translate }}" required>
                         </div>
-                        <!-- <div class="form-group col-sm-12">
-                            <input ng-model="sendKudosMessage" ng-change="inputChanged()" type="text" id="sendKudosMessage"
-                                   class="form-control" placeholder="{{ 'SEND_KUDOS_MESSAGE_HINT' | translate}}" value="">
-                        </div> -->
                         <div class="form-group col-sm-12" id="sendKudosErrorMessage">
                             <p ng-class="errorClass" class="text-center">{{sendKudosErrorMessage}}</p>
                         </div>
@@ -75,17 +72,18 @@
     <!-- Send Kudos Modal content end -->
 
     <div class="row">
+                            <!-- use later col-sm-push-3 -->
+        <div class="col-sm-12">
 
-        <div class="col-sm-6 col-sm-push-3">
-
-            <div class="row text-center ">
+            <div class="row text-center">
                 <div class="col-xs-6">
                     <h1><b class="acorn-color">{{userAvailableKudos}}</b></h1>
                     <h4>{{ 'ProfileMeCorns' | translate }}</h4>
                     <div class="col-md-12">
                         <button name="giveKudosButton" id="giveKudosButton" ng-click="showSendKudosModal()"
                                 data-toggle="modal" data-target="#sendKudosModal"
-                                class="btn profile-buttons hvr-underline-from-center">{{ 'ProfileMeGiveACorn' | translate }}
+                                class="btn profile-buttons hvr-underline-from-center">{{ 'ProfileMeGiveACorn' |
+                            translate }}
                         </button>
                     </div>
                 </div>
@@ -94,7 +92,8 @@
                     <h4>{{ 'ProfileMeTotalCorns' | translate }}</h4>
                     <div class="col-md-12">
                         <button name="giveKudosButton" id="challenge"
-                                class="btn profile-buttons hvr-underline-from-center">{{ 'ProfileMeChallenge' | translate }}
+                                class="btn profile-buttons hvr-underline-from-center">{{ 'ProfileMeChallenge' |
+                            translate }}
                         </button>
                     </div>
                 </div>
@@ -111,7 +110,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="animate-repeat" ng-repeat="incomingKudos in incomingKudosCollection | orderBy:'-timestamp' | limitTo: incomingKudosShowLimit">
+                <tr class="animate-repeat"
+                    ng-repeat="incomingKudos in incomingKudosCollection | orderBy:'-timestamp' | limitTo: incomingKudosShowLimit">
                     <td>{{incomingKudos.senderEmail}}</td>
                     <td>{{incomingKudos.amount}}</td>
                     <td>{{incomingKudos.timestamp}}</td>
@@ -132,7 +132,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="animate-repeat" ng-repeat="outgoingKudos in outgoingKudosCollection | orderBy:'-timestamp' | limitTo: outgoingKudosShowLimit">
+                <tr class="animate-repeat"
+                    ng-repeat="outgoingKudos in outgoingKudosCollection | orderBy:'-timestamp' | limitTo: outgoingKudosShowLimit">
                     <td>{{outgoingKudos.receiver}}</td>
                     <td>{{outgoingKudos.amount}}</td>
                     <td>{{outgoingKudos.timestamp}}</td>
@@ -140,18 +141,22 @@
                 </tbody>
             </table>
             <button ng-click="showMoreOutgoingKudos()" type="button" class="btn btn-default btn-sm">{{ 'ProfileShowMore'
-                | translate }}</button>
+                | translate }}
+            </button>
 
         </div>
 
+        <!--
         <div class="col-sm-3 col-sm-push-3">
             <div class="box4">
-                <h4><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> {{ 'ProfileMeTodayBirthday' | translate }}</h4>
+                <h4><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> {{ 'ProfileMeTodayBirthday' |
+                    translate }}</h4>
                 <p>Lorem</p>
             </div>
 
             <div class="box4">
-                <h4><span class="glyphicon glyphicon-king" aria-hidden="true"></span> {{ 'ProfileMeChallengeWinner' | translate }}</h4>
+                <h4><span class="glyphicon glyphicon-king" aria-hidden="true"></span> {{ 'ProfileMeChallengeWinner' |
+                    translate }}</h4>
                 <p>Foosbal</p>
                 <h5>
                     <small>2020-20-20</small>
@@ -159,7 +164,8 @@
             </div>
 
             <div class="box4">
-                <h4><span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{ 'ProfileMeEngagementLeaders' | translate }}</h4>
+                <h4><span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{ 'ProfileMeEngagementLeaders' |
+                    translate }}</h4>
                 <p>Dolor Matil</p>
             </div>
 
@@ -174,10 +180,11 @@
             <div class="box4">
                 <h4>{{ 'ProfileMeTopSenders' | translate }}</h4>
             </div>
-
+        -->
 
         </div>
 
+        <!--
         <div class="col-sm-3 col-sm-pull-9">
 
             <div class="box4">
@@ -198,5 +205,6 @@
 
             </div>
         </div>
+        -->
     </div>
 </div>
