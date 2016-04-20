@@ -1,15 +1,15 @@
 'use strict';
 
-describe('myApp.registration module', function() {
+describe('myApp.registrationController', function() {
 
-  beforeEach(module('myApp.view2'));
+  beforeEach(module('myApp.registration'));
 
   describe('registration controller', function(){
 
     it('should ....', inject(function($controller) {
       //spec body
-      var view2Ctrl = $controller('View2Ctrl');
-      expect(view2Ctrl).toBeDefined();
+      var registrationController = $controller('registrationController');
+      expect(registrationController).toBeDefined();
     }));
 
   });
