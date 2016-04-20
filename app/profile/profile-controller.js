@@ -3,25 +3,30 @@
  */
 'use strict';
 
-angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
-
+angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'ngAnimate', 'angucomplete'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/profile', {
             templateUrl: 'profile/profile.html',
             controller: 'profileController'
         });
     }])
-    .controller('profileController', function ($http, $scope, $rootScope, $window, $cookies, $timeout, $httpParamSerializer, ProfileService) {
+    .controller('profileController', function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, ProfileService) {
         checkUser();
 
         var inputChangedPromise;
 
+        $scope.userAvailableKudos
+            = 0;
+        $scope.sendKudosErrorMessage = "Please enter receiver and amount";
         $scope.incomingKudosShowLimit = 3;
         $scope.outgoingKudosShowLimit = 3;
-        $scope.sendKudosErrorMessage = "Please enter receiver and amount";
+        $scope.maxSendKudosLength = $scope.userAvailableKudos
+        ;
         $scope.incomingKudosCollection = [];
         $scope.outgoingKudosCollection = [];
         $scope.usersCollection = [];
+        $scope.showSuccess = false;
+        $scope.showSendKudosModal = true;
         $scope.buttonDisabled = true;
 
         $scope.updateProfile = updateProfile;
@@ -32,22 +37,23 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
         $scope.isValid = isValid;
         $scope.showMoreIncomingKudos = showMoreIncomingKudos;
         $scope.showMoreOutgoingKudos = showMoreOutgoingKudos;
+        $scope.resetModal = resetModal;
 
         ProfileService.userHome().then(function (val) {
-            var user = val.user;
-            $scope.userEmail = user.email;
-            $scope.userName = user.firstName;
-            $scope.userSurname = user.lastName;
-            $scope.userPhone = user.phone;
-            $scope.userPosition = user.position;
-            $scope.userLocation = user.location;
-            $scope.userTeam = user.team;
-            $scope.userStartedToWork = user.startedToWorkDate;
-            $scope.userBirthday = user.birthday;
+            $scope.userEmail = val.email;
+            $scope.userName = val.firstName;
+            $scope.userSurname = val.lastName;
+            $scope.userPhone = val.phone;
+            $scope.userPosition = val.position;
+            $scope.userLocation = val.location;
+            $scope.userTeam = val.team;
+            $scope.userStartedToWork = val.startedToWorkDate;
+            $scope.userBirthday = val.birthday;
         });
 
         ProfileService.remainingKudos().then(function (val) {
-            $rootScope.userKudos = val;
+            $scope.userAvailableKudos
+                = val;
         });
 
         ProfileService.receivedKudos().then(function (val) {
@@ -67,18 +73,16 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
         });
 
         function showMoreIncomingKudos() {
-            if ($scope.incomingKudosShowLimit === 3) {
-                $scope.incomingKudosShowLimit = $scope.incomingKudosCollection.length;
-                $scope.showMoreButton = false;
+            if ($scope.incomingKudosShowLimit <= $scope.incomingKudosCollection.length) {
+                $scope.incomingKudosShowLimit += 5;
             } else {
                 $scope.incomingKudosShowLimit = 3;
-                $scope.showLessButton = true;
             }
         }
 
         function showMoreOutgoingKudos() {
-            if ($scope.outgoingKudosShowLimit === 3) {
-                $scope.outgoingKudosShowLimit = $scope.outgoingKudosShowLimit.length;
+            if ($scope.outgoingKudosShowLimit <= $scope.outgoingKudosCollection.length) {
+                $scope.outgoingKudosShowLimit += 5;
             } else {
                 $scope.outgoingKudosShowLimit = 3;
             }
@@ -101,29 +105,48 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
         }
 
         function sendKudos() {
-            if (isValid($scope.selectedPerson)) {
-                $scope.sendKudosErrorMessage = "Something went wrong"
-            } else {
-                var sendTo = $httpParamSerializer({
-                    receiverEmail: $scope.selectedPerson.originalObject.email,
-                    amount: $scope.sendKudosAmount,
-                    message: $scope.sendKudosMessage
-                });
-            }
+            var sendTo = $httpParamSerializer({
+                receiverEmail: $scope.sendKudosTo,
+                amount: $scope.sendKudosAmount,
+                message: $scope.sendKudosMessage});
 
             ProfileService.send(sendTo).then(function (val) {
-                console.log(sendTo.receiverEmail + " : " + $scope.userEmail);
-                $('#sendKudosModal').modal('hide');
-                $('#successSendKudosModal').modal('show');
-                $rootScope.userKudos = $rootScope.userKudos - val.amount;
-            }).catch(function (val) {
-                if (val.status === 400) {
-                    $scope.sendKudosErrorMessage = "Enter receiver";
-                }
-                if (val.status === 500) {
-                    $scope.sendKudosErrorMessage = "Enter amount";
-                }
+                $scope.showSendKudosModal = false;
+                $scope.showSuccess = true;
+                $scope.userAvailableKudos
+                    = $scope.userAvailableKudos
+                    - val.data.amount;
+                pushOutgoingTransferIntoCollection(val.data);
+                clearSendKudosFormValues();
+            }).catch(function () {
+                showSendKudosErrorMessage("Receiver does not exist");
             });
+        }
+
+        function kudosValidation() {
+            $scope.errorClass = "error-message";
+            if ($scope.sendKudosAmount > $scope.userAvailableKudos
+            ) {
+                showSendKudosErrorMessage("You don't have enough Acorns");
+                $scope.sendKudosForm.sendKudosAmount.$invalid = true;
+            } else if ($scope.sendKudosAmount == null) {
+                showSendKudosErrorMessage("Please enter amount");
+                $scope.sendKudosForm.sendKudosAmount.$invalid = true;
+            } else if ($scope.sendKudosAmount <= 0) {
+                showSendKudosErrorMessage("Please enter more than zero");
+                $scope.sendKudosForm.sendKudosAmount.$invalid = true;
+            } else if ($scope.sendKudosTo == null) {
+                showSendKudosErrorMessage("Please enter receiver");
+                $scope.sendKudosForm.sendKudosTo.$invalid = true;
+            } else if (!validateEmail($scope.sendKudosTo)) {
+                showSendKudosErrorMessage("Please enter valid receiver email");
+                $scope.sendKudosForm.sendKudosTo.$invalid = true;
+            } else if ($scope.sendKudosTo === $scope.userEmail) {
+                showSendKudosErrorMessage("Can't send kudos to yourself");
+                $scope.sendKudosForm.sendKudosTo.$invalid = true;
+            } else {
+                showSendKudosSuccessMessage("Ok, you'r good to go!");
+            }
         }
 
         function inputChanged() {
@@ -131,23 +154,6 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
                 $timeout.cancel(inputChangedPromise);
             }
             inputChangedPromise = $timeout(kudosValidation, 100);
-        }
-
-        function kudosValidation() {
-            $scope.errorClass = "error-message";
-            if ($scope.sendKudosAmount > $scope.userKudos) {
-                $scope.sendKudosErrorMessage = "You don't have enough Acorns";
-                disableSendKudosButton();
-            } else if ($scope.sendKudosAmount == null) {
-                $scope.sendKudosErrorMessage = "Please enter amount";
-                disableSendKudosButton();
-            } else if (isValid($scope.selectedPerson)) {
-                $scope.sendKudosErrorMessage = "Please enter receiver"
-            } else {
-                $scope.errorClass = "success-message";
-                $scope.sendKudosErrorMessage = "Ok, you'r good to go!";
-                enableSendKudosButton();
-            }
         }
 
         function checkUser() {
@@ -168,10 +174,6 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
             $cookies.put('user_credentials', '');
         }
 
-        function isValid(value) {
-            return typeof value === "undefined";
-        }
-
         function enableSendKudosButton() {
             $scope.buttonDisabled = false;
         }
@@ -179,5 +181,50 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
         function disableSendKudosButton() {
             $scope.buttonDisabled = true;
         }
+
+        function isValid(value) {
+            return typeof value === "undefined";
+        }
+
+        function validateEmail(email) {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        }
+
+        function showSendKudosErrorMessage(message) {
+            $scope.sendKudosErrorMessage = message;
+            disableSendKudosButton();
+        }
+
+        function showSendKudosSuccessMessage(message) {
+            $scope.errorClass = "success-message";
+            $scope.sendKudosToClass = "";
+            $scope.sendKudosAmountClass = "";
+            $scope.sendKudosErrorMessage = message;
+            enableSendKudosButton();
+        }
+
+        function clearSendKudosFormValues() {
+            $scope.sendKudosTo = "";
+            $scope.sendKudosAmount = "";
+            $scope.sendKudosMessage = "";
+            $scope.errorClass = "error-message";
+            $scope.sendKudosErrorMessage = "Please enter receiver and amount";
+        }
+
+        function resetModal(){
+            $scope.showSuccess = false;
+            $scope.showSendKudosModal = true;
+        }
+
+        function pushOutgoingTransferIntoCollection(val) {
+            var itemToAdd = {
+                receiver: val.receiver,
+                message: val.message,
+                amount: val.amount,
+                timestamp: val.timestamp};
+            $scope.outgoingKudosCollection.push(itemToAdd);
+        }
+
 
     });
