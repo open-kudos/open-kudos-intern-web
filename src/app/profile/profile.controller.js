@@ -6,8 +6,7 @@
 angular
     .module('myApp.profile', [
         'ngRoute',
-        'ngCookies',
-        'angucomplete'
+        'ngCookies'
     ])
 
     .controller('profileController', function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, ProfileService) {
