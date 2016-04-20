@@ -8,13 +8,6 @@ angular
         'base64'
     ])
 
-    .config(function ($routeProvider) {
-        $routeProvider.when('/registration', {
-            templateUrl: 'registration/registration.html',
-            controller: 'registrationController'
-        });
-    })
-
     .controller('registrationController', function ($scope, $http, $cookies, $base64, $window, $translate, $httpParamSerializer, RegistrationService, LoginService) {
         var splited;
         $scope.register = register;

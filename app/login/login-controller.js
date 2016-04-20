@@ -8,14 +8,6 @@ angular
     'base64'
 ])
 
-    .config(function ($routeProvider) {
-        $routeProvider.when('/login', {
-            templateUrl: 'login/login.html',
-            controller: 'loginController'
-        });
-
-    })
-
     .controller('loginController', function ($scope, $http, $cookies, $window, $base64, $httpParamSerializer, SERVER, LoginService) {
 
             initView();

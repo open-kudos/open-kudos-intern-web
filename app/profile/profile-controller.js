@@ -3,14 +3,13 @@
  */
 'use strict';
 
-angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
-
-    .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/profile', {
-            templateUrl: 'profile/profile.html',
-            controller: 'profileController'
-        });
-    }])
+angular
+    .module('myApp.profile', [
+        'ngRoute',
+        'ngCookies',
+        'angucomplete'
+    ])
+    
     .controller('profileController', function ($http, $scope, $rootScope, $window, $cookies, $timeout, $httpParamSerializer, ProfileService) {
         checkUser();
 
@@ -152,14 +151,14 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'angucomplete'])
 
         function checkUser() {
             ProfileService.checkUser().then(function (val) {
-                val.logged ? $window.location.href = "#/profile" : $window.location.href = "#/login";
+                val.logged ? $window.url = "/profile" : $window.url = "/login";
             });
         }
 
         function logout() {
             clearCookies();
             ProfileService.logout().catch(function () {
-                $window.location.href = "#/login";
+                $window.url = "/login";
             });
         }
 
