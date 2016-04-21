@@ -10,8 +10,6 @@ angular
     ])
 
     .controller('profileController', function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, ProfileService) {
-        checkUser();
-
         var inputChangedPromise;
 
         $scope.userAvailableKudos = 0;
@@ -36,6 +34,10 @@ angular
         $scope.showMoreOutgoingKudos = showMoreOutgoingKudos;
         $scope.showLessIncomingKudos = showLessIncomingKudos;
         $scope.showLessOutgoingKudos = showLessOutgoingKudos;
+        $scope.showMoreIncomingKudosButton = showMoreIncomingKudosButton;
+        $scope.showMoreOutgoingKudosButton = showMoreOutgoingKudosButton;
+
+        checkUser();
 
         ProfileService.userHome().then(function (val) {
             $scope.userEmail = val.email;
@@ -59,18 +61,32 @@ angular
 
         ProfileService.incomingKudos().then(function (val) {
             $scope.incomingKudosCollection = val;
+            showMoreIncomingKudosButton(val);
         });
 
         ProfileService.outgoingKudos().then(function (val) {
             $scope.outgoingKudosCollection = val;
+            showMoreOutgoingKudosButton(val);
         });
 
         ProfileService.listUsers().then(function (val) {
             $scope.usersCollection = val.userList;
         });
 
+        function showMoreIncomingKudosButton(val) {
+            if (val.length > 3){
+                $scope.moreIncoming = true;
+            }
+        }
+
+        function showMoreOutgoingKudosButton(val) {
+            if (val.length > 3){
+                $scope.moreOutgoing = true;
+            }
+        }
+
         function showMoreIncomingKudos() {
-            if ($scope.incomingKudosShowLimit <= $scope.incomingKudosCollection.length) {
+             if ($scope.incomingKudosShowLimit <= $scope.incomingKudosCollection.length) {
                 $scope.incomingKudosShowLimit += 5;
             }
         }
