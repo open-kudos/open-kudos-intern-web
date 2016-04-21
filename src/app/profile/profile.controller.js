@@ -11,6 +11,8 @@ angular
 
     .controller('profileController', function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, ProfileService) {
         var inputChangedPromise;
+        var showMoreLimit = 5;
+
         $scope.userAvailableKudos = 0;
         $scope.userReceivedKudos = 0;
         $scope.sendKudosErrorMessage = "Please enter receiver and amount";
@@ -86,22 +88,22 @@ angular
 
         function showMoreIncomingKudos() {
              if ($scope.incomingKudosShowLimit <= $scope.incomingKudosCollection.length) {
-                $scope.incomingKudosShowLimit += 5;
+                $scope.incomingKudosShowLimit += showMoreLimit;
             }
         }
 
         function showMoreOutgoingKudos() {
             if ($scope.outgoingKudosShowLimit <= $scope.outgoingKudosCollection.length) {
-                $scope.outgoingKudosShowLimit += 5;
+                $scope.outgoingKudosShowLimit += showMoreLimit;
             }
         }
 
         function showLessOutgoingKudos() {
-            $scope.outgoingKudosShowLimit = 5;
+            $scope.outgoingKudosShowLimit = showMoreLimit;
         }
 
         function showLessIncomingKudos() {
-            $scope.incomingKudosShowLimit = 5;
+            $scope.incomingKudosShowLimit = showMoreLimit;
         }
 
         function updateProfile() {
