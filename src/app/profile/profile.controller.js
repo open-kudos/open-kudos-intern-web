@@ -237,6 +237,7 @@ angular
                 timestamp: val.timestamp
             };
             $scope.outgoingKudosCollection.push(itemToAdd);
+            showMoreOutgoingKudosButton($scope.outgoingKudosCollection);
         }
 
         function acornPlural(amount) {

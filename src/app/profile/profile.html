@@ -135,7 +135,7 @@
                 </tr>
                 </tbody>
             </table>
-            <button ng-click="showMoreIncomingKudos(); lessIncoming = true" type="button"
+            <button ng-click="showMoreIncomingKudos(); lessIncoming = true" ng-show="moreIncoming" type="button"
                     class="btn btn-default btn-sm">
                 {{'ProfileShowMore' | translate}}
             </button>
@@ -162,7 +162,7 @@
                 </tr>
                 </tbody>
             </table>
-            <button ng-click="showMoreOutgoingKudos(); lessOutgoing = true" type="button"
+            <button ng-click="showMoreOutgoingKudos(); lessOutgoing = true" ng-show="moreOutgoing" type="button"
                     class="btn btn-default btn-sm">
                 {{'ProfileShowMore' | translate}}
             </button>
