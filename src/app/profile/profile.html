@@ -11,9 +11,9 @@
             <a class="navbar-brand" href="#">{{ 'ProfileACorn' | translate }}</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
-           <!-- <ul class="nav navbar-nav">
-                <li class="active"><a href="#">{{ 'ProfileMe' | translate }}</a></li>
-            </ul> -->
+            <!-- <ul class="nav navbar-nav">
+                 <li class="active"><a href="#">{{ 'ProfileMe' | translate }}</a></li>
+             </ul> -->
             <ul class="nav navbar-nav navbar-right">
                 <li ng-controller="AppController">
                     <a ng-hide="lt" id="ltButton" ng-click="lt=true; en=false; changeLanguage('lt')"
@@ -32,7 +32,7 @@
                         </li>
                     </ul>
                 </li>
-                </ul>
+            </ul>
         </div>
     </div>
 </nav>
@@ -116,24 +116,30 @@
             </div>
 
             <h3>{{ 'ProfileMeReceivedCorns' | translate }}</h3>
-
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>{{ 'ProfileMeColleague' | translate }}</th>
-                    <th>{{ 'ProfileACorn' | translate }}</th>
-                    <th>{{ 'ProfileMeDate' | translate }}</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="animate-repeat"
-                    ng-repeat="incomingKudos in incomingKudosCollection | orderBy:'-timestamp' | limitTo: incomingKudosShowLimit">
-                    <td>{{incomingKudos.senderEmail}}</td>
-                    <td>{{incomingKudos.amount}}</td>
-                    <td>{{incomingKudos.timestamp}}</td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table">
+                    <colgroup>
+                        <col class="col-md-5" />
+                        <col class="col-md-2" />
+                        <col class="col-md-5" />
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>{{ 'ProfileMeColleague' | translate }}</th>
+                        <th>{{ 'ProfileACorn' | translate }}</th>
+                        <th>{{ 'ProfileMeDate' | translate }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="animate-repeat"
+                        ng-repeat="incomingKudos in incomingKudosCollection | orderBy:'-timestamp' | limitTo: incomingKudosShowLimit">
+                        <td>{{incomingKudos.senderEmail}}</td>
+                        <td>{{incomingKudos.amount}}</td>
+                        <td>{{incomingKudos.timestamp}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
             <button ng-click="showMoreIncomingKudos(); lessIncoming = true" ng-show="moreIncoming" type="button"
                     class="btn btn-default btn-sm">
                 {{'ProfileShowMore' | translate}}
@@ -144,23 +150,30 @@
             </button>
 
             <h3>{{ 'ProfileMeSentCorns' | translate }}</h3>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>{{ 'ProfileMeColleague' | translate }}</th>
-                    <th>{{'ProfileACorn' | translate }}</th>
-                    <th>{{'ProfileMeDate' | translate }}</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="animate-repeat"
-                    ng-repeat="outgoingKudos in outgoingKudosCollection | orderBy:'-timestamp' | limitTo: outgoingKudosShowLimit">
-                    <td>{{outgoingKudos.receiver}}</td>
-                    <td>{{outgoingKudos.amount}}</td>
-                    <td>{{outgoingKudos.timestamp}}</td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table">
+                    <colgroup>
+                        <col class="col-md-5" />
+                        <col class="col-md-2" />
+                        <col class="col-md-5" />
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>{{ 'ProfileMeColleague' | translate }}</th>
+                        <th>{{'ProfileACorn' | translate }}</th>
+                        <th>{{'ProfileMeDate' | translate }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="animate-repeat"
+                        ng-repeat="outgoingKudos in outgoingKudosCollection | orderBy:'-timestamp' | limitTo: outgoingKudosShowLimit">
+                        <td>{{outgoingKudos.receiver}}</td>
+                        <td>{{outgoingKudos.amount}}</td>
+                        <td>{{outgoingKudos.timestamp}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
             <button ng-click="showMoreOutgoingKudos(); lessOutgoing = true" ng-show="moreOutgoing" type="button"
                     class="btn btn-default btn-sm">
                 {{'ProfileShowMore' | translate}}
