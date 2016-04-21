@@ -117,7 +117,7 @@
 
             <h3>{{ 'ProfileMeReceivedCorns' | translate }}</h3>
             <div class="table-responsive">
-                <table class="table">
+                <table ng-show="receivedKudosTable" class="table">
                     <colgroup>
                         <col class="col-md-5" />
                         <col class="col-md-2" />
@@ -140,6 +140,11 @@
                     </tbody>
                 </table>
             </div>
+            <div ng-if="!receivedKudosTable" class="alert alert-info acorn-bg">
+                <span class="glyphicon glyphicon-info-sign"></span>
+                {{'ProfileMeReceivedAcorns' | translate}}
+            </div>
+
             <button ng-click="showMoreIncomingKudos(); lessIncoming = true" ng-show="moreIncoming" type="button"
                     class="btn btn-default btn-sm">
                 {{'ProfileShowMore' | translate}}
@@ -151,7 +156,7 @@
 
             <h3>{{ 'ProfileMeSentCorns' | translate }}</h3>
             <div class="table-responsive">
-                <table class="table">
+                <table ng-show="sentKudosTable"  class="table">
                     <colgroup>
                         <col class="col-md-5" />
                         <col class="col-md-2" />
@@ -174,6 +179,11 @@
                     </tbody>
                 </table>
             </div>
+            <div ng-if="!sentKudosTable" class="alert alert-info acorn-bg">
+                <span class="glyphicon glyphicon-info-sign"></span>
+                {{'ProfileMeSentAcorns' | translate}}
+            </div>
+
             <button ng-click="showMoreOutgoingKudos(); lessOutgoing = true" ng-show="moreOutgoing" type="button"
                     class="btn btn-default btn-sm">
                 {{'ProfileShowMore' | translate}}

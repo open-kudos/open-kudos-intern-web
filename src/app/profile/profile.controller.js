@@ -63,11 +63,13 @@ angular
         ProfileService.incomingKudos().then(function (val) {
             $scope.incomingKudosCollection = val;
             showMoreIncomingKudosButton(val);
+            receivedKudosTable();
         });
 
         ProfileService.outgoingKudos().then(function (val) {
             $scope.outgoingKudosCollection = val;
             showMoreOutgoingKudosButton(val);
+            sentKudosTable();
         });
 
         ProfileService.listUsers().then(function (val) {
@@ -104,6 +106,16 @@ angular
 
         function showLessIncomingKudos() {
             $scope.incomingKudosShowLimit = showMoreLimit;
+        }
+
+        function sentKudosTable() {
+            if ($scope.outgoingKudosCollection.length > 0)
+                $scope.sentKudosTable = true;
+        }
+
+        function receivedKudosTable() {
+            if ($scope.incomingKudosCollection.length > 0)
+                $scope.receivedKudosTable = true;
         }
 
         function updateProfile() {
@@ -238,6 +250,7 @@ angular
                 timestamp: val.timestamp
             };
             $scope.outgoingKudosCollection.push(itemToAdd);
+            sentKudosTable();
             showMoreOutgoingKudosButton($scope.outgoingKudosCollection);
         }
 

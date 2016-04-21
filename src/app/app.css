@@ -56,6 +56,10 @@ body {
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
+.noTableRecords {
+    color: #c37b00;
+}
+
 .errorMessage {
     color: red;
 }
@@ -447,6 +451,12 @@ body {
 
 .acorn-color {
     color: #FF6100;
+}
+
+.acorn-bg {
+    color: #ffffff;
+    background: #ff822a;
+    border-color: transparent;
 }
 
 div.box4 {
