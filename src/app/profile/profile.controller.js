@@ -11,12 +11,11 @@ angular
 
     .controller('profileController', function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, ProfileService) {
         var inputChangedPromise;
-
         $scope.userAvailableKudos = 0;
         $scope.userReceivedKudos = 0;
         $scope.sendKudosErrorMessage = "Please enter receiver and amount";
-        $scope.incomingKudosShowLimit = 3;
-        $scope.outgoingKudosShowLimit = 3;
+        $scope.incomingKudosShowLimit = 5;
+        $scope.outgoingKudosShowLimit = 5;
         $scope.maxSendKudosLength = $scope.userAvailableKudos;
         $scope.incomingKudosCollection = [];
         $scope.outgoingKudosCollection = [];
@@ -74,13 +73,13 @@ angular
         });
 
         function showMoreIncomingKudosButton(val) {
-            if (val.length > 3){
+            if (val.length > 5){
                 $scope.moreIncoming = true;
             }
         }
 
         function showMoreOutgoingKudosButton(val) {
-            if (val.length > 3){
+            if (val.length > 5){
                 $scope.moreOutgoing = true;
             }
         }
@@ -98,11 +97,11 @@ angular
         }
 
         function showLessOutgoingKudos() {
-            $scope.outgoingKudosShowLimit = 3;
+            $scope.outgoingKudosShowLimit = 5;
         }
 
         function showLessIncomingKudos() {
-            $scope.incomingKudosShowLimit = 3;
+            $scope.incomingKudosShowLimit = 5;
         }
 
         function updateProfile() {

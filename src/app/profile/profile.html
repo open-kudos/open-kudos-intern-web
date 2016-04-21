@@ -11,9 +11,9 @@
             <a class="navbar-brand" href="#">{{ 'ProfileACorn' | translate }}</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
+           <!-- <ul class="nav navbar-nav">
                 <li class="active"><a href="#">{{ 'ProfileMe' | translate }}</a></li>
-            </ul>
+            </ul> -->
             <ul class="nav navbar-nav navbar-right">
                 <li ng-controller="AppController">
                     <a ng-hide="lt" id="ltButton" ng-click="lt=true; en=false; changeLanguage('lt')"
@@ -88,7 +88,6 @@
 
     <div class="row">
 
-
         <!-- use later col-sm-push-3 -->
         <div class="col-sm-12">
 
@@ -108,8 +107,8 @@
                     <h1><b class="acorn-color">{{userReceivedKudos}}</b></h1>
                     <h4>{{ 'ProfileMeTotalCorns' | translate }}</h4>
                     <div class="col-md-12">
-                        <button name="giveKudosButton" id="challenge"
-                                class="btn profile-buttons hvr-underline-from-center">{{ 'ProfileMeChallenge' |
+                        <button name="challengeButton" id="challenge"
+                                class="btn profile-buttons hvr-underline-from-center" disabled>{{ 'ProfileMeChallenge' |
                             translate }}
                         </button>
                     </div>
