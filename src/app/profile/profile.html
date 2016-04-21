@@ -119,7 +119,7 @@
                     ng-repeat="incomingKudos in incomingKudosCollection | orderBy:'-timestamp' | limitTo: incomingKudosShowLimit">
                     <td>{{incomingKudos.senderEmail}}</td>
                     <td>{{incomingKudos.amount}}</td>
-                    <td>{{incomingKudos.timestamp}}</td>
+                    <td>{{incomingKudos.timestamp | limitTo:19}}</td>
                 </tr>
                 </tbody>
             </table>
@@ -132,7 +132,7 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>{{ 'ProfileMeColleague' | translate }}</th>
+                    <th>{{'ProfileMeColleague' | translate }}</th>
                     <th>{{'ProfileACorn' | translate }}</th>
                     <th>{{'ProfileMeDate' | translate }}</th>
                 </tr>
@@ -142,7 +142,7 @@
                     ng-repeat="outgoingKudos in outgoingKudosCollection | orderBy:'-timestamp' | limitTo: outgoingKudosShowLimit">
                     <td>{{outgoingKudos.receiver}}</td>
                     <td>{{outgoingKudos.amount}}</td>
-                    <td>{{outgoingKudos.timestamp}}</td>
+                    <td>{{outgoingKudos.timestamp | limitTo:19}}</td>
                 </tr>
                 </tbody>
             </table>
