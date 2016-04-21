@@ -16,13 +16,23 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li ng-controller="AppController">
-                    <a ng-hide="lt" id="ltButton" ng-click="lt=true; en=false; changeLanguage('lt')" href="">Lietuvių</a>
+                    <a ng-hide="lt" id="ltButton" ng-click="lt=true; en=false; changeLanguage('lt')"
+                       href="">Lietuvių</a>
                     <a ng-hide="en" id="enButton" ng-click="lt=false; en=true; changeLanguage('en')" href="">English</a>
                 </li>
-                <li><a href="">{{userName}} {{userSurname}}</a></li>
-                <li><a ng-click="logout()" href="#"><span class="glyphicon glyphicon-log-in"></span>
-                    {{ 'ProfileMeLogout' | translate }}</a></li>
-            </ul>
+                <li>
+                    <a href="" class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="true">
+                        <span class="glyphicon glyphicon-user"></span> {{userName}} {{userSurname}}
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a ng-click="logout()" href="#"><span class="glyphicon glyphicon-log-in"></span>
+                            {{ 'ProfileMeLogout' | translate }}</a>
+                        </li>
+                    </ul>
+                </li>
+                </ul>
         </div>
     </div>
 </nav>
@@ -77,7 +87,9 @@
     <!-- Send Kudos Modal content end -->
 
     <div class="row">
-                            <!-- use later col-sm-push-3 -->
+
+
+        <!-- use later col-sm-push-3 -->
         <div class="col-sm-12">
 
             <div class="row text-center">
@@ -123,10 +135,14 @@
                 </tr>
                 </tbody>
             </table>
-            <button ng-show="moreIncoming" ng-click="showMoreIncomingKudos(); lessIncoming = true" type="button" class="btn btn-default btn-sm">
-                {{'ProfileShowMore' | translate}}</button>
-            <button ng-show="lessIncoming" ng-click="showLessIncomingKudos(); lessIncoming = false" type="button" class="btn btn-default btn-sm">
-                {{'ProfileShowLess' | translate}}</button>
+            <button ng-click="showMoreIncomingKudos(); lessIncoming = true" type="button"
+                    class="btn btn-default btn-sm">
+                {{'ProfileShowMore' | translate}}
+            </button>
+            <button ng-show="lessIncoming" ng-click="showLessIncomingKudos(); lessIncoming = false" type="button"
+                    class="btn btn-default btn-sm">
+                {{'ProfileShowLess' | translate}}
+            </button>
 
             <h3>{{ 'ProfileMeSentCorns' | translate }}</h3>
             <table class="table">
@@ -146,10 +162,14 @@
                 </tr>
                 </tbody>
             </table>
-            <button ng-show="moreOutgoing" ng-click="showMoreOutgoingKudos(); lessOutgoing = true" type="button" class="btn btn-default btn-sm">
-                {{'ProfileShowMore' | translate}}</button>
-            <button ng-show="lessOutgoing" ng-click="showLessOutgoingKudos(); lessOutgoing = false" type="button" class="btn btn-default btn-sm">
-                {{'ProfileShowLess' | translate}}</button>
+            <button ng-click="showMoreOutgoingKudos(); lessOutgoing = true" type="button"
+                    class="btn btn-default btn-sm">
+                {{'ProfileShowMore' | translate}}
+            </button>
+            <button ng-show="lessOutgoing" ng-click="showLessOutgoingKudos(); lessOutgoing = false" type="button"
+                    class="btn btn-default btn-sm">
+                {{'ProfileShowLess' | translate}}
+            </button>
 
         </div>
 
@@ -189,29 +209,29 @@
             </div>
         -->
 
-        </div>
-
-        <!--
-        <div class="col-sm-3 col-sm-pull-9">
-
-            <div class="box4">
-                <h3>{{userName}} {{userSurname}}</h3>
-                <h4>{{userPosition}}</h4>
-
-                <p>{{'ProfileMeLocation' | translate }}: {{userLocation}}</p>
-                <p>{{'ProfileMeEmail' | translate }}: {{userEmail}}</p>
-                <p>{{'ProfileMePhone' | translate }}: {{userPhone}}</p>
-                <p>{{'ProfileMeTeam' | translate }}: {{userTeam}}</p>
-                <p>{{'ProfileMeStartedToWork' | translate }}: {{userStartedToWork}}</p>
-                <p>{{'ProfileMeBirthday' | translate }}: {{userBirthday}}</p>
-
-                <button type="button" data-toggle="modal" data-target="#userDetailsModal"
-                        class="btn btn-default btn-sm">
-                    {{'ProfileMeEdit' | translate }}
-                </button>
-
-            </div>
-        </div>
-        -->
     </div>
+
+    <!--
+    <div class="col-sm-3 col-sm-pull-9">
+
+        <div class="box4">
+            <h3>{{userName}} {{userSurname}}</h3>
+            <h4>{{userPosition}}</h4>
+
+            <p>{{'ProfileMeLocation' | translate }}: {{userLocation}}</p>
+            <p>{{'ProfileMeEmail' | translate }}: {{userEmail}}</p>
+            <p>{{'ProfileMePhone' | translate }}: {{userPhone}}</p>
+            <p>{{'ProfileMeTeam' | translate }}: {{userTeam}}</p>
+            <p>{{'ProfileMeStartedToWork' | translate }}: {{userStartedToWork}}</p>
+            <p>{{'ProfileMeBirthday' | translate }}: {{userBirthday}}</p>
+
+            <button type="button" data-toggle="modal" data-target="#userDetailsModal"
+                    class="btn btn-default btn-sm">
+                {{'ProfileMeEdit' | translate }}
+            </button>
+
+        </div>
+    </div>
+    -->
+</div>
 </div>

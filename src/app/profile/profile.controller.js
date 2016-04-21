@@ -141,13 +141,6 @@ angular
             });
         }
 
-        function inputChanged() {
-            if (inputChangedPromise) {
-                $timeout.cancel(inputChangedPromise);
-            }
-            inputChangedPromise = $timeout(kudosValidation, 100);
-        }
-
         function kudosValidation() {
             $scope.errorClass = "error-message";
             if ($scope.sendKudosAmount > $scope.userAvailableKudos
@@ -197,10 +190,6 @@ angular
         function clearCookies() {
             $cookies.put('remember_user', 'false');
             $cookies.put('user_credentials', '');
-        }
-
-        function isValid(value) {
-            return typeof value === "undefined";
         }
 
         function enableSendKudosButton() {
