@@ -3,5 +3,5 @@
  */
 "use strict";
 angular.module("myApp").constant("SERVER", {
-	"ip": "http://www.openkudos.com/api"
+	"ip": "http://openkudos.com/api"
 })
