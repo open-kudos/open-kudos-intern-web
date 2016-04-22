@@ -21,8 +21,8 @@
                   <div class="form-group">
 
                       <div ng-messages="registrationForm.fullName.$error">
-                        <div  ng-show="registrationValidation" class="errorMessage" ng-message="required">{{ 'registrationErrorFullName' | translate }}</div>
-                        <div class="errorMessage" ng-message="pattern">{{ 'registrationErrorFullName' | translate }}</div>
+                        <div ng-show="registrationValidation" class="errorMessage" ng-message="required">{{ 'registrationErrorFullName' | translate }}</div>
+                        <div ng-show="registrationValidation" class="errorMessage" ng-message="pattern">{{ 'registrationErrorFullName' | translate }}</div>
                       </div>
                     <input ng-model="fullName" type="text" ng-pattern="/ /" name="fullName" id="fullname" tabindex="1" class="valid" placeholder="{{ 'registrationFullName' | translate }}" required>
 
@@ -31,7 +31,7 @@
 
                     <div ng-messages="registrationForm.email.$error">
                       <div ng-show="registrationValidation" class="errorMessage" ng-message="required">{{ 'registrationEnterEmail' | translate }}</div>
-                      <div class="errorMessage" ng-message="pattern">{{ 'registrationErrorEmail' | translate }}</div>
+                      <div ng-show="registrationValidation" class="errorMessage" ng-message="pattern">{{ 'registrationErrorEmail' | translate }}</div>
                     </div>
                     <input ng-model="email" type="text" name="email" ng-pattern="/[@]swedbank.[a-z]{2,}/" id="email" tabindex="3" class="valid" placeholder="{{ 'registrationEmail' | translate  }}" required>
 
