@@ -11,6 +11,7 @@ angular
     .controller('profileController', function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, ProfileService) {
         var inputChangedPromise;
         var showMoreLimit = 5;
+        var errorMessage = "";
 
         $scope.userAvailableKudos = 0;
         $scope.userReceivedKudos = 0;
@@ -150,7 +151,7 @@ angular
                 pushOutgoingTransferIntoCollection(val.data);
                 clearSendKudosFormValues();
             }).catch(function () {
-                showSendKudosErrorMessage("Receiver does not exist");
+                errorMessage == "" ? showSendKudosErrorMessage("Receiver does not exist") : showSendKudosErrorMessage(errorMessage)
             });
         }
 
@@ -159,22 +160,29 @@ angular
             if ($scope.sendKudosAmount > $scope.userAvailableKudos) {
                 showSendKudosErrorMessage("You don't have enough Acorns");
                 $scope.sendKudosForm.sendKudosAmount.$invalid = true;
+                disableSendKudosButton();
             } else if ($scope.sendKudosAmount == null) {
                 showSendKudosErrorMessage("Please enter amount");
                 $scope.sendKudosForm.sendKudosAmount.$invalid = true;
+                disableSendKudosButton();
             } else if ($scope.sendKudosAmount <= 0) {
                 showSendKudosErrorMessage("Please enter more than zero");
                 $scope.sendKudosForm.sendKudosAmount.$invalid = true;
+                disableSendKudosButton();
             } else if ($scope.sendKudosTo == null) {
                 showSendKudosErrorMessage("Please enter receiver");
                 $scope.sendKudosForm.sendKudosTo.$invalid = true;
+                disableSendKudosButton();
             } else if (!validateEmail($scope.sendKudosTo)) {
                 showSendKudosErrorMessage("Please enter valid receiver email");
                 $scope.sendKudosForm.sendKudosTo.$invalid = true;
+                disableSendKudosButton();
             } else if ($scope.sendKudosTo === $scope.userEmail) {
                 showSendKudosErrorMessage("Can't send kudos to yourself");
                 $scope.sendKudosForm.sendKudosTo.$invalid = true;
+                disableSendKudosButton();
             } else {
+                errorMessage = "";
                 showSendKudosSuccessMessage("");
             }
         }
@@ -217,11 +225,13 @@ angular
         }
 
         function validateEmail(email) {
-            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            var re = /[@]swedbank.[a-z]{2,}/;
+            //    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             return re.test(email);
         }
 
         function showSendKudosErrorMessage(message) {
+            $scope.errorClass = "error-message";
             $scope.sendKudosErrorMessage = message;
             disableSendKudosButton();
         }
@@ -246,7 +256,7 @@ angular
                 receiver: val.receiver,
                 message: val.message,
                 amount: val.amount,
-                timestamp: val.timestamp
+                timestamp: trimDate(val.timestamp)
             };
             $scope.outgoingKudosCollection.push(itemToAdd);
             sentKudosTable();
@@ -255,6 +265,13 @@ angular
 
         function acornPlural(amount) {
             return amount > 1 ? amount + " Acorns" : amount + " Acorn"
+        }
+
+        function trimDate(dateString) {
+            var length = 16;
+            var trimmedString = dateString.substring(0, length);
+            console.log(trimmedString);
+            return trimmedString;
         }
 
         function registerTooltip() {
