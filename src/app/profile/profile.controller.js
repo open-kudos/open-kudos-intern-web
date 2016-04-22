@@ -3,30 +3,24 @@
  */
 'use strict';
 
-angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'ngAnimate', 'angucomplete'])
-    .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/profile', {
-            templateUrl: 'profile/profile.html',
-            controller: 'profileController'
-        });
-    }])
+angular
+    .module('myApp.profile', [
+        'ngRoute',
+        'ngCookies'
+    ])
     .controller('profileController', function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, ProfileService) {
-        checkUser();
-
         var inputChangedPromise;
+        var showMoreLimit = 5;
 
-        $scope.userAvailableKudos
-            = 0;
+        $scope.userAvailableKudos = 0;
+        $scope.userReceivedKudos = 0;
         $scope.sendKudosErrorMessage = "Please enter receiver and amount";
-        $scope.incomingKudosShowLimit = 3;
-        $scope.outgoingKudosShowLimit = 3;
-        $scope.maxSendKudosLength = $scope.userAvailableKudos
-        ;
+        $scope.incomingKudosShowLimit = 5;
+        $scope.outgoingKudosShowLimit = 5;
+        $scope.maxSendKudosLength = $scope.userAvailableKudos;
         $scope.incomingKudosCollection = [];
         $scope.outgoingKudosCollection = [];
         $scope.usersCollection = [];
-        $scope.showSuccess = false;
-        $scope.showSendKudosModal = true;
         $scope.buttonDisabled = true;
 
         $scope.updateProfile = updateProfile;
@@ -35,9 +29,16 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'ngAnimate', 'angucompl
         $scope.inputChanged = inputChanged;
         $scope.kudosValidation = kudosValidation;
         $scope.isValid = isValid;
+        $scope.clearSendKudosFormValues = clearSendKudosFormValues;
         $scope.showMoreIncomingKudos = showMoreIncomingKudos;
         $scope.showMoreOutgoingKudos = showMoreOutgoingKudos;
-        $scope.resetModal = resetModal;
+        $scope.showLessIncomingKudos = showLessIncomingKudos;
+        $scope.showLessOutgoingKudos = showLessOutgoingKudos;
+        $scope.showMoreIncomingKudosButton = showMoreIncomingKudosButton;
+        $scope.showMoreOutgoingKudosButton = showMoreOutgoingKudosButton;
+
+        checkUser();
+        registerTooltip();
 
         ProfileService.userHome().then(function (val) {
             $scope.userEmail = val.email;
@@ -52,8 +53,7 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'ngAnimate', 'angucompl
         });
 
         ProfileService.remainingKudos().then(function (val) {
-            $scope.userAvailableKudos
-                = val;
+            $scope.userAvailableKudos = val;
         });
 
         ProfileService.receivedKudos().then(function (val) {
@@ -62,30 +62,60 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'ngAnimate', 'angucompl
 
         ProfileService.incomingKudos().then(function (val) {
             $scope.incomingKudosCollection = val;
+            showMoreIncomingKudosButton(val);
+            receivedKudosTable();
         });
 
         ProfileService.outgoingKudos().then(function (val) {
             $scope.outgoingKudosCollection = val;
+            showMoreOutgoingKudosButton(val);
+            sentKudosTable();
         });
 
         ProfileService.listUsers().then(function (val) {
             $scope.usersCollection = val.userList;
         });
 
+        function showMoreIncomingKudosButton(val) {
+            if (val.length > 5) {
+                $scope.moreIncoming = true;
+            }
+        }
+
+        function showMoreOutgoingKudosButton(val) {
+            if (val.length > 5) {
+                $scope.moreOutgoing = true;
+            }
+        }
+
         function showMoreIncomingKudos() {
             if ($scope.incomingKudosShowLimit <= $scope.incomingKudosCollection.length) {
-                $scope.incomingKudosShowLimit += 5;
-            } else {
-                $scope.incomingKudosShowLimit = 3;
+                $scope.incomingKudosShowLimit += showMoreLimit;
             }
         }
 
         function showMoreOutgoingKudos() {
             if ($scope.outgoingKudosShowLimit <= $scope.outgoingKudosCollection.length) {
-                $scope.outgoingKudosShowLimit += 5;
-            } else {
-                $scope.outgoingKudosShowLimit = 3;
+                $scope.outgoingKudosShowLimit += showMoreLimit;
             }
+        }
+
+        function showLessOutgoingKudos() {
+            $scope.outgoingKudosShowLimit = showMoreLimit;
+        }
+
+        function showLessIncomingKudos() {
+            $scope.incomingKudosShowLimit = showMoreLimit;
+        }
+
+        function sentKudosTable() {
+            if ($scope.outgoingKudosCollection.length > 0)
+                $scope.sentKudosTable = true;
+        }
+
+        function receivedKudosTable() {
+            if ($scope.incomingKudosCollection.length > 0)
+                $scope.receivedKudosTable = true;
         }
 
         function updateProfile() {
@@ -108,14 +138,15 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'ngAnimate', 'angucompl
             var sendTo = $httpParamSerializer({
                 receiverEmail: $scope.sendKudosTo,
                 amount: $scope.sendKudosAmount,
-                message: $scope.sendKudosMessage});
+                message: $scope.sendKudosMessage
+            });
 
             ProfileService.send(sendTo).then(function (val) {
                 $scope.showSendKudosModal = false;
                 $scope.showSuccess = true;
-                $scope.userAvailableKudos
-                    = $scope.userAvailableKudos
-                    - val.data.amount;
+                $scope.userAvailableKudos = $scope.userAvailableKudos - val.data.amount;
+                $('#sendKudosModal').modal('hide');
+                toastr.success('You successfully sent ' + acornPlural(val.data.amount) + ' to ' + val.data.receiver);
                 pushOutgoingTransferIntoCollection(val.data);
                 clearSendKudosFormValues();
             }).catch(function () {
@@ -125,8 +156,7 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'ngAnimate', 'angucompl
 
         function kudosValidation() {
             $scope.errorClass = "error-message";
-            if ($scope.sendKudosAmount > $scope.userAvailableKudos
-            ) {
+            if ($scope.sendKudosAmount > $scope.userAvailableKudos) {
                 showSendKudosErrorMessage("You don't have enough Acorns");
                 $scope.sendKudosForm.sendKudosAmount.$invalid = true;
             } else if ($scope.sendKudosAmount == null) {
@@ -145,7 +175,7 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'ngAnimate', 'angucompl
                 showSendKudosErrorMessage("Can't send kudos to yourself");
                 $scope.sendKudosForm.sendKudosTo.$invalid = true;
             } else {
-                showSendKudosSuccessMessage("Ok, you'r good to go!");
+                showSendKudosSuccessMessage("");
             }
         }
 
@@ -198,8 +228,6 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'ngAnimate', 'angucompl
 
         function showSendKudosSuccessMessage(message) {
             $scope.errorClass = "success-message";
-            $scope.sendKudosToClass = "";
-            $scope.sendKudosAmountClass = "";
             $scope.sendKudosErrorMessage = message;
             enableSendKudosButton();
         }
@@ -210,11 +238,7 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'ngAnimate', 'angucompl
             $scope.sendKudosMessage = "";
             $scope.errorClass = "error-message";
             $scope.sendKudosErrorMessage = "Please enter receiver and amount";
-        }
-
-        function resetModal(){
-            $scope.showSuccess = false;
-            $scope.showSendKudosModal = true;
+            disableSendKudosButton();
         }
 
         function pushOutgoingTransferIntoCollection(val) {
@@ -222,9 +246,20 @@ angular.module('myApp.profile', ['ngRoute', 'ngCookies', 'ngAnimate', 'angucompl
                 receiver: val.receiver,
                 message: val.message,
                 amount: val.amount,
-                timestamp: val.timestamp};
+                timestamp: val.timestamp
+            };
             $scope.outgoingKudosCollection.push(itemToAdd);
+            sentKudosTable();
+            showMoreOutgoingKudosButton($scope.outgoingKudosCollection);
         }
 
+        function acornPlural(amount) {
+            return amount > 1 ? amount + " Acorns" : amount + " Acorn"
+        }
 
+        function registerTooltip() {
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        }
     });

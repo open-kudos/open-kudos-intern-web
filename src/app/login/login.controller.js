@@ -8,14 +8,6 @@ angular
     'base64'
 ])
 
-    .config(function ($routeProvider) {
-        $routeProvider.when('/login', {
-            templateUrl: 'login/login.html',
-            controller: 'loginController'
-        });
-
-    })
-
     .controller('loginController', function ($scope, $http, $cookies, $window, $base64, $httpParamSerializer, SERVER, LoginService) {
 
             initView();
@@ -52,12 +44,12 @@ angular
 
             function showErrorMessage() {
                 var errorMessage = document.getElementById('errorMessage');
-                errorMessage.className = '';
+                errorMessage.className = 'errorMessage';
             }
             
             function hideErrorMessage() {
                 var errorMessage = document.getElementById('errorMessage');
-                errorMessage.className = 'hidden';
+                errorMessage.className = 'errorMessage hidden';
             }
             
             function isRememberedUser() {
