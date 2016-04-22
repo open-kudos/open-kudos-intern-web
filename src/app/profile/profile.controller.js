@@ -8,7 +8,6 @@ angular
         'ngRoute',
         'ngCookies'
     ])
-
     .controller('profileController', function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, ProfileService) {
         var inputChangedPromise;
         var showMoreLimit = 5;
@@ -39,6 +38,7 @@ angular
         $scope.showMoreOutgoingKudosButton = showMoreOutgoingKudosButton;
 
         checkUser();
+        registerTooltip();
 
         ProfileService.userHome().then(function (val) {
             $scope.userEmail = val.email;
@@ -77,19 +77,19 @@ angular
         });
 
         function showMoreIncomingKudosButton(val) {
-            if (val.length > 5){
+            if (val.length > 5) {
                 $scope.moreIncoming = true;
             }
         }
 
         function showMoreOutgoingKudosButton(val) {
-            if (val.length > 5){
+            if (val.length > 5) {
                 $scope.moreOutgoing = true;
             }
         }
 
         function showMoreIncomingKudos() {
-             if ($scope.incomingKudosShowLimit <= $scope.incomingKudosCollection.length) {
+            if ($scope.incomingKudosShowLimit <= $scope.incomingKudosCollection.length) {
                 $scope.incomingKudosShowLimit += showMoreLimit;
             }
         }
@@ -156,8 +156,7 @@ angular
 
         function kudosValidation() {
             $scope.errorClass = "error-message";
-            if ($scope.sendKudosAmount > $scope.userAvailableKudos
-            ) {
+            if ($scope.sendKudosAmount > $scope.userAvailableKudos) {
                 showSendKudosErrorMessage("You don't have enough Acorns");
                 $scope.sendKudosForm.sendKudosAmount.$invalid = true;
             } else if ($scope.sendKudosAmount == null) {
@@ -176,7 +175,7 @@ angular
                 showSendKudosErrorMessage("Can't send kudos to yourself");
                 $scope.sendKudosForm.sendKudosTo.$invalid = true;
             } else {
-                showSendKudosSuccessMessage("Ok, you'r good to go!");
+                showSendKudosSuccessMessage("");
             }
         }
 
@@ -258,5 +257,9 @@ angular
             return amount > 1 ? amount + " Acorns" : amount + " Acorn"
         }
 
-
+        function registerTooltip() {
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        }
     });

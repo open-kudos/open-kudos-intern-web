@@ -64,7 +64,7 @@
                         <div class="form-group col-sm-6">
                             <input ng-model="sendKudosAmount" ng-change="inputChanged()"
                                    ng-class="{invalid : sendKudosForm.sendKudosAmount.$invalid}" id="sendKudosAmount"
-                                   name="sendKudosAmount" type="number"
+                                   name="sendKudosAmount" type="number" ng-pattern="/^[0-9]+$/"
                                    class="form-control" min="1" max="{userAvailableKudos
                                   }"
                                    placeholder="{{'SEND_KUDOS_AMOUNT_HINT' | translate }}" required>
@@ -108,7 +108,7 @@
                     <h4>{{ 'ProfileMeTotalCorns' | translate }}</h4>
                     <div class="col-md-12">
                         <button name="challengeButton" id="challenge"
-                                class="btn profile-buttons hvr-underline-from-center" disabled>{{ 'ProfileMeChallenge' |
+                                class="btn profile-buttons hvr-underline-from-center" data-toggle="tooltip" data-placement="top"  title="My Tooltip" disabled>{{ 'ProfileMeChallenge' |
                             translate }}
                         </button>
                     </div>
@@ -119,9 +119,9 @@
             <div class="table-responsive">
                 <table ng-show="receivedKudosTable" class="table">
                     <colgroup>
-                        <col class="col-md-5" />
-                        <col class="col-md-2" />
-                        <col class="col-md-5" />
+                        <col class="col-xs-6" />
+                        <col class="col-xs-2" />
+                        <col class="col-xs-4" />
                     </colgroup>
                     <thead>
                     <tr>
@@ -158,9 +158,9 @@
             <div class="table-responsive">
                 <table ng-show="sentKudosTable"  class="table">
                     <colgroup>
-                        <col class="col-md-5" />
-                        <col class="col-md-2" />
-                        <col class="col-md-5" />
+                        <col class="col-xs-6" />
+                        <col class="col-xs-2" />
+                        <col class="col-xs-4" />
                     </colgroup>
                     <thead>
                     <tr>
