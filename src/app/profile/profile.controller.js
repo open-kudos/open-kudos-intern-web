@@ -8,10 +8,13 @@ angular
         'ngRoute',
         'ngCookies'
     ])
-    .controller('profileController', function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, ProfileService) {
+    .controller('profileController', function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, ProfileService, Challenges) {
         var inputChangedPromise;
         var showMoreLimit = 5;
         var errorMessage = "";
+        $scope.giveChallengeCheckbox = {
+            giveChallengeOptionalFields : false
+        };
 
         $scope.userAvailableKudos = 0;
         $scope.userReceivedKudos = 0;
@@ -157,7 +160,25 @@ angular
         }
 
         function giveChallenge() {
+            if ($scope.giveChallengeOptionalFields == false){
+                $scope.giveChallengeDescription = "";
+                $scope.giveChallengeExpirationDate = "";
+            }
 
+            var giveTo = $httpParamSerializer({
+                participant: $scope.giveChallengeTo,
+                referee: $scope.giveChallengeReferee,
+                name: $scope.giveChallengeName,
+                description : $scope.giveChallengeDescription,
+                finishDate: $scope.giveChallengeExpirationDate,
+                amount: $scope.giveChallengeAmountOfKudos
+            });
+            
+            Challenges.create(giveTo).then(function (val) {
+                console.log("SUCCESS");
+            }).catch(function () {
+                console.log("DENIED");
+            })
         }
 
         function kudosValidation() {
