@@ -16,9 +16,7 @@ function Kudos($http, SERVER) {
         incoming: getIncomingKudos,
         outgoing: getOutgoingKudos,
         remaining: getRemainingKudos,
-        received: getReceivedKudos,
-        givenChallenges: getGivenChallenges,
-        receivedChallenges: getReceivedChallenges
+        received: getReceivedKudos
     }
     return kudos;
 
@@ -70,25 +68,5 @@ function Kudos($http, SERVER) {
         }).then(function (response) {
             return response.data;
         });
-    }
-
-    function getGivenChallenges() {
-        return $http({
-            method: 'GET',
-            url: SERVER.ip + "/challenges/created",
-            withCredentials: true
-        }).then(function(response) {
-            return response.data;
-        })
-    }
-
-    function getReceivedChallenges() {
-        return $http({
-            method: 'GET',
-            url: SERVER.ip + "/challenges/participated",
-            withCredentials: true
-        }).then(function(response) {
-            return response.data;
-        })
     }
 }
