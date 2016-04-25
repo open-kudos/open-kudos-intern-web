@@ -76,7 +76,7 @@
                     </form>
 
                     <button ng-click="sendKudos()" name="sendKudosButton" id="sendKudosButton"
-                            class="form-control btn btn-login" ng-disabled="buttonDisabled">Give
+                            class="form-control btn btn-login" ng-disabled="buttonDisabled">{{'SEND_KUDOS_GIVE_BUTTON' | translate}}
                     </button>
 
                 </div>
@@ -85,6 +85,58 @@
     </div>
 
     <!-- Send Kudos Modal content end -->
+
+    <!-- Give Challenges Modal -->
+    <div id="giveChallengeModal" class="modal fade" role="dialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" ng-click="clearGiveChallengeFormValues()" class="close"
+                            data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">{{ 'GIVE_CHALLENGE_POPUP_TITLE' | translate }}</h4>
+                </div>
+
+                <div class="modal-body">
+                    <form name="giveChallengeForm">
+                        <div class="form-group col-sm-6">
+                            <input ng-model="giveChallengeName" class="form-control"
+                                   ng-class="{invalid : giveChallengeForm.giveChallengeName.$invalid}"
+                                   id="giveChallengeName" name="giveChallengeName" type="text"
+                                   placeholder="{{ 'GIVE_CHALLENGE_NAME' | translate }}" required>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <input ng-model="giveChallengeAmountOfKudos"
+                                   ng-class="{invalid : giveChallengeForm.giveChallengeAmountOfKudos.$invalid}" id="giveChallengeAmountOfKudos"
+                                   name="giveChallengeAmountOfKudos" type="number" ng-pattern="/^[0-9]+$/"
+                                   class="form-control" min="1" max="{userAvailableKudos}"
+                                   placeholder="{{'GIVE_CHALLENGE_AMOUNT' | translate }}" required>
+                        </div>
+
+                        <div class="form-group col-sm-12">
+                            <input ng-model="giveChallengeTo" class="form-control"
+                                   ng-class="{invalid : giveChallengeForm.giveChallengeTo.$invalid}" id="giveChallengeTo"
+                                   name="giveChallengeTo" type="email"
+                                   placeholder="{{'GIVE_CHALLENGE_TO' | translate }}" required>
+                        </div>
+
+                        <div class="form-group col-sm-12">
+                            <input ng-model="giveChallengeReferee" class="form-control"
+                                   ng-class="{invalid : giveChallengeForm.giveChallengeReferee.$invalid}" id="giveChallengeReferee"
+                                   name="giveChallengeReferee" type="email"
+                                   placeholder="{{'GIVE_CHALLENGE_REFEREE' | translate }}" required>
+                        </div>
+                    </form>
+
+                    <button ng-click="giveChallenge" name="giveChallengeButton" id="giveChallengeButton"
+                            class="form-control btn btn-login">{{'GIVE_CHALLENGE_GIVE_BUTTON' | translate}}
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Give Challenges Modal content end -->
 
     <div class="row">
 
@@ -107,8 +159,9 @@
                     <h1><b class="acorn-color">{{userReceivedKudos}}</b></h1>
                     <h4>{{ 'ProfileMeTotalCorns' | translate }}</h4>
                     <div class="col-md-12">
-                        <button name="challengeButton" id="challenge"
-                                class="btn profile-buttons hvr-underline-from-center" data-toggle="tooltip" data-placement="top"  title="Challenges coming soon!">{{ 'ProfileMeChallenge' |
+                        <button name="giveChallengeButton" id="challengeButton"
+                                data-toggle="modal" data-target="#giveChallengeModal"
+                                class="btn profile-buttons hvr-underline-from-center" data-placement="top">{{ 'ProfileMeChallenge' |
                             translate }}
                         </button>
                     </div>

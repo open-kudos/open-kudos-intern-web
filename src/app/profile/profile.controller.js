@@ -27,6 +27,7 @@ angular
         $scope.updateProfile = updateProfile;
         $scope.logout = logout;
         $scope.sendKudos = sendKudos;
+        $scope.giveChallenge = giveChallenge;
         $scope.inputChanged = inputChanged;
         $scope.kudosValidation = kudosValidation;
         $scope.isValid = isValid;
@@ -153,6 +154,10 @@ angular
             }).catch(function () {
                 errorMessage == "" ? showSendKudosErrorMessage("Receiver does not exist") : showSendKudosErrorMessage(errorMessage)
             });
+        }
+
+        function giveChallenge() {
+
         }
 
         function kudosValidation() {

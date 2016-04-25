@@ -72,5 +72,12 @@
   "SEND_KUDOS_AMOUNT_HINT" : "Keikis",
   "SEND_KUDOS_MESSAGE_HINT" : "Žinutė",
   "SEND_KUDOS_SUCCESS_MESSAGE" : "Giliukai sėkmingai išsiųsti",
-  "SEND_KUDOS_GIVE_BUTTON" : "Siųsti"
+  "SEND_KUDOS_GIVE_BUTTON" : "Siųsti",
+
+  "GIVE_CHALLENGE_POPUP_TITLE" : "Mesti Iššūkį",
+  "GIVE_CHALLENGE_NAME" : "Iššūkio pavadinimas",
+  "GIVE_CHALLENGE_AMOUNT" : "Iššūkio vertė gilėmis",
+  "GIVE_CHALLENGE_TO" : "Iššūkio gavėjas",
+  "GIVE_CHALLENGE_REFEREE" : "Iššūkio teisėjas",
+  "GIVE_CHALLENGE_GIVE_BUTTON" : "MESTI IŠŠŪKĮ!!!"
 }
