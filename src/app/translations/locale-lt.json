@@ -63,6 +63,8 @@
   "ProfileMeGiveButton" : "Duoti",
   "ProfileMeMessage" : "Žinutė",
   "ProfileMeDate" : "Data",
+  "ProfileMeSentAcorns" : "Kol kas nesatę išsiuntęs gilių",
+  "ProfileMeReceivedAcorns" : "Kol kas gautų gilių neturite",
 
   "SEND_KUDOS_POPUP_TITLE" : "Siųsk giliukus",
   "SEND_KUDOS_SENDING_TO_HINT" : "Gavėjas",

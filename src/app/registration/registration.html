@@ -21,8 +21,8 @@
                   <div class="form-group">
 
                       <div ng-messages="registrationForm.fullName.$error">
-                        <div class="errorMessage" ng-message="required">{{ 'registrationErrorFullName' | translate }}</div>
-                        <div class="errorMessage" ng-message="pattern">{{ 'registrationErrorFullName' | translate }}</div>
+                        <div ng-show="registrationValidation" class="errorMessage" ng-message="required">{{ 'registrationErrorFullName' | translate }}</div>
+                        <div ng-show="registrationValidation" class="errorMessage" ng-message="pattern">{{ 'registrationErrorFullName' | translate }}</div>
                       </div>
                     <input ng-model="fullName" type="text" ng-pattern="/ /" name="fullName" id="fullname" tabindex="1" class="valid" placeholder="{{ 'registrationFullName' | translate }}" required>
 
@@ -30,16 +30,16 @@
                   <div class="form-group">
 
                     <div ng-messages="registrationForm.email.$error">
-                      <div class="errorMessage" ng-message="required">{{ 'registrationEnterEmail' | translate }}</div>
-                      <div class="errorMessage" ng-message="email">{{ 'registrationErrorEmail' | translate }}</div>
+                      <div ng-show="registrationValidation" class="errorMessage" ng-message="required">{{ 'registrationEnterEmail' | translate }}</div>
+                      <div ng-show="registrationValidation" class="errorMessage" ng-message="pattern">{{ 'registrationErrorEmail' | translate }}</div>
                     </div>
-                    <input ng-model="email" type="email" name="email" id="email" tabindex="3" class="valid" placeholder="{{ 'registrationEmail' | translate  }}" required>
+                    <input ng-model="email" type="text" name="email" ng-pattern="/[@]swedbank.[a-z]{2,}/" id="email" tabindex="3" class="valid" placeholder="{{ 'registrationEmail' | translate  }}" required>
 
                   </div>
                   <div class="form-group">
 
                     <div ng-messages="registrationForm.password.$error">
-                      <div class="errorMessage" ng-message="required">{{ 'registrationErrorPassword' | translate }}</div>
+                      <div ng-show="registrationValidation" class="errorMessage" ng-message="required">{{ 'registrationErrorPassword' | translate }}</div>
                     </div>
                     <input ng-model="password" type="password" name="password" id="password" tabindex="4" class="valid" placeholder="{{ 'registrationPassword' | translate  }}" required>
 
@@ -47,7 +47,7 @@
                   <div class="form-group">
 
                     <div ng-messages="registrationForm.confirmPassword.$error">
-                      <div class="errorMessage" ng-message="required">{{ 'registrationErrorConfirmPassword' | translate }}</div>
+                      <div ng-show="registrationValidation" class="errorMessage" ng-message="required">{{ 'registrationErrorConfirmPassword' | translate }}</div>
                     </div>
                     <input ng-model="confirmPassword" type="password" name="confirmPassword" id="confirmPassword" tabindex="5" class="valid" placeholder="{{ 'registrationConfirmPassword' | translate }}" required>
 
@@ -61,7 +61,7 @@
                   <div class="form-group">
                     <div class="row">
                       <div class="col-sm-6 col-sm-offset-3">
-                        <button ng-click="register()" name="register" id="register" tabindex="7" class="valid btn btn-login">
+                        <button ng-click="registrationValidation=true; register()" name="register" id="register" tabindex="7" class="valid btn btn-login">
                             {{ 'registrationButton' | translate  }}
                         </button>
                       </div>
