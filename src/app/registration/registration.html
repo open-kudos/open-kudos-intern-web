@@ -41,7 +41,7 @@
                     <div ng-messages="registrationForm.password.$error">
                       <div ng-show="registrationValidation" class="errorMessage" ng-message="required">{{ 'registrationErrorPassword' | translate }}</div>
                     </div>
-                    <input data-ng-model="password" type="password" name="password" id="password" tabindex="4" class="valid" placeholder="{{ 'registrationPassword' | translate  }}" required>
+                    <input ng-model="password" type="password" name="password" id="password" tabindex="4" class="valid" placeholder="{{ 'registrationPassword' | translate  }}" required>
 
                   </div>
                   <div class="form-group">
