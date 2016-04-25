@@ -23,6 +23,7 @@ function ProfileService(userBackend, kudosBackend, challengesBackend, authBacken
         outgoingKudos: OutgoingKudos,
         receivedKudos: ReceivedKudos,
         givenChallenges: GivenChallenges,
+        receivedChallenges: ReceivedChallenges,
         send: SendKudos,
         checkUser: CheckUser,
         logout: Logout
@@ -73,6 +74,10 @@ function ProfileService(userBackend, kudosBackend, challengesBackend, authBacken
 
     function GivenChallenges() {
         return challengesBackend.givenChallenges();
+    }
+
+    function ReceivedChallenges() {
+        return challengesBackend.receivedChallenges();
     }
 
     function Logout() {
