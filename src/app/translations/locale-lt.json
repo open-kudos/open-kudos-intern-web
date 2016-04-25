@@ -20,6 +20,7 @@
   "registrationErrorEmail" : "Blogas El. Pašto formatas",
   "registrationErrorPassword" : "Įveskite slaptažodį",
   "registrationErrorConfirmPassword" : "Pakartokite slaptažodį",
+  "registrationPasswordMatch" : "Slaptažodžiai nesutampa",
 
   "ProfileACorn" : "Gilės",
   "ProfileMe" : "Profilis",

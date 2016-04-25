@@ -20,6 +20,7 @@
   "registrationErrorEmail" : "Wrong email format",
   "registrationErrorPassword" : "Enter password",
   "registrationErrorConfirmPassword" : "Confirm password",
+  "registrationPasswordMatch" : "Passwords don't match",
 
   "ProfileACorn" : "Acorn",
   "ProfileMe" : "Me",

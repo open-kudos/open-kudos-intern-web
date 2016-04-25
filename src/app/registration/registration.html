@@ -33,7 +33,7 @@
                       <div ng-show="registrationValidation" class="errorMessage" ng-message="required">{{ 'registrationEnterEmail' | translate }}</div>
                       <div ng-show="registrationValidation" class="errorMessage" ng-message="pattern">{{ 'registrationErrorEmail' | translate }}</div>
                     </div>
-                    <input ng-model="email" type="text" name="email" ng-pattern="/[@]swedbank.[a-z]{2,}/" id="email" tabindex="3" class="valid" placeholder="{{ 'registrationEmail' | translate  }}" required>
+                    <input ng-model="email" type="email" name="email" ng-pattern="/[@]swedbank.[a-z]{2,}/" id="email" tabindex="3" class="valid" placeholder="{{ 'registrationEmail' | translate  }}" required>
 
                   </div>
                   <div class="form-group">
@@ -41,15 +41,17 @@
                     <div ng-messages="registrationForm.password.$error">
                       <div ng-show="registrationValidation" class="errorMessage" ng-message="required">{{ 'registrationErrorPassword' | translate }}</div>
                     </div>
-                    <input ng-model="password" type="password" name="password" id="password" tabindex="4" class="valid" placeholder="{{ 'registrationPassword' | translate  }}" required>
+                    <input data-ng-model="password" type="password" name="password" id="password" tabindex="4" class="valid" placeholder="{{ 'registrationPassword' | translate  }}" required>
 
                   </div>
                   <div class="form-group">
 
-                    <div ng-messages="registrationForm.confirmPassword.$error">
-                      <div ng-show="registrationValidation" class="errorMessage" ng-message="required">{{ 'registrationErrorConfirmPassword' | translate }}</div>
+                    <div class="msg-block" ng-show="registrationForm.$error">
+                      <span class="errorMessage" ng-show="registrationForm.confirmPassword.$error.passwordVerify">
+                        {{ 'registrationPasswordMatch' | translate }}
+                      </span>
                     </div>
-                    <input ng-model="confirmPassword" type="password" name="confirmPassword" id="confirmPassword" tabindex="5" class="valid" placeholder="{{ 'registrationConfirmPassword' | translate }}" required>
+                    <input ng-model="confirmPassword" type="password" name="confirmPassword" id="confirmPassword" tabindex="5" class="valid" placeholder="{{ 'registrationConfirmPassword' | translate }}" data-password-verify="password">
 
                   </div>
 
