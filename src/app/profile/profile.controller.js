@@ -24,6 +24,7 @@ angular
         $scope.outgoingKudosCollection = [];
         $scope.usersCollection = [];
         $scope.buttonDisabled = true;
+        $scope.challengeButtonDisabled = true;
 
         $scope.updateProfile = updateProfile;
         $scope.logout = logout;
@@ -41,6 +42,7 @@ angular
         $scope.showMoreOutgoingKudosButton = showMoreOutgoingKudosButton;
         $scope.challengeValidation = challengeValidation;
         $scope.challengeFormChanged = challengeFormChanged;
+        $scope.clearChallengeFormValues = clearChallengeFormValues;
 
         checkUser();
         registerTooltip();
@@ -161,21 +163,24 @@ angular
 
         function giveChallenge() {
             var expirationDate = $filter('date')($scope.giveChallengeExpirationDate, requestDateFormat);
-            console.log(expirationDate);
 
             var giveTo = $httpParamSerializer({
                 participant: $scope.giveChallengeTo,
                 referee: $scope.giveChallengeReferee,
                 name: $scope.giveChallengeName,
-                description : $scope.giveChallengeDescription,
+                description: $scope.giveChallengeDescription,
                 finishDate: expirationDate,
                 amount: $scope.giveChallengeAmountOfKudos
             });
-            
+
             Challenges.create(giveTo).then(function (val) {
-                console.log("SUCCESS");
+                clearChallengeFormValues();
+                $('#giveChallengeModal').modal('hide');
+                console.log(val);
+                toastr.success('You successfully challenged '  + val.data.participant + " with " + acornPlural(val.data.amount) + '.' +
+                    ' Referee: ' + val.data.referee);
             }).catch(function () {
-                console.log("DENIED");
+                showChallengeFormErrorMessage("Challenge receiver or referee does not exist");
             })
         }
 
@@ -184,6 +189,10 @@ angular
             if ($scope.giveChallengeName == null) {
                 showChallengeFormErrorMessage("Please enter challenge name");
                 $scope.giveChallengeForm.giveChallengeName.$invalid = true;
+                disableChallengeButton();
+            } else if ($scope.giveChallengeAmountOfKudos > $scope.userAvailableKudos) {
+                showChallengeFormErrorMessage("You don't have enough Acorns");
+                $scope.giveChallengeForm.giveChallengeAmountOfKudos.$invalid = true;
                 disableChallengeButton();
             } else if ($scope.giveChallengeAmountOfKudos == null) {
                 showChallengeFormErrorMessage("Please enter amount");
@@ -228,6 +237,7 @@ angular
             } else {
                 errorMessage = "";
                 showChallengeFormSuccessMessage("");
+                enableChallengeButton();
             }
         }
 
@@ -311,6 +321,16 @@ angular
             $scope.challengeButtonDisabled = true;
         }
 
+        function clearChallengeFormValues() {
+            $scope.giveChallengeTo = null;
+            $scope.giveChallengeReferee = null;
+            $scope.giveChallengeName = null;
+            $scope.giveChallengeDescription = null;
+            $scope.giveChallengeExpirationDate = null;
+            $scope.giveChallengeAmountOfKudos = null;
+            disableChallengeButton();
+        }
+
         function isValid(value) {
             return typeof value === "undefined";
         }
@@ -336,13 +356,11 @@ angular
         function showChallengeFormErrorMessage(message) {
             $scope.errorClass = "error-message";
             $scope.challengeFormErrorMessage = message;
-            disableChallengeButton();
         }
 
         function showChallengeFormSuccessMessage(message) {
             $scope.errorClass = "success-message";
             $scope.challengeFormErrorMessage = message;
-            enableChallengeButton();
         }
 
         function clearSendKudosFormValues() {
