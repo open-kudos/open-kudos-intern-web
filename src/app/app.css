@@ -463,6 +463,16 @@ body {
     border-color: transparent;
 }
 
+.acorn-bg-darker {
+    color: #ffffff;
+    background: #FF6100;
+    border-color: transparent;
+}
+
+.bg-transparent {
+    background: transparent;
+}
+
 div.box4 {
     position: relative;
     float: left;
@@ -524,6 +534,8 @@ div.box4 {
 .fade-modal.ng-hide-add {
     transition: all linear 500ms;
 }
+
+
 
 @media (min-width: 1200px) {
   /*  .profile-body {

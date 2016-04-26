@@ -1,5 +1,9 @@
-<h4>Kudos Feed</h4>
-<div ng-repeat="transaction in transactionCollection | orderBy:'-timestamp'">
-    <p><span class="bold">{{transaction.senderName}}</span> send <span class="label label-warning">{{acornPlural(transaction.amount)}}</span>
-        to <span class="bold">{{transaction.receiverName}}</span></p>
+<div>
+    <ul class="list-group">
+        <li ng-repeat="transaction in transactionCollection | orderBy:'-timestamp'" class="list-group-item">
+            <span class="badge acorn-bg">{{acornPlural(transaction.amount)}}</span>
+            <p><span class="bold">{{transaction.senderName}}</span> send
+                to <span class="bold">{{transaction.receiverName}}</span></p>
+        </li>
+    </ul>
 </div>

@@ -22,6 +22,9 @@ angular.module('myApp.components', [])
             pooling = $timeout($scope.startPooling, 5000);
         };
 
+        /**
+         * Destroying pooling timeout after page close
+         */
         $scope.$on("$destroy", function (event)
         {
             $timeout.cancel(pooling);
