@@ -473,10 +473,17 @@ body {
     background: transparent;
 }
 
+div.box-hidden {
+    position: relative;
+    float: left;
+    width: 100%;
+    padding: 10px;
+}
+
 div.box4 {
     position: relative;
     float: left;
-    width: 95%;
+    width: 100%;
     margin-top: 10px;
     background-color: #FAFAFA;
     border: 1px solid #E1E1E1;
