@@ -449,6 +449,10 @@ body {
     text-decoration: underline;
 }
 
+.bold {
+    font-weight: 700;
+}
+
 .acorn-color {
     color: #FF6100;
 }
@@ -522,7 +526,7 @@ div.box4 {
 }
 
 @media (min-width: 1200px) {
-    .profile-body {
+  /*  .profile-body {
         width: 50%;
-    }
+    } */
 }

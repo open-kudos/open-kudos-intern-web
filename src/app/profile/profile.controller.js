@@ -53,6 +53,10 @@ angular
             $scope.userBirthday = val.birthday;
         });
 
+        ProfileService.feedKudos().then(function (val) {
+            console.log(val);
+        });
+
         ProfileService.remainingKudos().then(function (val) {
             $scope.userAvailableKudos = val;
         });

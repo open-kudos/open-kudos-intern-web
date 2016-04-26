@@ -89,7 +89,7 @@
     <div class="row">
 
         <!-- use later col-sm-push-3 -->
-        <div class="col-sm-12">
+        <div class="col-sm-6 col-sm-push-3">
 
             <div class="row text-center">
                 <div class="col-xs-6">
@@ -108,7 +108,8 @@
                     <h4>{{ 'ProfileMeTotalCorns' | translate }}</h4>
                     <div class="col-md-12">
                         <button name="challengeButton" id="challenge"
-                                class="btn profile-buttons hvr-underline-from-center" data-toggle="tooltip" data-placement="top"  title="Challenges coming soon!">{{ 'ProfileMeChallenge' |
+                                class="btn profile-buttons hvr-underline-from-center" data-toggle="tooltip"
+                                data-placement="top" title="Challenges coming soon!">{{ 'ProfileMeChallenge' |
                             translate }}
                         </button>
                     </div>
@@ -119,9 +120,9 @@
             <div class="table-responsive">
                 <table ng-show="receivedKudosTable" class="table">
                     <colgroup>
-                        <col class="col-xs-6" />
-                        <col class="col-xs-2" />
-                        <col class="col-xs-4" />
+                        <col class="col-xs-6"/>
+                        <col class="col-xs-2"/>
+                        <col class="col-xs-4"/>
                     </colgroup>
                     <thead>
                     <tr>
@@ -156,11 +157,11 @@
 
             <h3>{{ 'ProfileMeSentCorns' | translate }}</h3>
             <div class="table-responsive">
-                <table ng-show="sentKudosTable"  class="table">
+                <table ng-show="sentKudosTable" class="table">
                     <colgroup>
-                        <col class="col-xs-6" />
-                        <col class="col-xs-2" />
-                        <col class="col-xs-4" />
+                        <col class="col-xs-6"/>
+                        <col class="col-xs-2"/>
+                        <col class="col-xs-4"/>
                     </colgroup>
                     <thead>
                     <tr>
@@ -195,7 +196,6 @@
 
         </div>
 
-        <!--
         <div class="col-sm-3 col-sm-push-3">
             <div class="box4">
                 <h4><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> {{ 'ProfileMeTodayBirthday' |
@@ -229,31 +229,35 @@
             <div class="box4">
                 <h4>{{ 'ProfileMeTopSenders' | translate }}</h4>
             </div>
-        -->
 
-    </div>
-
-    <!--
-    <div class="col-sm-3 col-sm-pull-9">
-
-        <div class="box4">
-            <h3>{{userName}} {{userSurname}}</h3>
-            <h4>{{userPosition}}</h4>
-
-            <p>{{'ProfileMeLocation' | translate }}: {{userLocation}}</p>
-            <p>{{'ProfileMeEmail' | translate }}: {{userEmail}}</p>
-            <p>{{'ProfileMePhone' | translate }}: {{userPhone}}</p>
-            <p>{{'ProfileMeTeam' | translate }}: {{userTeam}}</p>
-            <p>{{'ProfileMeStartedToWork' | translate }}: {{userStartedToWork}}</p>
-            <p>{{'ProfileMeBirthday' | translate }}: {{userBirthday}}</p>
-
-            <button type="button" data-toggle="modal" data-target="#userDetailsModal"
-                    class="btn btn-default btn-sm">
-                {{'ProfileMeEdit' | translate }}
-            </button>
 
         </div>
+
+        <div class="col-sm-3 col-sm-pull-9">
+            <kudos-transactions-stream ng-controller="KudosTransactionController"></kudos-transactions-stream>
+        </div>
+
+        <!--
+        <div class="col-sm-3 col-sm-pull-9">
+
+            <div class="box4">
+                <h3>{{userName}} {{userSurname}}</h3>
+                <h4>{{userPosition}}</h4>
+
+                <p>{{'ProfileMeLocation' | translate }}: {{userLocation}}</p>
+                <p>{{'ProfileMeEmail' | translate }}: {{userEmail}}</p>
+                <p>{{'ProfileMePhone' | translate }}: {{userPhone}}</p>
+                <p>{{'ProfileMeTeam' | translate }}: {{userTeam}}</p>
+                <p>{{'ProfileMeStartedToWork' | translate }}: {{userStartedToWork}}</p>
+                <p>{{'ProfileMeBirthday' | translate }}: {{userBirthday}}</p>
+
+                <button type="button" data-toggle="modal" data-target="#userDetailsModal"
+                        class="btn btn-default btn-sm">
+                    {{'ProfileMeEdit' | translate }}
+                </button>
+
+            </div>
+        </div>
+        -->
     </div>
-    -->
-</div>
 </div>

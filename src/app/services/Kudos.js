@@ -16,18 +16,20 @@ function Kudos($http, SERVER) {
         incoming: getIncomingKudos,
         outgoing: getOutgoingKudos,
         remaining: getRemainingKudos,
-        received: getReceivedKudos
+        received: getReceivedKudos,
+        feed: getKudosTransactionStream,
+        feedChanged: kudosTransactionListChanged
     }
     return kudos;
 
     function sendKudos(requestData) {
-            return $http({
-                method: 'POST',
-                url: SERVER.ip + "/kudos/send?" + requestData,
-                withCredentials: true
-            }).then(function (response) {
-                return response;
-            });
+        return $http({
+            method: 'POST',
+            url: SERVER.ip + "/kudos/send?" + requestData,
+            withCredentials: true
+        }).then(function (response) {
+            return response;
+        });
     }
 
     function getIncomingKudos() {
@@ -64,6 +66,26 @@ function Kudos($http, SERVER) {
         return $http({
             method: 'GET',
             url: SERVER.ip + "/kudos/received",
+            withCredentials: true
+        }).then(function (response) {
+            return response.data;
+        });
+    }
+
+    function getKudosTransactionStream() {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/feed/feedPaged?page=0&pageSize=10",
+            withCredentials: true
+        }).then(function (response) {
+            return response.data;
+        });
+    }
+
+    function kudosTransactionListChanged(requestData) {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/feed/kudosFeedPool?" + requestData,
             withCredentials: true
         }).then(function (response) {
             return response.data;

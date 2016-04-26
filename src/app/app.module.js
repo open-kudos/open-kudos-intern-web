@@ -3,10 +3,11 @@
  */
 angular
     .module('myApp', [
-    'ngRoute',
-    'pascalprecht.translate',
-    'myApp.login',
-    'myApp.registration',
-    'myApp.profile',
-    'myApp.version'
-]);
+        'ngRoute',
+        'pascalprecht.translate',
+        'myApp.login',
+        'myApp.registration',
+        'myApp.profile',
+        'myApp.version',
+        'myApp.components'
+    ]);

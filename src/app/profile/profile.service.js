@@ -21,6 +21,8 @@ function ProfileService(userBackend, kudosBackend, authBackend, $q) {
         incomingKudos: IncomingKudos,
         outgoingKudos: OutgoingKudos,
         receivedKudos: ReceivedKudos,
+        feedKudos: StreamKudos,
+        feedKudosChanged: StreamKudosChanged,
         send: SendKudos,
         checkUser: CheckUser,
         logout: Logout
@@ -67,6 +69,14 @@ function ProfileService(userBackend, kudosBackend, authBackend, $q) {
 
     function ReceivedKudos() {
         return kudosBackend.received();
+    }
+
+    function StreamKudos() {
+        return kudosBackend.feed();
+    }
+
+    function StreamKudosChanged(requestData) {
+        return kudosBackend.feedChanged(requestData);
     }
 
     function Logout() {
