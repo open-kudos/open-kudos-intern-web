@@ -66,6 +66,13 @@
   "ProfileMeDate" : "Data",
   "ProfileMeSentAcorns" : "Kol kas nesatę išsiuntęs gilių",
   "ProfileMeReceivedAcorns" : "Kol kas gautų gilių neturite",
+  "ProfileMeGivenChallenges" : "Mesti iššūkiai",
+  "ProfileMeChallengeName" : "Iššūkio pavadinimas",
+  "ProfileMeExpirationDate" : "Galioja iki",
+  "ProfileMeKudosAmount" : "Gilių kiekis",
+  "ProfileMeShowMore" : "Daugiau",
+  "ProfileMeAccept" : "Priimti",
+  "ProfileMeReject" : "Atšaukti",
 
   "SEND_KUDOS_POPUP_TITLE" : "Siųsk giliukus",
   "SEND_KUDOS_SENDING_TO_HINT" : "Gavėjas",

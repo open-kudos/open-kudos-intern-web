@@ -21,6 +21,7 @@ angular
         $scope.maxSendKudosLength = $scope.userAvailableKudos;
         $scope.incomingKudosCollection = [];
         $scope.outgoingKudosCollection = [];
+        $scope.givenChallengesCollection = [];
         $scope.usersCollection = [];
         $scope.buttonDisabled = true;
 
@@ -77,6 +78,10 @@ angular
         ProfileService.listUsers().then(function (val) {
             $scope.usersCollection = val.userList;
         });
+
+        ProfileService.givenChallenges().then(function (val) {
+            $scope.givenChallengesCollection = val;
+        })
 
         function showMoreIncomingKudosButton(val) {
             if (val.length > 5) {

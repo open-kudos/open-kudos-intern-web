@@ -66,6 +66,13 @@
   "ProfileMeDate" : "Date",
   "ProfileMeSentAcorns" : "You have not sent Acorns to anyone",
   "ProfileMeReceivedAcorns" : "So far, you do not have any received Acorns",
+  "ProfileMeGivenChallenges" : "Given challenges",
+  "ProfileMeChallengeName" : "Challenge name",
+  "ProfileMeExpirationDate" : "Expiration date",
+  "ProfileMeKudosAmount" : "Kudos amount",
+  "ProfileMeShowMore" : "Show more",
+  "ProfileMeAccept" : "Accept",
+  "ProfileMeReject" : "Reject",
 
   "SEND_KUDOS_POPUP_TITLE" : "Give Acorns",
   "SEND_KUDOS_SENDING_TO_HINT" : "Sending to",

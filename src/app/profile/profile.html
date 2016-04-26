@@ -246,6 +246,38 @@
                 {{'ProfileShowLess' | translate}}
             </button>
 
+            <h3>{{ 'ProfileMeGivenChallenges' | translate }}</h3>
+            <div class="table-responsive">
+                <table class="table">
+                    <colgroup>
+                        <col class="col-xs-4" />
+                        <col class="col-xs-4" />
+                        <col class="col-xs-2" />
+                        <col class="col-xs-2" />
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>{{'ProfileMeChallengeName' | translate }}</th>
+                        <th>{{'ProfileMeExpirationDate' | translate }}</th>
+                        <th>{{'ProfileMeKudosAmount' | translate }}</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="animate-repeat"
+                        ng-repeat="givenChallenges in givenChallengesCollection">
+                        <td>{{givenChallenges.name}}</td>
+                        <td>{{givenChallenges.finishDate}}</td>
+                        <td>{{givenChallenges.amount}}</td>
+                        <td>
+                            <button type="button" class="btn btn-default btn-sm">{{'ProfileMeShowMore' | translate}}</button>
+                            <button type="button" class="btn btn-default btn-sm">{{'ProfileMeReject' | translate}}</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
 
         <!--
