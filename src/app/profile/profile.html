@@ -127,29 +127,21 @@
                                    placeholder="{{'GIVE_CHALLENGE_REFEREE' | translate }}" required>
                         </div>
 
-                        <div class="col-md-6 row">
-                            <input id="giveChallengeOptionalFields" name="giveChallengeOptionalFields" type="checkbox"
-                                   value="giveChallengeOptionalFields"
-                                    ng-model="giveChallengeCheckbox.giveChallengeOptionalFields">
-                            <label for="giveChallengeOptionalFields">{{'GIVE_CHALLENGE_OPTIONAL_FIELDS' | translate}}</label>
+                        <div class="form-group col-sm-12">
+                            <textarea ng-model="giveChallengeDescription" class="form-control"
+                                      ng-class="{invalid : giveChallengeForm.giveChallengeDescription.$invalid}" id="giveChallengeDescription"
+                                      name="giveChallengeDescription"
+                                      placeholder="{{'GIVE_CHALLENGE_OPTIONAL_FIELD_DESCRIPTION' | translate }}">
+                            </textarea>
                         </div>
 
-                        <div ng-show="giveChallengeCheckbox.giveChallengeOptionalFields">
-                            <div class="form-group col-sm-12">
-                                <textarea ng-model="giveChallengeDescription" class="form-control"
-                                       ng-class="{invalid : giveChallengeForm.giveChallengeDescription.$invalid}" id="giveChallengeDescription"
-                                       name="giveChallengeDescription"
-                                       placeholder="{{'GIVE_CHALLENGE_OPTIONAL_FIELD_DESCRIPTION' | translate }}" required>
-                                </textarea>
-                            </div>
-
-                            <div class="form-group col-sm-12">
-                                <label for="giveChallengeExpirationDate">{{'GIVE_CHALLENGE_OPTIONAL_FIELD_EXPIRATION' | translate }}</label>
-                                <input ng-model="giveChallengeExpirationDate" class="form-control"
-                                       ng-class="{invalid : giveChallengeForm.giveChallengeExpirationDate.$invalid}" id="giveChallengeExpirationDate"
-                                       name="giveChallengeExpirationDate" type="date" required>
-                            </div>
+                        <div class="form-group col-sm-12">
+                            <label for="giveChallengeExpirationDate">{{'GIVE_CHALLENGE_OPTIONAL_FIELD_EXPIRATION' | translate }}</label>
+                            <input ng-model="giveChallengeExpirationDate" class="form-control"
+                                   ng-class="{invalid : giveChallengeForm.giveChallengeExpirationDate.$invalid}" id="giveChallengeExpirationDate"
+                                   name="giveChallengeExpirationDate" type="datetime-local">
                         </div>
+
                     </form>
 
                     <button ng-click="giveChallenge()" name="giveChallengeButton" id="giveChallengeButton"

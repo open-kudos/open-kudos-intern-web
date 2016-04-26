@@ -8,8 +8,9 @@ angular
         'ngRoute',
         'ngCookies'
     ])
-    .controller('profileController', function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, ProfileService, Challenges) {
+    .controller('profileController', function ($filter, $http, $scope, $window, $cookies, $timeout, $httpParamSerializer, ProfileService, Challenges) {
         var inputChangedPromise;
+        var splited;
         var showMoreLimit = 5;
         var errorMessage = "";
         $scope.giveChallengeCheckbox = {
@@ -41,6 +42,7 @@ angular
         $scope.showLessOutgoingKudos = showLessOutgoingKudos;
         $scope.showMoreIncomingKudosButton = showMoreIncomingKudosButton;
         $scope.showMoreOutgoingKudosButton = showMoreOutgoingKudosButton;
+        $scope.split = split;
 
         checkUser();
         registerTooltip();
@@ -160,17 +162,15 @@ angular
         }
 
         function giveChallenge() {
-            if ($scope.giveChallengeOptionalFields == false){
-                $scope.giveChallengeDescription = "";
-                $scope.giveChallengeExpirationDate = "";
-            }
+            var expirationDate = $filter('date')($scope.giveChallengeExpirationDate, 'yyyy-MM-dd HH:mm:ss,sss');
+            console.log(expirationDate);
 
             var giveTo = $httpParamSerializer({
                 participant: $scope.giveChallengeTo,
                 referee: $scope.giveChallengeReferee,
                 name: $scope.giveChallengeName,
                 description : $scope.giveChallengeDescription,
-                finishDate: $scope.giveChallengeExpirationDate,
+                finishDate: expirationDate,
                 amount: $scope.giveChallengeAmountOfKudos
             });
             
@@ -304,5 +304,10 @@ angular
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip();
             });
+        }
+
+        function split(val) {
+            splited = val.toString().split('T');
+            return splited;
         }
     });
