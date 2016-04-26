@@ -10,12 +10,9 @@ angular
     ])
     .controller('profileController', function ($filter, $http, $scope, $window, $cookies, $timeout, $httpParamSerializer, ProfileService, Challenges) {
         var inputChangedPromise;
-        var splited;
         var showMoreLimit = 5;
         var errorMessage = "";
-        $scope.giveChallengeCheckbox = {
-            giveChallengeOptionalFields : false
-        };
+        var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
 
         $scope.userAvailableKudos = 0;
         $scope.userReceivedKudos = 0;
@@ -42,7 +39,8 @@ angular
         $scope.showLessOutgoingKudos = showLessOutgoingKudos;
         $scope.showMoreIncomingKudosButton = showMoreIncomingKudosButton;
         $scope.showMoreOutgoingKudosButton = showMoreOutgoingKudosButton;
-        $scope.split = split;
+        $scope.challengeValidation = challengeValidation;
+        $scope.challengeFormChanged = challengeFormChanged;
 
         checkUser();
         registerTooltip();
@@ -162,7 +160,7 @@ angular
         }
 
         function giveChallenge() {
-            var expirationDate = $filter('date')($scope.giveChallengeExpirationDate, 'yyyy-MM-dd HH:mm:ss,sss');
+            var expirationDate = $filter('date')($scope.giveChallengeExpirationDate, requestDateFormat);
             console.log(expirationDate);
 
             var giveTo = $httpParamSerializer({
@@ -179,6 +177,65 @@ angular
             }).catch(function () {
                 console.log("DENIED");
             })
+        }
+
+        function challengeValidation(){
+            $scope.errorClass = "error-message";
+            if ($scope.giveChallengeName == null) {
+                showChallengeFormErrorMessage("Please enter challenge name");
+                $scope.giveChallengeForm.giveChallengeName.$invalid = true;
+                disableChallengeButton();
+            } else if ($scope.giveChallengeAmountOfKudos == null) {
+                showChallengeFormErrorMessage("Please enter amount");
+                $scope.giveChallengeForm.giveChallengeAmountOfKudos.$invalid = true;
+                disableChallengeButton();
+            } else if ($scope.giveChallengeAmountOfKudos <= 0) {
+                showChallengeFormErrorMessage("Please enter more than zero");
+                $scope.giveChallengeForm.giveChallengeAmountOfKudos.$invalid = true;
+                disableChallengeButton();
+            } else if ($scope.giveChallengeTo == null) {
+                showChallengeFormErrorMessage("Please enter challenge taker");
+                $scope.giveChallengeForm.giveChallengeTo.$invalid = true;
+                disableChallengeButton();
+            } else if (!validateEmail($scope.giveChallengeTo)) {
+                showChallengeFormErrorMessage("Please enter valid challenger taker email");
+                $scope.giveChallengeForm.giveChallengeTo.$invalid = true;
+                disableChallengeButton();
+            } else if ($scope.giveChallengeTo === $scope.userEmail) {
+                showChallengeFormErrorMessage("You can't challenge yourself");
+                $scope.giveChallengeForm.giveChallengeTo.$invalid = true;
+                disableChallengeButton();
+            } else if ($scope.giveChallengeReferee === $scope.userEmail){
+                showChallengeFormErrorMessage("You can't be referee");
+                $scope.giveChallengeForm.giveChallengeTo.$invalid = true;
+                disableChallengeButton();
+            } else if ($scope.giveChallengeReferee === $scope.giveChallengeTo){
+                showChallengeFormErrorMessage("Challenger taker and referee can't be the same person");
+                $scope.giveChallengeForm.giveChallengeReferee.$invalid = true;
+                disableChallengeButton();
+            } else if ($scope.giveChallengeReferee === $scope.userEmail){
+                showChallengeFormErrorMessage("You can't be referee");
+                $scope.giveChallengeForm.giveChallengeTo.$invalid = true;
+                disableChallengeButton();
+            } else if ($scope.giveChallengeReferee == null){
+                showChallengeFormErrorMessage("Please enter challenge referee");
+                $scope.giveChallengeForm.giveChallengeReferee.$invalid = true;
+                disableChallengeButton();
+            } else if (!validateEmail($scope.giveChallengeReferee)) {
+                showChallengeFormErrorMessage("Please enter valid challenge referee email");
+                $scope.giveChallengeForm.giveChallengeReferee.$invalid = true;
+                disableChallengeButton();
+            } else {
+                errorMessage = "";
+                showChallengeFormSuccessMessage("");
+            }
+        }
+
+        function challengeFormChanged() {
+            if (inputChangedPromise) {
+                $timeout.cancel(inputChangedPromise);
+            }
+            inputChangedPromise = $timeout(challengeValidation, 100);
         }
 
         function kudosValidation() {
@@ -246,6 +303,14 @@ angular
             $scope.buttonDisabled = true;
         }
 
+        function enableChallengeButton() {
+            $scope.challengeButtonDisabled = false;
+        }
+
+        function disableChallengeButton() {
+            $scope.challengeButtonDisabled = true;
+        }
+
         function isValid(value) {
             return typeof value === "undefined";
         }
@@ -266,6 +331,18 @@ angular
             $scope.errorClass = "success-message";
             $scope.sendKudosErrorMessage = message;
             enableSendKudosButton();
+        }
+
+        function showChallengeFormErrorMessage(message) {
+            $scope.errorClass = "error-message";
+            $scope.challengeFormErrorMessage = message;
+            disableChallengeButton();
+        }
+
+        function showChallengeFormSuccessMessage(message) {
+            $scope.errorClass = "success-message";
+            $scope.challengeFormErrorMessage = message;
+            enableChallengeButton();
         }
 
         function clearSendKudosFormValues() {
@@ -304,10 +381,5 @@ angular
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip();
             });
-        }
-
-        function split(val) {
-            splited = val.toString().split('T');
-            return splited;
         }
     });
