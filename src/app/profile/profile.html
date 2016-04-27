@@ -99,46 +99,46 @@
                 <div class="modal-body">
                     <form name="giveChallengeForm">
                         <div class="form-group col-sm-6">
+                            <label for="giveChallengeName">{{ 'GIVE_CHALLENGE_NAME' | translate }}</label>
                             <input ng-model="giveChallengeName" class="form-control" ng-change="challengeFormChanged()"
-                                   ng-class="{invalid : giveChallengeForm.giveChallengeName.$invalid}"
-                                   id="giveChallengeName" name="giveChallengeName" type="text"
-                                   placeholder="{{ 'GIVE_CHALLENGE_NAME' | translate }}" required>
+                                   id="giveChallengeName" name="giveChallengeName" type="text" required
+                            >
                         </div>
 
                         <div class="form-group col-sm-6">
+                            <label for="giveChallengeAmountOfKudos">{{'GIVE_CHALLENGE_AMOUNT' | translate }} | Max: {{userAvailableKudos}}</label>
                             <input ng-model="giveChallengeAmountOfKudos" ng-change="challengeFormChanged()"
-                                   ng-class="{invalid : giveChallengeForm.giveChallengeAmountOfKudos.$invalid}" id="giveChallengeAmountOfKudos"
+                                   id="giveChallengeAmountOfKudos"
                                    name="giveChallengeAmountOfKudos" type="number" ng-pattern="/^[0-9]+$/"
-                                   class="form-control" min="1" max="{userAvailableKudos}"
-                                   placeholder="{{'GIVE_CHALLENGE_AMOUNT' | translate }}" required>
+                                   class="form-control" min="1" max="{userAvailableKudos}" required>
                         </div>
 
-                        <div class="form-group col-sm-12">
+                        <div class="form-group col-sm-6">
+                            <label for="giveChallengeTo">{{'GIVE_CHALLENGE_TO' | translate }}</label>
                             <input ng-model="giveChallengeTo" class="form-control" ng-change="challengeFormChanged()"
-                                   ng-class="{invalid : giveChallengeForm.giveChallengeTo.$invalid}" id="giveChallengeTo"
-                                   name="giveChallengeTo" type="email"
-                                   placeholder="{{'GIVE_CHALLENGE_TO' | translate }}" required>
+                                   id="giveChallengeTo"
+                                   name="giveChallengeTo" type="email" required>
                         </div>
 
-                        <div class="form-group col-sm-12">
+                        <div class="form-group col-sm-6">
+                            <label for="giveChallengeReferee">{{'GIVE_CHALLENGE_REFEREE' | translate }}</label>
                             <input ng-model="giveChallengeReferee" class="form-control" ng-change="challengeFormChanged()"
-                                   ng-class="{invalid : giveChallengeForm.giveChallengeReferee.$invalid}" id="giveChallengeReferee"
-                                   name="giveChallengeReferee" type="email"
-                                   placeholder="{{'GIVE_CHALLENGE_REFEREE' | translate }}" required>
+                                   id="giveChallengeReferee"
+                                   name="giveChallengeReferee" type="email" required>
                         </div>
 
                         <div class="form-group col-sm-12">
+                            <label for="giveChallengeDescription">{{'GIVE_CHALLENGE_OPTIONAL_FIELD_DESCRIPTION' | translate }} (optional)</label>
                             <textarea ng-model="giveChallengeDescription" class="form-control"
-                                      ng-class="{invalid : giveChallengeForm.giveChallengeDescription.$invalid}" id="giveChallengeDescription"
-                                      name="giveChallengeDescription"
-                                      placeholder="{{'GIVE_CHALLENGE_OPTIONAL_FIELD_DESCRIPTION' | translate }}">
+                                      id="giveChallengeDescription"
+                                      name="giveChallengeDescription">
                             </textarea>
                         </div>
 
                         <div class="form-group col-sm-12">
-                            <label for="giveChallengeExpirationDate">{{'GIVE_CHALLENGE_OPTIONAL_FIELD_EXPIRATION' | translate }}</label>
+                            <label for="giveChallengeExpirationDate">{{'GIVE_CHALLENGE_OPTIONAL_FIELD_EXPIRATION' | translate }} (optional)</label>
                             <input ng-model="giveChallengeExpirationDate" class="form-control" ng-change="challengeFormChanged()"
-                                   ng-class="{invalid : giveChallengeForm.giveChallengeExpirationDate.$invalid}" id="giveChallengeExpirationDate"
+                                   id="giveChallengeExpirationDate"
                                    name="giveChallengeExpirationDate" type="datetime-local">
                         </div>
 

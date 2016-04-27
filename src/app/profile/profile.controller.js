@@ -12,6 +12,7 @@ angular
         var inputChangedPromise;
         var showMoreLimit = 5;
         var errorMessage = "";
+        var challengeCall = false;
         var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
 
         $scope.userAvailableKudos = 0;
@@ -163,6 +164,7 @@ angular
 
         function giveChallenge() {
             var expirationDate = $filter('date')($scope.giveChallengeExpirationDate, requestDateFormat);
+            challengeCall = true;
 
             var giveTo = $httpParamSerializer({
                 participant: $scope.giveChallengeTo,
@@ -176,7 +178,6 @@ angular
             Challenges.create(giveTo).then(function (val) {
                 clearChallengeFormValues();
                 $('#giveChallengeModal').modal('hide');
-                console.log(val);
                 toastr.success('You successfully challenged '  + val.data.participant + " with " + acornPlural(val.data.amount) + '.' +
                     ' Referee: ' + val.data.referee);
             }).catch(function () {
@@ -354,8 +355,10 @@ angular
         }
 
         function showChallengeFormErrorMessage(message) {
-            $scope.errorClass = "error-message";
-            $scope.challengeFormErrorMessage = message;
+            if (challengeCall) {
+                $scope.errorClass = "error-message";
+                $scope.challengeFormErrorMessage = message;
+            }
         }
 
         function showChallengeFormSuccessMessage(message) {
