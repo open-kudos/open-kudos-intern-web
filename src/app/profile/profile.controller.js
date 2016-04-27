@@ -12,8 +12,9 @@ angular
     .filter('getByProperty', function() {
         return function(propertyName, propertyValue, collection) {
             var i=0, len=collection.length;
-            for (; i<len; i++) {
+            for (i; i<len; i++) {
                 if (collection[i][propertyName] == propertyValue) {
+                    collection[i].show = true;
                     return collection[i];
                 }
             }
@@ -141,10 +142,7 @@ angular
         }
 
         function showMoreInfo(challengeId) {
-            var found = $filter('getByProperty')("id", challengeId, $scope.givenChallengesCollection);
-            $scope.showMore = JSON.stringify(found);
-
-
+            return $filter('getByProperty')("id", challengeId, $scope.givenChallengesCollection);
         }
 
         function updateProfile() {

@@ -268,8 +268,11 @@
                         ng-repeat="givenChallenges in givenChallengesCollection">
                         <td>
                             {{givenChallenges.name}}
-                            <div ng-bind="showMore"></div>
-
+                            <div ng-show="givenChallenges.show">
+                                <div>Description: {{givenChallenges.description}}</div>
+                                <div>Challenge creator: {{givenChallenges.creator}}</div>
+                                <div>Referee of the challenge: {{givenChallenges.referee}}</div>
+                            </div>
                         </td>
 
                         <td>{{givenChallenges.finishDate}}</td>
