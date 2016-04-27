@@ -8,7 +8,20 @@ angular
         'ngRoute',
         'ngCookies'
     ])
-    .controller('profileController', function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, ProfileService) {
+
+    .filter('getByProperty', function() {
+        return function(propertyName, propertyValue, collection) {
+            var i=0, len=collection.length;
+            for (; i<len; i++) {
+                if (collection[i][propertyName] == propertyValue) {
+                    return collection[i];
+                }
+            }
+            return null;
+        }
+    })
+
+    .controller('profileController', function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, $filter, ProfileService) {
         var inputChangedPromise;
         var showMoreLimit = 5;
         var errorMessage = "";
@@ -39,6 +52,8 @@ angular
         $scope.showLessOutgoingKudos = showLessOutgoingKudos;
         $scope.showMoreIncomingKudosButton = showMoreIncomingKudosButton;
         $scope.showMoreOutgoingKudosButton = showMoreOutgoingKudosButton;
+        $scope.showMoreInfo = showMoreInfo;
+
 
         checkUser();
         registerTooltip();
@@ -123,6 +138,13 @@ angular
         function receivedKudosTable() {
             if ($scope.incomingKudosCollection.length > 0)
                 $scope.receivedKudosTable = true;
+        }
+
+        function showMoreInfo(challengeId) {
+            var found = $filter('getByProperty')("id", challengeId, $scope.givenChallengesCollection);
+            $scope.showMore = JSON.stringify(found);
+
+
         }
 
         function updateProfile() {

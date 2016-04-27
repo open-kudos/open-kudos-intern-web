@@ -250,8 +250,8 @@
             <div class="table-responsive">
                 <table class="table">
                     <colgroup>
-                        <col class="col-xs-4" />
-                        <col class="col-xs-4" />
+                        <col class="col-xs-6" />
+                        <col class="col-xs-2" />
                         <col class="col-xs-2" />
                         <col class="col-xs-2" />
                     </colgroup>
@@ -266,13 +266,19 @@
                     <tbody>
                     <tr class="animate-repeat"
                         ng-repeat="givenChallenges in givenChallengesCollection">
-                        <td>{{givenChallenges.name}}</td>
+                        <td>
+                            {{givenChallenges.name}}
+                            <div ng-bind="showMore"></div>
+
+                        </td>
+
                         <td>{{givenChallenges.finishDate}}</td>
                         <td>{{givenChallenges.amount}}</td>
                         <td>
-                            <button type="button" class="btn btn-default btn-sm">{{'ProfileMeShowMore' | translate}}</button>
-                            <button type="button" class="btn btn-default btn-sm">{{'ProfileMeReject' | translate}}</button>
+                            <button ng-click="showMoreInfo(givenChallenges.id)" type="button" class="btn btn-default btn-sm">{{'ProfileMeShowMore' | translate}}</button>
+                            <button ng-show="givenChallenges.finishDate == null" type="button" class="btn btn-default btn-sm">{{'ProfileMeReject' | translate}}</button>
                         </td>
+
                     </tr>
                     </tbody>
                 </table>
@@ -340,5 +346,4 @@
         </div>
     </div>
     -->
-</div>
 </div>
