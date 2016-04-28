@@ -22,7 +22,7 @@ angular
         }
     })
 
-    .controller('profileController', function ($filter, $http, $scope, $window, $cookies, $timeout, $httpParamSerializer, $filter, ProfileService, Challenges) {
+    .controller('profileController', function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, $filter, ProfileService, Challenges) {
         var inputChangedPromise;
         var showMoreLimit = 5;
         var errorMessage = "";
@@ -45,6 +45,7 @@ angular
         $scope.logout = logout;
         $scope.sendKudos = sendKudos;
         $scope.giveChallenge = giveChallenge;
+        $scope.cancelChallenge = cancelChallenge;
         $scope.inputChanged = inputChanged;
         $scope.kudosValidation = kudosValidation;
         $scope.isValid = isValid;
@@ -207,6 +208,15 @@ angular
             }).catch(function () {
                 showChallengeFormErrorMessage("Challenge receiver or referee does not exist");
             })
+        }
+
+        function cancelChallenge(pid) {
+            var idToCancel = $httpParamSerializer({
+                id: pid
+            });
+            Challenges.cancel(idToCancel).then(function (val) {
+                toastr.success("Challenge canceled");
+            });
         }
 
         function challengeValidation(){

@@ -72,7 +72,7 @@
   "ProfileMeKudosAmount" : "Kudos amount",
   "ProfileMeShowMore" : "More info",
   "ProfileMeAccept" : "Accept",
-  "ProfileMeReject" : "Reject",
+  "ProfileMeReject" : "Cancel",
 
   "SEND_KUDOS_POPUP_TITLE" : "Give Acorns",
   "SEND_KUDOS_SENDING_TO_HINT" : "Sending to",
