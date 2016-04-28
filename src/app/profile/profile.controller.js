@@ -57,6 +57,7 @@ angular
         $scope.showMoreIncomingKudosButton = showMoreIncomingKudosButton;
         $scope.showMoreOutgoingKudosButton = showMoreOutgoingKudosButton;
         $scope.showMoreInfo = showMoreInfo;
+        $scope.showLessInfo = showLessInfo;
 
         $scope.challengeValidation = challengeValidation;
         $scope.challengeFormChanged = challengeFormChanged;
@@ -149,6 +150,10 @@ angular
 
         function showMoreInfo(challengeId) {
             return $filter('getByProperty')("id", challengeId, $scope.givenChallengesCollection);
+        }
+
+        function showLessInfo(challengeId) {
+            return $filter('getByProperty')("id", challengeId, $scope.givenChallengesCollection).show = false;
         }
 
         function updateProfile() {
