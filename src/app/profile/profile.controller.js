@@ -179,6 +179,7 @@ angular
                 $('#giveChallengeModal').modal('hide');
                 toastr.success('You successfully challenged '  + val.data.participant + " with " + acornPlural(val.data.amount) + '.' +
                     ' Referee: ' + val.data.referee);
+                $scope.userAvailableKudos -= val.data.amount;
             }).catch(function () {
                 showChallengeFormErrorMessage("Challenge receiver or referee does not exist");
             })
