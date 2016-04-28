@@ -12,7 +12,6 @@ angular
         var inputChangedPromise;
         var showMoreLimit = 5;
         var errorMessage = "";
-        var challengeCall = false;
         var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
 
         $scope.userAvailableKudos = 0;
@@ -25,7 +24,6 @@ angular
         $scope.outgoingKudosCollection = [];
         $scope.usersCollection = [];
         $scope.buttonDisabled = true;
-        $scope.challengeButtonDisabled = true;
 
         $scope.updateProfile = updateProfile;
         $scope.logout = logout;
@@ -41,9 +39,8 @@ angular
         $scope.showLessOutgoingKudos = showLessOutgoingKudos;
         $scope.showMoreIncomingKudosButton = showMoreIncomingKudosButton;
         $scope.showMoreOutgoingKudosButton = showMoreOutgoingKudosButton;
-        $scope.challengeValidation = challengeValidation;
-        $scope.challengeFormChanged = challengeFormChanged;
         $scope.clearChallengeFormValues = clearChallengeFormValues;
+        $scope.challengeFormCheck = challengeFormCheck;
 
         checkUser();
         registerTooltip();
@@ -164,7 +161,6 @@ angular
 
         function giveChallenge() {
             var expirationDate = $filter('date')($scope.giveChallengeExpirationDate, requestDateFormat);
-            challengeCall = true;
 
             var giveTo = $httpParamSerializer({
                 participant: $scope.giveChallengeTo,
@@ -175,6 +171,9 @@ angular
                 amount: $scope.giveChallengeAmountOfKudos
             });
 
+            var challengeCall = challengeFormCheck();
+
+            if (challengeCall)
             Challenges.create(giveTo).then(function (val) {
                 clearChallengeFormValues();
                 $('#giveChallengeModal').modal('hide');
@@ -185,68 +184,32 @@ angular
             })
         }
 
-        function challengeValidation(){
-            $scope.errorClass = "error-message";
-            if ($scope.giveChallengeName == null) {
-                showChallengeFormErrorMessage("Please enter challenge name");
-                $scope.giveChallengeForm.giveChallengeName.$invalid = true;
-                disableChallengeButton();
-            } else if ($scope.giveChallengeAmountOfKudos > $scope.userAvailableKudos) {
-                showChallengeFormErrorMessage("You don't have enough Acorns");
-                $scope.giveChallengeForm.giveChallengeAmountOfKudos.$invalid = true;
-                disableChallengeButton();
+        function challengeFormCheck(){
+            if ($scope.giveChallengeName == null){
+                showChallengeFormErrorMessage("Please enter Challenge name");
+                return false;
             } else if ($scope.giveChallengeAmountOfKudos == null) {
-                showChallengeFormErrorMessage("Please enter amount");
-                $scope.giveChallengeForm.giveChallengeAmountOfKudos.$invalid = true;
-                disableChallengeButton();
-            } else if ($scope.giveChallengeAmountOfKudos <= 0) {
-                showChallengeFormErrorMessage("Please enter more than zero");
-                $scope.giveChallengeForm.giveChallengeAmountOfKudos.$invalid = true;
-                disableChallengeButton();
+                showChallengeFormErrorMessage("Please enter valid challenge Acorns");
+                return false;
+            } else if ($scope.giveChallengeAmountOfKudos > $scope.userAvailableKudos) {
+                showChallengeFormErrorMessage("You don't have enough of Acorns");
+                return false;
             } else if ($scope.giveChallengeTo == null) {
-                showChallengeFormErrorMessage("Please enter challenge taker");
-                $scope.giveChallengeForm.giveChallengeTo.$invalid = true;
-                disableChallengeButton();
-            } else if (!validateEmail($scope.giveChallengeTo)) {
-                showChallengeFormErrorMessage("Please enter valid challenger taker email");
-                $scope.giveChallengeForm.giveChallengeTo.$invalid = true;
-                disableChallengeButton();
-            } else if ($scope.giveChallengeTo === $scope.userEmail) {
+                showChallengeFormErrorMessage("Please enter challenge receiver");
+                return false;
+            } else if ($scope.giveChallengeTo == $scope.userEmail){
                 showChallengeFormErrorMessage("You can't challenge yourself");
-                $scope.giveChallengeForm.giveChallengeTo.$invalid = true;
-                disableChallengeButton();
-            } else if ($scope.giveChallengeReferee === $scope.userEmail){
-                showChallengeFormErrorMessage("You can't be referee");
-                $scope.giveChallengeForm.giveChallengeTo.$invalid = true;
-                disableChallengeButton();
-            } else if ($scope.giveChallengeReferee === $scope.giveChallengeTo){
-                showChallengeFormErrorMessage("Challenger taker and referee can't be the same person");
-                $scope.giveChallengeForm.giveChallengeReferee.$invalid = true;
-                disableChallengeButton();
-            } else if ($scope.giveChallengeReferee === $scope.userEmail){
-                showChallengeFormErrorMessage("You can't be referee");
-                $scope.giveChallengeForm.giveChallengeTo.$invalid = true;
-                disableChallengeButton();
+                return false;
             } else if ($scope.giveChallengeReferee == null){
                 showChallengeFormErrorMessage("Please enter challenge referee");
-                $scope.giveChallengeForm.giveChallengeReferee.$invalid = true;
-                disableChallengeButton();
-            } else if (!validateEmail($scope.giveChallengeReferee)) {
-                showChallengeFormErrorMessage("Please enter valid challenge referee email");
-                $scope.giveChallengeForm.giveChallengeReferee.$invalid = true;
-                disableChallengeButton();
-            } else {
-                errorMessage = "";
-                showChallengeFormSuccessMessage("");
-                enableChallengeButton();
-            }
-        }
-
-        function challengeFormChanged() {
-            if (inputChangedPromise) {
-                $timeout.cancel(inputChangedPromise);
-            }
-            inputChangedPromise = $timeout(challengeValidation, 100);
+                return false;
+            } else if ($scope.giveChallengeReferee == $scope.userEmail){
+                showChallengeFormErrorMessage("You can't be challenge referee");
+                return false;
+            } else if ($scope.giveChallengeTo == $scope.giveChallengeReferee){
+                showChallengeFormErrorMessage("Challenge receiver can't be challenge referee");
+                return false;
+            } else return true;
         }
 
         function kudosValidation() {
@@ -355,10 +318,8 @@ angular
         }
 
         function showChallengeFormErrorMessage(message) {
-            if (challengeCall) {
-                $scope.errorClass = "error-message";
-                $scope.challengeFormErrorMessage = message;
-            }
+            $scope.errorClass = "error-message";
+            $scope.challengeFormErrorMessage = message;
         }
 
         function showChallengeFormSuccessMessage(message) {

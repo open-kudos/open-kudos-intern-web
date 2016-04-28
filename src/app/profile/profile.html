@@ -100,14 +100,13 @@
                     <form name="giveChallengeForm">
                         <div class="form-group col-sm-6">
                             <label for="giveChallengeName">{{ 'GIVE_CHALLENGE_NAME' | translate }}</label>
-                            <input ng-model="giveChallengeName" class="form-control" ng-change="challengeFormChanged()"
-                                   id="giveChallengeName" name="giveChallengeName" type="text" required
-                            >
+                            <input ng-model="giveChallengeName" class="form-control"
+                                   id="giveChallengeName" name="giveChallengeName" type="text" required>
                         </div>
 
                         <div class="form-group col-sm-6">
                             <label for="giveChallengeAmountOfKudos">{{'GIVE_CHALLENGE_AMOUNT' | translate }} | Max: {{userAvailableKudos}}</label>
-                            <input ng-model="giveChallengeAmountOfKudos" ng-change="challengeFormChanged()"
+                            <input ng-model="giveChallengeAmountOfKudos"
                                    id="giveChallengeAmountOfKudos"
                                    name="giveChallengeAmountOfKudos" type="number" ng-pattern="/^[0-9]+$/"
                                    class="form-control" min="1" max="{userAvailableKudos}" required>
@@ -115,14 +114,14 @@
 
                         <div class="form-group col-sm-6">
                             <label for="giveChallengeTo">{{'GIVE_CHALLENGE_TO' | translate }}</label>
-                            <input ng-model="giveChallengeTo" class="form-control" ng-change="challengeFormChanged()"
+                            <input ng-model="giveChallengeTo" class="form-control"
                                    id="giveChallengeTo"
                                    name="giveChallengeTo" type="email" required>
                         </div>
 
                         <div class="form-group col-sm-6">
                             <label for="giveChallengeReferee">{{'GIVE_CHALLENGE_REFEREE' | translate }}</label>
-                            <input ng-model="giveChallengeReferee" class="form-control" ng-change="challengeFormChanged()"
+                            <input ng-model="giveChallengeReferee" class="form-control"
                                    id="giveChallengeReferee"
                                    name="giveChallengeReferee" type="email" required>
                         </div>
@@ -137,7 +136,7 @@
 
                         <div class="form-group col-sm-12">
                             <label for="giveChallengeExpirationDate">{{'GIVE_CHALLENGE_OPTIONAL_FIELD_EXPIRATION' | translate }} (optional)</label>
-                            <input ng-model="giveChallengeExpirationDate" class="form-control" ng-change="challengeFormChanged()"
+                            <input ng-model="giveChallengeExpirationDate" class="form-control"
                                    id="giveChallengeExpirationDate"
                                    name="giveChallengeExpirationDate" type="datetime-local">
                         </div>
@@ -148,7 +147,7 @@
                     </form>
 
                     <button ng-click="giveChallenge()" name="giveChallengeButton" id="giveChallengeButton"
-                            class="form-control btn btn-login" ng-disabled="challengeButtonDisabled">{{'GIVE_CHALLENGE_GIVE_BUTTON' | translate}}
+                            class="form-control btn btn-login">{{'GIVE_CHALLENGE_GIVE_BUTTON' | translate}}
                     </button>
 
                 </div>
