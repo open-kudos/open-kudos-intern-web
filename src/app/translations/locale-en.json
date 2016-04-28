@@ -86,5 +86,8 @@
   "GIVE_CHALLENGE_AMOUNT" : "Challenge amount of Acorns",
   "GIVE_CHALLENGE_TO" : "Give Challenge to",
   "GIVE_CHALLENGE_REFEREE" : "Challenge referee",
+  "GIVE_CHALLENGE_OPTIONAL_FIELDS" : "Optional fields",
+  "GIVE_CHALLENGE_OPTIONAL_FIELD_DESCRIPTION" : "Challenge description",
+  "GIVE_CHALLENGE_OPTIONAL_FIELD_EXPIRATION" : "Expiration date",
   "GIVE_CHALLENGE_GIVE_BUTTON" : "CHALLENGE!!!"
 }

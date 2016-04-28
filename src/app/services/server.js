@@ -3,5 +3,5 @@
  */
 "use strict";
 angular.module("myApp").constant("SERVER", {
-	"ip": "http://localhost:8080/"
+	"ip": "http://localhost:8080"
 })
