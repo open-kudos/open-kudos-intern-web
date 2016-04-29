@@ -107,48 +107,6 @@ angular
             $scope.usersCollection = val.userList;
         });
 
-        function showMoreIncomingKudosButton(val) {
-            if (val.length > 5) {
-                $scope.moreIncoming = true;
-            }
-        }
-
-        function showMoreOutgoingKudosButton(val) {
-            if (val.length > 5) {
-                $scope.moreOutgoing = true;
-            }
-        }
-
-        function showMoreIncomingKudos() {
-            if ($scope.incomingKudosShowLimit <= $scope.incomingKudosCollection.length) {
-                $scope.incomingKudosShowLimit += showMoreLimit;
-            }
-        }
-
-        function showMoreOutgoingKudos() {
-            if ($scope.outgoingKudosShowLimit <= $scope.outgoingKudosCollection.length) {
-                $scope.outgoingKudosShowLimit += showMoreLimit;
-            }
-        }
-
-        function showLessOutgoingKudos() {
-            $scope.outgoingKudosShowLimit = showMoreLimit;
-        }
-
-        function showLessIncomingKudos() {
-            $scope.incomingKudosShowLimit = showMoreLimit;
-        }
-
-        function sentKudosTable() {
-            if ($scope.outgoingKudosCollection.length > 0)
-                $scope.sentKudosTable = true;
-        }
-
-        function receivedKudosTable() {
-            if ($scope.incomingKudosCollection.length > 0)
-                $scope.receivedKudosTable = true;
-        }
-
         function sendKudos() {
             var sendTo = $httpParamSerializer({
                 receiverEmail: $scope.sendKudosTo,
@@ -243,6 +201,48 @@ angular
             disableSendKudosButton();
         }
 
+        function showMoreIncomingKudosButton(val) {
+            if (val.length > 5) {
+                $scope.moreIncoming = true;
+            }
+        }
+
+        function showMoreOutgoingKudosButton(val) {
+            if (val.length > 5) {
+                $scope.moreOutgoing = true;
+            }
+        }
+
+        function showMoreIncomingKudos() {
+            if ($scope.incomingKudosShowLimit <= $scope.incomingKudosCollection.length) {
+                $scope.incomingKudosShowLimit += showMoreLimit;
+            }
+        }
+
+        function showMoreOutgoingKudos() {
+            if ($scope.outgoingKudosShowLimit <= $scope.outgoingKudosCollection.length) {
+                $scope.outgoingKudosShowLimit += showMoreLimit;
+            }
+        }
+
+        function showLessOutgoingKudos() {
+            $scope.outgoingKudosShowLimit = showMoreLimit;
+        }
+
+        function showLessIncomingKudos() {
+            $scope.incomingKudosShowLimit = showMoreLimit;
+        }
+
+        function sentKudosTable() {
+            if ($scope.outgoingKudosCollection.length > 0)
+                $scope.sentKudosTable = true;
+        }
+
+        function receivedKudosTable() {
+            if ($scope.incomingKudosCollection.length > 0)
+                $scope.receivedKudosTable = true;
+        }
+
         function checkUser() {
             ProfileService.checkUser().then(function (val) {
                 val.logged ? $window.location.href = "#/profile" : $window.location.href = "#/login";
@@ -283,9 +283,7 @@ angular
         }
 
         function trimDate(dateString) {
-            var length = 16;
-            var trimmedString = dateString.substring(0, length);
-            return trimmedString;
+            return dateString.substring(0, 16);
         }
 
         function registerTooltip() {
