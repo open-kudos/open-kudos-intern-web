@@ -41,7 +41,6 @@
                     </ul>
                 </li>
             </ul>
-
         </div>
     </div>
 </nav>
@@ -82,25 +81,99 @@
                         </div>
                         <!-- INPUT AMOUNT -->
                         <div class="form-group col-sm-6">
-                            <input ng-model="sendKudosAmount" ng-class="fieldAmountErrorClass"
-                                   ng-change="inputChanged()" id="sendKudosAmount"
+                            <input ng-model="sendKudosAmount" ng-change="inputChanged()"
+                                   ng-class="{invalid : sendKudosForm.sendKudosAmount.$invalid}" id="sendKudosAmount"
                                    name="sendKudosAmount" type="number" ng-pattern="/^[0-9]+$/"
-                                   class="form-control" min="1" max="{userAvailableKudos}"
+                                   class="form-control" min="1" max="{userAvailableKudos
+                                  }"
                                    placeholder="{{'SEND_KUDOS_AMOUNT_HINT' | translate }}" required>
-                            <p ng-class="amountErrorClass" class="small">{{amountErrorMessage}}</p>
                         </div>
 
+                        <div class="form-group col-sm-12" id="sendKudosErrorMessage">
+                            <p ng-class="errorClass" class="text-center">{{sendKudosErrorMessage}}</p>
+                        </div>
                     </form>
 
                     <button ng-click="sendKudos()" name="sendKudosButton" id="sendKudosButton"
                             class="form-control btn btn-login" ng-disabled="buttonDisabled">Give
                     </button>
+
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Send Kudos Modal content end -->
+
+    <!-- Give Challenges Modal -->
+    <div id="giveChallengeModal" class="modal fade" role="dialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" ng-click="clearChallengeFormValues()" class="close"
+                            data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">{{ 'GIVE_CHALLENGE_POPUP_TITLE' | translate }}</h4>
+                </div>
+
+                <div class="modal-body">
+                    <form name="giveChallengeForm">
+                        <div class="form-group col-sm-6">
+                            <label for="giveChallengeName">{{ 'GIVE_CHALLENGE_NAME' | translate }}</label>
+                            <input ng-model="giveChallengeName" class="form-control"
+                                   id="giveChallengeName" name="giveChallengeName" type="text" required>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <label for="giveChallengeAmountOfKudos">{{'GIVE_CHALLENGE_AMOUNT' | translate }} | Max: {{userAvailableKudos}}</label>
+                            <input ng-model="giveChallengeAmountOfKudos"
+                                   id="giveChallengeAmountOfKudos"
+                                   name="giveChallengeAmountOfKudos" type="number" ng-pattern="/^[0-9]+$/"
+                                   class="form-control" min="1" max="{userAvailableKudos}" required>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <label for="giveChallengeTo">{{'GIVE_CHALLENGE_TO' | translate }}</label>
+                            <input ng-model="giveChallengeTo" class="form-control"
+                                   id="giveChallengeTo"
+                                   name="giveChallengeTo" type="email" required>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <label for="giveChallengeReferee">{{'GIVE_CHALLENGE_REFEREE' | translate }}</label>
+                            <input ng-model="giveChallengeReferee" class="form-control"
+                                   id="giveChallengeReferee"
+                                   name="giveChallengeReferee" type="email" required>
+                        </div>
+
+                        <div class="form-group col-sm-12">
+                            <label for="giveChallengeDescription">{{'GIVE_CHALLENGE_OPTIONAL_FIELD_DESCRIPTION' | translate }} (optional)</label>
+                            <textarea ng-model="giveChallengeDescription" class="form-control"
+                                      id="giveChallengeDescription"
+                                      name="giveChallengeDescription">
+                            </textarea>
+                        </div>
+
+                        <div class="form-group col-sm-12">
+                            <label for="giveChallengeExpirationDate">{{'GIVE_CHALLENGE_OPTIONAL_FIELD_EXPIRATION' | translate }} (optional)</label>
+                            <input ng-model="giveChallengeExpirationDate" class="form-control"
+                                   id="giveChallengeExpirationDate"
+                                   name="giveChallengeExpirationDate" type="datetime-local">
+                        </div>
+
+                        <div class="form-group col-sm-12" id="challengeFormErrorMessage">
+                            <p ng-class="errorClass" class="text-center">{{challengeFormErrorMessage}}</p>
+                        </div>
+                    </form>
+
+                    <button ng-click="giveChallenge()" name="giveChallengeButton" id="giveChallengeButton"
+                            class="form-control btn btn-login">{{'GIVE_CHALLENGE_GIVE_BUTTON' | translate}}
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Give Challenges Modal content end -->
 
     <div class="row">
 
@@ -123,9 +196,9 @@
                     <h1><b class="acorn-color">{{userReceivedKudos}}</b></h1>
                     <h4>{{ 'ProfileMeTotalCorns' | translate }}</h4>
                     <div class="col-md-12">
-                        <button name="challengeButton" id="challenge"
-                                class="btn profile-buttons hvr-underline-from-center" data-toggle="tooltip"
-                                data-placement="top" title="Challenges coming soon!">{{ 'ProfileMeChallenge' |
+                        <button name="giveChallengeButton" id="challengeButton"
+                                data-toggle="modal" data-target="#giveChallengeModal"
+                                class="btn profile-buttons hvr-underline-from-center" data-placement="top">{{ 'ProfileMeChallenge' |
                             translate }}
                         </button>
                     </div>

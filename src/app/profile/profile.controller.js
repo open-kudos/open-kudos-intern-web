@@ -8,11 +8,13 @@ angular
         'ngRoute',
         'ngCookies'
     ])
-    .controller('profileController', function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, ProfileService) {
+    .controller('profileController', function ($filter, $http, $scope, $window, $cookies, $timeout, $httpParamSerializer, ProfileService, Challenges) {
         var inputChangedPromise;
         var receiverValidated = false;
         var amountValidated = false;
         var showMoreLimit = 5;
+        var errorMessage = "";
+        var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
 
         $scope.userAvailableKudos = 0;
         $scope.userReceivedKudos = 0;
@@ -31,7 +33,9 @@ angular
 
         $scope.logout = logout;
         $scope.sendKudos = sendKudos;
+        $scope.giveChallenge = giveChallenge;
         $scope.inputChanged = inputChanged;
+        $scope.kudosValidation = kudosValidation;
         $scope.isValid = isValid;
         $scope.clearSendKudosFormValues = clearSendKudosFormValues;
         $scope.showMoreIncomingKudos = showMoreIncomingKudos;
@@ -40,6 +44,8 @@ angular
         $scope.showLessOutgoingKudos = showLessOutgoingKudos;
         $scope.showMoreIncomingKudosButton = showMoreIncomingKudosButton;
         $scope.showMoreOutgoingKudosButton = showMoreOutgoingKudosButton;
+        $scope.clearChallengeFormValues = clearChallengeFormValues;
+        $scope.challengeFormCheck = challengeFormCheck;
 
         checkUser();
         registerTooltip();
@@ -243,6 +249,135 @@ angular
                 $scope.receivedKudosTable = true;
         }
 
+        function updateProfile() {
+            var updateInfo = $.param({
+                birthday: this.birthday,
+                department: this.department,
+                location: this.location,
+                phone: "",              // <-- TODO FIX PHONE
+                position: this.position,
+                startToWork: this.startToWork,
+                team: this.team
+            });
+            ProfileService.update(updateInfo).then(function (val) {
+                $('#userDetailsModal').modal('hide');
+                checkUser();
+            })
+        }
+
+        function sendKudos() {
+            var sendTo = $httpParamSerializer({
+                receiverEmail: $scope.sendKudosTo,
+                amount: $scope.sendKudosAmount,
+                message: $scope.sendKudosMessage
+            });
+
+            ProfileService.send(sendTo).then(function (val) {
+                $scope.showSendKudosModal = false;
+                $scope.showSuccess = true;
+                $scope.userAvailableKudos = $scope.userAvailableKudos - val.data.amount;
+                $('#sendKudosModal').modal('hide');
+                toastr.success('You successfully sent ' + acornPlural(val.data.amount) + ' to ' + val.data.receiver);
+                pushOutgoingTransferIntoCollection(val.data);
+                clearSendKudosFormValues();
+            }).catch(function () {
+                errorMessage == "" ? showSendKudosErrorMessage("Receiver does not exist") : showSendKudosErrorMessage(errorMessage)
+            });
+        }
+
+        function giveChallenge() {
+            var expirationDate = $filter('date')($scope.giveChallengeExpirationDate, requestDateFormat);
+
+            var giveTo = $httpParamSerializer({
+                participant: $scope.giveChallengeTo,
+                referee: $scope.giveChallengeReferee,
+                name: $scope.giveChallengeName,
+                description: $scope.giveChallengeDescription,
+                finishDate: expirationDate,
+                amount: $scope.giveChallengeAmountOfKudos
+            });
+
+            var challengeCall = challengeFormCheck();
+
+            if (challengeCall)
+            Challenges.create(giveTo).then(function (val) {
+                clearChallengeFormValues();
+                $('#giveChallengeModal').modal('hide');
+                toastr.success('You successfully challenged '  + val.data.participant + " with " + acornPlural(val.data.amount) + '.' +
+                    ' Referee: ' + val.data.referee);
+                $scope.userAvailableKudos -= val.data.amount;
+            }).catch(function () {
+                showChallengeFormErrorMessage("Challenge receiver or referee does not exist");
+            })
+        }
+
+        function challengeFormCheck(){
+            if ($scope.giveChallengeName == null){
+                showChallengeFormErrorMessage("Please enter Challenge name");
+                return false;
+            } else if ($scope.giveChallengeAmountOfKudos == null) {
+                showChallengeFormErrorMessage("Please enter valid challenge Acorns");
+                return false;
+            } else if ($scope.giveChallengeAmountOfKudos > $scope.userAvailableKudos) {
+                showChallengeFormErrorMessage("You don't have enough of Acorns");
+                return false;
+            } else if ($scope.giveChallengeTo == null) {
+                showChallengeFormErrorMessage("Please enter challenge receiver");
+                return false;
+            } else if ($scope.giveChallengeTo == $scope.userEmail){
+                showChallengeFormErrorMessage("You can't challenge yourself");
+                return false;
+            } else if ($scope.giveChallengeReferee == null){
+                showChallengeFormErrorMessage("Please enter challenge referee");
+                return false;
+            } else if ($scope.giveChallengeReferee == $scope.userEmail){
+                showChallengeFormErrorMessage("You can't be challenge referee");
+                return false;
+            } else if ($scope.giveChallengeTo == $scope.giveChallengeReferee){
+                showChallengeFormErrorMessage("Challenge receiver can't be challenge referee");
+                return false;
+            } else return true;
+        }
+
+        function kudosValidation() {
+            $scope.errorClass = "error-message";
+            if ($scope.sendKudosAmount > $scope.userAvailableKudos) {
+                showSendKudosErrorMessage("You don't have enough Acorns");
+                $scope.sendKudosForm.sendKudosAmount.$invalid = true;
+                disableSendKudosButton();
+            } else if ($scope.sendKudosAmount == null) {
+                showSendKudosErrorMessage("Please enter amount");
+                $scope.sendKudosForm.sendKudosAmount.$invalid = true;
+                disableSendKudosButton();
+            } else if ($scope.sendKudosAmount <= 0) {
+                showSendKudosErrorMessage("Please enter more than zero");
+                $scope.sendKudosForm.sendKudosAmount.$invalid = true;
+                disableSendKudosButton();
+            } else if ($scope.sendKudosTo == null) {
+                showSendKudosErrorMessage("Please enter receiver");
+                $scope.sendKudosForm.sendKudosTo.$invalid = true;
+                disableSendKudosButton();
+            } else if (!validateEmail($scope.sendKudosTo)) {
+                showSendKudosErrorMessage("Please enter valid receiver email");
+                $scope.sendKudosForm.sendKudosTo.$invalid = true;
+                disableSendKudosButton();
+            } else if ($scope.sendKudosTo === $scope.userEmail) {
+                showSendKudosErrorMessage("Can't send kudos to yourself");
+                $scope.sendKudosForm.sendKudosTo.$invalid = true;
+                disableSendKudosButton();
+            } else {
+                errorMessage = "";
+                showSendKudosSuccessMessage("");
+            }
+        }
+
+        function inputChanged() {
+            if (inputChangedPromise) {
+                $timeout.cancel(inputChangedPromise);
+            }
+            inputChangedPromise = $timeout(kudosValidation, 100);
+        }
+
         function checkUser() {
             ProfileService.checkUser().then(function (val) {
                 val.logged ? $window.location.href = "#/profile" : $window.location.href = "#/login";
@@ -269,6 +404,24 @@ angular
             $scope.buttonDisabled = true;
         }
 
+        function enableChallengeButton() {
+            $scope.challengeButtonDisabled = false;
+        }
+
+        function disableChallengeButton() {
+            $scope.challengeButtonDisabled = true;
+        }
+
+        function clearChallengeFormValues() {
+            $scope.giveChallengeTo = null;
+            $scope.giveChallengeReferee = null;
+            $scope.giveChallengeName = null;
+            $scope.giveChallengeDescription = null;
+            $scope.giveChallengeExpirationDate = null;
+            $scope.giveChallengeAmountOfKudos = null;
+            disableChallengeButton();
+        }
+
         function isValid(value) {
             return typeof value === "undefined";
         }
@@ -276,6 +429,49 @@ angular
         function validateEmail(email) {
             var re = /[@]swedbank.[a-z]{2,}/;
             return re.test(email);
+        }
+
+        function showSendKudosErrorMessage(message) {
+            $scope.errorClass = "error-message";
+            $scope.sendKudosErrorMessage = message;
+            disableSendKudosButton();
+        }
+
+        function showSendKudosSuccessMessage(message) {
+            $scope.errorClass = "success-message";
+            $scope.sendKudosErrorMessage = message;
+            enableSendKudosButton();
+        }
+
+        function showChallengeFormErrorMessage(message) {
+            $scope.errorClass = "error-message";
+            $scope.challengeFormErrorMessage = message;
+        }
+
+        function showChallengeFormSuccessMessage(message) {
+            $scope.errorClass = "success-message";
+            $scope.challengeFormErrorMessage = message;
+        }
+
+        function clearSendKudosFormValues() {
+            $scope.sendKudosTo = "";
+            $scope.sendKudosAmount = "";
+            $scope.sendKudosMessage = "";
+            $scope.errorClass = "error-message";
+            $scope.sendKudosErrorMessage = "Please enter receiver and amount";
+            disableSendKudosButton();
+        }
+
+        function pushOutgoingTransferIntoCollection(val) {
+            var itemToAdd = {
+                receiver: val.receiver,
+                message: val.message,
+                amount: val.amount,
+                timestamp: trimDate(val.timestamp)
+            };
+            $scope.outgoingKudosCollection.push(itemToAdd);
+            sentKudosTable();
+            showMoreOutgoingKudosButton($scope.outgoingKudosCollection);
         }
 
         function acornPlural(amount) {

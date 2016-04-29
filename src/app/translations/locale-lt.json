@@ -79,5 +79,8 @@
   "GIVE_CHALLENGE_AMOUNT" : "Iššūkio vertė gilėmis",
   "GIVE_CHALLENGE_TO" : "Iššūkio gavėjas",
   "GIVE_CHALLENGE_REFEREE" : "Iššūkio teisėjas",
+  "GIVE_CHALLENGE_OPTIONAL_FIELDS" : "Papildomi laukai",
+  "GIVE_CHALLENGE_OPTIONAL_FIELD_DESCRIPTION" : "Iššūkio aprašymas",
+  "GIVE_CHALLENGE_OPTIONAL_FIELD_EXPIRATION" : "Galiojimo laikas",
   "GIVE_CHALLENGE_GIVE_BUTTON" : "MESTI IŠŠŪKĮ!!!"
 }
