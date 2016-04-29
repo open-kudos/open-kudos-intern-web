@@ -1,16 +1,20 @@
-<ul class="list-group">
-    <li ng-repeat="transaction in transactionCollection | orderBy:'-timestamp'" class="animate-repeat list-group-item">
-        <span class="badge acorn-bg">{{acornPlural(transaction.amount)}}</span>
-        <span class="bold">{{transaction.senderName}}</span> send to
-        <span class="bold">{{transaction.receiverName}}</span>
-    </li>
-</ul>
+<div>
+    <ul class="list-group">
+        <li ng-repeat="transaction in transactionCollection | orderBy:'-timestamp'"
+            class="animate-repeat list-group-item">
+            <span class="badge acorn-bg">{{acornPlural(transaction.amount)}}</span>
+            <span class="bold">{{transaction.senderName}}</span> send to
+            <span class="bold">{{transaction.receiverName}}</span>
+        </li>
+    </ul>
 
-<button ng-click="showMoreTransactions(); lessIncomingTransactions = true" ng-show="moreIncoming" type="button"
-        class="btn btn-default btn-sm">
-    {{'ProfileShowMore' | translate}}
-</button>
-<button ng-show="lessIncomingTransactions" ng-click="showLessTransactions(); lessIncomingTransactions = false" type="button"
-        class="btn btn-default btn-sm">
-    {{'ProfileShowLess' | translate}}
-</button>
+    <button ng-click="showMoreTransactions(); lessIncomingTransactions = true" ng-show="moreIncoming" type="button"
+            class="btn btn-default btn-sm">
+        {{'ProfileShowMore' | translate}}
+    </button>
+    <button ng-show="lessIncomingTransactions" ng-click="showLessTransactions(); lessIncomingTransactions = false"
+            type="button"
+            class="btn btn-default btn-sm">
+        {{'ProfileShowLess' | translate}}
+    </button>
+</div>

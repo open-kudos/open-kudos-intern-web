@@ -71,14 +71,12 @@
                                    autocomplete="off"
                                    placeholder="{{ 'SEND_KUDOS_SENDING_TO_HINT' | translate }}">
                             <div class="autocomplete" ng-show="autocompleteHide==false">
-                                <ul>
-                                    <li class="list-group-item"
+                                    <div
                                         ng-repeat="autoText in usersCollection | filter:sendKudosTo"
                                         ng-click="selectAutoText(autoText.email)">
                                         <p>{{autoText.firstName}} {{autoText.lastName}}</p>
                                         <p class="small">{{autoText.email}}</p>
-                                    </li>
-                                </ul>
+                                    </div>
                             </div>
                             <p ng-class="receiverErrorClass" class="small">{{receiverErrorMessage}}</p>
                         </div>

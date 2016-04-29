@@ -578,18 +578,34 @@ div.box4 {
 
 
 /* AUTOCOMPLETE */
-
-
-.autocomplete ul {
-    width: 100%;
+.autocomplete {
+    width: 90%;
+    display: inline-block;
+    position: absolute;
+    z-index: 1;
 }
 
-.autocomplete ul li{
-    list-style: none;
+.autocomplete div{
+    z-index: 1;
+    border: 1px solid #E1E1E1;
+    background: #FAFAFA;
+    padding: 10px;
+    cursor: pointer;
+    cursor: hand;
 }
 
-.autocomplete ul li:hover {
-    background-color: #f8f8f8;
+.autocomplete div:hover {
+    background-color: #ecf0f1;
+}
+
+.autocomplete div:nth-child(even) {
+    border-top: 0;
+    border-bottom: 0;
+}
+
+.autocomplete div:last-child {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 @media (min-width: 1200px) {
