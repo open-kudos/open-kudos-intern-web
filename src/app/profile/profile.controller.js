@@ -347,7 +347,7 @@ angular
                 });
                 Challenges.cancel(challengeId).then(function (val) {
                     toastr.success("Challenge canceled");
-                    var challenge = $filter('getByProperty')("id", challengeId, $scope.givenChallengesCollection);
+                    var challenge = $filter('getByProperty')("id", id, $scope.givenChallengesCollection);
                     $scope.givenChallengesCollection.splice($scope.givenChallengesCollection.indexOf(challenge), 1);
                 });
             }
