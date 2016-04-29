@@ -8,11 +8,12 @@ angular.module("myApp")
 ProfileService.$inject = [
     "User",
     "Kudos",
+    "Challenges",
     "Auth",
     "$q"
 ];
 
-function ProfileService(userBackend, kudosBackend, authBackend, $q) {
+function ProfileService(userBackend, kudosBackend, challengesBackend, authBackend, $q) {
     var service = {
         userHome: UserHome,
         updateUser: UpdateUser,
@@ -21,6 +22,8 @@ function ProfileService(userBackend, kudosBackend, authBackend, $q) {
         incomingKudos: IncomingKudos,
         outgoingKudos: OutgoingKudos,
         receivedKudos: ReceivedKudos,
+        givenChallenges: GivenChallenges,
+        receivedChallenges: ReceivedChallenges,
         feedKudos: StreamKudos,
         feedKudosChanged: StreamKudosChanged,
         send: SendKudos,
@@ -77,6 +80,14 @@ function ProfileService(userBackend, kudosBackend, authBackend, $q) {
 
     function StreamKudosChanged(requestData) {
         return kudosBackend.feedChanged(requestData);
+    }
+
+    function GivenChallenges() {
+        return challengesBackend.givenChallenges();
+    }
+
+    function ReceivedChallenges() {
+        return challengesBackend.receivedChallenges();
     }
 
     function Logout() {

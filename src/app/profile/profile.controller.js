@@ -8,7 +8,21 @@ angular
         'ngRoute',
         'ngCookies'
     ])
-    .controller('profileController', function ($filter, $http, $scope, $window, $cookies, $timeout, $httpParamSerializer, ProfileService, Challenges) {
+
+    .filter('getByProperty', function() {
+        return function(propertyName, propertyValue, collection) {
+            var i=0, len=collection.length;
+            for (i; i<len; i++) {
+                if (collection[i][propertyName] == propertyValue) {
+                    collection[i].show = true;
+                    return collection[i];
+                }
+            }
+            return null;
+        }
+    })
+
+    .controller('profileController', function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, $filter, ProfileService, Challenges) {
         var inputChangedPromise;
         var receiverValidated = false;
         var amountValidated = false;
@@ -23,6 +37,7 @@ angular
         $scope.maxSendKudosLength = $scope.userAvailableKudos;
         $scope.incomingKudosCollection = [];
         $scope.outgoingKudosCollection = [];
+        $scope.givenChallengesCollection = [];
         $scope.usersCollection = [];
         $scope.buttonDisabled = true;
 
@@ -34,6 +49,7 @@ angular
         $scope.logout = logout;
         $scope.sendKudos = sendKudos;
         $scope.giveChallenge = giveChallenge;
+        $scope.cancelChallenge = cancelChallenge;
         $scope.inputChanged = inputChanged;
         $scope.kudosValidation = kudosValidation;
         $scope.isValid = isValid;
@@ -44,6 +60,11 @@ angular
         $scope.showLessOutgoingKudos = showLessOutgoingKudos;
         $scope.showMoreIncomingKudosButton = showMoreIncomingKudosButton;
         $scope.showMoreOutgoingKudosButton = showMoreOutgoingKudosButton;
+        $scope.showMoreInfo = showMoreInfo;
+        $scope.showLessInfo = showLessInfo;
+
+        $scope.challengeValidation = challengeValidation;
+        $scope.challengeFormChanged = challengeFormChanged;
         $scope.clearChallengeFormValues = clearChallengeFormValues;
         $scope.challengeFormCheck = challengeFormCheck;
 
@@ -111,6 +132,10 @@ angular
 
         ProfileService.listUsers().then(function (val) {
             $scope.usersCollection = val.userList;
+        });
+
+        ProfileService.givenChallenges().then(function (val) {
+            $scope.givenChallengesCollection = val;
         });
 
         function sendKudos() {
@@ -249,6 +274,14 @@ angular
                 $scope.receivedKudosTable = true;
         }
 
+        function showMoreInfo(challengeId) {
+            return $filter('getByProperty')("id", challengeId, $scope.givenChallengesCollection);
+        }
+
+        function showLessInfo(challengeId) {
+            return $filter('getByProperty')("id", challengeId, $scope.givenChallengesCollection).show = false;
+        }
+
         function updateProfile() {
             var updateInfo = $.param({
                 birthday: this.birthday,
@@ -311,33 +344,44 @@ angular
             })
         }
 
-        function challengeFormCheck(){
-            if ($scope.giveChallengeName == null){
-                showChallengeFormErrorMessage("Please enter Challenge name");
-                return false;
-            } else if ($scope.giveChallengeAmountOfKudos == null) {
-                showChallengeFormErrorMessage("Please enter valid challenge Acorns");
-                return false;
-            } else if ($scope.giveChallengeAmountOfKudos > $scope.userAvailableKudos) {
-                showChallengeFormErrorMessage("You don't have enough of Acorns");
-                return false;
-            } else if ($scope.giveChallengeTo == null) {
-                showChallengeFormErrorMessage("Please enter challenge receiver");
-                return false;
-            } else if ($scope.giveChallengeTo == $scope.userEmail){
-                showChallengeFormErrorMessage("You can't challenge yourself");
-                return false;
-            } else if ($scope.giveChallengeReferee == null){
-                showChallengeFormErrorMessage("Please enter challenge referee");
-                return false;
-            } else if ($scope.giveChallengeReferee == $scope.userEmail){
-                showChallengeFormErrorMessage("You can't be challenge referee");
-                return false;
-            } else if ($scope.giveChallengeTo == $scope.giveChallengeReferee){
-                showChallengeFormErrorMessage("Challenge receiver can't be challenge referee");
-                return false;
-            } else return true;
-        }
+            function cancelChallenge(id) {
+                var challengeId = $httpParamSerializer({
+                    id: id
+                });
+                Challenges.cancel(challengeId).then(function (val) {
+                    toastr.success("Challenge canceled");
+                    var challenge = $filter('getByProperty')("id", challengeId, $scope.givenChallengesCollection);
+                    $scope.givenChallengesCollection.splice($scope.givenChallengesCollection.indexOf(challenge), 1);
+                });
+            }
+
+                function challengeFormCheck(){
+                    if ($scope.giveChallengeName == null){
+                        showChallengeFormErrorMessage("Please enter Challenge name");
+                        return false;
+                    } else if ($scope.giveChallengeAmountOfKudos == null) {
+                        showChallengeFormErrorMessage("Please enter valid challenge Acorns");
+                        return false;
+                    } else if ($scope.giveChallengeAmountOfKudos > $scope.userAvailableKudos) {
+                        showChallengeFormErrorMessage("You don't have enough of Acorns");
+                        return false;
+                    } else if ($scope.giveChallengeTo == null) {
+                        showChallengeFormErrorMessage("Please enter challenge receiver");
+                        return false;
+                    } else if ($scope.giveChallengeTo == $scope.userEmail){
+                        showChallengeFormErrorMessage("You can't challenge yourself");
+                        return false;
+                    } else if ($scope.giveChallengeReferee == null){
+                        showChallengeFormErrorMessage("Please enter challenge referee");
+                        return false;
+                    } else if ($scope.giveChallengeReferee == $scope.userEmail){
+                        showChallengeFormErrorMessage("You can't be challenge referee");
+                        return false;
+                    } else if ($scope.giveChallengeTo == $scope.giveChallengeReferee){
+                        showChallengeFormErrorMessage("Challenge receiver can't be challenge referee");
+                        return false;
+                    } else return true;
+                }
 
         function kudosValidation() {
             $scope.errorClass = "error-message";
