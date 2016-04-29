@@ -27,8 +27,8 @@ function KudosTransactionService($timeout, $httpParamSerializer, ProfileService)
         });
     }
 
-    function GetKudosTransactionsFeed() {
-         return ProfileService.feedKudos().then(function (val) {
+    function GetKudosTransactionsFeed(requestData) {
+         return ProfileService.feedKudos(requestData).then(function (val) {
             lastTransactionTimestamp = $httpParamSerializer({
                 lastTransactionTimestamp: val[0].timestamp
             });

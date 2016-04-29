@@ -12,8 +12,18 @@ angular.module('myApp.components', [])
     })
     .controller('KudosTransactionController', function ($scope, $timeout, $httpParamSerializer, ProfileService, KudosTransactionService) {
 
+        var page = 0;
+        var pageSize = 10;
+
+        var requestData = $httpParamSerializer({
+            page: page,
+            pageSize: pageSize
+        });
+
         $scope.transactionCollection = [];
 
+        $scope.showMoreTransactions = showMoreTransactions;
+        $scope.showLessTransactions = showLessTransactions;
         $scope.acornPlural = acornPlural;
         $scope.getKudosTransactionsFeed = getKudosTransactionsFeed;
         $scope.changeTransactionsList = changeTransactionsList;
@@ -43,8 +53,18 @@ angular.module('myApp.components', [])
          * Get transactions array
          */
         function getKudosTransactionsFeed() {
-            KudosTransactionService.getKudosTransactionsFeed().then(function (transactions) {
+            KudosTransactionService.getKudosTransactionsFeed(requestData).then(function (transactions) {
                 $scope.transactionCollection = transactions;
+            });
+        }
+
+        /**
+         * Load more and add loaded transactions to collection
+         */
+        function loadMoreKudosTransactionsFeed() {
+            KudosTransactionService.getKudosTransactionsFeed(requestData).then(function (transactions) {
+                $scope.transactionCollection = $scope.transactionCollection.concat(transactions);
+                console.log($scope.transactionCollection);
             });
         }
 
@@ -53,7 +73,7 @@ angular.module('myApp.components', [])
          * first in last out
          */
         function changeTransactionsList() {
-            KudosTransactionService.getKudosTransactionsFeed().then(function (transactions) {
+            KudosTransactionService.getKudosTransactionsFeed(requestData).then(function (transactions) {
                 transactions.forEach(function (transaction) {
                     if (arrayMismatchIndex($scope.transactionCollection, transaction) != true) {
                         $scope.transactionCollection.unshift(transaction);
@@ -61,6 +81,26 @@ angular.module('myApp.components', [])
                     }
                 });
             });
+        }
+
+        function showMoreTransactions(){
+            page++;
+            requestData = $httpParamSerializer({
+                page: page,
+                pageSize: pageSize
+            });
+            console.log(page + " " + pageSize);
+            loadMoreKudosTransactionsFeed();
+        }
+
+        function showLessTransactions(){
+            page = 0;
+            requestData = $httpParamSerializer({
+                page: page,
+                pageSize: pageSize
+            });
+            console.log(page + " " + pageSize);
+            getKudosTransactionsFeed();
         }
 
         /**

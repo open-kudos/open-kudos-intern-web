@@ -71,8 +71,8 @@ function ProfileService(userBackend, kudosBackend, authBackend, $q) {
         return kudosBackend.received();
     }
 
-    function StreamKudos() {
-        return kudosBackend.feed();
+    function StreamKudos(requestData) {
+        return kudosBackend.feed(requestData);
     }
 
     function StreamKudosChanged(requestData) {

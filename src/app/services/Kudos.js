@@ -72,10 +72,12 @@ function Kudos($http, SERVER) {
         });
     }
 
-    function getKudosTransactionStream() {
+
+    /* page=0&pageSize=10", */
+     function getKudosTransactionStream(requestData) {
         return $http({
             method: 'GET',
-            url: SERVER.ip + "/feed/feedPaged?page=0&pageSize=10",
+            url: SERVER.ip + "/feed/feedPaged?" + requestData,
             withCredentials: true
         }).then(function (response) {
             return response.data;
