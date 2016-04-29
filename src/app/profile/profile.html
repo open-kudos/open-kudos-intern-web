@@ -287,6 +287,8 @@
                         ng-repeat="givenChallenges in givenChallengesCollection"
                         ng-show="givenChallenges.status == 'CREATED'">
                         <td>
+                            <i ng-click="showMoreInfo(givenChallenges.id)" ng-show="!givenChallenges.show" class="glyphicon glyphicon-chevron-down"></i>
+                            <i ng-click="showLessInfo(givenChallenges.id)" ng-show="givenChallenges.show" class="glyphicon glyphicon-chevron-up"></i>
                             {{givenChallenges.name}}
                             <div ng-show="givenChallenges.show">
                                 <div>Description: {{givenChallenges.description}}</div>
@@ -298,9 +300,7 @@
                         <td>{{givenChallenges.finishDate}}</td>
                         <td>{{givenChallenges.amount}}</td>
                         <td>
-                            <i ng-click="showMoreInfo(givenChallenges.id)" ng-show="!givenChallenges.show" class="glyphicon glyphicon-chevron-down"></i>
-                            <i ng-click="showLessInfo(givenChallenges.id)" ng-show="givenChallenges.show" type="button" class="glyphicon glyphicon-chevron-up"></i>
-                            <button ng-click="cancelChallenge(givenChallenges.id)" ng-show="givenChallenges.finishDate == null" type="button" class="btn btn-default btn-sm">{{'ProfileMeReject' | translate}}</button>
+                            <i ng-click="cancelChallenge(givenChallenges.id)" ng-show="givenChallenges.finishDate == null" class="glyphicon glyphicon-remove"></i>
                         </td>
 
                     </tr>

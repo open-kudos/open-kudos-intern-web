@@ -215,12 +215,14 @@ angular
             })
         }
 
-        function cancelChallenge(pid) {
-            var idToCancel = $httpParamSerializer({
-                id: pid
+        function cancelChallenge(id) {
+            var challengeId = $httpParamSerializer({
+                id: id
             });
-            Challenges.cancel(idToCancel).then(function (val) {
+            Challenges.cancel(challengeId).then(function (val) {
                 toastr.success("Challenge canceled");
+                var challenge = $filter('getByProperty')("id", challengeId, $scope.givenChallengesCollection);
+                $scope.givenChallengesCollection.splice($scope.givenChallengesCollection.indexOf(challenge), 1);
             });
         }
 
