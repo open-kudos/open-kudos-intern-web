@@ -338,6 +338,28 @@ body {
     background-color: #FF9A09
 }
 
+.sidebar-buttons {
+    background-color: #ffffff;
+    border: solid 1px #222222;
+    color: #727272;
+    width: 90%;
+    height: auto;
+    font-weight: normal;
+    padding: 10px 0;
+    margin: 5px;
+    text-transform: uppercase;
+}
+
+.sidebar-buttons:hover {
+    color: #fff;
+    background-color: #FF9A09
+}
+
+.sidebar-buttons:focus {
+    color: #fff;
+    background-color: #FF9A09
+}
+
 .hvr-underline-from-center {
     display: inline-block;
     vertical-align: middle;
@@ -500,15 +522,14 @@ div.box4 {
 
 /* ng-animations */
 .animate-repeat {
-    line-height: 30px;
-    list-style: none;
-    box-sizing: border-box;
+    list-style:none;
+    box-sizing:border-box;
 }
 
 .animate-repeat.ng-move,
 .animate-repeat.ng-enter,
 .animate-repeat.ng-leave {
-    transition: all linear 0.5s;
+    transition: ease 0.5s;
 }
 
 .animate-repeat.ng-leave.ng-leave-active,
@@ -522,7 +543,9 @@ div.box4 {
 .animate-repeat.ng-move.ng-move-active,
 .animate-repeat.ng-enter.ng-enter-active {
     opacity: 1;
-    max-height: 30px;
+    overflow: hidden;
+    text-overflow: clip;
+    max-height: 120px;
 }
 
 .fade-modal.ng-hide {
@@ -542,10 +565,35 @@ div.box4 {
     transition: all linear 500ms;
 }
 
+.kudos-dropdown {
+    width: 300px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 0;
+}
 
+.list-group-item {
+    background: #FAFAFA;
+}
+
+
+/* AUTOCOMPLETE */
+
+
+.autocomplete ul {
+    width: 100%;
+}
+
+.autocomplete ul li{
+    list-style: none;
+}
+
+.autocomplete ul li:hover {
+    background-color: #f8f8f8;
+}
 
 @media (min-width: 1200px) {
-  /*  .profile-body {
-        width: 50%;
-    } */
+    /*.profile-body {
+        width: 60%;
+    }*/
 }

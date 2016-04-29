@@ -4,6 +4,7 @@
 angular
     .module('myApp', [
         'ngRoute',
+        'ngAnimate',
         'pascalprecht.translate',
         'myApp.login',
         'myApp.registration',

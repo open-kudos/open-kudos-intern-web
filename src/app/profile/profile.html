@@ -11,9 +11,17 @@
             <a class="navbar-brand" href="#">{{ 'ProfileACorn' | translate }}</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
-            <!-- <ul class="nav navbar-nav">
-                 <li class="active"><a href="#">{{ 'ProfileMe' | translate }}</a></li>
-             </ul> -->
+            <!-- LEFT SIDE OF NAV
+            <ul class="nav navbar-nav navbar-left">
+                <li><a href="" class="dropdown-toggle" type="button" id="dropdownFeed" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="true">Feed <span class="badge acorn-bg">2</span></a>
+                    <ul class="dropdown-menu kudos-dropdown" aria-labelledby="dropdownFeed">
+                        <kudos-transactions-stream></kudos-transactions-stream>
+                    </ul>
+                </li>
+            </ul>
+            -->
+            <!-- RIGHT SIDE OF NAV -->
             <ul class="nav navbar-nav navbar-right">
                 <li ng-controller="AppController">
                     <a ng-hide="lt" id="ltButton" ng-click="lt=true; en=false; changeLanguage('lt')"
@@ -33,6 +41,7 @@
                     </ul>
                 </li>
             </ul>
+
         </div>
     </div>
 </nav>
@@ -55,29 +64,39 @@
                 <div class="modal-body">
                     <form name="sendKudosForm">
                         <div class="form-group col-sm-6">
-                            <input ng-model="sendKudosTo" class="form-control"
-                                   ng-class="{invalid : sendKudosForm.sendKudosTo.$invalid}" ng-change="inputChanged()"
-                                   id="sendKudosTo" name="sendKudosTo" type="email"
-                                   placeholder="{{ 'SEND_KUDOS_SENDING_TO_HINT' | translate }}" required>
+                            <!-- INPUT RECEIVER -->
+                            <input ng-model="sendKudosTo" ng-class="fieldReceiverErrorClass"
+                                   ng-change="inputChanged()" id="sendKudosTo"
+                                   name="sendKudosTo" type="text" class="form-control"
+                                   autocomplete="off"
+                                   placeholder="{{ 'SEND_KUDOS_SENDING_TO_HINT' | translate }}">
+                            <div class="autocomplete" ng-show="autocompleteHide==false">
+                                <ul>
+                                    <li class="list-group-item"
+                                        ng-repeat="autoText in usersCollection | filter:sendKudosTo"
+                                        ng-click="selectAutoText(autoText.email)">
+                                        <p>{{autoText.firstName}} {{autoText.lastName}}</p>
+                                        <p class="small">{{autoText.email}}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <p ng-class="receiverErrorClass" class="small">{{receiverErrorMessage}}</p>
                         </div>
-
+                        <!-- INPUT AMOUNT -->
                         <div class="form-group col-sm-6">
-                            <input ng-model="sendKudosAmount" ng-change="inputChanged()"
-                                   ng-class="{invalid : sendKudosForm.sendKudosAmount.$invalid}" id="sendKudosAmount"
+                            <input ng-model="sendKudosAmount" ng-class="fieldAmountErrorClass"
+                                   ng-change="inputChanged()" id="sendKudosAmount"
                                    name="sendKudosAmount" type="number" ng-pattern="/^[0-9]+$/"
                                    class="form-control" min="1" max="{userAvailableKudos}"
                                    placeholder="{{'SEND_KUDOS_AMOUNT_HINT' | translate }}" required>
+                            <p ng-class="amountErrorClass" class="small">{{amountErrorMessage}}</p>
                         </div>
 
-                        <div class="form-group col-sm-12" id="sendKudosErrorMessage">
-                            <p ng-class="errorClass" class="text-center">{{sendKudosErrorMessage}}</p>
-                        </div>
                     </form>
 
                     <button ng-click="sendKudos()" name="sendKudosButton" id="sendKudosButton"
                             class="form-control btn btn-login" ng-disabled="buttonDisabled">Give
                     </button>
-
                 </div>
             </div>
         </div>
@@ -196,6 +215,22 @@
         </div>
 
         <div class="col-sm-3 col-sm-push-3">
+
+            <!-- KUDOS FEED BUTTON DROPDOWN
+            <div class="box4">
+                <h4>Acorns feed</h4>
+                <button class="btn sidebar-buttons dropdown-toggle" type="button" id="dropdownFeed"
+                        data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="true">
+                    Feed <span class="badge acorn-bg">4</span>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu kudos-dropdown" aria-labelledby="dropdownFeed">
+                    <kudos-transactions-stream></kudos-transactions-stream>
+                </ul>
+            </div>
+            -->
+
             <div class="box4">
                 <h4><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> {{ 'ProfileMeTodayBirthday' |
                     translate }}</h4>
@@ -232,25 +267,27 @@
         </div>
 
         <div class="col-sm-3 col-sm-pull-9">
+
             <div class="box-hidden">
                 <kudos-transactions-stream></kudos-transactions-stream>
             </div>
-        <!--    <div class="box4">
-                <h3>{{userName}} {{userSurname}}</h3>
-                <h4>{{userPosition}}</h4>
 
-                <p>{{'ProfileMeLocation' | translate }}: {{userLocation}}</p>
-                <p>{{'ProfileMeEmail' | translate }}: {{userEmail}}</p>
-                <p>{{'ProfileMePhone' | translate }}: {{userPhone}}</p>
-                <p>{{'ProfileMeTeam' | translate }}: {{userTeam}}</p>
-                <p>{{'ProfileMeStartedToWork' | translate }}: {{userStartedToWork}}</p>
-                <p>{{'ProfileMeBirthday' | translate }}: {{userBirthday}}</p>
+            <!--    <div class="box4">
+                    <h3>{{userName}} {{userSurname}}</h3>
+                    <h4>{{userPosition}}</h4>
 
-                <button type="button" data-toggle="modal" data-target="#userDetailsModal"
-                        class="btn btn-default btn-sm">
-                    {{'ProfileMeEdit' | translate }}
-                </button>
-            </div>  -->
+                    <p>{{'ProfileMeLocation' | translate }}: {{userLocation}}</p>
+                    <p>{{'ProfileMeEmail' | translate }}: {{userEmail}}</p>
+                    <p>{{'ProfileMePhone' | translate }}: {{userPhone}}</p>
+                    <p>{{'ProfileMeTeam' | translate }}: {{userTeam}}</p>
+                    <p>{{'ProfileMeStartedToWork' | translate }}: {{userStartedToWork}}</p>
+                    <p>{{'ProfileMeBirthday' | translate }}: {{userBirthday}}</p>
+
+                    <button type="button" data-toggle="modal" data-target="#userDetailsModal"
+                            class="btn btn-default btn-sm">
+                        {{'ProfileMeEdit' | translate }}
+                    </button>
+                </div>  -->
 
         </div>
 

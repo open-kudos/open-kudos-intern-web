@@ -10,12 +10,12 @@ angular
     ])
     .controller('profileController', function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, ProfileService) {
         var inputChangedPromise;
+        var receiverValidated = false;
+        var amountValidated = false;
         var showMoreLimit = 5;
-        var errorMessage = "";
 
         $scope.userAvailableKudos = 0;
         $scope.userReceivedKudos = 0;
-        $scope.sendKudosErrorMessage = "Please enter receiver and amount";
         $scope.incomingKudosShowLimit = 5;
         $scope.outgoingKudosShowLimit = 5;
         $scope.maxSendKudosLength = $scope.userAvailableKudos;
@@ -24,11 +24,14 @@ angular
         $scope.usersCollection = [];
         $scope.buttonDisabled = true;
 
-        $scope.updateProfile = updateProfile;
+        $scope.receiverErrorClass = "";
+        $scope.receiverErrorMessage = "";
+        $scope.amountErrorClass = "";
+        $scope.amountErrorMessage = "";
+
         $scope.logout = logout;
         $scope.sendKudos = sendKudos;
         $scope.inputChanged = inputChanged;
-        $scope.kudosValidation = kudosValidation;
         $scope.isValid = isValid;
         $scope.clearSendKudosFormValues = clearSendKudosFormValues;
         $scope.showMoreIncomingKudos = showMoreIncomingKudos;
@@ -41,6 +44,33 @@ angular
         checkUser();
         registerTooltip();
 
+        /**
+         * Send kudos modal receiver input
+         * field auto complete
+         */
+        $scope.autocompleteHide = true;
+
+        $scope.selectAutoText = function (text) {
+            $scope.sendKudosTo = text;
+            $scope.searchTermSelected = true;
+            $scope.autocompleteHide = true;
+            sendKudosValidation();
+        };
+
+        $scope.$watch('sendKudosTo', function (newVal, oldVal) {
+            if ($scope.searchTermSelected == false) {
+                if (newVal != undefined) {
+                    if (newVal.length > 1) {
+                        $scope.autocompleteHide = false;
+                    } else {
+                        $scope.autocompleteHide = true;
+                    }
+                }
+            } else {
+                $scope.searchTermSelected = false;
+            }
+        });
+
         ProfileService.userHome().then(function (val) {
             $scope.userEmail = val.email;
             $scope.userName = val.firstName;
@@ -51,10 +81,6 @@ angular
             $scope.userTeam = val.team;
             $scope.userStartedToWork = val.startedToWorkDate;
             $scope.userBirthday = val.birthday;
-        });
-
-        ProfileService.feedKudos().then(function (val) {
-            console.log(val);
         });
 
         ProfileService.remainingKudos().then(function (val) {
@@ -123,28 +149,11 @@ angular
                 $scope.receivedKudosTable = true;
         }
 
-        function updateProfile() {
-            var updateInfo = $.param({
-                birthday: this.birthday,
-                department: this.department,
-                location: this.location,
-                phone: "",              // <-- TODO FIX PHONE
-                position: this.position,
-                startToWork: this.startToWork,
-                team: this.team
-            });
-            ProfileService.update(updateInfo).then(function (val) {
-                $('#userDetailsModal').modal('hide');
-                checkUser();
-            })
-        }
-
         function sendKudos() {
             var sendTo = $httpParamSerializer({
                 receiverEmail: $scope.sendKudosTo,
                 amount: $scope.sendKudosAmount,
-                message: $scope.sendKudosMessage
-            });
+                message: $scope.sendKudosMessage});
 
             ProfileService.send(sendTo).then(function (val) {
                 $scope.showSendKudosModal = false;
@@ -152,50 +161,86 @@ angular
                 $scope.userAvailableKudos = $scope.userAvailableKudos - val.data.amount;
                 $('#sendKudosModal').modal('hide');
                 toastr.success('You successfully sent ' + acornPlural(val.data.amount) + ' to ' + val.data.receiver);
-                pushOutgoingTransferIntoCollection(val.data);
+                addTransactionToCollection(val.data);
                 clearSendKudosFormValues();
             }).catch(function () {
-                errorMessage == "" ? showSendKudosErrorMessage("Receiver does not exist") : showSendKudosErrorMessage(errorMessage)
+                sendKudosReceiverErrorMessage("Receiver does not exist");
             });
         }
 
-        function kudosValidation() {
-            $scope.errorClass = "error-message";
-            if ($scope.sendKudosAmount > $scope.userAvailableKudos) {
-                showSendKudosErrorMessage("You don't have enough Acorns");
-                $scope.sendKudosForm.sendKudosAmount.$invalid = true;
-                disableSendKudosButton();
-            } else if ($scope.sendKudosAmount == null) {
-                showSendKudosErrorMessage("Please enter amount");
-                $scope.sendKudosForm.sendKudosAmount.$invalid = true;
-                disableSendKudosButton();
-            } else if ($scope.sendKudosAmount <= 0) {
-                showSendKudosErrorMessage("Please enter more than zero");
-                $scope.sendKudosForm.sendKudosAmount.$invalid = true;
-                disableSendKudosButton();
-            } else if ($scope.sendKudosTo == null) {
-                showSendKudosErrorMessage("Please enter receiver");
-                $scope.sendKudosForm.sendKudosTo.$invalid = true;
-                disableSendKudosButton();
+        function addTransactionToCollection(val) {
+            var itemToAdd = {
+                receiver: val.receiver,
+                message: val.message,
+                amount: val.amount,
+                timestamp: trimDate(val.timestamp)};
+
+            $scope.outgoingKudosCollection.push(itemToAdd);
+            sentKudosTable();
+            showMoreOutgoingKudosButton($scope.outgoingKudosCollection);
+        }
+
+        function sendKudosValidation() {
+            clearErrorMessages();
+            if ($scope.sendKudosTo == null) {
+                sendKudosReceiverErrorMessage("Please enter receiver");
             } else if (!validateEmail($scope.sendKudosTo)) {
-                showSendKudosErrorMessage("Please enter valid receiver email");
-                $scope.sendKudosForm.sendKudosTo.$invalid = true;
-                disableSendKudosButton();
+                sendKudosReceiverErrorMessage("Please enter valid receiver email");
             } else if ($scope.sendKudosTo === $scope.userEmail) {
-                showSendKudosErrorMessage("Can't send kudos to yourself");
-                $scope.sendKudosForm.sendKudosTo.$invalid = true;
-                disableSendKudosButton();
+                sendKudosReceiverErrorMessage("Can't send kudos to yourself");
+            } else if ($scope.sendKudosAmount > $scope.userAvailableKudos) {
+                sendKudosAmountErrorMessage("You don't have enough Acorns");
+            } else if ($scope.sendKudosAmount == null) {
+                sendKudosAmountErrorMessage("Please enter amount");
+            } else if ($scope.sendKudosAmount <= 0) {
+                sendKudosAmountErrorMessage("Please enter more than zero");
             } else {
-                errorMessage = "";
-                showSendKudosSuccessMessage("");
+                clearErrorMessages();
             }
         }
 
         function inputChanged() {
-            if (inputChangedPromise) {
-                $timeout.cancel(inputChangedPromise);
-            }
-            inputChangedPromise = $timeout(kudosValidation, 100);
+            if (inputChangedPromise) $timeout.cancel(inputChangedPromise);
+            inputChangedPromise = $timeout(sendKudosValidation(), 100);
+        }
+
+        function sendKudosReceiverErrorMessage(message) {
+            $scope.receiverErrorClass = "error-message";
+            $scope.fieldReceiverErrorClass = "invalid";
+            $scope.receiverErrorMessage = message;
+            receiverValidated = false;
+            disableSendKudosButton();
+        }
+
+        function sendKudosAmountErrorMessage(message) {
+            $scope.amountErrorClass = "error-message";
+            $scope.fieldAmountErrorClass = "invalid";
+            $scope.amountErrorMessage = message;
+            amountValidated = false;
+            disableSendKudosButton();
+        }
+
+        function clearErrorMessages() {
+            $scope.receiverErrorMessage = "";
+            $scope.receiverErrorClass = "";
+            $scope.fieldReceiverErrorClass = "";
+            $scope.amountErrorMessage = "";
+            $scope.amountErrorClass = "";
+            $scope.fieldAmountErrorClass = "";
+            enableSendKudosButton();
+        }
+
+        function clearSendKudosFormValues() {
+            $scope.receiverErrorMessage = "";
+            $scope.amountErrorMessage = "";
+            $scope.receiverErrorClass = "";
+            $scope.amountErrorClass = "";
+            $scope.fieldAmountErrorClass = "";
+            $scope.fieldReceiverErrorClass = "";
+            $scope.sendKudosTo = "";
+            $scope.sendKudosAmount = "";
+            $scope.sendKudosMessage = "";
+            disableSendKudosButton();
         }
 
         function checkUser() {
@@ -230,41 +275,7 @@ angular
 
         function validateEmail(email) {
             var re = /[@]swedbank.[a-z]{2,}/;
-            //    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             return re.test(email);
-        }
-
-        function showSendKudosErrorMessage(message) {
-            $scope.errorClass = "error-message";
-            $scope.sendKudosErrorMessage = message;
-            disableSendKudosButton();
-        }
-
-        function showSendKudosSuccessMessage(message) {
-            $scope.errorClass = "success-message";
-            $scope.sendKudosErrorMessage = message;
-            enableSendKudosButton();
-        }
-
-        function clearSendKudosFormValues() {
-            $scope.sendKudosTo = "";
-            $scope.sendKudosAmount = "";
-            $scope.sendKudosMessage = "";
-            $scope.errorClass = "error-message";
-            $scope.sendKudosErrorMessage = "Please enter receiver and amount";
-            disableSendKudosButton();
-        }
-
-        function pushOutgoingTransferIntoCollection(val) {
-            var itemToAdd = {
-                receiver: val.receiver,
-                message: val.message,
-                amount: val.amount,
-                timestamp: trimDate(val.timestamp)
-            };
-            $scope.outgoingKudosCollection.push(itemToAdd);
-            sentKudosTable();
-            showMoreOutgoingKudosButton($scope.outgoingKudosCollection);
         }
 
         function acornPlural(amount) {
@@ -274,7 +285,6 @@ angular
         function trimDate(dateString) {
             var length = 16;
             var trimmedString = dateString.substring(0, length);
-            console.log(trimmedString);
             return trimmedString;
         }
 

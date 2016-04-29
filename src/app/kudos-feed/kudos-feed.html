@@ -1,0 +1,42 @@
+<title>Acorns Feed</title>
+<div class="container">
+    <div class="row">
+        <ng-include src="'/open-kudos-intern-web/src/app/login/partials/forgot-password.html'"></ng-include>
+
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-login">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <a href="" class="active" id="feed-form-link"> Feed </a>
+                        </div>
+                        <div class="col-xs-4">
+                            <a href="#login" id="login-form-link">{{ 'loginTitle' | translate }}</a>
+                        </div>
+                        <div class="col-xs-4">
+                            <a href="#registration" class="" id="register-form-link">{{ 'loginRegistration' | translate
+                                }}</a>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <kudos-transactions-stream></kudos-transactions-stream>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-class="class='text-center'" class="container" ng-controller="AppController">
+    <div ng-hide="lt">
+        <a href="" id="ltButton" ng-click="lt=true; en=false; changeLanguage('lt')">Lietuvių</a>
+    </div>
+    <div ng-hide="en">
+        <a href="" id="enButton" ng-click="lt=false; en=true; changeLanguage('en')">English</a>
+    </div>
+</div>

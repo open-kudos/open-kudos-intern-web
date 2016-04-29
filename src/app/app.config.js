@@ -2,10 +2,10 @@
  * Created by vytautassugintas on 20/04/16.
  */
 angular
-    .module("myApp").config(function ($routeProvider, $translateProvider, $locationProvider) {
+    .module("myApp").config(function ($routeProvider, $translateProvider, $locationProvider, $logProvider) {
     $routeProvider
         .otherwise({
-            redirectTo: '/login'
+            redirectTo: '/feed'
         })
         .when('/login', {
             templateUrl: 'app/login/login.html',
@@ -18,12 +18,17 @@ angular
         .when('/registration', {
             templateUrl: 'app/registration/registration.html',
             controller: 'registrationController'
-        });
+        })
+        .when('/feed', {
+        templateUrl: 'app/kudos-feed/kudos-feed.html',
+    });
 
     $translateProvider.useStaticFilesLoader({
         prefix: 'app/translations/locale-',
         suffix: '.json'
     });
+
+    $logProvider.debugEnabled(true);
 
     //$locationProvider.html5Mode(true);
 
