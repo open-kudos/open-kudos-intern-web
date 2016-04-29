@@ -62,9 +62,6 @@ angular
         $scope.showMoreOutgoingKudosButton = showMoreOutgoingKudosButton;
         $scope.showMoreInfo = showMoreInfo;
         $scope.showLessInfo = showLessInfo;
-
-        $scope.challengeValidation = challengeValidation;
-        $scope.challengeFormChanged = challengeFormChanged;
         $scope.clearChallengeFormValues = clearChallengeFormValues;
         $scope.challengeFormCheck = challengeFormCheck;
 
