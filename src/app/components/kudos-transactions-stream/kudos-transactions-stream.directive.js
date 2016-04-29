@@ -54,6 +54,12 @@ angular.module('myApp.components', [])
          */
         function getKudosTransactionsFeed() {
             KudosTransactionService.getKudosTransactionsFeed(requestData).then(function (transactions) {
+                transactions.forEach(function (transaction) {
+                    if(transaction.receiver === "master@of.kudos"){
+                        console.log(transaction.receiver);
+                        transactions.splice(transaction, 1);    //TODO FIX IN BACK END
+                    }
+                });
                 $scope.transactionCollection = transactions;
             });
         }
@@ -75,6 +81,10 @@ angular.module('myApp.components', [])
         function changeTransactionsList() {
             KudosTransactionService.getKudosTransactionsFeed(requestData).then(function (transactions) {
                 transactions.forEach(function (transaction) {
+                    if(transaction.receiver === "master@of.kudos"){
+                        console.log(transaction.receiver);
+                        $scope.transactionCollection.splice(transaction, 1);    //TODO FIX IN BACK END
+                    }
                     if (arrayMismatchIndex($scope.transactionCollection, transaction) != true) {
                         $scope.transactionCollection.unshift(transaction);
                         $scope.transactionCollection.pop();
