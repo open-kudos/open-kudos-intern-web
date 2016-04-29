@@ -308,6 +308,7 @@
                             <i ng-click="showMoreInfo(givenChallenges.id)" ng-show="!givenChallenges.show" class="glyphicon glyphicon-chevron-down"></i>
                             <i ng-click="showLessInfo(givenChallenges.id)" ng-show="givenChallenges.show" class="glyphicon glyphicon-chevron-up"></i>
                             {{givenChallenges.name}}
+
                             <div ng-show="givenChallenges.show">
                                 <div>Description: {{givenChallenges.description}}</div>
                                 <div>Challenge creator: {{givenChallenges.creator}}</div>
@@ -322,6 +323,7 @@
                         </td>
 
                     </tr>
+
                     </tbody>
                 </table>
             </div>

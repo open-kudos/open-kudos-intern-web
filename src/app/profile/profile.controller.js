@@ -347,6 +347,7 @@ angular
                 });
                 Challenges.cancel(challengeId).then(function (val) {
                     toastr.success("Challenge canceled");
+                    $scope.userAvailableKudos = $scope.userAvailableKudos + val.data.amount;
                     var challenge = $filter('getByProperty')("id", id, $scope.givenChallengesCollection);
                     $scope.givenChallengesCollection.splice($scope.givenChallengesCollection.indexOf(challenge), 1);
                 });
