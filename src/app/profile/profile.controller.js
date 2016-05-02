@@ -32,9 +32,9 @@ angular
 
         $scope.userAvailableKudos = 0;
         $scope.userReceivedKudos = 0;
-        $scope.incomingKudosShowLimit = 5;
+
         $scope.maxSendKudosLength = $scope.userAvailableKudos;
-        $scope.incomingKudosCollection = [];
+
         $scope.givenChallengesCollection = [];
         $scope.usersCollection = [];
         $scope.buttonDisabled = true;
@@ -52,9 +52,7 @@ angular
         $scope.kudosValidation = kudosValidation;
         $scope.isValid = isValid;
         $scope.clearSendKudosFormValues = clearSendKudosFormValues;
-        $scope.showMoreIncomingKudos = showMoreIncomingKudos;
-        $scope.showLessIncomingKudos = showLessIncomingKudos;
-        $scope.showMoreIncomingKudosButton = showMoreIncomingKudosButton;
+
         $scope.showMoreInfo = showMoreInfo;
         $scope.showLessInfo = showLessInfo;
         $scope.clearChallengeFormValues = clearChallengeFormValues;
@@ -110,11 +108,7 @@ angular
             $scope.userReceivedKudos = val;
         });
 
-        ProfileService.incomingKudos().then(function (val) {
-            $scope.incomingKudosCollection = val;
-            showMoreIncomingKudosButton(val);
-            receivedKudosTable();
-        });
+
 
         ProfileService.listUsers().then(function (val) {
             $scope.usersCollection = val.userList;
@@ -218,31 +212,11 @@ angular
             disableSendKudosButton();
         }
 
-        function showMoreIncomingKudosButton(val) {
-            if (val.length > 5) {
-                $scope.moreIncoming = true;
-            }
-        }
-
-        function showMoreIncomingKudos() {
-            if ($scope.incomingKudosShowLimit <= $scope.incomingKudosCollection.length) {
-                $scope.incomingKudosShowLimit += showMoreLimit;
-            }
-        }
-
-        function showLessIncomingKudos() {
-            $scope.incomingKudosShowLimit = showMoreLimit;
-        }
-
         function sentKudosTable() {
             if ($scope.outgoingKudosCollection.length > 0)
                 $scope.sentKudosTable = true;
         }
 
-        function receivedKudosTable() {
-            if ($scope.incomingKudosCollection.length > 0)
-                $scope.receivedKudosTable = true;
-        }
 
         function showMoreInfo(challengeId) {
             return $filter('getByProperty')("id", challengeId, $scope.givenChallengesCollection);

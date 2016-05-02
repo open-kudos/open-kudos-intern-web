@@ -205,44 +205,7 @@
                 </div>
             </div>
 
-            <h3>{{ 'ProfileMeReceivedCorns' | translate }}</h3>
-            <div class="table-responsive">
-                <table ng-show="receivedKudosTable" class="table">
-                    <colgroup>
-                        <col class="col-xs-6"/>
-                        <col class="col-xs-2"/>
-                        <col class="col-xs-4"/>
-                    </colgroup>
-                    <thead>
-                    <tr>
-                        <th>{{ 'ProfileMeColleague' | translate }}</th>
-                        <th>{{ 'ProfileACorn' | translate }}</th>
-                        <th>{{ 'ProfileMeDate' | translate }}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="animate-repeat"
-                        ng-repeat="incomingKudos in incomingKudosCollection | orderBy:'-timestamp' | limitTo: incomingKudosShowLimit">
-                        <td>{{incomingKudos.senderEmail}}</td>
-                        <td>{{incomingKudos.amount}}</td>
-                        <td>{{incomingKudos.timestamp}}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div ng-if="!receivedKudosTable" class="alert alert-info acorn-bg">
-                <span class="glyphicon glyphicon-info-sign"></span>
-                {{'ProfileMeReceivedAcorns' | translate}}
-            </div>
-
-            <button ng-click="showMoreIncomingKudos(); lessIncoming = true" ng-show="moreIncoming" type="button"
-                    class="btn btn-default btn-sm">
-                {{'ProfileShowMore' | translate}}
-            </button>
-            <button ng-show="lessIncoming" ng-click="showLessIncomingKudos(); lessIncoming = false" type="button"
-                    class="btn btn-default btn-sm">
-                {{'ProfileShowLess' | translate}}
-            </button>
+            <kudos-received-acorns></kudos-received-acorns>
 
             <kudos-sent-acorns></kudos-sent-acorns>
 
@@ -348,6 +311,7 @@
         </div>
 
         <div class="col-sm-3 col-sm-pull-9">
+        -->
 
             <div class="box-hidden">
                 <kudos-transactions-stream></kudos-transactions-stream>

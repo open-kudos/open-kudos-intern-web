@@ -2,7 +2,7 @@
  * Created by vytautassugintas on 26/04/16.
  */
 "use strict";
-angular.module("myApp.components")
+angular.module("myApp.components.stream")
     .factory("KudosTransactionService", KudosTransactionService);
 
 KudosTransactionService.$inject = [
