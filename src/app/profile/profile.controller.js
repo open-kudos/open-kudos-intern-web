@@ -33,10 +33,8 @@ angular
         $scope.userAvailableKudos = 0;
         $scope.userReceivedKudos = 0;
         $scope.incomingKudosShowLimit = 5;
-        $scope.outgoingKudosShowLimit = 5;
         $scope.maxSendKudosLength = $scope.userAvailableKudos;
         $scope.incomingKudosCollection = [];
-        $scope.outgoingKudosCollection = [];
         $scope.givenChallengesCollection = [];
         $scope.usersCollection = [];
         $scope.buttonDisabled = true;
@@ -55,11 +53,8 @@ angular
         $scope.isValid = isValid;
         $scope.clearSendKudosFormValues = clearSendKudosFormValues;
         $scope.showMoreIncomingKudos = showMoreIncomingKudos;
-        $scope.showMoreOutgoingKudos = showMoreOutgoingKudos;
         $scope.showLessIncomingKudos = showLessIncomingKudos;
-        $scope.showLessOutgoingKudos = showLessOutgoingKudos;
         $scope.showMoreIncomingKudosButton = showMoreIncomingKudosButton;
-        $scope.showMoreOutgoingKudosButton = showMoreOutgoingKudosButton;
         $scope.showMoreInfo = showMoreInfo;
         $scope.showLessInfo = showLessInfo;
         $scope.clearChallengeFormValues = clearChallengeFormValues;
@@ -119,12 +114,6 @@ angular
             $scope.incomingKudosCollection = val;
             showMoreIncomingKudosButton(val);
             receivedKudosTable();
-        });
-
-        ProfileService.outgoingKudos().then(function (val) {
-            $scope.outgoingKudosCollection = val;
-            showMoreOutgoingKudosButton(val);
-            sentKudosTable();
         });
 
         ProfileService.listUsers().then(function (val) {
@@ -235,26 +224,10 @@ angular
             }
         }
 
-        function showMoreOutgoingKudosButton(val) {
-            if (val.length > 5) {
-                $scope.moreOutgoing = true;
-            }
-        }
-
         function showMoreIncomingKudos() {
             if ($scope.incomingKudosShowLimit <= $scope.incomingKudosCollection.length) {
                 $scope.incomingKudosShowLimit += showMoreLimit;
             }
-        }
-
-        function showMoreOutgoingKudos() {
-            if ($scope.outgoingKudosShowLimit <= $scope.outgoingKudosCollection.length) {
-                $scope.outgoingKudosShowLimit += showMoreLimit;
-            }
-        }
-
-        function showLessOutgoingKudos() {
-            $scope.outgoingKudosShowLimit = showMoreLimit;
         }
 
         function showLessIncomingKudos() {

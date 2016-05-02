@@ -20,7 +20,6 @@ function ProfileService(userBackend, kudosBackend, challengesBackend, authBacken
         listUsers: ListUsers,
         remainingKudos: RemainingKudos,
         incomingKudos: IncomingKudos,
-        outgoingKudos: OutgoingKudos,
         receivedKudos: ReceivedKudos,
         givenChallenges: GivenChallenges,
         receivedChallenges: ReceivedChallenges,
@@ -64,10 +63,6 @@ function ProfileService(userBackend, kudosBackend, challengesBackend, authBacken
 
     function IncomingKudos() {
         return kudosBackend.incoming();
-    }
-
-    function OutgoingKudos() {
-        return kudosBackend.outgoing();
     }
 
     function ReceivedKudos() {
