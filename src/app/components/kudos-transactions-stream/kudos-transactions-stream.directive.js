@@ -1,7 +1,7 @@
 /**
  * Created by vytautassugintas on 25/04/16.
  */
-angular.module('myApp.components.stream', [])
+angular.module('myApp.components', [])
     .directive('kudosTransactionsStream', function () {
         return {
             controller: 'KudosTransactionController',
