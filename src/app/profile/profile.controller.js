@@ -32,11 +32,9 @@ angular
 
         $scope.userAvailableKudos = 0;
         $scope.userReceivedKudos = 0;
-        $scope.incomingKudosShowLimit = 5;
-        $scope.outgoingKudosShowLimit = 5;
+
         $scope.maxSendKudosLength = $scope.userAvailableKudos;
-        $scope.incomingKudosCollection = [];
-        $scope.outgoingKudosCollection = [];
+
         $scope.givenChallengesCollection = [];
         $scope.usersCollection = [];
         $scope.buttonDisabled = true;
@@ -54,12 +52,7 @@ angular
         $scope.kudosValidation = kudosValidation;
         $scope.isValid = isValid;
         $scope.clearSendKudosFormValues = clearSendKudosFormValues;
-        $scope.showMoreIncomingKudos = showMoreIncomingKudos;
-        $scope.showMoreOutgoingKudos = showMoreOutgoingKudos;
-        $scope.showLessIncomingKudos = showLessIncomingKudos;
-        $scope.showLessOutgoingKudos = showLessOutgoingKudos;
-        $scope.showMoreIncomingKudosButton = showMoreIncomingKudosButton;
-        $scope.showMoreOutgoingKudosButton = showMoreOutgoingKudosButton;
+
         $scope.showMoreInfo = showMoreInfo;
         $scope.showLessInfo = showLessInfo;
 
@@ -116,17 +109,7 @@ angular
             $scope.userReceivedKudos = val;
         });
 
-        ProfileService.incomingKudos().then(function (val) {
-            $scope.incomingKudosCollection = val;
-            showMoreIncomingKudosButton(val);
-            receivedKudosTable();
-        });
 
-        ProfileService.outgoingKudos().then(function (val) {
-            $scope.outgoingKudosCollection = val;
-            showMoreOutgoingKudosButton(val);
-            sentKudosTable();
-        });
 
         ProfileService.listUsers().then(function (val) {
             $scope.usersCollection = val.userList;
@@ -230,47 +213,11 @@ angular
             disableSendKudosButton();
         }
 
-        function showMoreIncomingKudosButton(val) {
-            if (val.length > 5) {
-                $scope.moreIncoming = true;
-            }
-        }
-
-        function showMoreOutgoingKudosButton(val) {
-            if (val.length > 5) {
-                $scope.moreOutgoing = true;
-            }
-        }
-
-        function showMoreIncomingKudos() {
-            if ($scope.incomingKudosShowLimit <= $scope.incomingKudosCollection.length) {
-                $scope.incomingKudosShowLimit += showMoreLimit;
-            }
-        }
-
-        function showMoreOutgoingKudos() {
-            if ($scope.outgoingKudosShowLimit <= $scope.outgoingKudosCollection.length) {
-                $scope.outgoingKudosShowLimit += showMoreLimit;
-            }
-        }
-
-        function showLessOutgoingKudos() {
-            $scope.outgoingKudosShowLimit = showMoreLimit;
-        }
-
-        function showLessIncomingKudos() {
-            $scope.incomingKudosShowLimit = showMoreLimit;
-        }
-
         function sentKudosTable() {
             if ($scope.outgoingKudosCollection.length > 0)
                 $scope.sentKudosTable = true;
         }
 
-        function receivedKudosTable() {
-            if ($scope.incomingKudosCollection.length > 0)
-                $scope.receivedKudosTable = true;
-        }
 
         function showMoreInfo(challengeId) {
             return $filter('getByProperty')("id", challengeId, $scope.givenChallengesCollection);
@@ -348,7 +295,8 @@ angular
                 });
                 Challenges.cancel(challengeId).then(function (val) {
                     toastr.success("Challenge canceled");
-                    var challenge = $filter('getByProperty')("id", challengeId, $scope.givenChallengesCollection);
+                    $scope.userAvailableKudos = $scope.userAvailableKudos + val.data.amount;
+                    var challenge = $filter('getByProperty')("id", id, $scope.givenChallengesCollection);
                     $scope.givenChallengesCollection.splice($scope.givenChallengesCollection.indexOf(challenge), 1);
                 });
             }

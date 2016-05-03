@@ -4,11 +4,12 @@
 angular
     .module('myApp', [
         'ngRoute',
-        'ngAnimate',
         'pascalprecht.translate',
         'myApp.login',
         'myApp.registration',
         'myApp.profile',
         'myApp.version',
-        'myApp.components'
+        'myApp.components.sent',
+        'myApp.components.received',
+        'myApp.components.stream'
     ]);
