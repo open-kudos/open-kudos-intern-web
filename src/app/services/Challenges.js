@@ -46,10 +46,10 @@ function Challenges($http, SERVER) {
         });
     }
 
-    function getReceivedChallenges() {
+    function getReceivedChallenges(requestData) {
         return $http({
             method: 'GET',
-            url: SERVER.ip + "/challenges/participated",
+            url: SERVER.ip + "/challenges/participatedByStatus?" + requestData,
             withCredentials: true
         }).then(function(response) {
             return response.data;

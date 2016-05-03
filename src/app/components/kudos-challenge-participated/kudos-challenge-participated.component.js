@@ -1,5 +1,5 @@
 
-angular.module('myApp.components', [])
+angular.module('myApp.components.challengeParticipated', [])
 
     .directive('kudosChallengeParticipated', function () {
         return {
@@ -10,6 +10,24 @@ angular.module('myApp.components', [])
         }
     })
 
-    .controller('KudosChallengeParticipatedController', function ($scope) {
-        $scope.testujit = 'a';
+    .controller('KudosChallengeParticipatedController', function ($httpParamSerializer, $scope, KudosChallengeParticipatedService) {
+        var challengeStatus = "CREATED";
+        var requestData = $httpParamSerializer({
+            status: challengeStatus
+        });
+        
+        $scope.getChallengeParticipatedList = getChallengeParticipatedList;
+
+        getChallengeParticipatedList(requestData);
+
+        function getChallengeParticipatedList(requestData) {
+            KudosChallengeParticipatedService.getList(requestData).then(function (val) {
+                console.log(val[0]);
+                $scope.challengeName = val[0].name;
+                $scope.challengeCreator = val[0].creator;
+                $scope.challengeDescription = val[0].description;
+                $scope.challengeFinishDate = val[0].finishDate;
+                $scope.challengeReferee = val[0].referee;
+            })
+        }
     });

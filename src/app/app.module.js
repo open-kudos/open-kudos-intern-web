@@ -10,5 +10,6 @@ angular
         'myApp.registration',
         'myApp.profile',
         'myApp.version',
-        'myApp.components'
+        'myApp.components',
+        'myApp.components.challengeParticipated'
     ]);
