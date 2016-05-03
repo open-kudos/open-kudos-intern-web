@@ -9,10 +9,10 @@ angular
         'ngCookies'
     ])
 
-    .filter('getByProperty', function() {
-        return function(propertyName, propertyValue, collection) {
-            var i=0, len=collection.length;
-            for (i; i<len; i++) {
+    .filter('getByProperty', function () {
+        return function (propertyName, propertyValue, collection) {
+            var i = 0, len = collection.length;
+            for (i; i < len; i++) {
                 if (collection[i][propertyName] == propertyValue) {
                     collection[i].show = true;
                     return collection[i];
@@ -109,7 +109,6 @@ angular
         });
 
 
-
         ProfileService.listUsers().then(function (val) {
             $scope.usersCollection = val.userList;
         });
@@ -122,7 +121,8 @@ angular
             var sendTo = $httpParamSerializer({
                 receiverEmail: $scope.sendKudosTo,
                 amount: $scope.sendKudosAmount,
-                message: $scope.sendKudosMessage});
+                message: $scope.sendKudosMessage
+            });
 
             ProfileService.send(sendTo).then(function (val) {
                 $scope.showSendKudosModal = false;
@@ -142,7 +142,8 @@ angular
                 receiver: val.receiver,
                 message: val.message,
                 amount: val.amount,
-                timestamp: trimDate(val.timestamp)};
+                timestamp: trimDate(val.timestamp)
+            };
 
             $scope.outgoingKudosCollection.push(itemToAdd);
             sentKudosTable();
@@ -277,56 +278,56 @@ angular
             var challengeCall = challengeFormCheck();
 
             if (challengeCall)
-            Challenges.create(giveTo).then(function (val) {
-                clearChallengeFormValues();
-                $('#giveChallengeModal').modal('hide');
-                toastr.success('You successfully challenged '  + val.data.participant + " with " + acornPlural(val.data.amount) + '.' +
-                    ' Referee: ' + val.data.referee);
-                $scope.userAvailableKudos -= val.data.amount;
-            }).catch(function () {
-                showChallengeFormErrorMessage("Challenge receiver or referee does not exist");
-            })
+                Challenges.create(giveTo).then(function (val) {
+                    clearChallengeFormValues();
+                    $('#giveChallengeModal').modal('hide');
+                    toastr.success('You successfully challenged ' + val.data.participant + " with " + acornPlural(val.data.amount) + '.' +
+                        ' Referee: ' + val.data.referee);
+                    $scope.userAvailableKudos -= val.data.amount;
+                }).catch(function () {
+                    showChallengeFormErrorMessage("Challenge receiver or referee does not exist");
+                })
         }
 
-            function cancelChallenge(id) {
-                var challengeId = $httpParamSerializer({
-                    id: id
-                });
-                Challenges.cancel(challengeId).then(function (val) {
-                    toastr.success("Challenge canceled");
-                    $scope.userAvailableKudos = $scope.userAvailableKudos + val.data.amount;
-                    var challenge = $filter('getByProperty')("id", id, $scope.givenChallengesCollection);
-                    $scope.givenChallengesCollection.splice($scope.givenChallengesCollection.indexOf(challenge), 1);
-                });
-            }
+        function cancelChallenge(id) {
+            var challengeId = $httpParamSerializer({
+                id: id
+            });
+            Challenges.cancel(challengeId).then(function (val) {
+                toastr.success("Challenge canceled");
+                $scope.userAvailableKudos = $scope.userAvailableKudos + val.data.amount;
+                var challenge = $filter('getByProperty')("id", id, $scope.givenChallengesCollection);
+                $scope.givenChallengesCollection.splice($scope.givenChallengesCollection.indexOf(challenge), 1);
+            });
+        }
 
-                function challengeFormCheck(){
-                    if ($scope.giveChallengeName == null){
-                        showChallengeFormErrorMessage("Please enter Challenge name");
-                        return false;
-                    } else if ($scope.giveChallengeAmountOfKudos == null) {
-                        showChallengeFormErrorMessage("Please enter valid challenge Acorns");
-                        return false;
-                    } else if ($scope.giveChallengeAmountOfKudos > $scope.userAvailableKudos) {
-                        showChallengeFormErrorMessage("You don't have enough of Acorns");
-                        return false;
-                    } else if ($scope.giveChallengeTo == null) {
-                        showChallengeFormErrorMessage("Please enter challenge receiver");
-                        return false;
-                    } else if ($scope.giveChallengeTo == $scope.userEmail){
-                        showChallengeFormErrorMessage("You can't challenge yourself");
-                        return false;
-                    } else if ($scope.giveChallengeReferee == null){
-                        showChallengeFormErrorMessage("Please enter challenge referee");
-                        return false;
-                    } else if ($scope.giveChallengeReferee == $scope.userEmail){
-                        showChallengeFormErrorMessage("You can't be challenge referee");
-                        return false;
-                    } else if ($scope.giveChallengeTo == $scope.giveChallengeReferee){
-                        showChallengeFormErrorMessage("Challenge receiver can't be challenge referee");
-                        return false;
-                    } else return true;
-                }
+        function challengeFormCheck() {
+            if ($scope.giveChallengeName == null) {
+                showChallengeFormErrorMessage("Please enter Challenge name");
+                return false;
+            } else if ($scope.giveChallengeAmountOfKudos == null) {
+                showChallengeFormErrorMessage("Please enter valid challenge Acorns");
+                return false;
+            } else if ($scope.giveChallengeAmountOfKudos > $scope.userAvailableKudos) {
+                showChallengeFormErrorMessage("You don't have enough of Acorns");
+                return false;
+            } else if ($scope.giveChallengeTo == null) {
+                showChallengeFormErrorMessage("Please enter challenge receiver");
+                return false;
+            } else if ($scope.giveChallengeTo == $scope.userEmail) {
+                showChallengeFormErrorMessage("You can't challenge yourself");
+                return false;
+            } else if ($scope.giveChallengeReferee == null) {
+                showChallengeFormErrorMessage("Please enter challenge referee");
+                return false;
+            } else if ($scope.giveChallengeReferee == $scope.userEmail) {
+                showChallengeFormErrorMessage("You can't be challenge referee");
+                return false;
+            } else if ($scope.giveChallengeTo == $scope.giveChallengeReferee) {
+                showChallengeFormErrorMessage("Challenge receiver can't be challenge referee");
+                return false;
+            } else return true;
+        }
 
         function kudosValidation() {
             $scope.errorClass = "error-message";
@@ -416,8 +417,8 @@ angular
         }
 
         function validateEmail(email) {
-            var re = /[@]swedbank.[a-z]{2,}/;
-            return re.test(email);
+            var reg = /[@]swedbank.[a-z]{2,}/;
+            return reg.test(email);
         }
 
         function showSendKudosErrorMessage(message) {

@@ -45,7 +45,7 @@
     </div>
 </nav>
 
-<div class="container panel panel-body profile-body">
+<div class="container">
 
     <!-- Profile Edit Modal -->
     <ng-include src="'app/profile/partials/user-detail-popup.html'"></ng-include>
@@ -70,12 +70,12 @@
                                    autocomplete="off"
                                    placeholder="{{ 'SEND_KUDOS_SENDING_TO_HINT' | translate }}">
                             <div class="autocomplete" ng-show="autocompleteHide==false">
-                                    <div
+                                <div
                                         ng-repeat="autoText in usersCollection | filter:sendKudosTo"
                                         ng-click="selectAutoText(autoText.email)">
-                                        <p>{{autoText.firstName}} {{autoText.lastName}}</p>
-                                        <p class="small">{{autoText.email}}</p>
-                                    </div>
+                                    <p>{{autoText.firstName}} {{autoText.lastName}}</p>
+                                    <p class="small">{{autoText.email}}</p>
+                                </div>
                             </div>
                             <p ng-class="receiverErrorClass" class="small">{{receiverErrorMessage}}</p>
                         </div>
@@ -124,7 +124,8 @@
                         </div>
 
                         <div class="form-group col-sm-6">
-                            <label for="giveChallengeAmountOfKudos">{{'GIVE_CHALLENGE_AMOUNT' | translate }} | Max: {{userAvailableKudos}}</label>
+                            <label for="giveChallengeAmountOfKudos">{{'GIVE_CHALLENGE_AMOUNT' | translate }} | Max:
+                                {{userAvailableKudos}}</label>
                             <input ng-model="giveChallengeAmountOfKudos"
                                    id="giveChallengeAmountOfKudos"
                                    name="giveChallengeAmountOfKudos" type="number" ng-pattern="/^[0-9]+$/"
@@ -146,7 +147,8 @@
                         </div>
 
                         <div class="form-group col-sm-12">
-                            <label for="giveChallengeDescription">{{'GIVE_CHALLENGE_OPTIONAL_FIELD_DESCRIPTION' | translate }} (optional)</label>
+                            <label for="giveChallengeDescription">{{'GIVE_CHALLENGE_OPTIONAL_FIELD_DESCRIPTION' |
+                                translate }} (optional)</label>
                             <textarea ng-model="giveChallengeDescription" class="form-control"
                                       id="giveChallengeDescription"
                                       name="giveChallengeDescription">
@@ -154,7 +156,8 @@
                         </div>
 
                         <div class="form-group col-sm-12">
-                            <label for="giveChallengeExpirationDate">{{'GIVE_CHALLENGE_OPTIONAL_FIELD_EXPIRATION' | translate }} (optional)</label>
+                            <label for="giveChallengeExpirationDate">{{'GIVE_CHALLENGE_OPTIONAL_FIELD_EXPIRATION' |
+                                translate }} (optional)</label>
                             <input ng-model="giveChallengeExpirationDate" class="form-control"
                                    id="giveChallengeExpirationDate"
                                    name="giveChallengeExpirationDate" type="datetime-local">
@@ -180,80 +183,100 @@
         <!-- use later col-sm-push-3 -->
         <div class="col-sm-6 col-sm-push-3">
 
-            <div class="row text-center">
-                <div class="col-xs-6">
-                    <h1><b class="acorn-color">{{userAvailableKudos}}</b></h1>
-                    <h4>{{ 'ProfileMeCorns' | translate }}</h4>
-                    <div class="col-md-12">
-                        <button name="giveKudosButton" id="giveKudosButton" ng-click="showSendKudosModal()"
-                                data-toggle="modal" data-target="#sendKudosModal"
-                                class="btn profile-buttons hvr-underline-from-center">{{ 'ProfileMeGiveACorn' |
-                            translate }}
-                        </button>
+            <div class="panel panel-body">
+                <div class="row text-center">
+                    <div class="col-xs-6">
+                        <h1><b class="acorn-color">{{userAvailableKudos}}</b></h1>
+                        <h4>{{ 'ProfileMeCorns' | translate }}</h4>
+                        <div class="col-md-12">
+                            <button name="giveKudosButton" id="giveKudosButton" ng-click="showSendKudosModal()"
+                                    data-toggle="modal" data-target="#sendKudosModal"
+                                    class="btn profile-buttons hvr-underline-from-center">{{ 'ProfileMeGiveACorn' |
+                                translate }}
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="col-xs-6">
-                    <h1><b class="acorn-color">{{userReceivedKudos}}</b></h1>
-                    <h4>{{ 'ProfileMeTotalCorns' | translate }}</h4>
-                    <div class="col-md-12">
-                        <button name="giveChallengeButton" id="challengeButton"
-                                data-toggle="modal" data-target="#giveChallengeModal"
-                                class="btn profile-buttons hvr-underline-from-center" data-placement="top">{{ 'ProfileMeChallenge' |
-                            translate }}
-                        </button>
+                    <div class="col-xs-6">
+                        <h1><b class="acorn-color">{{userReceivedKudos}}</b></h1>
+                        <h4>{{ 'ProfileMeTotalCorns' | translate }}</h4>
+                        <div class="col-md-12">
+                            <button name="giveChallengeButton" id="challengeButton"
+                                    data-toggle="modal" data-target="#giveChallengeModal"
+                                    class="btn profile-buttons hvr-underline-from-center" data-placement="top">{{
+                                'ProfileMeChallenge' |
+                                translate }}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <kudos-challenge-participated></kudos-challenge-participated>
+            <div class="panel panel-body">
+                <kudos-challenge-participated></kudos-challenge-participated>
+            </div>
 
-            <kudos-received-acorns></kudos-received-acorns>
+            <div class="panel panel-body">
+                <kudos-received-acorns></kudos-received-acorns>
+            </div>
 
-            <kudos-sent-acorns></kudos-sent-acorns>
+            <div class="panel panel-body">
+                <kudos-sent-acorns></kudos-sent-acorns>
+            </div>
 
-            <h3>{{ 'ProfileMeGivenChallenges' | translate }}</h3>
-            <div class="table-responsive">
-                <table class="table">
-                    <colgroup>
-                        <col class="col-xs-6" />
-                        <col class="col-xs-2" />
-                        <col class="col-xs-2" />
-                        <col class="col-xs-2" />
-                    </colgroup>
-                    <thead>
-                    <tr>
-                        <th>{{'ProfileMeChallengeName' | translate }}</th>
-                        <th>{{'ProfileMeExpirationDate' | translate }}</th>
-                        <th>{{'ProfileMeKudosAmount' | translate }}</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="animate-repeat"
-                        ng-repeat="givenChallenges in givenChallengesCollection"
-                        ng-show="givenChallenges.status == 'CREATED'">
-                        <td>
-                            <i ng-click="showMoreInfo(givenChallenges.id)" ng-show="!givenChallenges.show" class="glyphicon glyphicon-chevron-down"></i>
-                            <i ng-click="showLessInfo(givenChallenges.id)" ng-show="givenChallenges.show" class="glyphicon glyphicon-chevron-up"></i>
-                            {{givenChallenges.name}}
+            <div class="panel panel-body">
+                <h3>{{ 'ProfileMeGivenChallenges' | translate }}</h3>
+                <div class="table-responsive">
+                    <table class="table">
+                        <colgroup>
+                            <col class="col-xs-6"/>
+                            <col class="col-xs-2"/>
+                            <col class="col-xs-2"/>
+                            <col class="col-xs-2"/>
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>{{'ProfileMeChallengeName' | translate }}</th>
+                            <th>{{'ProfileMeExpirationDate' | translate }}</th>
+                            <th>{{'ProfileMeKudosAmount' | translate }}</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="animate-repeat"
+                            ng-repeat="givenChallenges in givenChallengesCollection"
+                            ng-show="givenChallenges.status == 'CREATED'">
+                            <td>
+                                <i ng-click="showMoreInfo(givenChallenges.id)" ng-show="!givenChallenges.show"
+                                   class="glyphicon glyphicon-chevron-down"></i>
+                                <i ng-click="showLessInfo(givenChallenges.id)" ng-show="givenChallenges.show"
+                                   class="glyphicon glyphicon-chevron-up"></i>
+                                {{givenChallenges.name}}
 
-                            <div ng-show="givenChallenges.show">
-                                <div>Description: {{givenChallenges.description}}</div>
-                                <div>Challenge creator: {{givenChallenges.creator}}</div>
-                                <div>Referee of the challenge: {{givenChallenges.referee}}</div>
-                            </div>
-                        </td>
+                                <div ng-show="givenChallenges.show">
+                                    <div>Description: {{givenChallenges.description}}</div>
+                                    <div>Challenge creator: {{givenChallenges.creator}}</div>
+                                    <div>Referee of the challenge: {{givenChallenges.referee}}</div>
+                                </div>
+                            </td>
 
-                        <td>{{givenChallenges.finishDate}}</td>
-                        <td>{{givenChallenges.amount}}</td>
-                        <td>
-                            <i ng-click="cancelChallenge(givenChallenges.id)" ng-show="givenChallenges.finishDate == null" class="glyphicon glyphicon-remove"></i>
-                        </td>
+                            <td>{{givenChallenges.finishDate}}</td>
+                            <td>{{givenChallenges.amount}}</td>
+                            <td>
+                                <i ng-click="cancelChallenge(givenChallenges.id)"
+                                   ng-show="givenChallenges.finishDate == null" class="glyphicon glyphicon-remove"></i>
+                            </td>
 
-                    </tr>
+                        </tr>
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="panel panel-body">
+                <div class="box-hidden">
+                    <kudos-transactions-stream></kudos-transactions-stream>
+                </div>
             </div>
 
         </div>
@@ -313,9 +336,6 @@
         <div class="col-sm-3 col-sm-pull-9">
         -->
 
-            <div class="box-hidden">
-                <kudos-transactions-stream></kudos-transactions-stream>
-            </div>
 
             <!--    <div class="box4">
                     <h3>{{userName}} {{userSurname}}</h3>
