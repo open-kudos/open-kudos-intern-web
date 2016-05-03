@@ -9,9 +9,9 @@ angular
         'myApp.registration',
         'myApp.profile',
         'myApp.version',
-        'myApp.components.sentAcorns',
-        'myApp.components.receivedAcorns',
-        'myApp.components.stream',
+        'myApp.components.sent',
+        'myApp.components.received',
         'myApp.components.givenChallenges',
+        'myApp.components',
         'myApp.components.challengeParticipated'
     ]);
