@@ -10,7 +10,8 @@ KudosChallengeParticipatedService.$inject = [
 
 function KudosChallengeParticipatedService($httpParamSerializer, Challenges) {
     var service = {
-        getList: getChallengeParticipatedList
+        getList: getChallengeParticipatedList,
+        decline: declineChallenge
     }
     return service;
 
@@ -18,5 +19,11 @@ function KudosChallengeParticipatedService($httpParamSerializer, Challenges) {
         return Challenges.receivedChallenges(requestData).then(function (val) {
             return val;
         });
+    }
+
+    function declineChallenge(requestData) {
+        return Challenges.declineChallenge(requestData).then(function (val) {
+            return val
+        })
     }
 }

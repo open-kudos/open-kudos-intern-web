@@ -11,28 +11,42 @@ angular.module('myApp.components.challengeParticipated', [])
     })
 
     .controller('KudosChallengeParticipatedController', function ($httpParamSerializer, $scope, KudosChallengeParticipatedService) {
-        var challengeStatus = "CREATED";
-        var requestData = $httpParamSerializer({
-            status: challengeStatus
-        });
-        
+        var requestData;
         $scope.getChallengeParticipatedList = getChallengeParticipatedList;
         $scope.acceptChallenge = acceptChallenge;
+        $scope.declineChallenge = declineChallenge;
 
-        getChallengeParticipatedList(requestData);
+        getChallengeParticipatedList();
 
-        function getChallengeParticipatedList(requestData) {
+        function getChallengeParticipatedList() {
+            var challengeStatus = "CREATED";
+            requestData = $httpParamSerializer({
+                status: challengeStatus
+            });
             KudosChallengeParticipatedService.getList(requestData).then(function (val) {
                 console.log(val[0]);
-                $scope.challengeName = val[0].name;
-                $scope.challengeCreator = val[0].creator;
-                $scope.challengeDescription = val[0].description;
-                $scope.challengeFinishDate = val[0].finishDate;
-                $scope.challengeReferee = val[0].referee;
+                if (val[0]) {
+                    $scope.id = val[0].id;
+                    $scope.challengeName = val[0].name;
+                    $scope.challengeCreator = val[0].creator;
+                    $scope.challengeDescription = val[0].description;
+                    $scope.challengeFinishDate = val[0].finishDate;
+                    $scope.challengeReferee = val[0].referee;
+                }
             })
         }
 
         function acceptChallenge(id) {
             console.log(id);
+        }
+
+        function declineChallenge(id) {
+            requestData = $httpParamSerializer({
+                id: id
+            });
+            KudosChallengeParticipatedService.decline(requestData).then(function (val) {
+                toastr.info('You declined ' + val.data.creator + ' challenge');
+                getChallengeParticipatedList();
+            })
         }
     });
