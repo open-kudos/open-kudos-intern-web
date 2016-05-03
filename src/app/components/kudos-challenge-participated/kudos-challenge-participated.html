@@ -3,15 +3,53 @@
         <h4>You have been Challenged!</h4>
     </div>
     <div class="challenge-participated-2">
-        <div class="col-lg-9">
-            {{challengeName}}
-            {{challengeCreator}}
-            {{challengeDescription}}
-            {{challengeFinishDate}}
-            {{challengeReferee}}
+        <div class="col-lg-8">
+            <div class="col-xs-12">
+                <div class="col-xs-6">
+                    Challenge name:
+                </div>
+                <div class="col-xs-6">
+                    {{challengeName}}
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="col-xs-6">
+                    Creator:
+                </div>
+                <div class="col-xs-6">
+                    {{challengeCreator}}
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="col-xs-6">
+                    Referee:
+                </div>
+                <div class="col-xs-6">
+                    {{challengeReferee}}
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="col-xs-6">
+                    Description:
+                </div>
+                <div class="col-xs-6">
+                    {{challengeDescription}}
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="col-xs-6">
+                    Finish name:
+                </div>
+                <div class="col-xs-6">
+                    {{challengeFinishDate}}
+                </div>
+            </div>
         </div>
-        <div class="col-lg-3">
-
+        <div class="col-lg-4">
+            <div class="col-xs-12">
+                <button class="btn btn-success" ng-click="">Accept</button>
+                <button class="btn btn-danger" ng-click="">Decline</button>
+            </div>
         </div>
     </div>
 </div>
