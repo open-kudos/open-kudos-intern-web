@@ -11,5 +11,6 @@ angular
         'myApp.version',
         'myApp.components.sent',
         'myApp.components.received',
-        'myApp.components.stream'
+        'myApp.components.stream',
+        'myApp.components.challengeParticipated'
     ]);

@@ -146,6 +146,28 @@ body {
     color: #666;
 }
 
+.challenge-participated{
+    color: #fff;
+    position: relative;
+    float: left;
+    width: 100%;
+    background-color: #FF6500;
+    border: 1px solid #FF9A09;
+    border-radius: 4px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.challenge-participated-2{
+    color: #0f0f0f;
+    position: relative;
+    float: left;
+    width: 100%;
+    background-color: #FAFAFA;
+    border: 1px solid #FF9A09;
+    border-radius: 4px;
+}
+
 .btn-register {
     background-color: #1CB94E;
     outline: none;
