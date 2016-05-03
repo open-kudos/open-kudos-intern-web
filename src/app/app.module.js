@@ -10,6 +10,8 @@ angular
         'myApp.registration',
         'myApp.profile',
         'myApp.version',
-        'myApp.components',
+        'myApp.components.sent',
+        'myApp.components.received',
+        'myApp.components.stream',
         'myApp.components.challengeParticipated'
     ]);

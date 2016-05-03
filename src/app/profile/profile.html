@@ -207,83 +207,9 @@
 
             <kudos-challenge-participated></kudos-challenge-participated>
 
-            <h3>{{ 'ProfileMeReceivedCorns' | translate }}</h3>
-            <div class="table-responsive">
-                <table ng-show="receivedKudosTable" class="table">
-                    <colgroup>
-                        <col class="col-xs-6"/>
-                        <col class="col-xs-2"/>
-                        <col class="col-xs-4"/>
-                    </colgroup>
-                    <thead>
-                    <tr>
-                        <th>{{ 'ProfileMeColleague' | translate }}</th>
-                        <th>{{ 'ProfileACorn' | translate }}</th>
-                        <th>{{ 'ProfileMeDate' | translate }}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="animate-repeat"
-                        ng-repeat="incomingKudos in incomingKudosCollection | orderBy:'-timestamp' | limitTo: incomingKudosShowLimit">
-                        <td>{{incomingKudos.senderEmail}}</td>
-                        <td>{{incomingKudos.amount}}</td>
-                        <td>{{incomingKudos.timestamp}}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div ng-if="!receivedKudosTable" class="alert alert-info acorn-bg">
-                <span class="glyphicon glyphicon-info-sign"></span>
-                {{'ProfileMeReceivedAcorns' | translate}}
-            </div>
+            <kudos-received-acorns></kudos-received-acorns>
 
-            <button ng-click="showMoreIncomingKudos(); lessIncoming = true" ng-show="moreIncoming" type="button"
-                    class="btn btn-default btn-sm">
-                {{'ProfileShowMore' | translate}}
-            </button>
-            <button ng-show="lessIncoming" ng-click="showLessIncomingKudos(); lessIncoming = false" type="button"
-                    class="btn btn-default btn-sm">
-                {{'ProfileShowLess' | translate}}
-            </button>
-
-            <h3>{{ 'ProfileMeSentCorns' | translate }}</h3>
-            <div class="table-responsive">
-                <table ng-show="sentKudosTable" class="table">
-                    <colgroup>
-                        <col class="col-xs-6"/>
-                        <col class="col-xs-2"/>
-                        <col class="col-xs-4"/>
-                    </colgroup>
-                    <thead>
-                    <tr>
-                        <th>{{ 'ProfileMeColleague' | translate }}</th>
-                        <th>{{'ProfileACorn' | translate }}</th>
-                        <th>{{'ProfileMeDate' | translate }}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="animate-repeat"
-                        ng-repeat="outgoingKudos in outgoingKudosCollection | orderBy:'-timestamp' | limitTo: outgoingKudosShowLimit">
-                        <td>{{outgoingKudos.receiver}}</td>
-                        <td>{{outgoingKudos.amount}}</td>
-                        <td>{{outgoingKudos.timestamp}}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div ng-if="!sentKudosTable" class="alert alert-info acorn-bg">
-                <span class="glyphicon glyphicon-info-sign"></span>
-                {{'ProfileMeSentAcorns' | translate}}
-            </div>
-
-            <button ng-click="showMoreOutgoingKudos(); lessOutgoing = true" ng-show="moreOutgoing" type="button"
-                    class="btn btn-default btn-sm">
-                {{'ProfileShowMore' | translate}}
-            </button>
-            <button ng-show="lessOutgoing" ng-click="showLessOutgoingKudos(); lessOutgoing = false" type="button"
-                    class="btn btn-default btn-sm">
-                {{'ProfileShowLess' | translate}}
-            </button>
+            <kudos-sent-acorns></kudos-sent-acorns>
 
             <h3>{{ 'ProfileMeGivenChallenges' | translate }}</h3>
             <div class="table-responsive">
@@ -310,6 +236,7 @@
                             <i ng-click="showMoreInfo(givenChallenges.id)" ng-show="!givenChallenges.show" class="glyphicon glyphicon-chevron-down"></i>
                             <i ng-click="showLessInfo(givenChallenges.id)" ng-show="givenChallenges.show" class="glyphicon glyphicon-chevron-up"></i>
                             {{givenChallenges.name}}
+
                             <div ng-show="givenChallenges.show">
                                 <div>Description: {{givenChallenges.description}}</div>
                                 <div>Challenge creator: {{givenChallenges.creator}}</div>
@@ -324,6 +251,7 @@
                         </td>
 
                     </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -345,7 +273,7 @@
                     <kudos-transactions-stream></kudos-transactions-stream>
                 </ul>
             </div>
-            -->
+
 
             <div class="box4">
                 <h4><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> {{ 'ProfileMeTodayBirthday' |
@@ -383,6 +311,7 @@
         </div>
 
         <div class="col-sm-3 col-sm-pull-9">
+        -->
 
             <div class="box-hidden">
                 <kudos-transactions-stream></kudos-transactions-stream>
