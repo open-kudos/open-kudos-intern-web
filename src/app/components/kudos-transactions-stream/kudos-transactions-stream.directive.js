@@ -64,7 +64,7 @@ angular.module('myApp.components', [])
          * Load more and add loaded transactions to collection
          */
         function loadMoreKudosTransactionsFeed() {
-            KudosTransactionService.getKudosTransactionsFeed().then(function (transactions) {
+            KudosTransactionService.getCompletedKudosTransactions().then(function (transactions) {
                 $scope.transactionCollection = $scope.transactionCollection.concat(transactions);
             });
         }
@@ -74,7 +74,7 @@ angular.module('myApp.components', [])
          * first in last out
          */
         function changeTransactionsList() {
-            KudosTransactionService.getKudosTransactionsFeed(requestData).then(function (transactions) {
+            KudosTransactionService.getCompletedKudosTransactions(requestData).then(function (transactions) {
                 transactions.forEach(function (transaction) {
                     if (arrayMismatchIndex($scope.transactionCollection, transaction) != true) {
                         $scope.transactionCollection.unshift(transaction);

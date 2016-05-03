@@ -23,6 +23,8 @@ angular.module('myApp.components.challengeParticipated', [])
             requestData = $httpParamSerializer({
                 status: challengeStatus
             });
+            $scope.id = false;
+            
             KudosChallengeParticipatedService.getList(requestData).then(function (val) {
                 console.log(val[0]);
                 if (val[0]) {
