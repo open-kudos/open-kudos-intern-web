@@ -18,7 +18,8 @@ function Kudos($http, SERVER) {
         remaining: getRemainingKudos,
         received: getReceivedKudos,
         feed: getKudosTransactionStream,
-        feedChanged: kudosTransactionListChanged
+        feedChanged: kudosTransactionListChanged,
+        getCompletedKudosTransactions : getCompletedKudosTransactions
     }
     return kudos;
 
@@ -72,12 +73,21 @@ function Kudos($http, SERVER) {
         });
     }
 
-
     /* page=0&pageSize=10", */
      function getKudosTransactionStream(requestData) {
         return $http({
             method: 'GET',
-            url: SERVER.ip + "/feed/feedPaged?" + requestData,
+            url: SERVER.ip + "/transaction/feedPaged?" + requestData,
+            withCredentials: true
+        }).then(function (response) {
+            return response.data;
+        });
+    }
+
+    function getCompletedKudosTransactions() {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/transaction/transactions?status=COMPLETED&page=0&pageSize=10",
             withCredentials: true
         }).then(function (response) {
             return response.data;
@@ -87,7 +97,7 @@ function Kudos($http, SERVER) {
     function kudosTransactionListChanged(requestData) {
         return $http({
             method: 'GET',
-            url: SERVER.ip + "/feed/kudosFeedPool?" + requestData,
+            url: SERVER.ip + "/transaction/kudosFeedPool?" + requestData,
             withCredentials: true
         }).then(function (response) {
             return response.data;
