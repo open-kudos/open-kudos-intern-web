@@ -4,7 +4,7 @@ angular.module('myApp.components.givenChallenges', [])
         controller: 'GivenChallengesController'
     })
 
-    .controller('GivenChallengesController', function ($scope, $httpParamSerializer, GivenChallengesService) {
+    .controller('GivenChallengesController', function ($scope, $httpParamSerializer, GivenChallengesService, Challenges) {
 
         var challengeStatus = "CREATED";
         var requestData = $httpParamSerializer({
@@ -14,7 +14,9 @@ angular.module('myApp.components.givenChallenges', [])
         $scope.givenChallengesCollection = [];
         $scope.showMoreInfo = showMoreInfo;
         $scope.showLessInfo = showLessInfo;
+        $scope.doesDateExist = doesDateExist;
         $scope.cancelChallenge = cancelChallenge;
+
 
         GivenChallengesService.givenChallenges(requestData).then(function (val) {
             $scope.givenChallengesCollection = val;
@@ -27,15 +29,18 @@ angular.module('myApp.components.givenChallenges', [])
             $scope.givenChallengesCollection[index].show = false;
         }
 
-        function cancelChallenge(id) {
+        function doesDateExist(index) {
+            return $scope.givenChallengesCollection[index].finishDate == null;
+        }
+
+        function cancelChallenge(index) {
             var challengeId = $httpParamSerializer({
-                id: id
+                id: $scope.givenChallengesCollection[index].id
             });
             Challenges.cancel(challengeId).then(function (val) {
-                toastr.success("Challenge canceled");
                 $scope.userAvailableKudos = $scope.userAvailableKudos + val.data.amount;
-                var challenge = $filter('getByProperty')("id", id, $scope.givenChallengesCollection);
-                $scope.givenChallengesCollection.splice($scope.givenChallengesCollection.indexOf(challenge), 1);
+                $scope.givenChallengesCollection.splice(index, 1);
+                toastr.success("Challenge canceled");
             });
         }
     });

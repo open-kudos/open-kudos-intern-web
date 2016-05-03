@@ -33,7 +33,7 @@
             <td>{{givenChallenges.finishDate}}</td>
             <td>{{givenChallenges.amount}}</td>
             <td>
-                <i ng-click="cancelChallenge(givenChallenges.id)" ng-show="givenChallenges.finishDate == null" class="glyphicon glyphicon-remove"></i>
+                <i ng-click="cancelChallenge($index)" ng-show="doesDateExist($index)" class="glyphicon glyphicon-remove"></i>
             </td>
 
         </tr>

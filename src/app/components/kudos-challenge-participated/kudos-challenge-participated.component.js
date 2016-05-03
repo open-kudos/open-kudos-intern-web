@@ -23,7 +23,6 @@ angular.module('myApp.components.challengeParticipated', [])
 
         function getChallengeParticipatedList(requestData) {
             KudosChallengeParticipatedService.getList(requestData).then(function (val) {
-                console.log(val[0]);
                 $scope.challengeName = val[0].name;
                 $scope.challengeCreator = val[0].creator;
                 $scope.challengeDescription = val[0].description;
