@@ -17,6 +17,7 @@ angular.module('myApp.components.challengeParticipated', [])
         });
         
         $scope.getChallengeParticipatedList = getChallengeParticipatedList;
+        $scope.acceptChallenge = acceptChallenge;
 
         getChallengeParticipatedList(requestData);
 
@@ -29,5 +30,9 @@ angular.module('myApp.components.challengeParticipated', [])
                 $scope.challengeFinishDate = val[0].finishDate;
                 $scope.challengeReferee = val[0].referee;
             })
+        }
+
+        function acceptChallenge(id) {
+            console.log(id);
         }
     });

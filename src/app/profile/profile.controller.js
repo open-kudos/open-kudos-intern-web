@@ -26,7 +26,6 @@ angular
         var inputChangedPromise;
         var receiverValidated = false;
         var amountValidated = false;
-        var showMoreLimit = 5;
         var errorMessage = "";
         var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
 
