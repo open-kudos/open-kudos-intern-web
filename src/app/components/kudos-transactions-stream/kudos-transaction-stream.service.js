@@ -6,34 +6,33 @@ angular.module("myApp.components.stream")
     .factory("KudosTransactionService", KudosTransactionService);
 
 KudosTransactionService.$inject = [
-    "$timeout",
     "$httpParamSerializer",
-    "ProfileService"
+    "Transaction"
 ];
 
-function KudosTransactionService($timeout, $httpParamSerializer, ProfileService) {
+function KudosTransactionService($httpParamSerializer, transactionsBackend) {
     var lastTransactionTimestamp;
 
     var service = {
         poll: PollTransactions,
-        getKudosTransactionsFeed : GetKudosTransactionsFeed
+        getCompletedKudosTransactions : GetCompletedTransactions
     };
     return service;
 
     function PollTransactions() {
-        return ProfileService.feedKudosChanged(lastTransactionTimestamp).then(function (val) {
-            if (val === true) GetKudosTransactionsFeed();
+        return transactionsBackend.feedChanged(lastTransactionTimestamp).then(function (val) {
+            if (val === true) GetCompletedTransactions();
             return val;
         });
     }
 
-    function GetKudosTransactionsFeed(requestData) {
-         return ProfileService.feedKudos(requestData).then(function (val) {
+    function GetCompletedTransactions(requestData){
+        return transactionsBackend.getCompletedKudosTransactions(requestData).then(function (val) {
             lastTransactionTimestamp = $httpParamSerializer({
                 lastTransactionTimestamp: val[0].timestamp
             });
             return val;
-        });
+        })
     }
 
 }

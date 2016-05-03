@@ -10,12 +10,14 @@ angular.module('myApp.components.stream', [])
             templateUrl: 'app/components/kudos-transactions-stream/kudos-transactions-stream.html'
         }
     })
-    .controller('KudosTransactionController', function ($scope, $timeout, $httpParamSerializer, ProfileService, KudosTransactionService) {
+    .controller('KudosTransactionController', function ($scope, $timeout, $httpParamSerializer, KudosTransactionService) {
 
+        var status = "COMPLETED";
         var page = 0;
         var pageSize = 10;
 
         var requestData = $httpParamSerializer({
+            status: status,
             page: page,
             pageSize: pageSize
         });
@@ -53,13 +55,7 @@ angular.module('myApp.components.stream', [])
          * Get transactions array
          */
         function getKudosTransactionsFeed() {
-            KudosTransactionService.getKudosTransactionsFeed(requestData).then(function (transactions) {
-                transactions.forEach(function (transaction) {
-                    if(transaction.receiver === "master@of.kudos"){
-                        console.log(transaction.receiver);
-                        transactions.splice(transaction, 1);    //TODO FIX IN BACK END
-                    }
-                });
+            KudosTransactionService.getCompletedKudosTransactions(requestData).then(function (transactions) {
                 $scope.transactionCollection = transactions;
             });
         }
@@ -68,9 +64,8 @@ angular.module('myApp.components.stream', [])
          * Load more and add loaded transactions to collection
          */
         function loadMoreKudosTransactionsFeed() {
-            KudosTransactionService.getKudosTransactionsFeed(requestData).then(function (transactions) {
+            KudosTransactionService.getKudosTransactionsFeed().then(function (transactions) {
                 $scope.transactionCollection = $scope.transactionCollection.concat(transactions);
-                console.log($scope.transactionCollection);
             });
         }
 
@@ -81,10 +76,6 @@ angular.module('myApp.components.stream', [])
         function changeTransactionsList() {
             KudosTransactionService.getKudosTransactionsFeed(requestData).then(function (transactions) {
                 transactions.forEach(function (transaction) {
-                    if(transaction.receiver === "master@of.kudos"){
-                        console.log(transaction.receiver);
-                        $scope.transactionCollection.splice(transaction, 1);    //TODO FIX IN BACK END
-                    }
                     if (arrayMismatchIndex($scope.transactionCollection, transaction) != true) {
                         $scope.transactionCollection.unshift(transaction);
                         $scope.transactionCollection.pop();
@@ -93,7 +84,12 @@ angular.module('myApp.components.stream', [])
             });
         }
 
-        function showMoreTransactions(){
+
+        /**
+         * Add plus one to the page, that means that it will load
+         * more transactions with amount of pageSize variable
+         */
+        function showMoreTransactions() {
             page++;
             requestData = $httpParamSerializer({
                 page: page,
@@ -103,7 +99,11 @@ angular.module('myApp.components.stream', [])
             loadMoreKudosTransactionsFeed();
         }
 
-        function showLessTransactions(){
+        /**
+         * Loads data with page = 0 it will
+         * show first page of the list
+         */
+        function showLessTransactions() {
             page = 0;
             requestData = $httpParamSerializer({
                 page: page,
@@ -130,6 +130,7 @@ angular.module('myApp.components.stream', [])
         function acornPlural(amount) {
             return amount > 1 ? amount + " Acorns" : amount + " Acorn"
         }
-});
+    })
+;
 
 
