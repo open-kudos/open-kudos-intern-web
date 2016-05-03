@@ -20,7 +20,6 @@ function ProfileService(userBackend, kudosBackend, challengesBackend, authBacken
         listUsers: ListUsers,
         remainingKudos: RemainingKudos,
         receivedKudos: ReceivedKudos,
-        givenChallenges: GivenChallenges,
         receivedChallenges: ReceivedChallenges,
         feedKudos: StreamKudos,
         feedKudosChanged: StreamKudosChanged,
@@ -70,10 +69,6 @@ function ProfileService(userBackend, kudosBackend, challengesBackend, authBacken
 
     function StreamKudosChanged(requestData) {
         return kudosBackend.feedChanged(requestData);
-    }
-
-    function GivenChallenges() {
-        return challengesBackend.givenChallenges();
     }
 
     function ReceivedChallenges() {

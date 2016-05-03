@@ -1,4 +1,4 @@
-angular.module('myApp.components.received', [])
+angular.module('myApp.components.receivedAcorns', [])
     .component('kudosReceivedAcorns', {
         templateUrl: 'app/components/kudos-received-acorns/kudos-received-acorns.html',
         controller: 'ReceivedAcornsController'
