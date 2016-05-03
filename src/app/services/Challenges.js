@@ -37,10 +37,10 @@ function Challenges($http, SERVER) {
         })
     }
 
-    function getGivenChallenges() {
+    function getGivenChallenges(requestData) {
         return $http({
             method: 'GET',
-            url: SERVER.ip + "/challenges/created",
+            url: SERVER.ip + "/challenges/createdByStatus?" + requestData,
             withCredentials: true
         }).then(function(response) {
             return response.data;

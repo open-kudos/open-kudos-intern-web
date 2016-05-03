@@ -1,5 +1,5 @@
 "use strict";
-angular.module("myApp.components.received")
+angular.module("myApp.components.receivedAcorns")
     .factory("ReceivedAcornsService", ReceivedAcornsService);
 
 ReceivedAcornsService.$inject = [

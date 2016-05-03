@@ -9,19 +9,6 @@ angular
         'ngCookies'
     ])
 
-    .filter('getByProperty', function () {
-        return function (propertyName, propertyValue, collection) {
-            var i = 0, len = collection.length;
-            for (i; i < len; i++) {
-                if (collection[i][propertyName] == propertyValue) {
-                    collection[i].show = true;
-                    return collection[i];
-                }
-            }
-            return null;
-        }
-    })
-
     .controller('profileController', function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, $filter, ProfileService, Challenges) {
         var inputChangedPromise;
         var receiverValidated = false;
@@ -34,7 +21,7 @@ angular
 
         $scope.maxSendKudosLength = $scope.userAvailableKudos;
 
-        $scope.givenChallengesCollection = [];
+
         $scope.usersCollection = [];
         $scope.buttonDisabled = true;
 
@@ -46,14 +33,11 @@ angular
         $scope.logout = logout;
         $scope.sendKudos = sendKudos;
         $scope.giveChallenge = giveChallenge;
-        $scope.cancelChallenge = cancelChallenge;
         $scope.inputChanged = inputChanged;
         $scope.kudosValidation = kudosValidation;
         $scope.isValid = isValid;
         $scope.clearSendKudosFormValues = clearSendKudosFormValues;
 
-        $scope.showMoreInfo = showMoreInfo;
-        $scope.showLessInfo = showLessInfo;
 
         $scope.clearChallengeFormValues = clearChallengeFormValues;
         $scope.challengeFormCheck = challengeFormCheck;
@@ -113,9 +97,7 @@ angular
             $scope.usersCollection = val.userList;
         });
 
-        ProfileService.givenChallenges().then(function (val) {
-            $scope.givenChallengesCollection = val;
-        });
+
 
         function sendKudos() {
             var sendTo = $httpParamSerializer({
@@ -219,13 +201,7 @@ angular
         }
 
 
-        function showMoreInfo(challengeId) {
-            return $filter('getByProperty')("id", challengeId, $scope.givenChallengesCollection);
-        }
 
-        function showLessInfo(challengeId) {
-            return $filter('getByProperty')("id", challengeId, $scope.givenChallengesCollection).show = false;
-        }
 
         function updateProfile() {
             var updateInfo = $.param({
@@ -289,17 +265,6 @@ angular
                 })
         }
 
-        function cancelChallenge(id) {
-            var challengeId = $httpParamSerializer({
-                id: id
-            });
-            Challenges.cancel(challengeId).then(function (val) {
-                toastr.success("Challenge canceled");
-                $scope.userAvailableKudos = $scope.userAvailableKudos + val.data.amount;
-                var challenge = $filter('getByProperty')("id", id, $scope.givenChallengesCollection);
-                $scope.givenChallengesCollection.splice($scope.givenChallengesCollection.indexOf(challenge), 1);
-            });
-        }
 
         function challengeFormCheck() {
             if ($scope.giveChallengeName == null) {

@@ -20,8 +20,9 @@ function ProfileService(userBackend, kudosBackend, challengesBackend, authBacken
         listUsers: ListUsers,
         remainingKudos: RemainingKudos,
         receivedKudos: ReceivedKudos,
-        givenChallenges: GivenChallenges,
         receivedChallenges: ReceivedChallenges,
+        feedKudos: StreamKudos,
+        feedKudosChanged: StreamKudosChanged,
         send: SendKudos,
         checkUser: CheckUser,
         logout: Logout
@@ -62,8 +63,12 @@ function ProfileService(userBackend, kudosBackend, challengesBackend, authBacken
         return kudosBackend.received();
     }
 
-    function GivenChallenges() {
-        return challengesBackend.givenChallenges();
+    function StreamKudos(requestData) {
+        return kudosBackend.feed(requestData);
+    }
+
+    function StreamKudosChanged(requestData) {
+        return kudosBackend.feedChanged(requestData);
     }
 
     function ReceivedChallenges() {

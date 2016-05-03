@@ -221,53 +221,7 @@
             </div>
 
             <div class="panel panel-body">
-                <h3>{{ 'ProfileMeGivenChallenges' | translate }}</h3>
-                <div class="table-responsive">
-                    <table class="table">
-                        <colgroup>
-                            <col class="col-xs-6"/>
-                            <col class="col-xs-2"/>
-                            <col class="col-xs-2"/>
-                            <col class="col-xs-2"/>
-                        </colgroup>
-                        <thead>
-                        <tr>
-                            <th>{{'ProfileMeChallengeName' | translate }}</th>
-                            <th>{{'ProfileMeExpirationDate' | translate }}</th>
-                            <th>{{'ProfileMeKudosAmount' | translate }}</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr class="animate-repeat"
-                            ng-repeat="givenChallenges in givenChallengesCollection"
-                            ng-show="givenChallenges.status == 'CREATED'">
-                            <td>
-                                <i ng-click="showMoreInfo(givenChallenges.id)" ng-show="!givenChallenges.show"
-                                   class="glyphicon glyphicon-chevron-down"></i>
-                                <i ng-click="showLessInfo(givenChallenges.id)" ng-show="givenChallenges.show"
-                                   class="glyphicon glyphicon-chevron-up"></i>
-                                {{givenChallenges.name}}
-
-                                <div ng-show="givenChallenges.show">
-                                    <div>Description: {{givenChallenges.description}}</div>
-                                    <div>Challenge creator: {{givenChallenges.creator}}</div>
-                                    <div>Referee of the challenge: {{givenChallenges.referee}}</div>
-                                </div>
-                            </td>
-
-                            <td>{{givenChallenges.finishDate}}</td>
-                            <td>{{givenChallenges.amount}}</td>
-                            <td>
-                                <i ng-click="cancelChallenge(givenChallenges.id)"
-                                   ng-show="givenChallenges.finishDate == null" class="glyphicon glyphicon-remove"></i>
-                            </td>
-
-                        </tr>
-
-                        </tbody>
-                    </table>
-                </div>
+                <kudos-given-challenges></kudos-given-challenges>
             </div>
 
             <div class="panel panel-body">
