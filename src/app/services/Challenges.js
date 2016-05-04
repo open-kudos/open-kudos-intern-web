@@ -13,7 +13,8 @@ function Challenges($http, SERVER) {
         cancel: cancelChallenge,
         givenChallenges: getGivenChallenges,
         receivedChallenges: getReceivedChallenges,
-        declineChallenge: declineChallenge
+        declineChallenge: declineChallenge,
+        acceptChallenge: acceptChallenge
     }
     return challenges;
 
@@ -65,6 +66,16 @@ function Challenges($http, SERVER) {
         }).then(function(response) {
             return response;
         })
+    }
+
+    function acceptChallenge(requestData) {
+        return $http({
+            method: 'POST',
+            url: SERVER.ip + "/challenges/accept?" + requestData,
+            withCredentials: true
+        }).then(function (response) {
+            return response;
+        });
     }
 
 }

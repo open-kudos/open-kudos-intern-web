@@ -168,6 +168,10 @@ body {
     border-radius: 4px;
 }
 
+.btn-challenge-participated{
+    margin: 3px;
+}
+
 .btn-register {
     background-color: #1CB94E;
     outline: none;

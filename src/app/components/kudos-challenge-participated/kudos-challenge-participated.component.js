@@ -29,6 +29,7 @@ angular.module('myApp.components.challengeParticipated', [])
                 console.log(val[0]);
                 if (val[0]) {
                     $scope.id = val[0].id;
+                    $scope.challengeAmount = val[0].amount;
                     $scope.challengeName = val[0].name;
                     $scope.challengeCreator = val[0].creator;
                     $scope.challengeDescription = val[0].description;
@@ -39,7 +40,13 @@ angular.module('myApp.components.challengeParticipated', [])
         }
 
         function acceptChallenge(id) {
-            console.log(id);
+            requestData = $httpParamSerializer({
+                id: id
+            });
+            KudosChallengeParticipatedService.accept(requestData).then(function (val) {
+                toastr.success('You accepted ' + val.data.creator + ' challenge');
+                getChallengeParticipatedList();
+            })
         }
 
         function declineChallenge(id) {
