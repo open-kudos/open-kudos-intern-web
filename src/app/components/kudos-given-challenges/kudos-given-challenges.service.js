@@ -1,18 +1,20 @@
-"use strict";
-angular.module("myApp.components.givenChallenges")
-    .factory("GivenChallengesService", GivenChallengesService);
+(function () {
+    "use strict";
+    angular.module("myApp.components.givenChallenges")
+        .factory("GivenChallengesService", GivenChallengesService);
 
-GivenChallengesService.$inject = [
-    "Challenges"
-];
+    GivenChallengesService.$inject = [
+        "Challenges"
+    ];
 
-function GivenChallengesService(challengesBackend){
-    var service = {
-        givenChallenges : GivenChallenges
-    };
-    return service;
+    function GivenChallengesService(challengesBackend) {
+        var service = {
+            givenChallenges: GivenChallenges
+        };
+        return service;
 
-    function GivenChallenges(requestData) {
-        return challengesBackend.givenChallenges(requestData);
+        function GivenChallenges(requestData) {
+            return challengesBackend.givenChallenges(requestData);
+        }
     }
-}
+})();

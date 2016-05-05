@@ -159,13 +159,17 @@ body {
 }
 
 .challenge-participated-2{
-    color: #0f0f0f;
+    color: #373737;
     position: relative;
     float: left;
     width: 100%;
     background-color: #FAFAFA;
     border: 1px solid #FF9A09;
     border-radius: 4px;
+}
+
+.btn-challenge-participated{
+    margin: 3px;
 }
 
 .btn-register {

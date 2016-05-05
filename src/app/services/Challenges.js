@@ -1,3 +1,4 @@
+(function() {
 "use strict";
 angular.module("myApp")
     .factory("Challenges", Challenges);
@@ -12,7 +13,9 @@ function Challenges($http, SERVER) {
         create: createChallenge,
         cancel: cancelChallenge,
         givenChallenges: getGivenChallenges,
-        receivedChallenges: getReceivedChallenges
+        receivedChallenges: getReceivedChallenges,
+        declineChallenge: declineChallenge,
+        acceptChallenge: acceptChallenge
     }
     return challenges;
 
@@ -56,4 +59,24 @@ function Challenges($http, SERVER) {
         });
     }
 
+    function declineChallenge(requestData) {
+        return $http({
+            method: 'POST',
+            url: SERVER.ip + "/challenges/decline?" + requestData,
+            withCredentials: true
+        }).then(function(response) {
+            return response;
+        })
+    }
+
+    function acceptChallenge(requestData) {
+        return $http({
+            method: 'POST',
+            url: SERVER.ip + "/challenges/accept?" + requestData,
+            withCredentials: true
+        }).then(function (response) {
+            return response;
+        });
+    }
 }
+})();

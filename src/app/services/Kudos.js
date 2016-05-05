@@ -1,6 +1,7 @@
 /**
  * Created by vytautassugintas on 09/04/16.
  */
+(function() {
 "use strict";
 angular.module("myApp")
     .factory("Kudos", Kudos);
@@ -77,7 +78,6 @@ function Kudos($http, SERVER) {
         });
     }
 
-    /* page=0&pageSize=10", */
      function getKudosTransactionStream(requestData) {
         return $http({
             method: 'GET',
@@ -108,3 +108,4 @@ function Kudos($http, SERVER) {
         });
     }
 }
+})();

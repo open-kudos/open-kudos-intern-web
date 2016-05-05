@@ -1,37 +1,62 @@
+(function () {
+    angular.module('myApp.components.challengeParticipated', [])
 
-angular.module('myApp.components.challengeParticipated', [])
+        .directive('kudosChallengeParticipated', function () {
+            return {
+                controller: 'KudosChallengeParticipatedController',
+                restrict: 'E',
+                scope: false,
+                templateUrl: 'app/components/kudos-challenge-participated/kudos-challenge-participated.html'
+            }
+        })
 
-    .directive('kudosChallengeParticipated', function () {
-        return {
-            controller: 'KudosChallengeParticipatedController',
-            restrict: 'E',
-            scope: false,
-            templateUrl: 'app/components/kudos-challenge-participated/kudos-challenge-participated.html'
-        }
-    })
+        .controller('KudosChallengeParticipatedController', function ($httpParamSerializer, $scope, KudosChallengeParticipatedService) {
+            var requestData;
+            $scope.getChallengeParticipatedList = getChallengeParticipatedList;
+            $scope.acceptChallenge = acceptChallenge;
+            $scope.declineChallenge = declineChallenge;
 
-    .controller('KudosChallengeParticipatedController', function ($httpParamSerializer, $scope, KudosChallengeParticipatedService) {
-        var challengeStatus = "CREATED";
-        var requestData = $httpParamSerializer({
-            status: challengeStatus
+            getChallengeParticipatedList();
+
+            function getChallengeParticipatedList() {
+                var challengeStatus = "CREATED";
+                requestData = $httpParamSerializer({
+                    status: challengeStatus
+                });
+                $scope.id = false;
+
+                KudosChallengeParticipatedService.getList(requestData).then(function (val) {
+                    console.log(val[0]);
+                    if (val[0]) {
+                        $scope.id = val[0].id;
+                        $scope.challengeAmount = val[0].amount;
+                        $scope.challengeName = val[0].name;
+                        $scope.challengeCreator = val[0].creator;
+                        $scope.challengeDescription = val[0].description;
+                        $scope.challengeFinishDate = val[0].finishDate;
+                        $scope.challengeReferee = val[0].referee;
+                    }
+                })
+            }
+
+            function acceptChallenge(id) {
+                requestData = $httpParamSerializer({
+                    id: id
+                });
+                KudosChallengeParticipatedService.accept(requestData).then(function (val) {
+                    toastr.success('You accepted ' + val.data.creator + ' challenge');
+                    getChallengeParticipatedList();
+                })
+            }
+
+            function declineChallenge(id) {
+                requestData = $httpParamSerializer({
+                    id: id
+                });
+                KudosChallengeParticipatedService.decline(requestData).then(function (val) {
+                    toastr.info('You declined ' + val.data.creator + ' challenge');
+                    getChallengeParticipatedList();
+                })
+            }
         });
-        
-        $scope.getChallengeParticipatedList = getChallengeParticipatedList;
-        $scope.acceptChallenge = acceptChallenge;
-
-        getChallengeParticipatedList(requestData);
-
-        function getChallengeParticipatedList(requestData) {
-            KudosChallengeParticipatedService.getList(requestData).then(function (val) {
-                $scope.challengeName = val[0].name;
-                $scope.challengeCreator = val[0].creator;
-                $scope.challengeDescription = val[0].description;
-                $scope.challengeFinishDate = val[0].finishDate;
-                $scope.challengeReferee = val[0].referee;
-            })
-        }
-
-        function acceptChallenge(id) {
-            console.log(id);
-        }
-    });
+})();
