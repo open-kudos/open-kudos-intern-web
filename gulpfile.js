@@ -5,9 +5,11 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var browserSync = require('browser-sync').create();
+var jshint = require('gulp-jshint');
 
 gulp.task('watch', ['browserSync', 'sass'], function () {
-    gulp.watch('app/**/*.scss', ['sass']);
+    gulp.watch('src/app/**/*.scss', ['sass']);
+    gulp.watch('')
     // Other watchers
 });
 
@@ -15,8 +17,14 @@ gulp.task('browserSync', function () {
     browserSync.init({
         server: {
             baseDir: 'src/'
-        }
+        },
     })
+});
+
+gulp.task('jshint', function() {
+    return gulp.src('src/app/**/*.js')
+        .pipe(jshint())
+        .pipe(jshint.reporter('jshint-stylish'));
 });
 
 gulp.task('sass', function () {
