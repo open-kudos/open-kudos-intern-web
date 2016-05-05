@@ -1,6 +1,7 @@
 /**
  * Created by vytautassugintas on 09/04/16.
  */
+(function() {
 "use strict";
 angular.module("myApp")
     .factory("Transaction", Transaction);
@@ -37,3 +38,4 @@ function Transaction($http, SERVER) {
         });
     }
 }
+})();

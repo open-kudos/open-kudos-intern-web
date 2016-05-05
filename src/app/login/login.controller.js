@@ -1,14 +1,12 @@
-'use strict';
-
-angular
-
-    .module('myApp.login', [
-    'ngRoute',
-    'ngCookies',
-    'base64'
-])
-
-    .controller('loginController', function ($scope, $http, $cookies, $window, $base64, $httpParamSerializer, SERVER, LoginService) {
+(function () {
+    'use strict';
+    angular
+        .module('myApp.login', [
+            'ngRoute',
+            'ngCookies',
+            'base64'
+        ])
+        .controller('loginController', function ($scope, $http, $cookies, $window, $base64, $httpParamSerializer, SERVER, LoginService) {
 
             initView();
 
@@ -16,8 +14,10 @@ angular
 
             function login() {
                 var rememberMe = $scope.rememberMeCheckbox;
-                var loginInfo = $httpParamSerializer({email: $scope.email,
-                    password: $scope.password});
+                var loginInfo = $httpParamSerializer({
+                    email: $scope.email,
+                    password: $scope.password
+                });
                 validationLogin();
                 if (rememberMe) {
                     rememberMeAndLogin(loginInfo)
@@ -46,17 +46,17 @@ angular
                 var errorMessage = document.getElementById('errorMessage');
                 errorMessage.className = 'errorMessage';
             }
-            
+
             function hideErrorMessage() {
                 var errorMessage = document.getElementById('errorMessage');
                 errorMessage.className = 'errorMessage hidden';
             }
-            
+
             function isRememberedUser() {
                 return $cookies.get('remember_user') === 'true'
             }
 
-            function validationLogin(){
+            function validationLogin() {
                 var email = document.getElementById('email');
                 var psw = document.getElementById('password');
 
@@ -82,3 +82,4 @@ angular
             }
 
         });
+})();

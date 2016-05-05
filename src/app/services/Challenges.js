@@ -1,3 +1,4 @@
+(function() {
 "use strict";
 angular.module("myApp")
     .factory("Challenges", Challenges);
@@ -77,5 +78,5 @@ function Challenges($http, SERVER) {
             return response;
         });
     }
-
 }
+})();

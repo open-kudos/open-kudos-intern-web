@@ -1,6 +1,7 @@
 /**
  * Created by vytautassugintas on 10/04/16.
  */
+(function() {
 "use strict";
 angular.module("myApp")
     .factory("User", User);
@@ -66,3 +67,4 @@ function User($http, SERVER) {
         })
     }
 }
+})();
