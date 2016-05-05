@@ -21,7 +21,7 @@ function Kudos($http, SERVER) {
         received: getReceivedKudos,
         feed: getKudosTransactionStream,
         feedChanged: kudosTransactionListChanged,
-        getCompletedKudosTransactions : getCompletedKudosTransactions
+        getCompletedKudosTransactions : getCompletedKudosTransactions,
     }
 
     kudos.outgoingKudosCollection = [];
