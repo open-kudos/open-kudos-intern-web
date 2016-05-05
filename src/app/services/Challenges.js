@@ -15,7 +15,8 @@ function Challenges($http, SERVER) {
         givenChallenges: getGivenChallenges,
         receivedChallenges: getReceivedChallenges,
         declineChallenge: declineChallenge,
-        acceptChallenge: acceptChallenge
+        acceptChallenge: acceptChallenge,
+        getRefereed: getReferred
     }
     return challenges;
 
@@ -76,6 +77,16 @@ function Challenges($http, SERVER) {
             withCredentials: true
         }).then(function (response) {
             return response;
+        });
+    }
+
+    function getReferred(requestData) {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/challenges/referredByStatus?" + requestData,
+            withCredentials: true
+        }).then(function(response) {
+            return response.data;
         });
     }
 }
