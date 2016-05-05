@@ -12,12 +12,10 @@
             var inputChangedPromise;
             var receiverValidated = false;
             var amountValidated = false;
-            var errorMessage = "";
             var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
 
             $scope.userAvailableKudos = 0;
             $scope.userReceivedKudos = 0;
-
             $scope.maxSendKudosLength = $scope.userAvailableKudos;
 
             $scope.usersCollection = [];
@@ -107,8 +105,8 @@
                     $scope.userAvailableKudos = $scope.userAvailableKudos - val.data.amount;
                     $('#sendKudosModal').modal('hide');
                     toastr.success('You successfully sent ' + acornPlural(val.data.amount) + ' to ' + val.data.receiver);
-                    addTransactionToCollection(val.data);
                     clearSendKudosFormValues();
+                    addTransactionToCollection(val.data);
                 }).catch(function () {
                     sendKudosReceiverErrorMessage("Receiver does not exist");
                 });
@@ -170,9 +168,9 @@
             function clearErrorMessages() {
                 $scope.receiverErrorMessage = "";
                 $scope.receiverErrorClass = "";
-                $scope.fieldReceiverErrorClass = "";
                 $scope.amountErrorMessage = "";
                 $scope.amountErrorClass = "";
+                $scope.fieldReceiverErrorClass = "";
                 $scope.fieldAmountErrorClass = "";
                 enableSendKudosButton();
             }
@@ -180,13 +178,13 @@
             function clearSendKudosFormValues() {
                 $scope.receiverErrorMessage = "";
                 $scope.amountErrorMessage = "";
+                $scope.sendKudosTo = "";
+                $scope.sendKudosAmount = "";
+                $scope.sendKudosMessage = "";
                 $scope.receiverErrorClass = "";
                 $scope.amountErrorClass = "";
                 $scope.fieldAmountErrorClass = "";
                 $scope.fieldReceiverErrorClass = "";
-                $scope.sendKudosTo = "";
-                $scope.sendKudosAmount = "";
-                $scope.sendKudosMessage = "";
                 disableSendKudosButton();
             }
 
@@ -341,15 +339,6 @@
             function showChallengeFormSuccessMessage(message) {
                 $scope.errorClass = "success-message";
                 $scope.challengeFormErrorMessage = message;
-            }
-
-            function clearSendKudosFormValues() {
-                $scope.sendKudosTo = "";
-                $scope.sendKudosAmount = "";
-                $scope.sendKudosMessage = "";
-                $scope.errorClass = "error-message";
-                $scope.sendKudosErrorMessage = "Please enter receiver and amount";
-                disableSendKudosButton();
             }
 
             function pushOutgoingTransferIntoCollection(val) {
