@@ -3,7 +3,7 @@ angular.module('myApp.components.giveKudos', [])
         templateUrl: 'app/components/kudos-give-kudos/kudos-give-kudos.html',
         controller: 'GiveKudosController',
     })
-    .controller('GiveKudosController', function ($scope, $timeout, $httpParamSerializer,GiveKudosService, Kudos) {
+    .controller('GiveKudosController', function ($scope, $timeout, $httpParamSerializer, GiveKudosService, Resources) {
 
         var inputChangedPromise;
         var receiverValidated = false;
@@ -50,10 +50,11 @@ angular.module('myApp.components.giveKudos', [])
                 message: $scope.sendKudosMessage
             });
 
-            Kudos.send(sendTo).then(function (val) {
+            GiveKudosService.sendKudos(sendTo).then(function (val) {
                 $scope.showSendKudosModal = false;
                 $scope.showSuccess = true;
-                $scope.userAvailableKudos = $scope.userAvailableKudos - val.data.amount;
+                $scope.userAvailableKudos = Resources.getUserAvailableKudos();
+                Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
                 $('#sendKudosModal').modal('hide');
                 toastr.success('You successfully sent ' + acornPlural(val.data.amount) + ' to ' + val.data.receiver);
                 pushOutgoingTransferIntoCollection(val.data);
@@ -70,9 +71,9 @@ angular.module('myApp.components.giveKudos', [])
                 amount: val.amount,
                 timestamp: trimDate(val.timestamp)
             };
-            Kudos.outgoingKudosCollection.push(itemToAdd);
-            //sentKudosTable();
-            //showMoreOutgoingKudosButton(Kudos.outgoingKudosCollection);
+            Resources.getOutgoingKudosCollection().push(itemToAdd);
+            Resources.setSentKudosTable();
+            showMoreOutgoingKudosButton(Resources.getOutgoingKudosCollection());
         }
 
         function sendKudosValidation() {
@@ -153,11 +154,6 @@ angular.module('myApp.components.giveKudos', [])
             disableSendKudosButton();
         }
 
-        //function sentKudosTable() {
-        //    if (Kudos.outgoingKudosCollection.length > 0)
-        //        $scope.sentKudosTable = true;
-        //}
-
         function acornPlural(amount) {
             return amount > 1 ? amount + " Acorns" : amount + " Acorn"
         }
@@ -166,9 +162,9 @@ angular.module('myApp.components.giveKudos', [])
             return dateString.substring(0, 16);
         }
 
-        //function showMoreOutgoingKudosButton(val) {
-        //    if (val.length > 5) {
-        //        $scope.moreOutgoing = true;
-        //    }
-        //}
+        function showMoreOutgoingKudosButton(val) {
+            if (val.length > 5) {
+                $scope.moreOutgoing = true;
+            }
+        }
     });

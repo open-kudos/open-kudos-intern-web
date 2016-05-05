@@ -4,7 +4,7 @@
             templateUrl: 'app/components/kudos-sent-acorns/kudos-sent-acorns.html',
             controller: 'SentAcornsController'
         })
-        .controller('SentAcornsController', function ($scope, SentAcornsService) {
+        .controller('SentAcornsController', function ($scope, SentAcornsService, Resources) {
 
         var showMoreLimit = 5;
         $scope.outgoingKudosShowLimit = 5;
@@ -14,9 +14,11 @@
             $scope.showMoreOutgoingKudosButton = showMoreOutgoingKudosButton;
 
             SentAcornsService.outgoingKudos().then(function (val) {
-                $scope.outgoingKudosCollection = val;
+                Resources.setOutgoingKudosCollection(val);
+                $scope.outgoingKudosCollection = Resources.getOutgoingKudosCollection();
+                Resources.setSentKudosTable();
+                $scope.sentKudosTable = Resources.getSentKudosTable();
                 showMoreOutgoingKudosButton(val);
-                sentKudosTable();
             });
 
             function showMoreOutgoingKudosButton(val) {
@@ -26,7 +28,7 @@
             }
 
             function showMoreOutgoingKudos() {
-                if ($scope.outgoingKudosShowLimit <= $scope.outgoingKudosCollection.length) {
+                if ($scope.outgoingKudosShowLimit <= Resources.getOutgoingKudosCollection().length) {
                     $scope.outgoingKudosShowLimit += showMoreLimit;
                 }
             }
@@ -35,9 +37,5 @@
                 $scope.outgoingKudosShowLimit = showMoreLimit;
             }
 
-            function sentKudosTable() {
-                if ($scope.outgoingKudosCollection.length > 0)
-                    $scope.sentKudosTable = true;
-            }
         });
 })();
