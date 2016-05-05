@@ -14,6 +14,8 @@
             'myApp.components.receivedAcorns',
             'myApp.components.givenChallenges',
             'myApp.components.challengeParticipated',
+            'myApp.components.transactions',
+            'myApp.components.giveKudos',
             'myApp.components.challengeReferee',
             'myApp.components.transactions'
         ]);

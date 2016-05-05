@@ -4,20 +4,21 @@
             templateUrl: 'app/components/kudos-received-acorns/kudos-received-acorns.html',
             controller: 'ReceivedAcornsController'
         })
-        .controller('ReceivedAcornsController', function ($scope, ReceivedAcornsService) {
+        .controller('ReceivedAcornsController', function ($scope, ReceivedAcornsService, Resources) {
 
             var showMoreLimit = 5;
             $scope.incomingKudosShowLimit = 5;
-            $scope.incomingKudosCollection = [];
 
             $scope.showMoreIncomingKudos = showMoreIncomingKudos;
             $scope.showLessIncomingKudos = showLessIncomingKudos;
             $scope.showMoreIncomingKudosButton = showMoreIncomingKudosButton;
 
             ReceivedAcornsService.incomingKudos().then(function (val) {
-                $scope.incomingKudosCollection = val;
+                Resources.setIncomingKudosCollection(val);
+                $scope.incomingKudosCollection = Resources.getIncomingKudosCollection();
                 showMoreIncomingKudosButton(val);
-                receivedKudosTable();
+                Resources.setReceivedKudosTable();
+                $scope.receivedKudosTable = Resources.getReceivedKudosTable();
             });
 
             function showMoreIncomingKudosButton(val) {
@@ -27,7 +28,7 @@
             }
 
             function showMoreIncomingKudos() {
-                if ($scope.incomingKudosShowLimit <= $scope.incomingKudosCollection.length) {
+                if ($scope.incomingKudosShowLimit <= Resources.getIncomingKudosCollection().length) {
                     $scope.incomingKudosShowLimit += showMoreLimit;
                 }
             }
@@ -35,11 +36,5 @@
             function showLessIncomingKudos() {
                 $scope.incomingKudosShowLimit = showMoreLimit;
             }
-
-            function receivedKudosTable() {
-                if ($scope.incomingKudosCollection.length > 0)
-                    $scope.receivedKudosTable = true;
-            }
-
         });
 })();

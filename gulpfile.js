@@ -2,7 +2,6 @@
  * Created by vytautassugintas on 20/04/16.
  */
 
-var Server = require('karma').Server;
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
