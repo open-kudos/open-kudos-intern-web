@@ -1,32 +1,30 @@
 /**
  * Created by vytautassugintas on 20/04/16.
  */
-var gulp = require('gulp');
+
 var Server = require('karma').Server;
+var gulp = require('gulp');
+var sass = require('gulp-sass');
+var browserSync = require('browser-sync').create();
 
-/**
- *  Default task clean temporaries directories and launch the
- *  main optimization build task
- */
-gulp.task('default', function() {
-    console.log('Hello Gulp!');
+gulp.task('watch', ['browserSync', 'sass'], function () {
+    gulp.watch('app/**/*.scss', ['sass']);
+    // Other watchers
 });
 
-/**
- * Run test once and exit
- */
-gulp.task('test', function (done) {
-    new Server({
-        configFile: __dirname + '/karma.conf.js',
-        singleRun: true
-    }, done).start();
+gulp.task('browserSync', function () {
+    browserSync.init({
+        server: {
+            baseDir: 'src/'
+        }
+    })
 });
 
-/**
- * Watch for file changes and re-run tests on each change
- */
-gulp.task('tdd', function (done) {
-    new Server({
-        configFile: __dirname + '/karma.conf.js'
-    }, done).start();
+gulp.task('sass', function () {
+    return gulp.src('src/app/**/*.scss')
+        .pipe(sass()) // Converts Sass to CSS with gulp-sass
+        .pipe(gulp.dest('src/assets/css'))
+        .pipe(browserSync.reload({
+            stream: true
+        }))
 });

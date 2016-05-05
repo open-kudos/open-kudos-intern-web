@@ -2,13 +2,11 @@
  * Created by vytautassugintas on 06/04/16.
  */
 'use strict';
-
 angular
     .module('myApp.profile', [
         'ngRoute',
         'ngCookies'
     ])
-
     .controller('profileController', function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, $filter, ProfileService, Challenges) {
         var inputChangedPromise;
         var receiverValidated = false;
@@ -20,7 +18,6 @@ angular
         $scope.userReceivedKudos = 0;
 
         $scope.maxSendKudosLength = $scope.userAvailableKudos;
-
 
         $scope.usersCollection = [];
         $scope.buttonDisabled = true;
@@ -34,7 +31,6 @@ angular
         $scope.sendKudos = sendKudos;
         $scope.giveChallenge = giveChallenge;
         $scope.inputChanged = inputChanged;
-        $scope.kudosValidation = kudosValidation;
         $scope.isValid = isValid;
         $scope.clearSendKudosFormValues = clearSendKudosFormValues;
 
@@ -107,7 +103,6 @@ angular
             });
 
             ProfileService.send(sendTo).then(function (val) {
-                $scope.showSendKudosModal = false;
                 $scope.showSuccess = true;
                 $scope.userAvailableKudos = $scope.userAvailableKudos - val.data.amount;
                 $('#sendKudosModal').modal('hide');
@@ -219,25 +214,7 @@ angular
             })
         }
 
-        function sendKudos() {
-            var sendTo = $httpParamSerializer({
-                receiverEmail: $scope.sendKudosTo,
-                amount: $scope.sendKudosAmount,
-                message: $scope.sendKudosMessage
-            });
 
-            ProfileService.send(sendTo).then(function (val) {
-                $scope.showSendKudosModal = false;
-                $scope.showSuccess = true;
-                $scope.userAvailableKudos = $scope.userAvailableKudos - val.data.amount;
-                $('#sendKudosModal').modal('hide');
-                toastr.success('You successfully sent ' + acornPlural(val.data.amount) + ' to ' + val.data.receiver);
-                pushOutgoingTransferIntoCollection(val.data);
-                clearSendKudosFormValues();
-            }).catch(function () {
-                errorMessage == "" ? showSendKudosErrorMessage("Receiver does not exist") : showSendKudosErrorMessage(errorMessage)
-            });
-        }
 
         function giveChallenge() {
             var expirationDate = $filter('date')($scope.giveChallengeExpirationDate, requestDateFormat);
@@ -292,45 +269,6 @@ angular
                 showChallengeFormErrorMessage("Challenge receiver can't be challenge referee");
                 return false;
             } else return true;
-        }
-
-        function kudosValidation() {
-            $scope.errorClass = "error-message";
-            if ($scope.sendKudosAmount > $scope.userAvailableKudos) {
-                showSendKudosErrorMessage("You don't have enough Acorns");
-                $scope.sendKudosForm.sendKudosAmount.$invalid = true;
-                disableSendKudosButton();
-            } else if ($scope.sendKudosAmount == null) {
-                showSendKudosErrorMessage("Please enter amount");
-                $scope.sendKudosForm.sendKudosAmount.$invalid = true;
-                disableSendKudosButton();
-            } else if ($scope.sendKudosAmount <= 0) {
-                showSendKudosErrorMessage("Please enter more than zero");
-                $scope.sendKudosForm.sendKudosAmount.$invalid = true;
-                disableSendKudosButton();
-            } else if ($scope.sendKudosTo == null) {
-                showSendKudosErrorMessage("Please enter receiver");
-                $scope.sendKudosForm.sendKudosTo.$invalid = true;
-                disableSendKudosButton();
-            } else if (!validateEmail($scope.sendKudosTo)) {
-                showSendKudosErrorMessage("Please enter valid receiver email");
-                $scope.sendKudosForm.sendKudosTo.$invalid = true;
-                disableSendKudosButton();
-            } else if ($scope.sendKudosTo === $scope.userEmail) {
-                showSendKudosErrorMessage("Can't send kudos to yourself");
-                $scope.sendKudosForm.sendKudosTo.$invalid = true;
-                disableSendKudosButton();
-            } else {
-                errorMessage = "";
-                showSendKudosSuccessMessage("");
-            }
-        }
-
-        function inputChanged() {
-            if (inputChangedPromise) {
-                $timeout.cancel(inputChangedPromise);
-            }
-            inputChangedPromise = $timeout(kudosValidation, 100);
         }
 
         function checkUser() {

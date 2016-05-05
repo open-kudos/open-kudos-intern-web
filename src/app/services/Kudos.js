@@ -73,7 +73,6 @@ function Kudos($http, SERVER) {
         });
     }
 
-    /* page=0&pageSize=10", */
      function getKudosTransactionStream(requestData) {
         return $http({
             method: 'GET',
