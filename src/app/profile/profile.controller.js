@@ -10,10 +10,10 @@ angular
     ])
 
     .controller('profileController', function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, $filter, ProfileService, Challenges) {
-        var inputChangedPromise;
-        var receiverValidated = false;
-        var amountValidated = false;
-        var errorMessage = "";
+        //var inputChangedPromise;
+        //var receiverValidated = false;
+        //var amountValidated = false;
+        //var errorMessage = "";
         var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
 
         $scope.userAvailableKudos = 0;
@@ -22,7 +22,7 @@ angular
         $scope.maxSendKudosLength = $scope.userAvailableKudos;
 
 
-        $scope.usersCollection = [];
+        //$scope.usersCollection = [];
         $scope.buttonDisabled = true;
 
         $scope.receiverErrorClass = "";
@@ -31,12 +31,12 @@ angular
         $scope.amountErrorMessage = "";
 
         $scope.logout = logout;
-        $scope.sendKudos = sendKudos;
+        //$scope.sendKudos = sendKudos;
         $scope.giveChallenge = giveChallenge;
-        $scope.inputChanged = inputChanged;
-        $scope.kudosValidation = kudosValidation;
+        //$scope.inputChanged = inputChanged;
+        //$scope.kudosValidation = kudosValidation;
         $scope.isValid = isValid;
-        $scope.clearSendKudosFormValues = clearSendKudosFormValues;
+        //$scope.clearSendKudosFormValues = clearSendKudosFormValues;
 
 
         $scope.clearChallengeFormValues = clearChallengeFormValues;
@@ -49,28 +49,28 @@ angular
          * Send kudos modal receiver input
          * field auto complete
          */
-        $scope.autocompleteHide = true;
-
-        $scope.selectAutoText = function (text) {
-            $scope.sendKudosTo = text;
-            $scope.searchTermSelected = true;
-            $scope.autocompleteHide = true;
-            sendKudosValidation();
-        };
-
-        $scope.$watch('sendKudosTo', function (newVal, oldVal) {
-            if ($scope.searchTermSelected == false) {
-                if (newVal != undefined) {
-                    if (newVal.length > 1) {
-                        $scope.autocompleteHide = false;
-                    } else {
-                        $scope.autocompleteHide = true;
-                    }
-                }
-            } else {
-                $scope.searchTermSelected = false;
-            }
-        });
+        //$scope.autocompleteHide = true;
+        //
+        //$scope.selectAutoText = function (text) {
+        //    $scope.sendKudosTo = text;
+        //    $scope.searchTermSelected = true;
+        //    $scope.autocompleteHide = true;
+        //    sendKudosValidation();
+        //};
+        //
+        //$scope.$watch('sendKudosTo', function (newVal, oldVal) {
+        //    if ($scope.searchTermSelected == false) {
+        //        if (newVal != undefined) {
+        //            if (newVal.length > 1) {
+        //                $scope.autocompleteHide = false;
+        //            } else {
+        //                $scope.autocompleteHide = true;
+        //            }
+        //        }
+        //    } else {
+        //        $scope.searchTermSelected = false;
+        //    }
+        //});
 
         ProfileService.userHome().then(function (val) {
             $scope.userEmail = val.email;
@@ -93,112 +93,74 @@ angular
         });
 
 
-        ProfileService.listUsers().then(function (val) {
-            $scope.usersCollection = val.userList;
-        });
+        //ProfileService.listUsers().then(function (val) {
+        //    $scope.usersCollection = val.userList;
+        //});
 
 
+        //function sendKudosValidation() {
+        //    clearErrorMessages();
+        //    if ($scope.sendKudosTo == null) {
+        //        sendKudosReceiverErrorMessage("Please enter receiver");
+        //    } else if (!validateEmail($scope.sendKudosTo)) {
+        //        sendKudosReceiverErrorMessage("Please enter valid receiver email");
+        //    } else if ($scope.sendKudosTo === $scope.userEmail) {
+        //        sendKudosReceiverErrorMessage("Can't send kudos to yourself");
+        //    } else if ($scope.sendKudosAmount > $scope.userAvailableKudos) {
+        //        sendKudosAmountErrorMessage("You don't have enough Acorns");
+        //    } else if ($scope.sendKudosAmount == null) {
+        //        sendKudosAmountErrorMessage("Please enter amount");
+        //    } else if ($scope.sendKudosAmount <= 0) {
+        //        sendKudosAmountErrorMessage("Please enter more than zero");
+        //    } else {
+        //        clearErrorMessages();
+        //    }
+        //}
 
-        function sendKudos() {
-            var sendTo = $httpParamSerializer({
-                receiverEmail: $scope.sendKudosTo,
-                amount: $scope.sendKudosAmount,
-                message: $scope.sendKudosMessage
-            });
 
-            ProfileService.send(sendTo).then(function (val) {
-                $scope.showSendKudosModal = false;
-                $scope.showSuccess = true;
-                $scope.userAvailableKudos = $scope.userAvailableKudos - val.data.amount;
-                $('#sendKudosModal').modal('hide');
-                toastr.success('You successfully sent ' + acornPlural(val.data.amount) + ' to ' + val.data.receiver);
-                addTransactionToCollection(val.data);
-                clearSendKudosFormValues();
-            }).catch(function () {
-                sendKudosReceiverErrorMessage("Receiver does not exist");
-            });
-        }
-
-        function addTransactionToCollection(val) {
-            var itemToAdd = {
-                receiver: val.receiver,
-                message: val.message,
-                amount: val.amount,
-                timestamp: trimDate(val.timestamp)
-            };
-
-            $scope.outgoingKudosCollection.push(itemToAdd);
-            sentKudosTable();
-            showMoreOutgoingKudosButton($scope.outgoingKudosCollection);
-        }
-
-        function sendKudosValidation() {
-            clearErrorMessages();
-            if ($scope.sendKudosTo == null) {
-                sendKudosReceiverErrorMessage("Please enter receiver");
-            } else if (!validateEmail($scope.sendKudosTo)) {
-                sendKudosReceiverErrorMessage("Please enter valid receiver email");
-            } else if ($scope.sendKudosTo === $scope.userEmail) {
-                sendKudosReceiverErrorMessage("Can't send kudos to yourself");
-            } else if ($scope.sendKudosAmount > $scope.userAvailableKudos) {
-                sendKudosAmountErrorMessage("You don't have enough Acorns");
-            } else if ($scope.sendKudosAmount == null) {
-                sendKudosAmountErrorMessage("Please enter amount");
-            } else if ($scope.sendKudosAmount <= 0) {
-                sendKudosAmountErrorMessage("Please enter more than zero");
-            } else {
-                clearErrorMessages();
-            }
-        }
-
-        function inputChanged() {
-            if (inputChangedPromise) $timeout.cancel(inputChangedPromise);
-            inputChangedPromise = $timeout(sendKudosValidation(), 100);
-        }
-
-        function sendKudosReceiverErrorMessage(message) {
-            $scope.receiverErrorClass = "error-message";
-            $scope.fieldReceiverErrorClass = "invalid";
-            $scope.receiverErrorMessage = message;
-            receiverValidated = false;
-            disableSendKudosButton();
-        }
-
-        function sendKudosAmountErrorMessage(message) {
-            $scope.amountErrorClass = "error-message";
-            $scope.fieldAmountErrorClass = "invalid";
-            $scope.amountErrorMessage = message;
-            amountValidated = false;
-            disableSendKudosButton();
-        }
-
-        function clearErrorMessages() {
-            $scope.receiverErrorMessage = "";
-            $scope.receiverErrorClass = "";
-            $scope.fieldReceiverErrorClass = "";
-            $scope.amountErrorMessage = "";
-            $scope.amountErrorClass = "";
-            $scope.fieldAmountErrorClass = "";
-            enableSendKudosButton();
-        }
-
-        function clearSendKudosFormValues() {
-            $scope.receiverErrorMessage = "";
-            $scope.amountErrorMessage = "";
-            $scope.receiverErrorClass = "";
-            $scope.amountErrorClass = "";
-            $scope.fieldAmountErrorClass = "";
-            $scope.fieldReceiverErrorClass = "";
-            $scope.sendKudosTo = "";
-            $scope.sendKudosAmount = "";
-            $scope.sendKudosMessage = "";
-            disableSendKudosButton();
-        }
-
-        function sentKudosTable() {
-            if ($scope.outgoingKudosCollection.length > 0)
-                $scope.sentKudosTable = true;
-        }
+        //function sendKudosReceiverErrorMessage(message) {
+        //    $scope.receiverErrorClass = "error-message";
+        //    $scope.fieldReceiverErrorClass = "invalid";
+        //    $scope.receiverErrorMessage = message;
+        //    receiverValidated = false;
+        //    disableSendKudosButton();
+        //}
+        //
+        //function sendKudosAmountErrorMessage(message) {
+        //    $scope.amountErrorClass = "error-message";
+        //    $scope.fieldAmountErrorClass = "invalid";
+        //    $scope.amountErrorMessage = message;
+        //    amountValidated = false;
+        //    disableSendKudosButton();
+        //}
+        //
+        //function clearErrorMessages() {
+        //    $scope.receiverErrorMessage = "";
+        //    $scope.receiverErrorClass = "";
+        //    $scope.fieldReceiverErrorClass = "";
+        //    $scope.amountErrorMessage = "";
+        //    $scope.amountErrorClass = "";
+        //    $scope.fieldAmountErrorClass = "";
+        //    enableSendKudosButton();
+        //}
+        //
+        //function clearSendKudosFormValues() {
+        //    $scope.receiverErrorMessage = "";
+        //    $scope.amountErrorMessage = "";
+        //    $scope.receiverErrorClass = "";
+        //    $scope.amountErrorClass = "";
+        //    $scope.fieldAmountErrorClass = "";
+        //    $scope.fieldReceiverErrorClass = "";
+        //    $scope.sendKudosTo = "";
+        //    $scope.sendKudosAmount = "";
+        //    $scope.sendKudosMessage = "";
+        //    disableSendKudosButton();
+        //}
+        //
+        //function sentKudosTable() {
+        //    if ($scope.outgoingKudosCollection.length > 0)
+        //        $scope.sentKudosTable = true;
+        //}
 
 
 
@@ -219,25 +181,25 @@ angular
             })
         }
 
-        function sendKudos() {
-            var sendTo = $httpParamSerializer({
-                receiverEmail: $scope.sendKudosTo,
-                amount: $scope.sendKudosAmount,
-                message: $scope.sendKudosMessage
-            });
-
-            ProfileService.send(sendTo).then(function (val) {
-                $scope.showSendKudosModal = false;
-                $scope.showSuccess = true;
-                $scope.userAvailableKudos = $scope.userAvailableKudos - val.data.amount;
-                $('#sendKudosModal').modal('hide');
-                toastr.success('You successfully sent ' + acornPlural(val.data.amount) + ' to ' + val.data.receiver);
-                pushOutgoingTransferIntoCollection(val.data);
-                clearSendKudosFormValues();
-            }).catch(function () {
-                errorMessage == "" ? showSendKudosErrorMessage("Receiver does not exist") : showSendKudosErrorMessage(errorMessage)
-            });
-        }
+        //function sendKudos() {
+        //    var sendTo = $httpParamSerializer({
+        //        receiverEmail: $scope.sendKudosTo,
+        //        amount: $scope.sendKudosAmount,
+        //        message: $scope.sendKudosMessage
+        //    });
+        //
+        //    ProfileService.send(sendTo).then(function (val) {
+        //        $scope.showSendKudosModal = false;
+        //        $scope.showSuccess = true;
+        //        $scope.userAvailableKudos = $scope.userAvailableKudos - val.data.amount;
+        //        $('#sendKudosModal').modal('hide');
+        //        toastr.success('You successfully sent ' + acornPlural(val.data.amount) + ' to ' + val.data.receiver);
+        //        pushOutgoingTransferIntoCollection(val.data);
+        //        clearSendKudosFormValues();
+        //    }).catch(function () {
+        //        errorMessage == "" ? showSendKudosErrorMessage("Receiver does not exist") : showSendKudosErrorMessage(errorMessage)
+        //    });
+        //}
 
         function giveChallenge() {
             var expirationDate = $filter('date')($scope.giveChallengeExpirationDate, requestDateFormat);
@@ -294,44 +256,44 @@ angular
             } else return true;
         }
 
-        function kudosValidation() {
-            $scope.errorClass = "error-message";
-            if ($scope.sendKudosAmount > $scope.userAvailableKudos) {
-                showSendKudosErrorMessage("You don't have enough Acorns");
-                $scope.sendKudosForm.sendKudosAmount.$invalid = true;
-                disableSendKudosButton();
-            } else if ($scope.sendKudosAmount == null) {
-                showSendKudosErrorMessage("Please enter amount");
-                $scope.sendKudosForm.sendKudosAmount.$invalid = true;
-                disableSendKudosButton();
-            } else if ($scope.sendKudosAmount <= 0) {
-                showSendKudosErrorMessage("Please enter more than zero");
-                $scope.sendKudosForm.sendKudosAmount.$invalid = true;
-                disableSendKudosButton();
-            } else if ($scope.sendKudosTo == null) {
-                showSendKudosErrorMessage("Please enter receiver");
-                $scope.sendKudosForm.sendKudosTo.$invalid = true;
-                disableSendKudosButton();
-            } else if (!validateEmail($scope.sendKudosTo)) {
-                showSendKudosErrorMessage("Please enter valid receiver email");
-                $scope.sendKudosForm.sendKudosTo.$invalid = true;
-                disableSendKudosButton();
-            } else if ($scope.sendKudosTo === $scope.userEmail) {
-                showSendKudosErrorMessage("Can't send kudos to yourself");
-                $scope.sendKudosForm.sendKudosTo.$invalid = true;
-                disableSendKudosButton();
-            } else {
-                errorMessage = "";
-                showSendKudosSuccessMessage("");
-            }
-        }
+        //function kudosValidation() {
+        //    $scope.errorClass = "error-message";
+        //    if ($scope.sendKudosAmount > $scope.userAvailableKudos) {
+        //        showSendKudosErrorMessage("You don't have enough Acorns");
+        //        $scope.sendKudosForm.sendKudosAmount.$invalid = true;
+        //        disableSendKudosButton();
+        //    } else if ($scope.sendKudosAmount == null) {
+        //        showSendKudosErrorMessage("Please enter amount");
+        //        $scope.sendKudosForm.sendKudosAmount.$invalid = true;
+        //        disableSendKudosButton();
+        //    } else if ($scope.sendKudosAmount <= 0) {
+        //        showSendKudosErrorMessage("Please enter more than zero");
+        //        $scope.sendKudosForm.sendKudosAmount.$invalid = true;
+        //        disableSendKudosButton();
+        //    } else if ($scope.sendKudosTo == null) {
+        //        showSendKudosErrorMessage("Please enter receiver");
+        //        $scope.sendKudosForm.sendKudosTo.$invalid = true;
+        //        disableSendKudosButton();
+        //    } else if (!validateEmail($scope.sendKudosTo)) {
+        //        showSendKudosErrorMessage("Please enter valid receiver email");
+        //        $scope.sendKudosForm.sendKudosTo.$invalid = true;
+        //        disableSendKudosButton();
+        //    } else if ($scope.sendKudosTo === $scope.userEmail) {
+        //        showSendKudosErrorMessage("Can't send kudos to yourself");
+        //        $scope.sendKudosForm.sendKudosTo.$invalid = true;
+        //        disableSendKudosButton();
+        //    } else {
+        //        errorMessage = "";
+        //        showSendKudosSuccessMessage("");
+        //    }
+        //}
 
-        function inputChanged() {
-            if (inputChangedPromise) {
-                $timeout.cancel(inputChangedPromise);
-            }
-            inputChangedPromise = $timeout(kudosValidation, 100);
-        }
+        //function inputChanged() {
+        //    if (inputChangedPromise) {
+        //        $timeout.cancel(inputChangedPromise);
+        //    }
+        //    inputChangedPromise = $timeout(kudosValidation, 100);
+        //}
 
         function checkUser() {
             ProfileService.checkUser().then(function (val) {
@@ -350,14 +312,14 @@ angular
             $cookies.put('remember_user', 'false');
             $cookies.put('user_credentials', '');
         }
-
-        function enableSendKudosButton() {
-            $scope.buttonDisabled = false;
-        }
-
-        function disableSendKudosButton() {
-            $scope.buttonDisabled = true;
-        }
+        //
+        //function enableSendKudosButton() {
+        //    $scope.buttonDisabled = false;
+        //}
+        //
+        //function disableSendKudosButton() {
+        //    $scope.buttonDisabled = true;
+        //}
 
         function enableChallengeButton() {
             $scope.challengeButtonDisabled = false;
@@ -417,25 +379,25 @@ angular
             disableSendKudosButton();
         }
 
-        function pushOutgoingTransferIntoCollection(val) {
-            var itemToAdd = {
-                receiver: val.receiver,
-                message: val.message,
-                amount: val.amount,
-                timestamp: trimDate(val.timestamp)
-            };
-            $scope.outgoingKudosCollection.push(itemToAdd);
-            sentKudosTable();
-            showMoreOutgoingKudosButton($scope.outgoingKudosCollection);
-        }
+        //function pushOutgoingTransferIntoCollection(val) {
+        //    var itemToAdd = {
+        //        receiver: val.receiver,
+        //        message: val.message,
+        //        amount: val.amount,
+        //        timestamp: trimDate(val.timestamp)
+        //    };
+        //    $scope.outgoingKudosCollection.push(itemToAdd);
+        //    sentKudosTable();
+        //    showMoreOutgoingKudosButton($scope.outgoingKudosCollection);
+        //}
 
-        function acornPlural(amount) {
-            return amount > 1 ? amount + " Acorns" : amount + " Acorn"
-        }
-
-        function trimDate(dateString) {
-            return dateString.substring(0, 16);
-        }
+        //function acornPlural(amount) {
+        //    return amount > 1 ? amount + " Acorns" : amount + " Acorn"
+        //}
+        //
+        //function trimDate(dateString) {
+        //    return dateString.substring(0, 16);
+        //}
 
         function registerTooltip() {
             $(document).ready(function () {

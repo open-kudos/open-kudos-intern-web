@@ -13,5 +13,6 @@ angular
         'myApp.components.receivedAcorns',
         'myApp.components.givenChallenges',
         'myApp.components',
-        'myApp.components.challengeParticipated'
+        'myApp.components.challengeParticipated',
+        'myApp.components.giveKudos'
     ]);

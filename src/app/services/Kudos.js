@@ -11,6 +11,7 @@ Kudos.$inject = [
 ];
 
 function Kudos($http, SERVER) {
+
     var kudos = {
         send: sendKudos,
         incoming: getIncomingKudos,
@@ -21,6 +22,9 @@ function Kudos($http, SERVER) {
         feedChanged: kudosTransactionListChanged,
         getCompletedKudosTransactions : getCompletedKudosTransactions
     }
+
+    kudos.outgoingKudosCollection = [];
+
     return kudos;
 
     function sendKudos(requestData) {

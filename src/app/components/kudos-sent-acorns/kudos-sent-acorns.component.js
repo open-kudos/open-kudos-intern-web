@@ -3,17 +3,16 @@ angular.module('myApp.components.sentAcorns', [])
         templateUrl: 'app/components/kudos-sent-acorns/kudos-sent-acorns.html',
         controller: 'SentAcornsController'
     })
-    .controller('SentAcornsController', function ($scope, SentAcornsService) {
+    .controller('SentAcornsController', function ($scope, Kudos) {
 
         var showMoreLimit = 5;
         $scope.outgoingKudosShowLimit = 5;
-        $scope.outgoingKudosCollection = [];
 
         $scope.showMoreOutgoingKudos = showMoreOutgoingKudos;
         $scope.showLessOutgoingKudos = showLessOutgoingKudos;
         $scope.showMoreOutgoingKudosButton = showMoreOutgoingKudosButton;
 
-        SentAcornsService.outgoingKudos().then(function (val) {
+        Kudos.outgoing().then(function (val) {
             $scope.outgoingKudosCollection = val;
             showMoreOutgoingKudosButton(val);
             sentKudosTable();
