@@ -14,7 +14,6 @@
 
             $scope.userAvailableKudos = 0;
             $scope.userReceivedKudos = 0;
-
             $scope.maxSendKudosLength = $scope.userAvailableKudos;
 
             $scope.usersCollection = [];
