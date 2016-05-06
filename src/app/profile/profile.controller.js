@@ -97,11 +97,6 @@
                 return typeof value === "undefined";
             }
 
-            function validateEmail(email) {
-                var reg = /[@]swedbank.[a-z]{2,}/;
-                return reg.test(email);
-            }
-
             function registerTooltip() {
                 $(document).ready(function () {
                     $('[data-toggle="tooltip"]').tooltip();
