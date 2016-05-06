@@ -18,6 +18,7 @@
         var service = {
             userHome: UserHome,
             updateUser: UpdateUser,
+            listUsers: ListUsers,
             remainingKudos: RemainingKudos,
             receivedKudos: ReceivedKudos,
             receivedChallenges: ReceivedChallenges,
@@ -34,6 +35,10 @@
 
         function CheckUser() {
             return userBackend.check();
+        }
+
+        function ListUsers() {
+            return userBackend.list();
         }
 
         function UpdateUser(updateInfo) {
