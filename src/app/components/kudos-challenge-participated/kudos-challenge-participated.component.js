@@ -26,7 +26,6 @@
                 $scope.id = false;
 
                 KudosChallengeParticipatedService.getList(requestData).then(function (val) {
-                    console.log(val[0]);
                     if (val[0]) {
                         $scope.id = val[0].id;
                         $scope.challengeAmount = val[0].amount;

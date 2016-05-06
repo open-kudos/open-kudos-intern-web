@@ -1,0 +1,25 @@
+<div class="panel panel-body" ng-if="showList">
+    <div class="challenge-participated">
+        <div class="col-lg-12">
+            <h4>Challenges where you are Referee!</h4>
+        </div>
+        <div class="challenge-participated-2" ng-repeat="list in refereeList">
+            <div class="col-lg-12">
+                <b>{{list.creator}} challenged {{list.participant}}</b>
+            </div>
+            <div class="col-lg-12">
+                <b>Name:</b> {{list.name}}
+            </div>
+            <div class="col-lg-12" ng-if="list.description">
+                <b>Description:</b> {{list.description}}
+            </div>
+            <div class="col-lg-12">
+                <b>Acorns:</b> {{list.amount}}
+            </div>
+            <div class="col-lg-12">
+                <button ng-click="accomplishChallenge(list.id)" class="btn btn-success btn-challenge-participated">Accomplished</button>
+                <button ng-click="failChallenge(list.id)" class="btn btn-danger btn-challenge-participated">Failed</button>
+            </div>
+        </div>
+    </div>
+</div>

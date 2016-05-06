@@ -15,7 +15,10 @@ function Challenges($http, SERVER) {
         givenChallenges: getGivenChallenges,
         receivedChallenges: getReceivedChallenges,
         declineChallenge: declineChallenge,
-        acceptChallenge: acceptChallenge
+        acceptChallenge: acceptChallenge,
+        getRefereed: getReferred,
+        accomplishChallenge: accomplishChallenge,
+        failChallenge: failChallenge
     }
     return challenges;
 
@@ -73,6 +76,36 @@ function Challenges($http, SERVER) {
         return $http({
             method: 'POST',
             url: SERVER.ip + "/challenges/accept?" + requestData,
+            withCredentials: true
+        }).then(function (response) {
+            return response;
+        });
+    }
+
+    function getReferred(requestData) {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/challenges/referredByStatus?" + requestData,
+            withCredentials: true
+        }).then(function(response) {
+            return response.data;
+        });
+    }
+
+    function accomplishChallenge(requestData) {
+        return $http({
+            method: 'POST',
+            url: SERVER.ip + "/challenges/accomplish?" + requestData,
+            withCredentials: true
+        }).then(function (response) {
+            return response;
+        });
+    }
+
+    function failChallenge(requestData) {
+        return $http({
+            method: 'POST',
+            url: SERVER.ip + "/challenges/fail?" + requestData,
             withCredentials: true
         }).then(function (response) {
             return response;
