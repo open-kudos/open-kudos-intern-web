@@ -14,7 +14,7 @@
             $scope.maxSendKudosLength = $scope.userAvailableKudos;
 
             $scope.$watch(function () { return Resources.getUserAvailableKudos() }, function (newVal) {
-                if (typeof newVal !== 'undefined') {
+                if (!isValid(newVal)) {
                     $scope.userAvailableKudos = Resources.getUserAvailableKudos();
                 }
             });
