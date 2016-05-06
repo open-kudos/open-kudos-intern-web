@@ -22,8 +22,10 @@
             })
         }
 
-        function accomplishChallenge() {
-
+        function accomplishChallenge(requestData) {
+            return Challenges.accomplishChallenge(requestData).then(function (val) {
+                return val;
+            })
         }
 
         function failChallenge() {

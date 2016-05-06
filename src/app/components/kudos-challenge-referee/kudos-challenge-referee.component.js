@@ -12,16 +12,18 @@
 
         .controller('KudosChallengeRefereeController', function ($httpParamSerializer, $scope, KudosChallengeRefereeService) {
             var requestData;
-            $scope.showList = false;
 
             $scope.getRefereedList = getRefereedList;
             $scope.accomplishChallenge = accomplishChallenge;
             $scope.failChallenge = failChallenge;
+            $scope.acornChecker = acornChecker;
 
             getRefereedList();
 
             function getRefereedList() {
                 var challengeStatus = "ACCEPTED";
+                $scope.showList = false;
+
                 requestData = $httpParamSerializer({
                     status: challengeStatus
                 });
@@ -31,16 +33,30 @@
 
                     if ($scope.refereeList[0])
                         $scope.showList = true;
-                    console.log($scope.showList)
                 })
             }
 
             function accomplishChallenge(id) {
-                console.log(id);
+                requestData = $httpParamSerializer({
+                    id: id
+                });
+
+                KudosChallengeRefereeService.accomplish(requestData).then(function (val) {
+                    toastr.success('You accomplished ' + val.data.name + ' challenge. '
+                                    + val.data.participant + ' got ' + val.data.amount + ' ' + acornChecker(val.data.amount));
+                    getRefereedList();
+                })
             }
 
             function failChallenge(id) {
                 console.log(id);
+            }
+
+            function acornChecker(val) {
+                if (val > 1)
+                    return 'Acorns';
+                else
+                    return 'Acorn';
             }
         });
 })();
