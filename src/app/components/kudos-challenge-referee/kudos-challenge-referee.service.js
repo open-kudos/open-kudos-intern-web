@@ -10,7 +10,9 @@
 
     function KudosChallengeRefereeService($httpParamSerializer, Challenges) {
         var service = {
-            getList: getRefereeList
+            getList: getRefereeList,
+            accomplish : accomplishChallenge,
+            fail: failChallenge
         }
         return service;
 
@@ -18,6 +20,14 @@
             return Challenges.getRefereed(requestData).then(function (val) {
                 return val;
             })
+        }
+
+        function accomplishChallenge() {
+
+        }
+
+        function failChallenge() {
+
         }
     }
 })();
