@@ -13,6 +13,12 @@
             $scope.userReceivedKudos = 0;
             $scope.maxSendKudosLength = $scope.userAvailableKudos;
 
+            $scope.$watch(function () { return Resources.getUserAvailableKudos() }, function (newVal) {
+                if (typeof newVal !== 'undefined') {
+                    $scope.userAvailableKudos = Resources.getUserAvailableKudos();
+                }
+            });
+
             $scope.usersCollection = [];
             $scope.buttonDisabled = true;
 
@@ -40,7 +46,7 @@
             });
 
             ProfileService.remainingKudos().then(function (val) {
-                $scope.userAvailableKudos = val;
+                Resources.setUserAvailableKudos(val);
             });
 
             ProfileService.receivedKudos().then(function (val) {

@@ -10,7 +10,7 @@ angular.module('myApp.components.giveKudos', [])
         var amountValidated = false;
         var errorMessage = "";
 
-        $scope.maxSendKudosLength = $scope.userAvailableKudos;
+        $scope.maxSendKudosLength = Resources.getUserAvailableKudos();
 
         $scope.sendKudos = sendKudos;
         $scope.inputChanged = inputChanged;
@@ -53,7 +53,6 @@ angular.module('myApp.components.giveKudos', [])
             GiveKudosService.sendKudos(sendTo).then(function (val) {
                 $scope.showSendKudosModal = false;
                 $scope.showSuccess = true;
-                $scope.userAvailableKudos = Resources.getUserAvailableKudos();
                 Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
                 $('#sendKudosModal').modal('hide');
                 toastr.success('You successfully sent ' + acornPlural(val.data.amount) + ' to ' + val.data.receiver);
@@ -84,7 +83,7 @@ angular.module('myApp.components.giveKudos', [])
                 sendKudosReceiverErrorMessage("Please enter valid receiver email");
             } else if ($scope.sendKudosTo === $scope.userEmail) {
                 sendKudosReceiverErrorMessage("Can't send kudos to yourself");
-            } else if ($scope.sendKudosAmount > $scope.userAvailableKudos) {
+            } else if ($scope.sendKudosAmount > Resources.getUserAvailableKudos()) {
                 sendKudosAmountErrorMessage("You don't have enough Acorns");
             } else if ($scope.sendKudosAmount == null) {
                 sendKudosAmountErrorMessage("Please enter amount");
