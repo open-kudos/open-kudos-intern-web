@@ -16,6 +16,12 @@
             $scope.userReceivedKudos = 0;
             $scope.maxSendKudosLength = $scope.userAvailableKudos;
 
+            $scope.$watch(function () { return Resources.getUserAvailableKudos() }, function (newVal) {
+                if (typeof newVal !== 'undefined') {
+                    $scope.userAvailableKudos = Resources.getUserAvailableKudos();
+                }
+            });
+
             $scope.usersCollection = [];
             $scope.buttonDisabled = true;
 
@@ -46,8 +52,9 @@
                 $scope.userBirthday = val.birthday;
             });
 
+
             ProfileService.remainingKudos().then(function (val) {
-                $scope.userAvailableKudos = val;
+                Resources.setUserAvailableKudos(val);
             });
 
             ProfileService.receivedKudos().then(function (val) {
@@ -111,7 +118,7 @@
                 } else if ($scope.giveChallengeAmountOfKudos == null) {
                     showChallengeFormErrorMessage("Please enter valid challenge Acorns");
                     return false;
-                } else if ($scope.giveChallengeAmountOfKudos > $scope.userAvailableKudos) {
+                } else if ($scope.giveChallengeAmountOfKudos > Resources.getUserAvailableKudos()) {
                     showChallengeFormErrorMessage("You don't have enough of Acorns");
                     return false;
                 } else if ($scope.giveChallengeTo == null) {
