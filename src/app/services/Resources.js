@@ -5,6 +5,7 @@
 
             var outgoingKudosCollection = [];
             var incomingKudosCollection = [];
+            var givenChallenges = [];
             var userAvailableKudos;
             var sentKudosTable;
             var receivedKudosTable;
@@ -41,6 +42,12 @@
                 },
                 getUserAvailableKudos: function () {
                     return userAvailableKudos;
+                },
+                setGivenChallenges: function (val) {
+                    givenChallenges = val;
+                },
+                getGivenChallenges: function () {
+                    return givenChallenges;
                 }
             };
         });

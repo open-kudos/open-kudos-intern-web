@@ -12,9 +12,14 @@
 
         .controller('KudosChallengeParticipatedController', function ($httpParamSerializer, $scope, KudosChallengeParticipatedService) {
             var requestData;
+
+            $scope.challengeList = [];
+
             $scope.getChallengeParticipatedList = getChallengeParticipatedList;
             $scope.acceptChallenge = acceptChallenge;
             $scope.declineChallenge = declineChallenge;
+            $scope.removeFirstElement = removeFirstElement;
+            $scope.refreshList = refreshList;
 
             getChallengeParticipatedList();
 
@@ -26,15 +31,8 @@
                 $scope.id = false;
 
                 KudosChallengeParticipatedService.getList(requestData).then(function (val) {
-                    if (val[0]) {
-                        $scope.id = val[0].id;
-                        $scope.challengeAmount = val[0].amount;
-                        $scope.challengeName = val[0].name;
-                        $scope.challengeCreator = val[0].creator;
-                        $scope.challengeDescription = val[0].description;
-                        $scope.challengeFinishDate = val[0].finishDate;
-                        $scope.challengeReferee = val[0].referee;
-                    }
+                    $scope.challengeList = val;
+                    refreshList();
                 })
             }
 
@@ -44,7 +42,8 @@
                 });
                 KudosChallengeParticipatedService.accept(requestData).then(function (val) {
                     toastr.success('You accepted ' + val.data.creator + ' challenge');
-                    getChallengeParticipatedList();
+                    removeFirstElement();
+                    refreshList();
                 })
             }
 
@@ -54,8 +53,26 @@
                 });
                 KudosChallengeParticipatedService.decline(requestData).then(function (val) {
                     toastr.info('You declined ' + val.data.creator + ' challenge');
-                    getChallengeParticipatedList();
+                    removeFirstElement();
+                    refreshList();
                 })
+            }
+
+            function removeFirstElement(){
+                $scope.challengeList.splice(0, 1);
+            }
+
+            function refreshList(){
+                $scope.id = false;
+                if ($scope.challengeList[0]) {
+                    $scope.id = $scope.challengeList[0].id;
+                    $scope.challengeAmount = $scope.challengeList[0].amount;
+                    $scope.challengeName = $scope.challengeList[0].name;
+                    $scope.challengeCreator = $scope.challengeList[0].creator;
+                    $scope.challengeDescription = $scope.challengeList[0].description;
+                    $scope.challengeFinishDate = $scope.challengeList[0].finishDate;
+                    $scope.challengeReferee = $scope.challengeList[0].referee;
+                }
             }
         });
 })();

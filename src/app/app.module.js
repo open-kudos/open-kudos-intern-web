@@ -17,6 +17,7 @@
             'myApp.components.transactions',
             'myApp.components.giveKudos',
             'myApp.components.challengeReferee',
-            'myApp.components.transactions'
+            'myApp.components.transactions',
+            'myApp.components.giveChallenge'
         ]);
 })();

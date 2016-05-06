@@ -5,14 +5,14 @@
             controller: 'GivenChallengesController'
         })
 
-        .controller('GivenChallengesController', function ($scope, $httpParamSerializer, GivenChallengesService, Challenges) {
-
+        .controller('GivenChallengesController', function ($scope, $httpParamSerializer, GivenChallengesService, Challenges, Resources) {
             var challengeStatus = "CREATED";
             var requestData = $httpParamSerializer({
                 status: challengeStatus
             });
 
             $scope.givenChallengesCollection = [];
+
             $scope.showMoreInfo = showMoreInfo;
             $scope.showLessInfo = showLessInfo;
             $scope.doesDateExist = doesDateExist;
@@ -20,28 +20,30 @@
 
 
             GivenChallengesService.givenChallenges(requestData).then(function (val) {
-                $scope.givenChallengesCollection = val;
+                Resources.setGivenChallenges(val);
+                $scope.givenChallengesCollection = Resources.getGivenChallenges();
             });
 
             function showMoreInfo(index) {
-                $scope.givenChallengesCollection[index].show = true;
+                Resources.getGivenChallenges()[index].show = true;
             }
 
             function showLessInfo(index) {
-                $scope.givenChallengesCollection[index].show = false;
+                Resources.getGivenChallenges()[index].show = false;
             }
 
             function doesDateExist(index) {
-                return $scope.givenChallengesCollection[index].finishDate == null;
+                return Resources.getGivenChallenges()[index].finishDate == null;
             }
 
             function cancelChallenge(index) {
                 var challengeId = $httpParamSerializer({
-                    id: $scope.givenChallengesCollection[index].id
+                    id: Resources.getGivenChallenges()[index].id
                 });
                 Challenges.cancel(challengeId).then(function (val) {
-                    $scope.userAvailableKudos = $scope.userAvailableKudos + val.data.amount;
-                    $scope.givenChallengesCollection.splice(index, 1);
+                    Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() + val.data.amount);
+                    Resources.getGivenChallenges().splice(index, 1);
+                    $scope.givenChallengesCollection = Resources.getGivenChallenges();
                     toastr.success("Challenge canceled");
                 });
             }
