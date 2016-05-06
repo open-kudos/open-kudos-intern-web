@@ -18,13 +18,11 @@
         var service = {
             userHome: UserHome,
             updateUser: UpdateUser,
-            listUsers: ListUsers,
             remainingKudos: RemainingKudos,
             receivedKudos: ReceivedKudos,
             receivedChallenges: ReceivedChallenges,
             feedKudos: StreamKudos,
             feedKudosChanged: StreamKudosChanged,
-            send: SendKudos,
             checkUser: CheckUser,
             logout: Logout
         };
@@ -38,22 +36,8 @@
             return userBackend.check();
         }
 
-        function ListUsers() {
-            return userBackend.list();
-        }
-
         function UpdateUser(updateInfo) {
             return userBackend.update(updateInfo);
-        }
-
-        function SendKudos(sendTo) {
-            var deferred = $q.defer();
-            kudosBackend.send(sendTo).then(function (response) {
-                deferred.resolve(response);
-            }).catch(function (response) {
-                deferred.reject(response);
-            });
-            return deferred.promise;
         }
 
         function RemainingKudos() {

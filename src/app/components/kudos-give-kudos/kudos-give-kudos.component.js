@@ -15,7 +15,6 @@ angular.module('myApp.components.giveKudos', [])
         $scope.sendKudos = sendKudos;
         $scope.inputChanged = inputChanged;
         $scope.clearSendKudosFormValues = clearSendKudosFormValues;
-
         $scope.autocompleteHide = true;
 
         $scope.selectAutoText = function (text) {
