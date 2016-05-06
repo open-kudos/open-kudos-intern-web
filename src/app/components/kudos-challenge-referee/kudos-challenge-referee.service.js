@@ -28,8 +28,10 @@
             })
         }
 
-        function failChallenge() {
-
+        function failChallenge(requestData) {
+            return Challenges.failChallenge(requestData).then(function (val) {
+                return val;
+            })
         }
     }
 })();

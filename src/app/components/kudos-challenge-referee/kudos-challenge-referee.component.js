@@ -42,14 +42,21 @@
                 });
 
                 KudosChallengeRefereeService.accomplish(requestData).then(function (val) {
-                    toastr.success('You accomplished ' + val.data.name + ' challenge. '
+                    toastr.success('You marked ' + val.data.name + ' challenge as Accomplished. '
                                     + val.data.participant + ' got ' + val.data.amount + ' ' + acornChecker(val.data.amount));
                     getRefereedList();
                 })
             }
 
             function failChallenge(id) {
-                console.log(id);
+                requestData = $httpParamSerializer({
+                    id: id
+                });
+
+                KudosChallengeRefereeService.fail(requestData).then(function (val) {
+                    toastr.error('You marked ' + val.data.name + ' challenge as failed. ');
+                    getRefereedList();
+                })
             }
 
             function acornChecker(val) {
