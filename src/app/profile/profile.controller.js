@@ -9,18 +9,12 @@
             'ngCookies'
         ])
         .controller('profileController', function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, $filter, ProfileService, Challenges, Resources) {
+
             $scope.userAvailableKudos = 0;
-            $scope.userReceivedKudos = 0;
-            $scope.maxSendKudosLength = $scope.userAvailableKudos;
-
-            $scope.$watch(function () { return Resources.getUserAvailableKudos() }, function (newVal) {
-                if (!isValid(newVal)) {
-                    $scope.userAvailableKudos = Resources.getUserAvailableKudos();
-                }
-            });
-
             $scope.usersCollection = [];
             $scope.buttonDisabled = true;
+            $scope.receivedAcorns = false;
+            $scope.sentAcorns = true;
 
             $scope.receiverErrorClass = "";
             $scope.receiverErrorMessage = "";
@@ -58,22 +52,9 @@
                 $scope.usersCollection = val.userList;
             });
 
-
-            function updateProfile() {
-                var updateInfo = $.param({
-                    birthday: this.birthday,
-                    department: this.department,
-                    location: this.location,
-                    phone: "",              // <-- TODO FIX PHONE
-                    position: this.position,
-                    startToWork: this.startToWork,
-                    team: this.team
-                });
-                ProfileService.update(updateInfo).then(function (val) {
-                    $('#userDetailsModal').modal('hide');
-                    checkUser();
-                })
-            }
+            $scope.$watch(function () { return Resources.getUserAvailableKudos() }, function (newVal) {
+                if (!isValid(newVal)) $scope.userAvailableKudos = Resources.getUserAvailableKudos();
+            });
 
             function checkUser() {
                 ProfileService.checkUser().then(function (val) {

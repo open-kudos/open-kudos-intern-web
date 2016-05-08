@@ -1,4 +1,69 @@
 
+$color-clouds:              #ecf0f1;
+$color-grey-borders:        #c0c0c0;
+$color-grey-borders-light:  #ddd;
+$color-emerald:             #2ecc71;
+$color-emerald-dark:        #27ae60;
+$color-pomegranate:         #e74c3c;
+$color-pomegranate-dark:    #c0392b;
+
+$padding-small:             10px;
+
+$margin-small:              10px;
+
+$border-radius-small:       4px;
+
+$transition-duration-short: 0.2s;
+
 body{
-  background: darkgray;
+  background: $color-clouds;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: $border-radius-small;
+  margin-bottom: $margin-small;
+  padding: $padding-small;
+}
+
+.btn-danger {
+  background: $color-pomegranate;
+  border-color: $color-pomegranate;
+}
+
+.btn-danger:hover {
+  background: $color-pomegranate-dark;
+  border-color: $color-pomegranate-dark;
+}
+
+.btn-success {
+  background: $color-emerald;
+  border-color: $color-emerald;
+}
+
+.btn-success:hover {
+  background: $color-emerald-dark;
+  border-color: $color-emerald-dark;
+}
+
+.table-borderless tbody tr td, .table-borderless tbody tr th, .table-borderless thead tr th {
+  border: none;
+}
+
+.tab-box{
+  padding: 0 $padding-small $padding-small $padding-small;
+  border-bottom: 1px solid $color-grey-borders-light;
+  border-left: 1px solid $color-grey-borders-light;
+  border-right: 1px solid $color-grey-borders-light;
+  border-radius: 0 0 $border-radius-small $border-radius-small;
+}
+
+.box-shadow-animation {
+  box-shadow: none;
+  transition: box-shadow $transition-duration-short;
+}
+
+.box-shadow-animation:hover {
+  box-shadow: 2px 2px 2px 2px $color-grey-borders;
+  transition: box-shadow $transition-duration-short;
 }

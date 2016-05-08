@@ -20,6 +20,7 @@
             $scope.declineChallenge = declineChallenge;
             $scope.removeFirstElement = removeFirstElement;
             $scope.refreshList = refreshList;
+            $scope.acornPlural = acornPlural;
 
             getChallengeParticipatedList();
 
@@ -73,6 +74,10 @@
                     $scope.challengeFinishDate = $scope.challengeList[0].finishDate;
                     $scope.challengeReferee = $scope.challengeList[0].referee;
                 }
+            }
+
+            function acornPlural(amount) {
+                return amount > 1 ? amount + " Acorns" : amount + " Acorn"
             }
         });
 })();

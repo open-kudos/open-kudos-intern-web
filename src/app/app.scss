@@ -1,5 +1,8 @@
 /* app css stylesheet */
 
+$color-pomegranate:         #e74c3c;
+$color-pomegranate-dark:    #c0392b;
+
 body {
     padding-top: 60px;
     background: -webkit-linear-gradient(left, #ff6c00, #ffdd00); /* For Safari 5.1 to 6.0 */
@@ -9,11 +12,11 @@ body {
 }
 
 .invalid {
-    border: 1px solid red;
+    border: 1px solid $color-pomegranate;
 }
 
 .invalid:focus {
-    border: 1px solid red;
+    border: 1px solid $color-pomegranate;
 }
 
 .notValid {

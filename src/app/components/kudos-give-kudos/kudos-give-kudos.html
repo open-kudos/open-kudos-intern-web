@@ -11,15 +11,18 @@
                 <form name="sendKudosForm">
                     <div class="form-group col-sm-6">
                         <!-- INPUT RECEIVER -->
-                        <input ng-model="sendKudosTo" ng-class="fieldReceiverErrorClass"
-                               ng-change="inputChanged()" id="sendKudosTo"
-                               name="sendKudosTo" type="text" class="form-control"
+                        <input ng-model="sendKudosTo"
+                               ng-class="fieldReceiverErrorClass"
+                               ng-change="inputChanged()"
+                               id="sendKudosTo"
+                               name="sendKudosTo"
+                               type="text"
+                               class="form-control"
                                autocomplete="off"
                                placeholder="{{ 'SEND_KUDOS_SENDING_TO_HINT' | translate }}">
                         <div class="autocomplete" ng-show="autocompleteHide==false">
-                            <div
-                                    ng-repeat="autoText in usersCollection | filter:sendKudosTo"
-                                    ng-click="selectAutoText(autoText.email)">
+                            <div ng-repeat="autoText in usersCollection | filter:sendKudosTo"
+                                 ng-click="selectAutoText(autoText.email)">
                                 <p>{{autoText.firstName}} {{autoText.lastName}}</p>
                                 <p class="small">{{autoText.email}}</p>
                             </div>
@@ -28,21 +31,25 @@
                     </div>
                     <!-- INPUT AMOUNT -->
                     <div class="form-group col-sm-6">
-                        <input ng-model="sendKudosAmount" ng-change="inputChanged()"
-                               ng-class="{invalid : sendKudosForm.sendKudosAmount.$invalid}" id="sendKudosAmount"
-                               name="sendKudosAmount" type="number" ng-pattern="/^[0-9]+$/"
-                               class="form-control" min="1" max="{userAvailableKudos
-                                  }"
+                        <input ng-model="sendKudosAmount"
+                               ng-pattern="/^[0-9]+$/"
+                               ng-change="inputChanged()"
+                               ng-class="fieldAmountErrorClass"
+                               id="sendKudosAmount"
+                               name="sendKudosAmount"
+                               type="number"
+                               class="form-control"
+                               min="1" max="userAvailableKudos"
                                placeholder="{{'SEND_KUDOS_AMOUNT_HINT' | translate }}" required>
-                    </div>
-
-                    <div class="form-group col-sm-12" id="sendKudosErrorMessage">
-                        <p ng-class="errorClass" class="text-center">{{sendKudosErrorMessage}}</p>
+                        <p ng-class="amountErrorClass" class="small">{{amountErrorMessage}}</p>
                     </div>
                 </form>
 
-                <button ng-click="sendKudos()" name="sendKudosButton" id="sendKudosButton"
-                        class="form-control btn btn-login" ng-disabled="buttonDisabled">Give
+                <button ng-click="sendKudos()"
+                        ng-disabled="sendKudosForm.$invalid"
+                        name="sendKudosButton"
+                        id="sendKudosButton"
+                        class="form-control btn btn-login">Give
                 </button>
 
             </div>

@@ -11,17 +11,6 @@
             <a class="navbar-brand" href="#">{{ 'ProfileACorn' | translate }}</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
-            <!-- LEFT SIDE OF NAV
-            <ul class="nav navbar-nav navbar-left">
-                <li><a href="" class="dropdown-toggle" type="button" id="dropdownFeed" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="true">Feed <span class="badge acorn-bg">2</span></a>
-                    <ul class="dropdown-menu kudos-dropdown" aria-labelledby="dropdownFeed">
-                        <kudos-transactions-stream></kudos-transactions-stream>
-                    </ul>
-                </li>
-            </ul>
-            -->
-            <!-- RIGHT SIDE OF NAV -->
             <ul class="nav navbar-nav navbar-right">
                 <li ng-controller="AppController">
                     <a ng-hide="lt" id="ltButton" ng-click="lt=true; en=false; changeLanguage('lt')"
@@ -78,8 +67,7 @@
                         <div class="col-md-12">
                             <button name="giveKudosButton" id="giveKudosButton" ng-click="showSendKudosModal()"
                                     data-toggle="modal" data-target="#sendKudosModal"
-                                    class="btn profile-buttons hvr-underline-from-center">{{ 'ProfileMeGiveACorn' |
-                                translate }}
+                                    class="btn profile-buttons hvr-underline-from-center">{{ 'ProfileMeGiveACorn' | translate }}
                             </button>
                         </div>
                     </div>
@@ -89,24 +77,29 @@
                         <div class="col-md-12">
                             <button name="giveChallengeButton" id="challengeButton"
                                     data-toggle="modal" data-target="#giveChallengeModal"
-                                    class="btn profile-buttons hvr-underline-from-center" data-placement="top">{{
-                                'ProfileMeChallenge' |
-                                translate }}
+                                    class="btn profile-buttons hvr-underline-from-center" data-placement="top">{{ 'ProfileMeChallenge' | translate }}
                             </button>
                         </div>
                     </div>
                 </div>
-                <kudos-challenge-participated></kudos-challenge-participated>
             </div>
+
+
 
             <kudos-challenge-referee></kudos-challenge-referee>
 
             <div class="panel panel-body">
-                <kudos-received-acorns></kudos-received-acorns>
-            </div>
-
-            <div class="panel panel-body">
-                <kudos-sent-acorns></kudos-sent-acorns>
+                <ul class="nav nav-tabs">
+                    <h3>My acorns</h3>
+                    <li role="presentation" ng-class="sentAcorns ? 'active' : ''"><a href="" ng-click="sentAcorns = true;receivedAcorns=false">Received</a></li>
+                    <li role="presentation" ng-class="receivedAcorns ? 'active' : ''"><a href="" ng-click="sentAcorns = false;receivedAcorns=true">Sent</a></li>
+                </ul>
+                <div class="tab-box" ng-hide="receivedAcorns">
+                    <kudos-received-acorns></kudos-received-acorns>
+                </div>
+                <div class="tab-box" ng-hide="sentAcorns">
+                    <kudos-sent-acorns></kudos-sent-acorns>
+                </div>
             </div>
 
             <div class="panel panel-body">
@@ -122,7 +115,7 @@
         </div>
 
         <div class="col-sm-3 col-sm-push-3">
-
+            <kudos-challenge-participated></kudos-challenge-participated>
             <!-- KUDOS FEED BUTTON DROPDOWN
             <div class="box4">
                 <h4>Acorns feed</h4>

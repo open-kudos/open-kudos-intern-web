@@ -125,10 +125,12 @@ angular.module('myApp.components.giveKudos', [])
         }
 
         function enableSendKudosButton() {
+            $scope.sendKudosForm.$invalid = false;
             $scope.buttonDisabled = false;
         }
 
         function disableSendKudosButton() {
+            $scope.sendKudosForm.$invalid = true;
             $scope.buttonDisabled = true;
         }
 

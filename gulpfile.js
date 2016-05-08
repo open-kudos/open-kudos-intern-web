@@ -9,7 +9,7 @@ var minify = require('gulp-minify-css');
 var merge = require('merge-stream');
 var browserSync = require('browser-sync').create();
 
-gulp.task('watch', ['browserSync', 'sass'], function () {
+gulp.task('serve', ['browserSync', 'sass'], function () {
     gulp.watch('src/app/**/*.scss', ['sass']);
     gulp.watch('src/app/**/*.html').on('change', browserSync.reload);
     gulp.watch('src/app/**/*.js').on('change', browserSync.reload);
@@ -27,8 +27,7 @@ gulp.task('browserSync', function () {
 gulp.task('sass', function () {
     var scssStream = gulp.src('src/app/**/*.scss')
         .pipe(sass())
-        .pipe(concat('scss-files.scss'))
-        ;
+        .pipe(concat('scss-files.scss'));
 
     var mergedStream = merge(scssStream)
         .pipe(concat('styles.css'))
