@@ -8,10 +8,9 @@
             <span>{{givenChallenges.finishDate}}</span>
             <span class="acorn-bg badge">{{givenChallenges.amount}} acorns</span>
             <div ng-show="givenChallenges.show" align="left">
-                <div>Description: {{givenChallenges.description}}</div>
-                <div>Challenge creator: {{givenChallenges.creator}}</div>
+                <div>{{'ProfileMeDescription' | translate}} {{givenChallenges.description}}</div>
+                <div>{{'ProfileMeChallengeCreator' | translate}} {{givenChallenges.creator}}</div>
             </div>
         </li>
     </ul>
-
 </div>
