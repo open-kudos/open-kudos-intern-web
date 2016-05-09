@@ -14,7 +14,7 @@
             })
             .when('/profile', {
                 templateUrl: 'app/profile/profile.html',
-                controller: 'profileController'
+                controller: 'ProfileController'
             })
             .when('/registration', {
                 templateUrl: 'app/registration/registration.html',

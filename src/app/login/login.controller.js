@@ -12,6 +12,8 @@
 
             $scope.login = login;
 
+            $scope.hi = 'hi';
+
             function login() {
                 var rememberMe = $scope.rememberMeCheckbox;
                 var loginInfo = $httpParamSerializer({

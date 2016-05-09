@@ -3,9 +3,11 @@
  */
 
 'use strict';
-describe("Kudos", function() {
+describe("Transaction", function () {
 
+    beforeEach(module('myApp'));
 
+    
 
 
 });
