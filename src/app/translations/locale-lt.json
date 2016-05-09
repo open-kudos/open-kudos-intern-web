@@ -74,7 +74,7 @@
   "ProfileMeAccept" : "Priimti",
   "ProfileMeReject" : "Atšaukti",
   "ProfileMeDescription" : "Aprašymas:",
-  "ProfileMeChallengeCreator" : "Iššūkio kūrėjas:",
+  "ProfileMeChallengeReceiver" : "Iššūkio gavėjas:",
 
   "SEND_KUDOS_POPUP_TITLE" : "Siųsk giliukus",
   "SEND_KUDOS_SENDING_TO_HINT" : "Gavėjas",

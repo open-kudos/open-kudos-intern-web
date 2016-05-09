@@ -74,7 +74,7 @@
   "ProfileMeAccept" : "Accept",
   "ProfileMeReject" : "Cancel",
   "ProfileMeDescription" : "Description:",
-  "ProfileMeChallengeCreator" : "Challenge creator:",
+  "ProfileMeChallengeReceiver" : "Challenge receiver:",
 
   "SEND_KUDOS_POPUP_TITLE" : "Give Acorns",
   "SEND_KUDOS_SENDING_TO_HINT" : "Sending to",
