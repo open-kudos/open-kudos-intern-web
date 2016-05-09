@@ -27,7 +27,9 @@
             function getChallengeParticipatedList() {
                 var challengeStatus = "CREATED";
                 requestData = $httpParamSerializer({
-                    status: challengeStatus
+                    status: challengeStatus,
+                    page: 0,
+                    pageSize: 1
                 });
                 $scope.id = false;
 
