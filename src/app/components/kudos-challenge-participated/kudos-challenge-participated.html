@@ -65,8 +65,7 @@
     </div>
 </div>
 -->
-
-<div ng-if="id" class="card card-block text-center box-shadow-animation">
+<div ng-if="id" class="card card-block text-center">
     <h4 class="card-title text-center">You have been challenged!</h4>
     <p class="card-text">You will have to <span class="bold">{{challengeName}}</span>  by
         <span class="bold">{{challengeCreator}}</span>  for
@@ -79,3 +78,4 @@
     <button class="btn btn-danger btn-challenge-participated" ng-click="declineChallenge(id)">Decline</button>
     <button class="btn btn-success btn-challenge-participated" ng-click="acceptChallenge(id)">Accept</button>
 </div>
+<div class="col-lg-pull-5"><button href="" class="btn" ng-click="">All received</button></div>

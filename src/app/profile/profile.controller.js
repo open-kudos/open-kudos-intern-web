@@ -10,7 +10,7 @@
         $scope.userAvailableKudos = 0;
         $scope.usersCollection = [];
         $scope.buttonDisabled = true;
-        $scope.receivedAcorns = false;
+        $scope.ongoing = true;
         $scope.sentAcorns = true;
 
         $scope.receiverErrorClass = "";
