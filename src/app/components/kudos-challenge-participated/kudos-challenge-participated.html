@@ -65,17 +65,57 @@
     </div>
 </div>
 -->
-<div ng-if="id" class="card card-block text-center">
-    <h4 class="card-title text-center">You have been challenged!</h4>
-    <p class="card-text">You will have to <span class="bold">{{challengeName}}</span>  by
-        <span class="bold">{{challengeCreator}}</span>  for
-        <span class="badge acorn-bg">{{acornPlural(challengeAmount)}}</span> referee is
-        <span class="bold">{{challengeReferee}}</span> </p>
+<div class="card card-block text-center">
+    <div ng-if="id">
+        <h4 class="card-title text-center">You have been challenged!</h4>
+        <p class="card-text">You will have to <span class="bold">{{challengeName}}</span>  by
+            <span class="bold">{{challengeCreator}}</span>  for
+            <span class="badge acorn-bg">{{acornPlural(challengeAmount)}}</span> referee is
+            <span class="bold">{{challengeReferee}}</span> </p>
 
-    <p ng-if="challengeDescription">Description: {{challengeDescription}}</p>
-    <p ng-if="challengeFinishDate">Finish date: {{challengeFinishDate}}</p>
+        <p ng-if="challengeDescription">Description: {{challengeDescription}}</p>
+        <p ng-if="challengeFinishDate">Finish date: {{challengeFinishDate}}</p>
 
-    <button class="btn btn-danger btn-challenge-participated" ng-click="declineChallenge(id)">Decline</button>
-    <button class="btn btn-success btn-challenge-participated" ng-click="acceptChallenge(id)">Accept</button>
+        <button class="btn btn-danger btn-challenge-participated" ng-click="declineChallenge(id)">Decline</button>
+        <button class="btn btn-success btn-challenge-participated" ng-click="acceptChallenge(id)">Accept</button>
+    </div>
+    <div ng-if="!id">
+        <div class="alert alert-info acorn-bg">
+            <span class="glyphicon glyphicon-info-sign"></span>
+            So far, no one Challenged you
+        </div>
+    </div>
 </div>
-<div class="col-lg-pull-5"><button href="" class="btn" ng-click="">All received</button></div>
+
+<div ng-if="showAllReceived" class="col-lg-pull-5">
+    <button href="" class="btn"
+            data-toggle="modal" data-target="#allReceivedModal"
+            ng-click="getAllChallengeParticipatedList()">All received</button>
+</div>
+
+<div id="allReceivedModal" class="modal fade" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" ng-click="" class="close"
+                        data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Received challenges</h4>
+            </div>
+            <div class="card card-block text-center" ng-repeat="list in challengeFullList">
+                <p class="card-text">You will have to <span class="bold">{{list.name}}</span>  by
+                    <span class="bold">{{list.creator}}</span>  for
+                    <span class="badge acorn-bg">{{acornPlural(list.amount)}}</span>
+
+                    <div ng-if="list.description">. Description:
+                        <span class="bold">{{list.description}}</span> </p>
+                    </div>
+
+                <p ng-if="challengeDescription">Description: {{challengeDescription}}</p>
+                <p ng-if="challengeFinishDate">Finish date: {{challengeFinishDate}}</p>
+
+                <button class="btn btn-danger btn-challenge-participated" ng-click="declineChallenge(id, $index)">Decline</button>
+                <button class="btn btn-success btn-challenge-participated" ng-click="acceptChallenge(id, $index)">Accept</button>
+            </div>
+        </div>
+    </div>
+</div>

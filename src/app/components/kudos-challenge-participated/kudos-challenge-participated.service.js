@@ -11,6 +11,7 @@
     function KudosChallengeParticipatedService($httpParamSerializer, Challenges) {
         var service = {
             getList: getChallengeParticipatedList,
+            getFullList: getAllChallengeParticipatedList,
             decline: declineChallenge,
             accept: acceptChallenge
         }
@@ -30,6 +31,12 @@
 
         function acceptChallenge(requestData) {
             return Challenges.acceptChallenge(requestData).then(function (val) {
+                return val;
+            })
+        }
+        
+        function getAllChallengeParticipatedList(requestData) {
+            return Challenges.allReceivedChallenges(requestData).then(function (val) {
                 return val;
             })
         }
