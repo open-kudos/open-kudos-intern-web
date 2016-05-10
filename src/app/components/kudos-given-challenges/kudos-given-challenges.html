@@ -5,11 +5,20 @@
             class="animate-repeat list-group-item">
             <i ng-click="cancelChallenge($index)" ng-show="doesDateExist($index)" class="glyphicon glyphicon-remove leftAlignment"></i>
             <span>{{givenChallenges.name}}</span>
-            <span>{{givenChallenges.finishDate}}</span>
             <span class="acorn-bg badge">{{givenChallenges.amount}} acorns</span>
             <div ng-show="givenChallenges.show" align="left">
-                <div>{{'ProfileMeDescription' | translate}} {{givenChallenges.description}}</div>
-                <div>{{'ProfileMeChallengeReceiver' | translate}} {{givenChallenges.participant}}</div>
+                <div>
+                    <span class="bold">{{'ProfileMeDescription' | translate}}: </span>
+                    <span>{{givenChallenges.description}}</span>
+                </div>
+                <div>
+                    <span class="bold">{{'ProfileMeChallengeReceiver' | translate}}: </span>
+                    <span>{{givenChallenges.participant}}</span>
+                </div>
+                <div>
+                    <span class="bold">{{'ProfileMeExpirationDate' | translate}}: </span>
+                    <span>{{givenChallenges.finishDate}}</span>
+                </div>
             </div>
         </li>
     </ul>
