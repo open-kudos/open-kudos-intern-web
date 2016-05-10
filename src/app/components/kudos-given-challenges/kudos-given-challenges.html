@@ -1,43 +1,29 @@
-<h3>{{ 'ProfileMeGivenChallenges' | translate }}</h3>
-<div class="table-responsive">
-    <table class="table">
-        <colgroup>
-            <col class="col-xs-6" />
-            <col class="col-xs-2" />
-            <col class="col-xs-2" />
-            <col class="col-xs-2" />
-        </colgroup>
-        <thead>
-        <tr>
-            <th>{{'ProfileMeChallengeName' | translate }}</th>
-            <th>{{'ProfileMeExpirationDate' | translate }}</th>
-            <th>{{'ProfileMeKudosAmount' | translate }}</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="animate-repeat"$scope.givenChallengesCollection[info]
-            ng-repeat="givenChallenges in givenChallengesCollection">
-            <td>
-                <i ng-click="showMoreInfo($index)" ng-show="!givenChallenges.show" class="glyphicon glyphicon-chevron-down"></i>
-                <i ng-click="showLessInfo($index)" ng-show="givenChallenges.show" class="glyphicon glyphicon-chevron-up"></i>
-                {{givenChallenges.name}}
-
-                <div ng-show="givenChallenges.show">
-                    <div>Description: {{givenChallenges.description}}</div>
-                    <div>Challenge creator: {{givenChallenges.creator}}</div>
-                    <div>Referee of the challenge: {{givenChallenges.referee}}</div>
+<div class="card card-block text-center">
+        <li ng-click="!givenChallenges.show ? showMoreInfo($index) : showLessInfo($index)" ng-repeat="givenChallenges in givenChallengesCollection | orderBy:'-timestamp'"
+            class="animate-repeat list-group-item">
+            <i ng-click="cancelChallenge($index)" ng-show="doesDateExist($index)" class="glyphicon glyphicon-remove leftAlignment"></i>
+            <span>{{givenChallenges.name}}</span>
+            <span class="acorn-bg badge">{{givenChallenges.amount}} acorns</span>
+            <div ng-show="givenChallenges.show" align="left">
+                <div>
+                    <span class="bold">{{'ProfileMeDescription' | translate}}: </span>
+                    <span>{{givenChallenges.description}}</span>
                 </div>
-            </td>
+                <div>
+                    <span class="bold">{{'ProfileMeChallengeReceiver' | translate}}: </span>
+                    <span>{{givenChallenges.participant}}</span>
+                </div>
+                <div>
+                    <span class="bold">{{'ProfileMeExpirationDate' | translate}}: </span>
+                    <span>{{givenChallenges.finishDate}}</span>
+                </div>
+            </div>
+        </li>
 
-            <td>{{givenChallenges.finishDate}}</td>
-            <td>{{givenChallenges.amount}}</td>
-            <td>
-                <i ng-click="cancelChallenge($index)" ng-show="doesDateExist($index)" class="glyphicon glyphicon-remove"></i>
-            </td>
-
-        </tr>
-
-        </tbody>
-    </table>
+        <div>
+            <div class="alert alert-info acorn-bg">
+                <span class="glyphicon glyphicon-info-sign"></span>
+                You have not Challenged anyone
+            </div>
+        </div>
 </div>

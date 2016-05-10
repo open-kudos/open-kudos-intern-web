@@ -18,7 +18,8 @@ function Challenges($http, SERVER) {
         acceptChallenge: acceptChallenge,
         getRefereed: getReferred,
         accomplishChallenge: accomplishChallenge,
-        failChallenge: failChallenge
+        failChallenge: failChallenge,
+        allReceivedChallenges: allReceivedChallenges
     }
     return challenges;
 
@@ -55,7 +56,7 @@ function Challenges($http, SERVER) {
     function getReceivedChallenges(requestData) {
         return $http({
             method: 'GET',
-            url: SERVER.ip + "/challenges/participatedByStatus?" + requestData,
+            url: SERVER.ip + "/challenges/participatedByStatusPageable?" + requestData,
             withCredentials: true
         }).then(function(response) {
             return response.data;
@@ -109,6 +110,16 @@ function Challenges($http, SERVER) {
             withCredentials: true
         }).then(function (response) {
             return response;
+        });
+    }
+
+    function allReceivedChallenges(requestData) {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/challenges/participatedByStatus?" + requestData,
+            withCredentials: true
+        }).then(function(response) {
+            return response.data;
         });
     }
 }

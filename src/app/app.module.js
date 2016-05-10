@@ -20,6 +20,7 @@
             'myApp.components.giveKudos',
             'myApp.components.challengeReferee',
             'myApp.components.transactions',
-            'myApp.components.giveChallenge'
+            'myApp.components.giveChallenge',
+            'myApp.components.challengeOngoing'
         ]);
 })();

@@ -73,6 +73,8 @@
   "ProfileMeShowMore" : "Daugiau",
   "ProfileMeAccept" : "Priimti",
   "ProfileMeReject" : "Atšaukti",
+  "ProfileMeDescription" : "Aprašymas",
+  "ProfileMeChallengeReceiver" : "Iššūkio gavėjas",
 
   "SEND_KUDOS_POPUP_TITLE" : "Siųsk giliukus",
   "SEND_KUDOS_SENDING_TO_HINT" : "Gavėjas",
