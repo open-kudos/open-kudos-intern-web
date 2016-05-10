@@ -15,6 +15,7 @@
 
             ReceivedAcornsService.incomingKudos().then(function (val) {
                 Resources.setIncomingKudosCollection(val);
+                Resources.setLastTransactionTimestamp(val[0].timestamp);
                 $scope.incomingKudosCollection = Resources.getIncomingKudosCollection();
                 showMoreIncomingKudosButton(val);
                 Resources.setReceivedKudosTable();

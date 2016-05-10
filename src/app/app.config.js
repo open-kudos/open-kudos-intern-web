@@ -13,7 +13,7 @@
                 controller: 'loginController'
             })
             .when('/profile', {
-                templateUrl: 'app/profile/profile.html',
+                templateUrl: 'app/profile/profile-new.html',
                 controller: 'ProfileController'
             })
             .when('/registration', {
@@ -22,7 +22,11 @@
             })
             .when('/feed', {
                 templateUrl: 'app/kudos-feed/kudos-feed.html',
-            });
+            })
+            .when('/acorns', {
+                templateUrl: 'app/acorns/acorns.html',
+                controller: 'AcornController'
+        });
 
         $translateProvider.useStaticFilesLoader({
             prefix: 'app/translations/locale-',

@@ -14,7 +14,8 @@ Transaction.$inject = [
 function Transaction($http, SERVER) {
     var transaction = {
         feedChanged: kudosTransactionListChanged,
-        getCompletedKudosTransactions : getCompletedKudosTransactions
+        getCompletedKudosTransactions : getCompletedKudosTransactions,
+        getNewTransactions : getNewKudosTransactions
     }
     return transaction;
 
@@ -22,6 +23,16 @@ function Transaction($http, SERVER) {
         return $http({
             method: 'GET',
             url: SERVER.ip + "/transaction/transactions?" + requestData,
+            withCredentials: true
+        }).then(function (response) {
+            return response.data;
+        });
+    }
+
+    function getNewKudosTransactions(requestData) {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/transaction/newTransactions?" + requestData,
             withCredentials: true
         }).then(function (response) {
             return response.data;

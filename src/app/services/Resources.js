@@ -10,6 +10,10 @@
             var sentKudosTable;
             var receivedKudosTable;
 
+            var transactionsCollection = [];
+            var lastTransactionTimestamp;
+            var currentUserEmail;
+
             return {
                 getOutgoingKudosCollection : function() {
                     return outgoingKudosCollection;
@@ -48,6 +52,17 @@
                 },
                 getGivenChallenges: function () {
                     return givenChallenges;
+                },
+                setCurrentUserEmail: function (userEmail) {
+                    currentUserEmail = userEmail;
+                    console.log(currentUserEmail);
+                },
+                setLastTransactionTimestamp: function (timestamp) {
+                    lastTransactionTimestamp = timestamp;
+                    console.log(lastTransactionTimestamp);
+                },
+                getLastTransactionTimestamp: function () {
+                    return lastTransactionTimestamp;
                 }
             };
         });

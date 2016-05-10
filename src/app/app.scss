@@ -2,6 +2,11 @@
 
 $color-pomegranate:         #e74c3c;
 $color-pomegranate-dark:    #c0392b;
+$color-swed-orange:         #FF9A09;
+
+$padding-small:             10px;
+
+$margin-small:              10px;
 
 body {
     padding-top: 60px;
@@ -637,8 +642,45 @@ div.box4 {
     border-bottom-right-radius: 5px;
 }
 
-@media (min-width: 1200px) {
+.nav-dropdown{
+    width: 30%;
+    display: inline-block;
+    position: absolute;
+    z-index: 1;
+}
+
+.nav-dropdown div{
+    z-index: 1;
+    border: 1px solid #E1E1E1;
+    background: #FAFAFA;
+    padding: 10px;
+    cursor: pointer;
+    cursor: hand;
+}
+
+.nav-dropdown div:hover {
+    background-color: #ecf0f1;
+}
+
+.nav-dropdown div:nth-child(even) {
+    border-top: 0;
+    border-bottom: 0;
+}
+
+.nav-dropdown div:last-child {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom: 1px solid #E1E1E1;
+}
+
+
+
+@media (min-width: 767px) {
     /*.profile-body {
         width: 60%;
     }*/
+    .navbar-nav > li > a {
+        line-height: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;}
 }

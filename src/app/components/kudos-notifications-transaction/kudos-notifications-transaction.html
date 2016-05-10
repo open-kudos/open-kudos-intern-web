@@ -1,0 +1,27 @@
+
+<button class="dropdown-toggle fixed-element-floating arm" type="button" id="dropdownMenu2" data-toggle="dropdown"
+   aria-haspopup="true" aria-expanded="true" ng-click="clearNotifications()"><span class="glyphicon glyphicon-bell"></span>
+    <span ng-hide="!receivedNewTransaction" class="top-badge acorn-bg center-block"> {{notificationBadgeAmount}} </span>
+</button>
+<!-- TEST BUTTON <button ng-click="saveLastTransactionTimestamp()">Save</button> -->
+<ul class="dropdown-menu notification-item"  aria-labelledby="dropdownMenu2" >
+    <ul class="list-group">
+        <li ng-repeat="transaction in newTransactionCollection"
+            class="animate-repeat list-group-item">
+            <span class="badge acorn-bg">{{acornPlural(transaction.amount)}}</span>
+            <span class="bold">{{transaction.senderName}}</span> send to
+            <span class="bold">{{transaction.receiverName}}</span>
+        </li>
+    </ul>
+</ul>
+
+<div ng-hide="!notificationsToggle" class="notification-item">
+    <ul class="list-group">
+        <li ng-repeat="transaction in newTransactionCollection"
+            class="animate-repeat list-group-item">
+            <span class="badge acorn-bg">{{acornPlural(transaction.amount)}}</span>
+            <span class="bold">{{transaction.senderName}}</span> send to
+            <span class="bold">{{transaction.receiverName}}</span>
+        </li>
+    </ul>
+</div>
