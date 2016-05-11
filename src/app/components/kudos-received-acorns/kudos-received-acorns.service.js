@@ -12,7 +12,7 @@
             incomingKudos: IncomingKudos
         };
         return service;
-
+        
         function IncomingKudos() {
             return kudosBackend.incoming();
         }

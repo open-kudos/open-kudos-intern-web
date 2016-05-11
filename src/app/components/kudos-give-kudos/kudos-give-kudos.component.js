@@ -11,11 +11,11 @@ angular.module('myApp.components.giveKudos', [])
         var errorMessage = "";
 
         $scope.maxSendKudosLength = Resources.getUserAvailableKudos();
+        $scope.autocompleteHide = true;
 
         $scope.sendKudos = sendKudos;
         $scope.inputChanged = inputChanged;
         $scope.clearSendKudosFormValues = clearSendKudosFormValues;
-        $scope.autocompleteHide = true;
 
         $scope.selectAutoText = function (text) {
             $scope.sendKudosTo = text;
@@ -27,11 +27,7 @@ angular.module('myApp.components.giveKudos', [])
         $scope.$watch('sendKudosTo', function (newVal, oldVal) {
             if ($scope.searchTermSelected == false) {
                 if (newVal != undefined) {
-                    if (newVal.length > 1) {
-                        $scope.autocompleteHide = false;
-                    } else {
-                        $scope.autocompleteHide = true;
-                    }
+                    (newVal.length > 1) ? $scope.autocompleteHide = false : $scope.autocompleteHide = true;
                 }
             } else {
                 $scope.searchTermSelected = false;
@@ -80,7 +76,7 @@ angular.module('myApp.components.giveKudos', [])
                 sendKudosReceiverErrorMessage("Please enter receiver");
             } else if (!validateEmail($scope.sendKudosTo)) {
                 sendKudosReceiverErrorMessage("Please enter valid receiver email");
-            } else if ($scope.sendKudosTo === $scope.userEmail) {
+            } else if ($scope.sendKudosTo === Resources.getCurrentUserEmail()) {
                 sendKudosReceiverErrorMessage("Can't send kudos to yourself");
             } else if ($scope.sendKudosAmount > Resources.getUserAvailableKudos()) {
                 sendKudosAmountErrorMessage("You don't have enough Acorns");

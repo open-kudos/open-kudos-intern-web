@@ -8,7 +8,6 @@
 
         $scope.changeLanguage = changeLanguage;
         $scope.languageButtons = languageButtons;
-
         $scope.languageButtons($cookies.get('NG_TRANSLATE_LANG_KEY'));
 
         function changeLanguage(key) {

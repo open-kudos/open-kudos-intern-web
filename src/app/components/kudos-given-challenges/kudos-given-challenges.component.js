@@ -12,17 +12,20 @@
             });
 
             $scope.givenChallengesCollection = [];
+            $scope.showList = false;
 
             $scope.showMoreInfo = showMoreInfo;
             $scope.showLessInfo = showLessInfo;
             $scope.doesDateExist = doesDateExist;
             $scope.cancelChallenge = cancelChallenge;
+            $scope.checkList = checkList;
             $scope.acornPlural = acornPlural;
 
 
             GivenChallengesService.givenChallenges(requestData).then(function (val) {
                 Resources.setGivenChallenges(val);
                 $scope.givenChallengesCollection = Resources.getGivenChallenges();
+                checkList();
             });
 
             function showMoreInfo(index) {
@@ -46,7 +49,12 @@
                     Resources.getGivenChallenges().splice(index, 1);
                     $scope.givenChallengesCollection = Resources.getGivenChallenges();
                     toastr.success("Challenge canceled");
+                    checkList();
                 });
+            }
+
+            function checkList() {
+                $scope.showList = $scope.givenChallengesCollection.length > 0;
             }
 
             function acornPlural(amount) {

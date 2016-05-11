@@ -1,6 +1,4 @@
-<h3>{{ 'ProfileMeGivenChallenges' | translate }}</h3>
-<div class="card card-block text-center ">
-    <ul class="list-group">
+<div class="card card-block text-center">
         <li ng-click="!givenChallenges.show ? showMoreInfo($index) : showLessInfo($index)" ng-repeat="givenChallenges in givenChallengesCollection | orderBy:'-timestamp'"
             class="animate-repeat list-group-item">
             <i ng-click="cancelChallenge($index)" ng-show="doesDateExist($index)" class="glyphicon glyphicon-remove leftAlignment"></i>
@@ -21,5 +19,11 @@
                 </div>
             </div>
         </li>
-    </ul>
+
+        <div ng-if="!showList">
+            <div class="alert alert-info acorn-bg">
+                <span class="glyphicon glyphicon-info-sign"></span>
+                You have not Challenged anyone
+            </div>
+        </div>
 </div>

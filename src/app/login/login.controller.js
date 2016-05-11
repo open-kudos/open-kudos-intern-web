@@ -8,11 +8,11 @@
         ])
         .controller('loginController', function ($scope, $http, $cookies, $window, $base64, $httpParamSerializer, SERVER, LoginService) {
 
-            initView();
+            activate();
 
             $scope.login = login;
-
-            $scope.hi = 'hi';
+            $scope.emailErrorMessage = "";
+            $scope.passwordErrorMessage = "";
 
             function login() {
                 var rememberMe = $scope.rememberMeCheckbox;
@@ -37,11 +37,17 @@
             }
 
             function loginAndValidate(loginInfo) {
-                LoginService.login(loginInfo).then(function () {
-                    showErrorMessage(); // TODO | FIX THE PROBLEM AND CHANGE THIS LINE TO hideErrorMessage();
-                }).catch(function () {
-                    showErrorMessage();
-                });
+                if ($scope.email === "" || $scope.password === "") {
+                    $scope.emailErrorMessage = "Please enter Email";
+                } else if ($scope.password == "") {
+                    $scope.passwordErrorMessage = "Please enter Password";
+                } else {
+                    LoginService.login(loginInfo).then(function () {
+                        showErrorMessage(); // TODO | FIX THE PROBLEM AND CHANGE THIS LINE TO hideErrorMessage();
+                    }).catch(function () {
+                        showErrorMessage();
+                    });
+                }
             }
 
             function showErrorMessage() {
@@ -75,7 +81,7 @@
                 }
             }
 
-            function initView() {
+            function activate() {
                 if (isRememberedUser()) {
                     LoginService.login($base64.decode($cookies.get('user_credentials')));
                 } else {
