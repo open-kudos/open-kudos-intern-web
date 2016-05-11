@@ -28,3 +28,18 @@
         </div>
     </div>
 </nav>
+
+<div class="container">
+
+    <div>
+        <ul>
+            <li ng-repeat="transaction in notificationsCollection"
+                class="animate-repeat list-group-item">
+                <span class="badge acorn-bg">{{acornPlural(transaction.amount)}}</span>
+                <span class="bold">{{transaction.senderName}}</span> send to
+                <span class="bold">{{transaction.receiverName}}</span>
+            </li>
+        </ul>
+    </div>
+
+</div>

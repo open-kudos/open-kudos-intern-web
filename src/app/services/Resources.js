@@ -5,12 +5,14 @@
 
             var outgoingKudosCollection = [];
             var incomingKudosCollection = [];
+            var transactionsCollection = [];
+            var notificationsTransactionCollection = [];
             var givenChallenges = [];
             var userAvailableKudos;
             var sentKudosTable;
             var receivedKudosTable;
 
-            var transactionsCollection = [];
+
             var lastTransactionTimestamp;
             var currentUserEmail;
 
@@ -67,6 +69,14 @@
                 },
                 getLastTransactionTimestamp: function () {
                     return lastTransactionTimestamp;
+                },
+                setNotificationsTransactionCollection: function (collection) {
+                    notificationsTransactionCollection = collection;
+                    console.log(collection.length);
+                },
+                getNotificationsTransactionCollection: function () {
+                    console.log("FROM RETURN: " + notificationsTransactionCollection.length);
+                    return notificationsTransactionCollection;
                 }
             };
         });

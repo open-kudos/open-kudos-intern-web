@@ -25,6 +25,7 @@
             if ($cookies.get('last_transaction') != null) {
                 KudosNotificationService.getNewTransactions(requestData).then(function (val) {
                     if (val.length != 0) {
+                        Resources.setNotificationsTransactionCollection(val);
                         $scope.newTransactionCollection = val;
                         $scope.notificationBadgeAmount = val.length;
                         $scope.receivedNewTransaction = true;

@@ -24,8 +24,11 @@
         $scope.amountErrorClass = "";
         $scope.amountErrorMessage = "";
 
+        $scope.notificationsCollection = Resources.getNotificationsTransactionCollection();
+
         $scope.logout = logout;
         $scope.isValid = isValid;
+        $scope.acornPlural = acornPlural;
 
         ProfileService.remainingKudos().then(function (val) {
             Resources.setUserAvailableKudos(val);
@@ -61,6 +64,10 @@
 
         function isValid(value) {
             return typeof value === "undefined";
+        }
+
+        function acornPlural(amount) {
+            return amount > 1 ? amount + " Acorns" : amount + " Acorn"
         }
     };
 

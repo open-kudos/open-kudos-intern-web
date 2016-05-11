@@ -28,7 +28,8 @@
                 controller: 'AcornController'
             })
             .when('/notifications', {
-            templateUrl: 'app/notifications/notification.html'
+            templateUrl: 'app/notifications/notification.html',
+                controller: 'NotificationController'
         });
 
         $translateProvider.useStaticFilesLoader({
