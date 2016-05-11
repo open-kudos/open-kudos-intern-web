@@ -10,15 +10,19 @@
             }
         })
 
-        .controller('KudosChallengeOngoingController', function ($httpParamSerializer, $scope, KudosChallengeOngoingService) {
+        .controller('KudosChallengeOngoingController', function ($httpParamSerializer, $scope, KudosChallengeOngoingService, Resources) {
             var requestData;
 
             $scope.showList = false;
             $scope.givenList = [];
             $scope.receivedList = [];
             $scope.ongoingChallengeList = [];
+            $scope.userEmail = Resources.getCurrentUserEmail();
 
             $scope.getChallengeOngoingList = getChallengeOngoingList;
+            $scope.won = won;
+            $scope.lost = lost;
+            $scope.convertDate = convertDate;
 
             getChallengeOngoingList();
 
@@ -37,6 +41,20 @@
                         $scope.showList = !!$scope.ongoingChallengeList[0];
                     });
                 });
+            }
+
+            function lost() {
+
+            }
+
+            function won() {
+
+            }
+
+            function convertDate(val){
+                val = val.split(":");
+                val = val[0] + ":" + val[1];
+                return val;
             }
         });
 })();

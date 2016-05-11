@@ -58,7 +58,6 @@
                 },
                 setCurrentUserEmail: function (userEmail) {
                     currentUserEmail = userEmail;
-                    console.log(userEmail);
                 },
                 getCurrentUserEmail: function () {
                     return currentUserEmail;
