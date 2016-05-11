@@ -3,7 +3,7 @@
 <nav class="navbar navbar-default navbar-fixed-top" id="mainnavbar">
     <div class="container">
         <ul class="nav navbar-nav navbar-left">
-            <li><a href="#/profile">Home</a></li>
+            <li><a class="selected" href="#/profile">Home</a></li>
             <li><a href="#/acorns">Acorns</a></li>
             <li><a href="">Challenges</a></li>
         </ul>
@@ -91,8 +91,24 @@
                 </div>
             </div>
 
+
+
             <div class="panel panel-body">
-                <kudos-given-challenges></kudos-given-challenges>
+                <ul class="nav nav-tabs">
+                    <h3>Challenges</h3>
+                    <li role="presentation" ng-class="received ? 'active' : ''"><a href="" ng-click="ongoing = false;received=true;given=false">Received</a></li>
+                    <li role="presentation" ng-class="ongoing ? 'active' : ''"><a href="" ng-click="ongoing = true;received=false;given=false">Ongoing</a></li>
+                    <li role="presentation" ng-class="given ? 'active' : ''"><a href="" ng-click="ongoing = false;received=false;given=true">Given</a></li>
+                </ul>
+                <div class="tab-box" ng-show="ongoing">
+                    <kudos-challenge-ongoing></kudos-challenge-ongoing>
+                </div>
+                <div class="tab-box" ng-show="received">
+                    <kudos-challenge-participated></kudos-challenge-participated>
+                </div>
+                <div class="tab-box" ng-show="given">
+                    <kudos-given-challenges></kudos-given-challenges>
+                </div>
             </div>
 
             <div class="panel panel-body">
@@ -104,7 +120,6 @@
         </div>
 
         <div class="col-sm-3 col-sm-push-3">
-            <kudos-challenge-participated></kudos-challenge-participated>
 
             <!-- KUDOS FEED BUTTON DROPDOWN
             <div class="box4">

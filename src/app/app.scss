@@ -677,7 +677,9 @@ div.box4 {
     border-bottom: 1px solid #E1E1E1;
 }
 
-
+.selected {
+    border-bottom: 2px solid $color-swed-orange;
+}
 
 @media (min-width: 767px) {
     /*.profile-body {

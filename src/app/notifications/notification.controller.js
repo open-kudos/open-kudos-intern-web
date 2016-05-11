@@ -1,19 +1,21 @@
 /**
+ * Created by vytautassugintas on 10/05/16.
+ */
+/**
  * Created by vytautassugintas on 06/04/16.
  */
 (function () {
     'use strict';
-    var ProfileController = function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, $filter, ProfileService, Challenges, Resources) {
-        
+    var NotificationController = function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, $filter, ProfileService, Challenges, Resources) {
+
         $scope.greeting = "hello";
 
         $scope.userAvailableKudos = 0;
         $scope.usersCollection = [];
         $scope.buttonDisabled = true;
+
         $scope.receivedAcorns = false;
         $scope.sentAcorns = true;
-        $scope.giveAcorns = false;
-        $scope.received = true;
 
         $scope.showDropDown = false;
 
@@ -24,23 +26,6 @@
 
         $scope.logout = logout;
         $scope.isValid = isValid;
-
-        checkUser();
-        registerTooltip();
-
-        ProfileService.userHome().then(function (val) {
-            $scope.userEmail = val.email;
-            $scope.userName = val.firstName;
-            $scope.userSurname = val.lastName;
-            $scope.userPhone = val.phone;
-            $scope.userPosition = val.position;
-            $scope.userLocation = val.location;
-            $scope.userTeam = val.team;
-            $scope.userStartedToWork = val.startedToWorkDate;
-            $scope.userBirthday = val.birthday;
-            Resources.setCurrentUserEmail(val.email);
-            
-        });
 
         ProfileService.remainingKudos().then(function (val) {
             Resources.setUserAvailableKudos(val);
@@ -61,11 +46,6 @@
             if (!isValid(newVal)) $scope.userAvailableKudos = Resources.getUserAvailableKudos();
         });
 
-        function checkUser() {
-            ProfileService.checkUser().then(function (val) {
-                val.logged ? $window.location.href = "#/profile" : $window.location.href = "#/login";
-            });
-        }
 
         function logout() {
             clearCookies();
@@ -82,20 +62,14 @@
         function isValid(value) {
             return typeof value === "undefined";
         }
-
-        function registerTooltip() {
-            $(document).ready(function () {
-                $('[data-toggle="tooltip"]').tooltip();
-            });
-        }
     };
 
-    ProfileController.$inject = ['$http', '$scope', '$window', '$cookies', '$timeout', '$httpParamSerializer', '$filter', 'ProfileService', 'Challenges', 'Resources'];
+    NotificationController.$inject = ['$http', '$scope', '$window', '$cookies', '$timeout', '$httpParamSerializer', '$filter', 'ProfileService', 'Challenges', 'Resources'];
 
     angular
-        .module('myApp.profile', [
+        .module('myApp.notification', [
             'ngRoute',
             'ngCookies'
         ])
-        .controller('ProfileController', ProfileController);
+        .controller('NotificationController', NotificationController);
 })();

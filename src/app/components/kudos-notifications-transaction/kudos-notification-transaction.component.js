@@ -2,7 +2,7 @@
  * Created by vytautassugintas on 09/05/16.
  */
 (function () {
-    var NotificationsController = function ($scope, $cookies, $httpParamSerializer, Resources, KudosNotificationService) {
+    var NotificationsController = function ($scope, $cookies, $httpParamSerializer, $location, Resources, KudosNotificationService) {
         var togle = false;
         $scope.newTransactionCollection = [];
         $scope.notificationBadgeAmount = 0;
@@ -35,30 +35,25 @@
         }
 
         function clearNotifications() {
-            $scope.notificationsToggle == true ?  $scope.notificationsToggle = false :  $scope.notificationsToggle = true;
-            if (togle) {
-                if ($cookies.get('last_transaction') != null) {
-                    console.log("clearing");
-                    overwriteLastTransactionTimestamp($scope.newTransactionCollection[0].timestamp);
-                    $scope.newTransactionCollection = [];
-                    $scope.notificationBadgeAmount = $scope.newTransactionCollection.length;
-                    $scope.receivedNewTransaction = false;
-                    togle = false;
-
-                }
-            } else{
-            togle = true;
+            $scope.notificationsToggle == true ? $scope.notificationsToggle = false : $scope.notificationsToggle = true;
+            $location.path("/notifications");
+            if ($cookies.get('last_transaction') != null) {
+                overwriteLastTransactionTimestamp($scope.newTransactionCollection[0].timestamp);
+                $scope.newTransactionCollection = [];
+                $scope.notificationBadgeAmount = $scope.newTransactionCollection.length;
+                $scope.receivedNewTransaction = false;
             }
         }
 
+        // TEST fn
         function saveLastTransactionTimestamp() {
-            console.log("saving");
-           // $cookies.put('last_transaction', Resources.getLastTransactionTimestamp());
             $cookies.put('last_transaction', '2016-05-03');
         }
 
         function overwriteLastTransactionTimestamp(timestamp) {
-            $cookies.put('last_transaction', timestamp);
+            var expireDate = new Date();
+            expireDate.setDate(expireDate.getDate() + 180); // Setting expiration date to 180 days
+            $cookies.put('last_transaction', timestamp, {expires: expireDate});
         }
 
         function acornPlural(amount) {
@@ -66,7 +61,7 @@
         }
     };
 
-    NotificationsController.$inject = ['$scope', '$cookies', '$httpParamSerializer', 'Resources', 'KudosNotificationService'];
+    NotificationsController.$inject = ['$scope', '$cookies', '$httpParamSerializer', '$location', 'Resources', 'KudosNotificationService'];
 
     angular.module('myApp.components.notifications', [])
         .component('kudosNotificationsTransactions', {

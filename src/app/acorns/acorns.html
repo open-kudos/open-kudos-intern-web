@@ -2,14 +2,15 @@
     <div class="container">
         <ul class="nav navbar-nav navbar-left">
             <li><a href="#/profile">Home</a></li>
-            <li><a href="#/acorns">Acorns</a></li>
+            <li><a class="selected" href="#/acorns">Acorns</a></li>
             <li><a href="">Challenges</a></li>
             <li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
             <li><a href="" class="dropdown-toggle" type="button" id="dropdownMenu1"
-                   aria-haspopup="true" aria-expanded="true" ng-click="showDropDown == true ? showDropDown = false : showDropDown = true">
+                   aria-haspopup="true" aria-expanded="true"
+                   ng-click="showDropDown == true ? showDropDown = false : showDropDown = true">
                 <span class="glyphicon glyphicon-user"></span> <span class="hidden-xs hidden-sm">{{userName}} {{userSurname}}</span>
                 <span class="caret"></span>
             </a></li>
@@ -34,20 +35,23 @@
     </div>
 </nav>
 
-<div class="panel panel-body">
-    <ul class="nav nav-tabs ">
-        <li role="presentation" class="tab-item" ng-class="receivedAcorns ? '' : 'active'">
-            <a href="" ng-click="sentAcorns=true;receivedAcorns=false;giveAcorns=true;">Received</a>
-        </li>
-        <li role="presentation" class="tab-item" ng-class="sentAcorns ? '' : 'active'">
-            <a href="" ng-click="sentAcorns=false;receivedAcorns=true;giveAcorns=true">Sent</a>
-        </li>
-    </ul>
-    <div ng-hide="receivedAcorns">
-        <kudos-received-acorns></kudos-received-acorns>
-    </div>
-    <div ng-hide="sentAcorns">
-        <kudos-sent-acorns></kudos-sent-acorns>
+<div class="container">
+    <div class="panel panel-body">
+        <ul class="nav nav-tabs ">
+            <li role="presentation" class="tab-item" ng-class="receivedAcorns ? '' : 'active'">
+                <a href="" ng-click="sentAcorns=true;receivedAcorns=false;giveAcorns=true;">Received</a>
+            </li>
+            <li role="presentation" class="tab-item" ng-class="sentAcorns ? '' : 'active'">
+                <a href="" ng-click="sentAcorns=false;receivedAcorns=true;giveAcorns=true">Sent</a>
+            </li>
+        </ul>
+        <div ng-hide="receivedAcorns">
+            <kudos-received-acorns></kudos-received-acorns>
+        </div>
+        <div ng-hide="sentAcorns">
+            <kudos-sent-acorns></kudos-sent-acorns>
+        </div>
+
     </div>
 
 </div>
