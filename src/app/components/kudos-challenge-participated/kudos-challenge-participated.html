@@ -70,8 +70,7 @@
         <h4 class="card-title text-center">You have been challenged!</h4>
         <p class="card-text">You will have to <span class="bold">{{challengeName}}</span>  by
             <span class="bold">{{challengeCreator}}</span>  for
-            <span class="badge acorn-bg">{{acornPlural(challengeAmount)}}</span> referee is
-            <span class="bold">{{challengeReferee}}</span> </p>
+            <span class="badge acorn-bg">{{acornPlural(challengeAmount)}}</span>
 
         <p ng-if="challengeDescription">Description: {{challengeDescription}}</p>
         <p ng-if="challengeFinishDate">Finish date: {{challengeFinishDate}}</p>
@@ -105,13 +104,10 @@
                 <p class="card-text">You will have to <span class="bold">{{list.name}}</span>  by
                     <span class="bold">{{list.creator}}</span>  for
                     <span class="badge acorn-bg">{{acornPlural(list.amount)}}</span>
+                </p>
 
-                    <div ng-if="list.description">. Description:
-                        <span class="bold">{{list.description}}</span> </p>
-                    </div>
-
-                <p ng-if="challengeDescription">Description: {{challengeDescription}}</p>
-                <p ng-if="challengeFinishDate">Finish date: {{challengeFinishDate}}</p>
+                <p ng-if="list.description">Description: {{list.description}}</p>
+                <p ng-if="list.finishDate">Finish date: {{list.finishDate}}</p>
 
                 <button class="btn btn-danger btn-challenge-participated" ng-click="declineChallenge(id, $index)">Decline</button>
                 <button class="btn btn-success btn-challenge-participated" ng-click="acceptChallenge(id, $index)">Accept</button>

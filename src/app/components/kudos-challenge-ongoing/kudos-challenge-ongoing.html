@@ -1,5 +1,18 @@
 <div class="card card-block text-center">
-    <div>
+    <div ng-if="showList" class="card box-shadow-animation" ng-repeat="list in ongoingChallengeList | orderBy:'-timestamp'">
+        <p class="card-text">You will have to <span class="bold">{{list.name}}</span>  by
+            <span class="bold">{{list.creator}}</span>  for
+            <span class="badge acorn-bg">{{acornPlural(list.amount)}}</span>
+        </p>
+
+        <p ng-if="list.description">Description: {{list.description}}</p>
+        <p ng-if="list.finishDate">Finish date: {{list.finishDate}}</p>
+
+        <button class="btn btn-danger btn-challenge-participated" ng-click="">I lost</button>
+        <button class="btn btn-success btn-challenge-participated" ng-click="">I won</button>
+    </div>
+
+    <div ng-if="!showList">
         <div class="alert alert-info acorn-bg">
             <span class="glyphicon glyphicon-info-sign"></span>
             You do not have any ongoing Challenge

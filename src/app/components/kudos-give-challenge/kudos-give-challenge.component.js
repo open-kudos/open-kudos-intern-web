@@ -5,6 +5,7 @@ angular.module('myApp.components.giveChallenge', [])
     })
     .controller('GiveChallengeController', function ($scope, $httpParamSerializer, Resources, Challenges, GiveChallengeService, $filter) {
         var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
+        $scope.userAvailableKudos = 0;
 
         $scope.clearChallengeFormValues = clearChallengeFormValues;
         $scope.challengeFormCheck = challengeFormCheck;
@@ -78,6 +79,16 @@ angular.module('myApp.components.giveChallenge', [])
         function showChallengeFormErrorMessage(message) {
             $scope.errorClass = "error-message";
             $scope.challengeFormErrorMessage = message;
+        }
+
+        $scope.$watch(function () {
+            return Resources.getUserAvailableKudos()
+        }, function (newVal) {
+            if (!isValid(newVal)) $scope.userAvailableKudos = Resources.getUserAvailableKudos();
+        });
+
+        function isValid(value) {
+            return typeof value === "undefined";
         }
 
         function acornPlural(val){
