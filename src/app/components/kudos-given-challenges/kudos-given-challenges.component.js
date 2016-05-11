@@ -19,6 +19,7 @@
             $scope.doesDateExist = doesDateExist;
             $scope.cancelChallenge = cancelChallenge;
             $scope.checkList = checkList;
+            $scope.convertDate = convertDate;
 
 
             GivenChallengesService.givenChallenges(requestData).then(function (val) {
@@ -54,6 +55,12 @@
 
             function checkList() {
                 $scope.showList = $scope.givenChallengesCollection.length > 0;
+            }
+
+            function convertDate(val){
+                val = val.split(":");
+                val = val[0] + ":" + val[1];
+                return val;
             }
         });
 })();
