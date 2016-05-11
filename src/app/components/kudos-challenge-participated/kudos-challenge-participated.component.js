@@ -25,6 +25,7 @@
             $scope.refreshList = refreshList;
             $scope.acornPlural = acornPlural;
             $scope.getAllChallengeParticipatedList = getAllChallengeParticipatedList;
+            $scope.convertDate = convertDate;
 
             getChallengeParticipatedList();
 
@@ -99,6 +100,12 @@
 
             function acornPlural(amount) {
                 return amount > 1 ? amount + " Acorns" : amount + " Acorn"
+            }
+
+            function convertDate(val){
+                val = val.split(":");
+                val = val[0] + ":" + val[1];
+                return val;
             }
         });
 })();

@@ -14,32 +14,33 @@ angular.module('myApp.components.giveChallenge', [])
 
         function giveChallenge() {
             var expirationDate = $filter('date')($scope.giveChallengeExpirationDate, requestDateFormat);
+            var currentDate = $filter('date')(new Date(), requestDateFormat);
+            $scope.userEmail = Resources.getCurrentUserEmail();
 
             var giveTo = $httpParamSerializer({
                 participant: $scope.giveChallengeTo,
-                referee: $scope.giveChallengeReferee,
                 name: $scope.giveChallengeName,
                 description: $scope.giveChallengeDescription,
                 finishDate: expirationDate,
                 amount: $scope.giveChallengeAmountOfKudos
             });
 
-            var challengeCall = challengeFormCheck();
+
+            var challengeCall = challengeFormCheck(expirationDate, currentDate);
 
             if (challengeCall)
                 GiveChallengeService.create(giveTo).then(function (val) {
                     clearChallengeFormValues();
                     $('#giveChallengeModal').modal('hide');
-                    toastr.success('You successfully challenged ' + val.data.participant + " with " + acornPlural(val.data.amount) + '.' +
-                        ' Referee: ' + val.data.referee);
+                    toastr.success('You successfully challenged ' + val.data.participant + " with " + val.data.amount + " " + acornPlural(val.data.amount) + '.');
                     Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
                     Resources.getGivenChallenges().push(val.data);
                 }).catch(function () {
-                    showChallengeFormErrorMessage("Challenge receiver or referee does not exist");
+                    showChallengeFormErrorMessage("Challenge receiver does not exist");
                 })
         }
 
-        function challengeFormCheck() {
+        function challengeFormCheck(expirationDate, currentDate) {
             if ($scope.giveChallengeName == null) {
                 showChallengeFormErrorMessage("Please enter Challenge name");
                 return false;
@@ -55,16 +56,12 @@ angular.module('myApp.components.giveChallenge', [])
             } else if ($scope.giveChallengeTo == $scope.userEmail) {
                 showChallengeFormErrorMessage("You can't challenge yourself");
                 return false;
-            } else if ($scope.giveChallengeReferee == null) {
-                showChallengeFormErrorMessage("Please enter challenge referee");
+            } else if (expirationDate <= currentDate){
+                showChallengeFormErrorMessage("You can not choose date in the past");
                 return false;
-            } else if ($scope.giveChallengeReferee == $scope.userEmail) {
-                showChallengeFormErrorMessage("You can't be challenge referee");
-                return false;
-            } else if ($scope.giveChallengeTo == $scope.giveChallengeReferee) {
-                showChallengeFormErrorMessage("Challenge receiver can't be challenge referee");
-                return false;
-            } else return true;
+            }
+            showChallengeFormErrorMessage("");
+            return true;
         }
 
         function clearChallengeFormValues() {
