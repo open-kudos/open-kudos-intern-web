@@ -6,6 +6,7 @@ $color-emerald:             #2ecc71;
 $color-emerald-dark:        #27ae60;
 $color-pomegranate:         #e74c3c;
 $color-pomegranate-dark:    #c0392b;
+$color-swed-orange:         #FF6100;
 
 $padding-small:             10px;
 
@@ -58,6 +59,27 @@ body{
   border-radius: 0 0 $border-radius-small $border-radius-small;
 }
 
+.tab-item{
+  text-align: center;
+  width: 1/3;
+}
+
+.notification-item {
+  width: 100%;
+}
+
+.navbar .container-fluid>.navbar-header {
+  float: left;
+  margin-right: 10px;
+}
+.navbar .navbar-nav {
+  float: left;
+  margin: 5px;
+}
+.nav>li {
+  float: left;
+}
+
 .box-shadow-animation {
   box-shadow: none;
   transition: box-shadow $transition-duration-short;
@@ -66,4 +88,51 @@ body{
 .box-shadow-animation:hover {
   box-shadow: 2px 2px 2px 2px $color-grey-borders;
   transition: box-shadow $transition-duration-short;
+}
+
+.fixed-element-floating{
+  position: fixed;
+  z-index: 3;
+  //background: $color-swed-orange;
+  width:60px;
+  height:60px;
+  text-align: center;
+  border-radius:100%;
+  padding: $padding-small;
+  margin-left: $margin-small;
+  margin-top: $margin-small;
+  border:none;
+  font-size:36px;
+  transition:.3s;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.fixed-element-floating:focus {
+
+}
+
+.fixed-element-floating:hover {
+  transition: scal $transition-duration-short;
+}
+
+.top-badge {
+  z-index: 4;
+  top: 0;
+  left: 30px;
+  position: absolute;
+  border-radius: 10%;
+  width: 25px;
+  height: 25px;
+  font-size: 15px;
+  text-align-all: center;
+}
+
+@-webkit-keyframes arm {
+  from { -webkit-transform: rotate(10deg); }
+  to { -webkit-transform: rotate(-10deg); }
+}
+
+.arm {
+  -webkit-transform-origin:0% 60%;
+  -webkit-animation:arm 0.5s ease-in-out infinite alternate;
 }

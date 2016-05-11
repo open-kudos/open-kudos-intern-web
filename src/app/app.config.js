@@ -22,19 +22,24 @@
             })
             .when('/feed', {
                 templateUrl: 'app/kudos-feed/kudos-feed.html',
-            });
+            })
+            .when('/acorns', {
+                templateUrl: 'app/acorns/acorns.html',
+                controller: 'AcornController'
+            })
+            .when('/notifications', {
+            templateUrl: 'app/notifications/notification.html',
+                controller: 'NotificationController'
+        });
 
         $translateProvider.useStaticFilesLoader({
             prefix: 'app/translations/locale-',
             suffix: '.json'
         });
-
-        $logProvider.debugEnabled(true);
-
-        //$locationProvider.html5Mode(true);
-
         $translateProvider.preferredLanguage('en');
         $translateProvider.useSanitizeValueStrategy('escape');
         $translateProvider.useCookieStorage();
+
+        $logProvider.debugEnabled(true);
     });
 })();

@@ -4,7 +4,7 @@
             templateUrl: 'app/components/kudos-received-acorns/kudos-received-acorns.html',
             controller: 'ReceivedAcornsController'
         })
-        .controller('ReceivedAcornsController', function ($scope, ReceivedAcornsService, Resources) {
+        .controller('ReceivedAcornsController', function ($scope, $cookies, ReceivedAcornsService, Resources) {
 
             var showMoreLimit = 5;
             $scope.incomingKudosShowLimit = 5;
@@ -15,6 +15,9 @@
 
             ReceivedAcornsService.incomingKudos().then(function (val) {
                 Resources.setIncomingKudosCollection(val);
+                if ($cookies.get('last_transaction') == null){
+                    $cookies.put('last_transaction', val[0].timestamp);
+                }
                 $scope.incomingKudosCollection = Resources.getIncomingKudosCollection();
                 showMoreIncomingKudosButton(val);
                 Resources.setReceivedKudosTable();

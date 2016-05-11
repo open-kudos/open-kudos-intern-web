@@ -10,8 +10,12 @@
         $scope.userAvailableKudos = 0;
         $scope.usersCollection = [];
         $scope.buttonDisabled = true;
-        $scope.received = true;
+        $scope.receivedAcorns = false;
         $scope.sentAcorns = true;
+        $scope.giveAcorns = false;
+        $scope.received = true;
+
+        $scope.showDropDown = false;
 
         $scope.receiverErrorClass = "";
         $scope.receiverErrorMessage = "";
@@ -34,6 +38,8 @@
             $scope.userTeam = val.team;
             $scope.userStartedToWork = val.startedToWorkDate;
             $scope.userBirthday = val.birthday;
+            Resources.setCurrentUserEmail(val.email);
+            
         });
 
         ProfileService.remainingKudos().then(function (val) {
