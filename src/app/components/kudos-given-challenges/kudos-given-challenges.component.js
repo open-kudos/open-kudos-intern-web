@@ -17,6 +17,7 @@
             $scope.showLessInfo = showLessInfo;
             $scope.doesDateExist = doesDateExist;
             $scope.cancelChallenge = cancelChallenge;
+            $scope.acornPlural = acornPlural;
 
 
             GivenChallengesService.givenChallenges(requestData).then(function (val) {
@@ -46,6 +47,10 @@
                     $scope.givenChallengesCollection = Resources.getGivenChallenges();
                     toastr.success("Challenge canceled");
                 });
+            }
+
+            function acornPlural(amount) {
+                return amount > 1 ? amount + " Acorns" : amount + " Acorn"
             }
         });
 })();
