@@ -13,7 +13,7 @@
                 controller: 'loginController'
             })
             .when('/profile', {
-                templateUrl: 'app/profile/profile-new.html',
+                templateUrl: 'app/profile/profile.html',
                 controller: 'ProfileController'
             })
             .when('/registration', {
