@@ -10,7 +10,7 @@
             }
         })
 
-        .controller('KudosChallengeParticipatedController', function ($httpParamSerializer, $scope, KudosChallengeParticipatedService) {
+        .controller('KudosChallengeParticipatedController', function ($httpParamSerializer, $scope, KudosChallengeParticipatedService, Resources) {
             var requestData;
 
             $scope.challengeList = [];
@@ -62,6 +62,7 @@
                 KudosChallengeParticipatedService.accept(requestData).then(function (val) {
                     toastr.success('You accepted ' + val.data.creator + ' challenge');
                     removeElement(index);
+                    Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
                     getChallengeParticipatedList()
                 })
             }

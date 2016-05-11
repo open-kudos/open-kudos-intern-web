@@ -1,4 +1,4 @@
-<div class="card-block text-center">
+<div class="card card-block text-center">
     <div ng-if="showList" class="card box-shadow-animation" ng-repeat="list in ongoingChallengeList | orderBy:'-createDateDate'">
         <p class="card-text">You will have to <span class="bold">{{list.name}}</span>  by
             <span class="bold" ng-if="list.creator != userEmail">{{list.creator}}</span>
