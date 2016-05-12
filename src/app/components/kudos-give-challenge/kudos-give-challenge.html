@@ -26,9 +26,20 @@
 
                     <div class="form-group col-sm-12">
                         <label for="giveChallengeTo">{{'GIVE_CHALLENGE_TO' | translate }}</label>
-                        <input ng-model="giveChallengeTo" class="form-control"
+                        <input ng-model="giveChallengeTo"
+                               class="form-control"
                                id="giveChallengeTo"
-                               name="giveChallengeTo" type="email" required>
+                               name="giveChallengeTo"
+                               type="text"
+                               autocomplete="off"
+                               required>
+                    </div>
+                    <div class="autocomplete" ng-show="autocompleteHide==false">
+                        <div ng-repeat="autoText in usersCollection | filter:giveChallengeTo"
+                             ng-click="selectAutoText(autoText.email)">
+                            <p>{{autoText.firstName}} {{autoText.lastName}}</p>
+                            <p class="small">{{autoText.email}}</p>
+                        </div>
                     </div>
 
                     <div class="form-group col-sm-12">

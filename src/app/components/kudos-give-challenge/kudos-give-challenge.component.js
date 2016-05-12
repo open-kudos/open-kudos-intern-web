@@ -6,11 +6,33 @@ angular.module('myApp.components.giveChallenge', [])
     .controller('GiveChallengeController', function ($scope, $httpParamSerializer, Resources, Challenges, GiveChallengeService, $filter) {
         var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
         $scope.userAvailableKudos = 0;
+        $scope.autocompleteHide = true;
 
         $scope.clearChallengeFormValues = clearChallengeFormValues;
         $scope.challengeFormCheck = challengeFormCheck;
         $scope.giveChallenge = giveChallenge;
         $scope.showChallengeFormErrorMessage = showChallengeFormErrorMessage;
+
+
+        $scope.selectAutoText = function (text) {
+            $scope.giveChallengeTo = text;
+            $scope.searchTermSelected = true;
+            $scope.autocompleteHide = true;
+        };
+
+        $scope.$watch('giveChallengeTo', function (newVal, oldVal) {
+            if ($scope.searchTermSelected == false) {
+                if (newVal != undefined) {
+                    (newVal.length > 1) ? $scope.autocompleteHide = false : $scope.autocompleteHide = true;
+                }
+            } else {
+                $scope.searchTermSelected = false;
+            }
+        });
+
+        GiveChallengeService.listUsers().then(function (val) {
+            $scope.usersCollection = val.userList;
+        });
 
         function giveChallenge() {
             var expirationDate = $filter('date')($scope.giveChallengeExpirationDate, requestDateFormat);
@@ -71,6 +93,7 @@ angular.module('myApp.components.giveChallenge', [])
             $scope.giveChallengeDescription = null;
             $scope.giveChallengeExpirationDate = null;
             $scope.giveChallengeAmountOfKudos = null;
+            $scope.autocompleteHide = true;
         }
 
         function showChallengeFormErrorMessage(message) {
