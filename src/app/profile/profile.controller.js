@@ -22,17 +22,13 @@
         $scope.amountErrorClass = "";
         $scope.amountErrorMessage = "";
 
-        $scope.logout = logout;
         $scope.isValid = isValid;
 
         checkUser();
-        registerTooltip();
 
         ProfileService.userHome().then(function (val) {
             Resources.setCurrentUser(val);
             Resources.setCurrentUserEmail(val.email);
-            console.log(Resources.getCurrentUser());
-            
         });
 
         ProfileService.remainingKudos().then(function (val) {
@@ -42,7 +38,6 @@
         ProfileService.receivedKudos().then(function (val) {
             $scope.userReceivedKudos = val;
         });
-
 
         ProfileService.listUsers().then(function (val) {
             $scope.usersCollection = val.userList;
@@ -60,26 +55,8 @@
             });
         }
 
-        function logout() {
-            clearCookies();
-            ProfileService.logout().catch(function () {
-                $window.location.href = "#/login";
-            });
-        }
-
-        function clearCookies() {
-            $cookies.put('remember_user', 'false');
-            $cookies.put('user_credentials', '');
-        }
-
         function isValid(value) {
             return typeof value === "undefined";
-        }
-
-        function registerTooltip() {
-            $(document).ready(function () {
-                $('[data-toggle="tooltip"]').tooltip();
-            });
         }
     };
 

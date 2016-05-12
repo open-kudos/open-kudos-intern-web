@@ -3,7 +3,6 @@
         <ul class="nav navbar-nav navbar-left">
             <li><a ng-class="selectedHome ? 'selected' : ''" href="#/profile">Home</a></li>
             <li><a ng-class="selectedAcorns ? 'selected' : ''" href="#/acorns">Acorns</a></li>
-            <li><a ng-class="selectedChallenges ? 'selected' : ''" href="">Challenges</a></li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
@@ -22,7 +21,7 @@
             <a ng-hide="en" id="enButton" ng-click="lt=false; en=true; changeLanguage('en')" href="">English</a>
         </div>
 
-        <div>
+        <div ng-click="logout()">
             <a ng-click="logout()" class="" href="#"><span class="glyphicon glyphicon-log-in"></span>
                 {{ 'ProfileMeLogout' | translate }}</a>
         </div>

@@ -3,29 +3,44 @@
  */
 (function () {
     
-    function KudosNavbarController($scope, $location, Resources) {
+    function KudosNavbarController($scope, $location, $window, $cookies, Resources, ProfileService) {
 
         $scope.selectedHome = false;
         $scope.selectedAcorns = false;
         $scope.selectedChallenges = false;
         $scope.user = Resources.getCurrentUser();
 
+        $scope.logout = logout;
+
         function activate(){
             if ( $location.path() == '/profile'){
                 $scope.selectedHome = true;
             } else if ( $location.path() == '/acorns'){
                 $scope.selectedAcorns = true;
-            } else if ( $location.path() == '/challenges'){
-                $scope.selectedChallenges = true;
             }
         }
 
         activate();
 
+        $scope.$watch(function () {
+            return $scope.user = Resources.getCurrentUser()
+        });
+
+        function logout() {
+            clearCookies();
+            ProfileService.logout().catch(function () {
+                $window.location.href = "#/login";
+            });
+        }
+
+        function clearCookies() {
+            $cookies.put('remember_user', 'false');
+            $cookies.put('user_credentials', '');
+        }
 
     }
 
-    KudosNavbarController.$inject = ['$scope', '$location', 'Resources'];
+    KudosNavbarController.$inject = ['$scope', '$location', '$window', '$cookies', 'Resources', 'ProfileService'];
 
     angular.module('myApp.components.navbar', [])
         .component('kudosNavbar', {
