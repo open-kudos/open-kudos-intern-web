@@ -11,6 +11,7 @@
             var userAvailableKudos;
             var sentKudosTable;
             var receivedKudosTable;
+            var ongoingChallenges;
 
 
             var lastTransactionTimestamp;
@@ -24,7 +25,6 @@
                     outgoingKudosCollection = val;
                 },
                 getIncomingKudosCollection: function () {
-                    
                     return incomingKudosCollection;
                 },
                 setIncomingKudosCollection: function (val) {
@@ -76,6 +76,12 @@
                 getNotificationsTransactionCollection: function () {
                     console.log("FROM RETURN: " + notificationsTransactionCollection.length);
                     return notificationsTransactionCollection;
+                },
+                getOngoingChallenges: function () {
+                    return ongoingChallenges;
+                },
+                setOngoingChallenges: function (val) {
+                    ongoingChallenges = val;
                 }
             };
         });

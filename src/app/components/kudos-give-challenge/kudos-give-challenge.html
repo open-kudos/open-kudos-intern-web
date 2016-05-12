@@ -33,12 +33,12 @@
                                type="text"
                                autocomplete="off"
                                required>
-                    </div>
-                    <div class="autocomplete" ng-show="autocompleteHide==false">
-                        <div ng-repeat="autoText in usersCollection | filter:giveChallengeTo"
-                             ng-click="selectAutoText(autoText.email)">
-                            <p>{{autoText.firstName}} {{autoText.lastName}}</p>
-                            <p class="small">{{autoText.email}}</p>
+                        <div class="autocomplete" ng-show="autocompleteHide==false">
+                            <div ng-repeat="autoText in usersCollection | filter:giveChallengeTo"
+                                 ng-click="selectAutoText(autoText.email)">
+                                <p>{{autoText.firstName}} {{autoText.lastName}}</p>
+                                <p class="small">{{autoText.email}}</p>
+                            </div>
                         </div>
                     </div>
 

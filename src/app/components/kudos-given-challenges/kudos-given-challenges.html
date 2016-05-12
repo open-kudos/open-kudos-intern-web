@@ -6,7 +6,7 @@
             <span class="acorn-bg badge">{{acornPlural(givenChallenges.amount)}}</span>
             <div ng-show="givenChallenges.show" align="left">
                 <div>
-                    <span class="bold">{{'ProfileMeDescription' | translate}}: </span>
+                    <span class="bold" ng-if="givenChallenges.description">{{'ProfileMeDescription' | translate}}: </span>
                     <span>{{givenChallenges.description}}</span>
                 </div>
                 <div>
@@ -14,7 +14,7 @@
                     <span>{{givenChallenges.participant}}</span>
                 </div>
                 <div>
-                    <span class="bold">{{'ProfileMeExpirationDate' | translate}}: </span>
+                    <span class="bold" ng-if="givenChallenges.finishDate">{{'ProfileMeExpirationDate' | translate}}: </span>
                     <span>{{convertDate(givenChallenges.finishDate)}}</span>
                 </div>
             </div>

@@ -61,15 +61,17 @@
                 requestData = $httpParamSerializer({
                     id: id
                 });
-                
+
                 if (userAvailableKudos >=  kudos) {
                     KudosChallengeParticipatedService.accept(requestData).then(function (val) {
                         toastr.success('You accepted ' + val.data.creator + ' challenge');
                         removeElement(index);
                         Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
-                        getChallengeParticipatedList()
+                        Resources.getOngoingChallenges().push(val.data);
+                        getChallengeParticipatedList();
+                        refreshList();
                     })
-                } else toastr.error('You only have ' + userAvailableKudos + ' ' + acornPlural(userAvailableKudos) +
+                } else toastr.error('You only have ' + ' ' + acornPlural(userAvailableKudos) +
                     '. To accept challenge, you must have atleast ' + kudos);
             }
 
@@ -81,6 +83,7 @@
                     toastr.info('You declined ' + val.data.creator + ' challenge');
                     removeElement(index);
                     getChallengeParticipatedList();
+                    refreshList();
                 })
             }
 
@@ -110,9 +113,11 @@
             }
 
             function convertDate(val){
-                val = val.split(":");
-                val = val[0] + ":" + val[1];
-                return val;
+                if (val) {
+                    val = val.split(":");
+                    val = val[0] + ":" + val[1];
+                    return val;
+                }
             }
         });
 })();
