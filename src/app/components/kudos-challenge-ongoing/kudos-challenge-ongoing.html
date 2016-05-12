@@ -10,8 +10,8 @@
         <p ng-if="list.description">Description: {{list.description}}</p>
         <p ng-if="list.finishDate">Finish date: {{convertDate(list.finishDate)}}</p>
 
-        <button class="btn btn-danger btn-challenge-participated" ng-click="lost()">I lost</button>
-        <button class="btn btn-success btn-challenge-participated" ng-click="won()">I won</button>
+        <button class="btn btn-danger btn-challenge-participated" ng-click="lost(list.id, list.amount)">I lost</button>
+        <button class="btn btn-success btn-challenge-participated" ng-click="won(list.id, list.amount)">I won</button>
     </div>
 
     <div ng-if="!showList">
