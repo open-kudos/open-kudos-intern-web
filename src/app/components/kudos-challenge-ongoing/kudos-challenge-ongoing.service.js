@@ -10,21 +10,8 @@
 
     function KudosChallengeOngoingService($httpParamSerializer, Challenges) {
         var service = {
-            getReceivedList: getReceivedChallenges,
-            getGivenList: getGivenChallenges
-        }
-        return service;
 
-        function getReceivedChallenges(requestData) {
-            return Challenges.allReceivedChallenges(requestData).then(function (val) {
-                return val;
-            });
-        }
-        
-        function getGivenChallenges(requestData){
-            return Challenges.givenChallenges(requestData).then(function (val) {
-                return val;
-            });
-        }
+        };
+        return service;
     }
 })();

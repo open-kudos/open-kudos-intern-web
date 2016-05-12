@@ -12,7 +12,6 @@
             });
 
             $scope.givenChallengesCollection = [];
-            $scope.showList = false;
 
             $scope.showMoreInfo = showMoreInfo;
             $scope.showLessInfo = showLessInfo;

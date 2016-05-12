@@ -27,8 +27,8 @@
                 method: 'POST',
                 withCredentials: true,
                 url: SERVER.ip + "/login?" + data
-            }).then(function successCallback(response) {
-                return response.data;
+            }).then(function (response) {
+                return response;
             });
         }
 
@@ -38,7 +38,7 @@
                 withCredentials: true,
                 url: SERVER.ip + "/logout"
             }).then(function (response) {
-                return response.data;
+                return response;
             });
         }
 
