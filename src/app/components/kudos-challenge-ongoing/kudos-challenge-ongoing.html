@@ -10,9 +10,19 @@
         <p ng-if="list.description">Description: {{list.description}}</p>
         <p ng-if="list.finishDate">Finish date: {{convertDate(list.finishDate)}}</p>
 
-        <div>
-            <button class="btn btn-danger btn-challenge-participated" ng-click="lost(list.id, list.amount)">I lost</button>
-            <button class="btn btn-success btn-challenge-participated" ng-click="won(list.id, list.amount)">I won</button>
+        <div ng-if="isSelected(list)">
+            <label>{{selectedMessage}}</label>
+        </div>
+
+        <div ng-if="showButtons(list)">
+            <button ng-hide="buttons" class="btn btn-danger btn-challenge-participated" ng-click="lost(list.id, list.amount); buttons = true">I lost</button>
+            <button ng-hide="buttons" class="btn btn-success btn-challenge-participated" ng-click="won(list.id, list.amount); buttons = true">I won</button>
+        </div>
+        <div ng-if="!showButtons(list)">
+            <label>Waiting for other user to select</label>
+        </div>
+        <div ng-show="buttons">
+            <label>Waiting for other user to select</label>
         </div>
     </div>
 

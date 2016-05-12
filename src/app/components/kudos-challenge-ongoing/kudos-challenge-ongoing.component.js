@@ -23,6 +23,8 @@
             $scope.won = won;
             $scope.lost = lost;
             $scope.convertDate = convertDate;
+            $scope.showButtons = showButtons;
+            $scope.isSelected = isSelected;
 
             getChallengeOngoingList();
 
@@ -66,6 +68,26 @@
                 KudosChallengeOngoingService.accomplish(requestData).then(function (val) {
                     toastr.success('You think that you won challenge. Well... maybe not!');
                 })
+            }
+            
+            function showButtons (list) {
+                if (list.creator == $scope.userEmail)
+                    return list.creatorStatus == null;
+
+                if (list.participant == $scope.userEmail)
+                    return list.participantStatus == null;
+            }
+
+            function isSelected(list) {
+                if (list.creator == $scope.userEmail) {
+                    if (list.participantStatus == false) return $scope.selectedMessage = list.participant + " thinks he lost";
+                    else if (list.participantStatus == true) return $scope.selectedMessage = list.participant + " thinks he won";
+                    else return false;
+                } else if (list.participant == $scope.userEmail) {
+                    if (list.creatorStatus == false) return $scope.selectedMessage = list.creator + " thinks he lost";
+                    else if (list.creatorStatus == true) return $scope.selectedMessage = list.creator + " thinks he won";
+                    else return false;
+                }
             }
 
             $scope.$watch(function () {
