@@ -10,7 +10,7 @@
             }
         })
 
-        .controller('KudosChallengeParticipatedController', function ($httpParamSerializer, $scope, KudosChallengeParticipatedService) {
+        .controller('KudosChallengeParticipatedController', function ($httpParamSerializer, $scope, KudosChallengeParticipatedService, Resources) {
             var requestData;
 
             $scope.challengeList = [];
@@ -25,6 +25,7 @@
             $scope.refreshList = refreshList;
             $scope.acornPlural = acornPlural;
             $scope.getAllChallengeParticipatedList = getAllChallengeParticipatedList;
+            $scope.convertDate = convertDate;
 
             getChallengeParticipatedList();
 
@@ -54,15 +55,22 @@
                 })
             }
 
-            function acceptChallenge(id, index) {
+            function acceptChallenge(id, index, kudos) {
+                var userAvailableKudos = Resources.getUserAvailableKudos();
+                
                 requestData = $httpParamSerializer({
                     id: id
                 });
-                KudosChallengeParticipatedService.accept(requestData).then(function (val) {
-                    toastr.success('You accepted ' + val.data.creator + ' challenge');
-                    removeElement(index);
-                    getChallengeParticipatedList()
-                })
+                
+                if (userAvailableKudos >=  kudos) {
+                    KudosChallengeParticipatedService.accept(requestData).then(function (val) {
+                        toastr.success('You accepted ' + val.data.creator + ' challenge');
+                        removeElement(index);
+                        Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
+                        getChallengeParticipatedList()
+                    })
+                } else toastr.error('You only have ' + userAvailableKudos + ' ' + acornPlural(userAvailableKudos) +
+                    '. To accept challenge, you must have atleast ' + kudos);
             }
 
             function declineChallenge(id, index) {
@@ -99,6 +107,12 @@
 
             function acornPlural(amount) {
                 return amount > 1 ? amount + " Acorns" : amount + " Acorn"
+            }
+
+            function convertDate(val){
+                val = val.split(":");
+                val = val[0] + ":" + val[1];
+                return val;
             }
         });
 })();

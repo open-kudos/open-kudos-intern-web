@@ -3,7 +3,7 @@
             class="animate-repeat list-group-item">
             <i ng-click="cancelChallenge($index)" ng-show="doesDateExist($index)" class="glyphicon glyphicon-remove leftAlignment"></i>
             <span>{{givenChallenges.name}}</span>
-            <span class="acorn-bg badge">{{givenChallenges.amount}} acorns</span>
+            <span class="acorn-bg badge">{{acornPlural(givenChallenges.amount)}}</span>
             <div ng-show="givenChallenges.show" align="left">
                 <div>
                     <span class="bold">{{'ProfileMeDescription' | translate}}: </span>
@@ -15,7 +15,7 @@
                 </div>
                 <div>
                     <span class="bold">{{'ProfileMeExpirationDate' | translate}}: </span>
-                    <span>{{givenChallenges.finishDate}}</span>
+                    <span>{{convertDate(givenChallenges.finishDate)}}</span>
                 </div>
             </div>
         </li>
