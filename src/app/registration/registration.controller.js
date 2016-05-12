@@ -9,37 +9,41 @@
         ])
 
         .controller('registrationController', function ($scope, $http, $cookies, $base64, $window, $translate, $httpParamSerializer, RegistrationService, LoginService) {
-            var splited;
+            var checkSplited = false;
+            var splited = [];
             $scope.register = register;
             $scope.split = split;
 
             function register() {
                 var fullName = $scope.fullName;
                 split(fullName);
-
-                var requestData = $httpParamSerializer({
-                    email: $scope.email,
-                    firstName: splited[0],
-                    lastName: splited[1],
-                    password: $scope.password,
-                    confirmPassword: $scope.confirmPassword
-                });
-                RegistrationService.register(requestData).then(function (val) {
-                    RegistrationService.confirm(val.emailHash).then(function (val) {
-
-                        var rememberMe = $scope.rememberMeCheckbox;
-                        var loginInfo = $httpParamSerializer({
-                            email: $scope.email,
-                            password: $scope.password
-                        });
-                        if (rememberMe) {
-                            rememberMeAndLogin(loginInfo)
-                        } else {
-                            loginAndValidate(loginInfo)
-                        }
-
+                
+                if (checkSplited) {
+                    var requestData = $httpParamSerializer({
+                        email: $scope.email,
+                        firstName: splited[0],
+                        lastName: splited[1],
+                        password: $scope.password,
+                        confirmPassword: $scope.confirmPassword
                     });
-                });
+
+                    RegistrationService.register(requestData).then(function (val) {
+                        RegistrationService.confirm(val.emailHash).then(function (val) {
+
+                            var rememberMe = $scope.rememberMeCheckbox;
+                            var loginInfo = $httpParamSerializer({
+                                email: $scope.email,
+                                password: $scope.password
+                            });
+                            if (rememberMe) {
+                                rememberMeAndLogin(loginInfo)
+                            } else {
+                                loginAndValidate(loginInfo)
+                            }
+
+                        });
+                    });
+                }
             }
 
             function rememberMeAndLogin(loginInfo) {
@@ -57,8 +61,11 @@
             }
 
             function split(val) {
-                splited = val.split(' ');
-                return splited;
+                if (val) {
+                    splited = val.split(' ');
+                    if (val[1]) checkSplited = true;
+                    return splited;
+                }
             }
         })
 

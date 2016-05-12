@@ -37,8 +37,7 @@
                     KudosChallengeOngoingService.getGivenList(requestData).then(function (value) {
                         $scope.givenList = value;
                         $scope.ongoingChallengeList = $scope.receivedList.concat($scope.givenList);
-
-                        $scope.showList = !!$scope.ongoingChallengeList[0];
+                        Resources.setOngoingChallenges($scope.ongoingChallengeList);
                     });
                 });
             }
@@ -69,17 +68,16 @@
                 })
             }
 
+            $scope.$watch(function () {
+                $scope.showList = $scope.ongoingChallengeList.length > 0;
+                return Resources.getOngoingChallenges()
+            }, function () {
+            });
+
             function convertDate(val){
                 val = val.split(":");
                 val = val[0] + ":" + val[1];
                 return val;
-            }
-
-            function acornPlural(val){
-                if (val > 1)
-                    return 'Acorns';
-                else
-                    return 'Acorn';
             }
         });
 })();

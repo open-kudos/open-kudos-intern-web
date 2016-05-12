@@ -110,8 +110,8 @@
                     <p ng-if="list.description">Description: {{list.description}}</p>
                     <p ng-if="list.finishDate">Finish date: {{convertDate(list.finishDate)}}</p>
 
-                    <button class="btn btn-danger btn-challenge-participated" ng-click="declineChallenge(id, $index)">Decline</button>
-                    <button class="btn btn-success btn-challenge-participated" ng-click="acceptChallenge(id, $index, challengeAmount)">Accept</button>
+                    <button class="btn btn-danger btn-challenge-participated" ng-click="declineChallenge(list.id, $index)">Decline</button>
+                    <button class="btn btn-success btn-challenge-participated" ng-click="acceptChallenge(list.id, $index, list.amount)">Accept</button>
 
                 </div>
             </div>

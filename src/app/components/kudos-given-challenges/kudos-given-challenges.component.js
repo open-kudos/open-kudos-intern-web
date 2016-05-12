@@ -25,7 +25,6 @@
             GivenChallengesService.givenChallenges(requestData).then(function (val) {
                 Resources.setGivenChallenges(val);
                 $scope.givenChallengesCollection = Resources.getGivenChallenges();
-                checkList();
             });
 
             function showMoreInfo(index) {
@@ -49,7 +48,6 @@
                     Resources.getGivenChallenges().splice(index, 1);
                     $scope.givenChallengesCollection = Resources.getGivenChallenges();
                     toastr.success("Challenge canceled");
-                    checkList();
                 });
             }
 
@@ -58,13 +56,19 @@
             }
 
             function convertDate(val){
-                val = val.split(":");
-                val = val[0] + ":" + val[1];
-                return val;
+                if (val) {
+                    val = val.split(":");
+                    val = val[0] + ":" + val[1];
+                    return val;
+                }
             }
 
             function acornPlural(amount) {
                 return amount > 1 ? amount + " Acorns" : amount + " Acorn"
             }
+
+            $scope.$watch(function () {
+                checkList();
+            })
         });
 })();

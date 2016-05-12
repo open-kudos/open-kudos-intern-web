@@ -12,6 +12,7 @@
             var sentKudosTable;
             var receivedKudosTable;
             var currentUser;
+            var ongoingChallenges;
 
 
             var lastTransactionTimestamp;
@@ -25,7 +26,6 @@
                     outgoingKudosCollection = val;
                 },
                 getIncomingKudosCollection: function () {
-                    
                     return incomingKudosCollection;
                 },
                 setIncomingKudosCollection: function (val) {
@@ -80,6 +80,12 @@
                 },
                 getCurrentUser: function () {
                     return currentUser;
+                },
+                getOngoingChallenges: function () {
+                    return ongoingChallenges;
+                },
+                setOngoingChallenges: function (val) {
+                    ongoingChallenges = val;
                 }
             };
         });
