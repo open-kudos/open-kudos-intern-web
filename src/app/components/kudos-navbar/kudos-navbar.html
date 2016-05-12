@@ -1,10 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<nav class="navbar navbar-default navbar-fixed-top" id="mainnavbar">
+    <div class="container">
+        <ul class="nav navbar-nav navbar-left">
+            <li><a ng-class="selectedHome ? 'selected' : ''" href="#/profile">Home</a></li>
+            <li><a ng-class="selectedAcorns ? 'selected' : ''" href="#/acorns">Acorns</a></li>
+            <li><a ng-class="selectedChallenges ? 'selected' : ''" href="">Challenges</a></li>
+        </ul>
 
-</body>
-</html>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="" class="dropdown-toggle" type="button" id="dropdownMenu1"
+                   aria-haspopup="true" aria-expanded="true"
+                   ng-click="showDropDown == true ? showDropDown = false : showDropDown = true">
+                <span class="glyphicon glyphicon-user"></span><span class="hidden-xs hidden-sm">{{user.firstName}} {{user.lastName}}</span>
+                <span class="caret"></span>
+            </a></li>
+        </ul>
+    </div>
+    <div class="nav-dropdown" ng-hide="!showDropDown">
+        <div ng-controller="AppController">
+            <a ng-hide="lt" id="ltButton" ng-click="lt=true; en=false; changeLanguage('lt')"
+               href="">Lietuvių</a>
+            <a ng-hide="en" id="enButton" ng-click="lt=false; en=true; changeLanguage('en')" href="">English</a>
+        </div>
+
+        <div>
+            <a ng-click="logout()" class="" href="#"><span class="glyphicon glyphicon-log-in"></span>
+                {{ 'ProfileMeLogout' | translate }}</a>
+        </div>
+    </div>
+</nav>

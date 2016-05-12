@@ -1,38 +1,6 @@
 <title>{{ 'ProfileMe' | translate }}</title>
 
-<nav class="navbar navbar-default navbar-fixed-top kudos-navbar" id="mainnavbar">
-    <div class="container-fluid container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">{{ 'ProfileACorn' | translate }}</a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav navbar-right">
-                <li ng-controller="AppController">
-                    <a ng-hide="lt" id="ltButton" ng-click="lt=true; en=false; changeLanguage('lt')"
-                       href="">Lietuvių</a>
-                    <a ng-hide="en" id="enButton" ng-click="lt=false; en=true; changeLanguage('en')" href="">English</a>
-                </li>
-                <li>
-                    <a href="" class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="true">
-                        <span class="glyphicon glyphicon-user"></span> {{userName}} {{userSurname}}
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a ng-click="logout()" href="#"><span class="glyphicon glyphicon-log-in"></span>
-                            {{ 'ProfileMeLogout' | translate }}</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<kudos-navbar></kudos-navbar>
 
 <div class="container">
 
@@ -44,15 +12,10 @@
         <kudos-give-kudos></kudos-give-kudos>
     </div>
 
-    <!-- Send Kudos Modal content end -->
-
     <!-- Give Challenges Modal -->
-
     <div>
         <kudos-give-challenge></kudos-give-challenge>
     </div>
-
-    <!-- Give Challenges Modal content end -->
 
     <div class="row">
 

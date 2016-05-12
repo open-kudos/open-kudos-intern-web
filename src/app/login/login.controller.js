@@ -92,6 +92,6 @@
             'ngCookies',
             'base64'
         ])
-        .controller('loginController', LoginController);
+        .controller('LoginController', LoginController);
 
 })();

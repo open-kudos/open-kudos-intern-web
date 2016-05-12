@@ -11,6 +11,7 @@
             var userAvailableKudos;
             var sentKudosTable;
             var receivedKudosTable;
+            var currentUser;
 
 
             var lastTransactionTimestamp;
@@ -64,18 +65,21 @@
                 },
                 setLastTransactionTimestamp: function (timestamp) {
                     lastTransactionTimestamp = timestamp;
-                    console.log(lastTransactionTimestamp);
                 },
                 getLastTransactionTimestamp: function () {
                     return lastTransactionTimestamp;
                 },
                 setNotificationsTransactionCollection: function (collection) {
                     notificationsTransactionCollection = collection;
-                    console.log(collection.length);
                 },
                 getNotificationsTransactionCollection: function () {
-                    console.log("FROM RETURN: " + notificationsTransactionCollection.length);
                     return notificationsTransactionCollection;
+                },
+                setCurrentUser: function (user) {
+                    currentUser = user;
+                },
+                getCurrentUser: function () {
+                    return currentUser;
                 }
             };
         });

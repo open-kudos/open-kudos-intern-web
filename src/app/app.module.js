@@ -12,6 +12,7 @@
             'myApp.acorn',
             'myApp.version',
             'myApp.notification',
+            'myApp.components.navbar',
             'myApp.components.notifications',
             'myApp.components.sentAcorns',
             'myApp.components.receivedAcorns',

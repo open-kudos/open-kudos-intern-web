@@ -10,10 +10,10 @@
             })
             .when('/login', {
                 templateUrl: 'app/login/login.html',
-                controller: 'loginController'
+                controller: 'LoginController'
             })
             .when('/profile', {
-                templateUrl: 'app/profile/profile.html',
+                templateUrl: 'app/profile/profile-new.html',
                 controller: 'ProfileController'
             })
             .when('/registration', {

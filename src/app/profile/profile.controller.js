@@ -29,16 +29,9 @@
         registerTooltip();
 
         ProfileService.userHome().then(function (val) {
-            $scope.userEmail = val.email;
-            $scope.userName = val.firstName;
-            $scope.userSurname = val.lastName;
-            $scope.userPhone = val.phone;
-            $scope.userPosition = val.position;
-            $scope.userLocation = val.location;
-            $scope.userTeam = val.team;
-            $scope.userStartedToWork = val.startedToWorkDate;
-            $scope.userBirthday = val.birthday;
+            Resources.setCurrentUser(val);
             Resources.setCurrentUserEmail(val.email);
+            console.log(Resources.getCurrentUser());
             
         });
 
