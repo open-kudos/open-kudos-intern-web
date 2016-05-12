@@ -55,16 +55,22 @@
                 })
             }
 
-            function acceptChallenge(id, index) {
+            function acceptChallenge(id, index, kudos) {
+                var userAvailableKudos = Resources.getUserAvailableKudos();
+                
                 requestData = $httpParamSerializer({
                     id: id
                 });
-                KudosChallengeParticipatedService.accept(requestData).then(function (val) {
-                    toastr.success('You accepted ' + val.data.creator + ' challenge');
-                    removeElement(index);
-                    Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
-                    getChallengeParticipatedList()
-                })
+                
+                if (userAvailableKudos >=  kudos) {
+                    KudosChallengeParticipatedService.accept(requestData).then(function (val) {
+                        toastr.success('You accepted ' + val.data.creator + ' challenge');
+                        removeElement(index);
+                        Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
+                        getChallengeParticipatedList()
+                    })
+                } else toastr.error('You only have ' + userAvailableKudos + ' ' + acornPlural(userAvailableKudos) +
+                    '. To accept challenge, you must have atleast ' + kudos);
             }
 
             function declineChallenge(id, index) {

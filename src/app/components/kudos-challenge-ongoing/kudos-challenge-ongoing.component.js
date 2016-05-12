@@ -43,18 +43,43 @@
                 });
             }
 
-            function lost() {
-
+            function lost(id) {
+                var status = false;
+                
+                requestData = $httpParamSerializer({
+                    id: id,
+                    status: status
+                });
+                
+                KudosChallengeOngoingService.accomplish(requestData).then(function (val) {
+                    toastr.success('You think that you lost challenge. Well... maybe not!');
+                })
             }
 
-            function won() {
+            function won(id) {
+                var status = true;
 
+                requestData = $httpParamSerializer({
+                    id: id,
+                    status: status
+                });
+
+                KudosChallengeOngoingService.accomplish(requestData).then(function (val) {
+                    toastr.success('You think that you won challenge. Well... maybe not!');
+                })
             }
 
             function convertDate(val){
                 val = val.split(":");
                 val = val[0] + ":" + val[1];
                 return val;
+            }
+
+            function acornPlural(val){
+                if (val > 1)
+                    return 'Acorns';
+                else
+                    return 'Acorn';
             }
         });
 })();

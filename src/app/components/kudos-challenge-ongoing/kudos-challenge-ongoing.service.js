@@ -11,7 +11,8 @@
     function KudosChallengeOngoingService($httpParamSerializer, Challenges) {
         var service = {
             getReceivedList: getReceivedChallenges,
-            getGivenList: getGivenChallenges
+            getGivenList: getGivenChallenges,
+            accomplish: accomplishChallenge
         }
         return service;
 
@@ -23,6 +24,12 @@
         
         function getGivenChallenges(requestData){
             return Challenges.givenChallenges(requestData).then(function (val) {
+                return val;
+            });
+        }
+        
+        function accomplishChallenge(requestData) {
+            return Challenges.accomplishChallenge(requestData).then(function (val) {
                 return val;
             });
         }

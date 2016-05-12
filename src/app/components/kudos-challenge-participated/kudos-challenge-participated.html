@@ -75,8 +75,8 @@
         <p ng-if="challengeDescription">Description: {{challengeDescription}}</p>
         <p ng-if="challengeFinishDate">Finish date: {{convertDate(challengeFinishDate)}}</p>
 
-        <button class="btn btn-danger btn-challenge-participated" ng-click="declineChallenge(id)">Decline</button>
-        <button class="btn btn-success btn-challenge-participated" ng-click="acceptChallenge(id)">Accept</button>
+        <button class="btn btn-danger btn-challenge-participated" ng-click="declineChallenge(id, $index)">Decline</button>
+        <button class="btn btn-success btn-challenge-participated" ng-click="acceptChallenge(id, $index, challengeAmount)">Accept</button>
     </div>
     <div ng-if="!id">
         <div class="alert alert-info acorn-bg">
@@ -111,7 +111,7 @@
                     <p ng-if="list.finishDate">Finish date: {{convertDate(list.finishDate)}}</p>
 
                     <button class="btn btn-danger btn-challenge-participated" ng-click="declineChallenge(id, $index)">Decline</button>
-                    <button class="btn btn-success btn-challenge-participated" ng-click="acceptChallenge(id, $index)">Accept</button>
+                    <button class="btn btn-success btn-challenge-participated" ng-click="acceptChallenge(id, $index, challengeAmount)">Accept</button>
 
                 </div>
             </div>
