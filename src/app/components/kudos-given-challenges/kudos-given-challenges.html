@@ -1,6 +1,6 @@
 <div class="card card-block text-center">
         <li ng-click="!givenChallenges.show ? showMoreInfo($index) : showLessInfo($index)" ng-repeat="givenChallenges in givenChallengesCollection | orderBy:'-timestamp'"
-            class="animate-repeat list-group-item">
+            class="animate-repeat list-group-item cursor-hand">
             <i ng-click="cancelChallenge($index)" ng-show="doesDateExist($index)" class="glyphicon glyphicon-remove leftAlignment"></i>
             <span>{{givenChallenges.name}}</span>
             <span class="acorn-bg badge">{{acornPlural(givenChallenges.amount)}}</span>
