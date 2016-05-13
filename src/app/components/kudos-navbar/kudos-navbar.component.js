@@ -39,7 +39,9 @@
         }
 
         function checkUserLength(user) {
-            return user.firstName.length > 10;
+            if (user != undefined){
+                return user.firstName.length > 9 || user.lastName.length > 9;
+            }
         }
 
     }

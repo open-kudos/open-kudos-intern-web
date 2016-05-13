@@ -12,6 +12,9 @@
             $scope.showMoreIncomingKudos = showMoreIncomingKudos;
             $scope.showLessIncomingKudos = showLessIncomingKudos;
             $scope.showMoreIncomingKudosButton = showMoreIncomingKudosButton;
+            $scope.splitDate = splitDate;
+            $scope.formatDateWithoutYears = formatDateWithoutYears;
+            $scope.test = test;
 
             ReceivedAcornsService.incomingKudos().then(function (val) {
                 Resources.setIncomingKudosCollection(val);
@@ -30,6 +33,10 @@
                 }
             }
 
+            function test() {
+                console.log("TEST");
+            }
+
             function showMoreIncomingKudos() {
                 if ($scope.incomingKudosShowLimit <= Resources.getIncomingKudosCollection().length) {
                     $scope.incomingKudosShowLimit += showMoreLimit;
@@ -39,5 +46,19 @@
             function showLessIncomingKudos() {
                 $scope.incomingKudosShowLimit = showMoreLimit;
             }
+
+            function formatDateWithoutYears(date) {
+                return splitDate(date)[1] + "-" + splitDate(date)[2];
+            }
+
+            function splitDate(date) {
+                return date.split("-");
+            }
+
+            $('#dateTooltip').tooltip('show');
+
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
         });
 })();

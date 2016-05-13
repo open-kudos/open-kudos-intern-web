@@ -68,7 +68,7 @@
 <div class="card card-block box-shadow-animation text-center">
     <div ng-if="id" class="box4">
         <h4 class="card-title text-center">You have been challenged!</h4>
-        <p class="card-text">You will have to <span class="bold">{{challengeName}}</span>  by
+        <p class="card-text"><span class="bold">{{challengeName}}</span>  by
             <span class="bold">{{challengeCreator}}</span>  for
             <span class="badge acorn-bg">{{acornPlural(challengeAmount * 2)}}</span>
 
@@ -102,7 +102,7 @@
             </div>
             <div class="card card-block text-center" ng-repeat="list in challengeFullList">
                 <div class="card box-shadow-animation">
-                    <p class="card-text">You will have to <span class="bold">{{list.name}}</span>  by
+                    <p class="card-text"><span class="bold">{{list.name}}</span>  by
                         <span class="bold">{{list.creator}}</span>  for
                         <span class="badge acorn-bg">{{acornPlural(list.amount * 2)}}</span>
                     </p>

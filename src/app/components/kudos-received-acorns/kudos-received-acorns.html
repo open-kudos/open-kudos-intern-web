@@ -17,7 +17,16 @@
             ng-repeat="incomingKudos in incomingKudosCollection | orderBy:'-timestamp' | limitTo: incomingKudosShowLimit">
             <td>{{incomingKudos.senderEmail}}</td>
             <td>{{incomingKudos.amount}}</td>
-            <td>{{incomingKudos.timestamp}}</td>
+            <td><span class="hidden-xs">{{incomingKudos.timestamp}}</span>
+                <div class="box-shadow-animation text-center hidden-sm hidden-lg hidden-md" ng-click="showDropDown == true ? showDropDown = false : showDropDown = true">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    <div class="nav-dropdown short" ng-hide="!showDropDown">
+                        <div style="width: 50%; float: right; margin-right: 5%">
+                            {{incomingKudos.timestamp}}
+                        </div>
+                    </div>
+                </div>
+            </td>
         </tr>
         </tbody>
     </table>
