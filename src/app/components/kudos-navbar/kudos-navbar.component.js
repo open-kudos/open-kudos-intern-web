@@ -9,6 +9,7 @@
         $scope.selectedAcorns = false;
         $scope.selectedChallenges = false;
         $scope.user = Resources.getCurrentUser();
+        $scope.checkUserLength = checkUserLength;
 
         $scope.logout = logout;
 
@@ -35,6 +36,10 @@
         function clearCookies() {
             $cookies.put('remember_user', 'false');
             $cookies.put('user_credentials', '');
+        }
+
+        function checkUserLength(user) {
+            return user.firstName.length > 10;
         }
 
     }
