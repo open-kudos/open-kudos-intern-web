@@ -65,12 +65,12 @@
     </div>
 </div>
 -->
-<div class="card card-block text-center">
+<div class="card card-block box4 box-shadow-animation text-center">
     <div ng-if="id">
         <h4 class="card-title text-center">You have been challenged!</h4>
         <p class="card-text">You will have to <span class="bold">{{challengeName}}</span>  by
             <span class="bold">{{challengeCreator}}</span>  for
-            <span class="badge acorn-bg">{{acornPlural(challengeAmount)}}</span>
+            <span class="badge acorn-bg">{{acornPlural(challengeAmount * 2)}}</span>
 
         <p ng-if="challengeDescription">Description: {{challengeDescription}}</p>
         <p ng-if="challengeFinishDate">Finish date: {{convertDate(challengeFinishDate)}}</p>
@@ -87,7 +87,7 @@
 </div>
 
 <div ng-if="showAllReceived" class="col-lg-pull-5">
-    <button href="" class="btn hvr-underline-from-center"
+    <button href="" class="btn btn-more hvr-underline-from-center"
             data-toggle="modal" data-target="#allReceivedModal"
             ng-click="getAllChallengeParticipatedList()">Hey! You have more!</button>
 </div>
@@ -104,7 +104,7 @@
                 <div class="card box-shadow-animation">
                     <p class="card-text">You will have to <span class="bold">{{list.name}}</span>  by
                         <span class="bold">{{list.creator}}</span>  for
-                        <span class="badge acorn-bg">{{acornPlural(list.amount)}}</span>
+                        <span class="badge acorn-bg">{{acornPlural(list.amount * 2)}}</span>
                     </p>
 
                     <p ng-if="list.description">Description: {{list.description}}</p>

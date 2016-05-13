@@ -2,8 +2,11 @@
 $color-clouds:              #ecf0f1;
 $color-grey-borders:        #c0c0c0;
 $color-grey-borders-light:  #ddd;
-$color-emerald:             #2ecc71;
-$color-emerald-dark:        #27ae60;
+$color-grey:                #777;
+$color-grey-dark:           #222;
+$color-clouds:              #ECF0F1;
+$color-emerald:             #1abc9c;
+$color-emerald-dark:        #16a085;
 $color-pomegranate:         #e74c3c;
 $color-pomegranate-dark:    #c0392b;
 $color-swed-orange:         #FF6100;
@@ -86,7 +89,7 @@ body{
 }
 
 .box-shadow-animation:hover {
-  box-shadow: 2px 2px 2px 2px $color-grey-borders;
+  box-shadow: 1px 1px 1px 1px $color-clouds;
   transition: box-shadow $transition-duration-short;
 }
 
@@ -125,6 +128,10 @@ body{
   height: 25px;
   font-size: 15px;
   text-align-all: center;
+}
+
+.btn-more {
+  background: $color-clouds;
 }
 
 @-webkit-keyframes arm {

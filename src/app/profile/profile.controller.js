@@ -8,6 +8,8 @@
         $scope.greeting = "hello";
 
         $scope.userAvailableKudos = 0;
+        $scope.userReceivedKudos = 0;
+
         $scope.usersCollection = [];
         $scope.buttonDisabled = true;
         $scope.receivedAcorns = false;

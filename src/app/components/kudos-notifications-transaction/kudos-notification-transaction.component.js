@@ -3,7 +3,6 @@
  */
 (function () {
     var NotificationsController = function ($scope, $cookies, $httpParamSerializer, $location, Resources, KudosNotificationService) {
-        var togle = false;
         $scope.newTransactionCollection = [];
         $scope.notificationBadgeAmount = 0;
         $scope.receivedNewTransaction = false;
@@ -11,7 +10,6 @@
 
         $scope.acornPlural = acornPlural;
         $scope.clearNotifications = clearNotifications;
-        $scope.saveLastTransactionTimestamp = saveLastTransactionTimestamp;
 
         var requestData = $httpParamSerializer({
             timestamp: $cookies.get('last_transaction')
@@ -40,15 +38,10 @@
             $location.path("/notifications");
             if ($cookies.get('last_transaction') != null) {
                 overwriteLastTransactionTimestamp($scope.newTransactionCollection[0].timestamp);
-                $scope.newTransactionCollection = [];
-                $scope.notificationBadgeAmount = $scope.newTransactionCollection.length;
+                //$scope.newTransactionCollection = [];
+                $scope.notificationBadgeAmount = 0;
                 $scope.receivedNewTransaction = false;
             }
-        }
-
-        // TEST fn
-        function saveLastTransactionTimestamp() {
-            $cookies.put('last_transaction', '2016-05-03');
         }
 
         function overwriteLastTransactionTimestamp(timestamp) {

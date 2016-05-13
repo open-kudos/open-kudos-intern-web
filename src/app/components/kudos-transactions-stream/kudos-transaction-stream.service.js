@@ -23,12 +23,12 @@
 
         function GetCompletedTransactions(requestData) {
             if (requestData != undefined){
-                return transactionsBackend.getCompletedKudosTransactions(requestData).then(function (val) {
-                    lastTransactionTimestamp = $httpParamSerializer({
-                        lastTransactionTimestamp: val[0].timestamp
-                    });
-                    return val;
-                })
+            return transactionsBackend.getCompletedKudosTransactions(requestData).then(function (val) {
+                lastTransactionTimestamp = $httpParamSerializer({
+                    lastTransactionTimestamp: val[0].timestamp
+                });
+                return val;
+            })
             }
         }
 

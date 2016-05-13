@@ -5,7 +5,7 @@
         <ul>
             <li ng-repeat="transaction in notificationsCollection"
                 class="list-group-item">
-                <span class="bold">{{transaction.receiverName}}</span>
+                <span class="bold">{{transaction.senderName}}</span>
                 sent you
                 <span class="badge acorn-bg">{{acornPlural(transaction.amount)}}</span>
             </li>

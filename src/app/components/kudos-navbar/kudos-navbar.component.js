@@ -19,7 +19,6 @@
                 $scope.selectedAcorns = true;
             }
         }
-
         activate();
 
         $scope.$watch(function () {

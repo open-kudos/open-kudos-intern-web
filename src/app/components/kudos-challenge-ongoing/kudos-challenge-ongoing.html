@@ -1,10 +1,10 @@
 <div class="card card-block text-center">
-    <div ng-if="showList" class="card box-shadow-animation" ng-repeat="list in ongoingChallengeList | orderBy:'-createDateDate'">
+    <div ng-if="showList" class="card box4 box-shadow-animation" ng-repeat="list in ongoingChallengeList | orderBy:'-createDateDate'">
         <p class="card-text">You will have to <span class="bold">{{list.name}}</span>  by
             <span class="bold" ng-if="list.creator != userEmail">{{list.creator}}</span>
             <span class="bold" ng-if="list.participant != userEmail">{{list.participant}}</span>
             for
-            <span class="badge acorn-bg">{{acornPlural(list.amount)}}</span>
+            <span class="badge acorn-bg">{{acornPlural(list.amount * 2)}}</span>
         </p>
 
         <p ng-if="list.description">Description: {{list.description}}</p>

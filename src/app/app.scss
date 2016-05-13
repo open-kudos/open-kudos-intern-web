@@ -5,6 +5,7 @@ $color-pomegranate-dark:    #c0392b;
 $color-swed-orange:         #FF9A09;
 $color-grey:                #777;
 $color-grey-dark:           #222;
+$color-clouds:              #ECF0F1;
 
 $padding-small:             10px;
 
@@ -695,7 +696,23 @@ div.box4 {
 }
 
 .selected {
-    border-bottom: 2px solid $color-swed-orange;
+    border-bottom: 4px solid $color-swed-orange;
+}
+
+.nav-pills>.active{
+    border-bottom: 3px solid $color-swed-orange;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
+    background: $color-clouds;
+    color: $color-grey-dark;
+}
+
+.nav-pills>li>a {
+    background: transparent;
+    color: $color-grey;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .navbar-right {float: right !important;}
