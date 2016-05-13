@@ -17,7 +17,6 @@
             $scope.givenList = [];
             $scope.receivedList = [];
             $scope.ongoingChallengeList = [];
-            $scope.userEmail = Resources.getCurrentUserEmail();
 
             $scope.getChallengeOngoingList = getChallengeOngoingList;
             $scope.won = won;
@@ -71,6 +70,8 @@
             }
             
             function showButtons (list) {
+                $scope.userEmail = Resources.getCurrentUserEmail();
+
                 if (list.creator == $scope.userEmail)
                     return list.creatorStatus == null;
 
@@ -79,6 +80,7 @@
             }
 
             function isSelected(list) {
+                $scope.userEmail = Resources.getCurrentUserEmail();
                 if (list.creator == $scope.userEmail) {
                     if (list.participantStatus == false) return $scope.selectedMessage = list.participant + " thinks he lost";
                     else if (list.participantStatus == true) return $scope.selectedMessage = list.participant + " thinks he won";

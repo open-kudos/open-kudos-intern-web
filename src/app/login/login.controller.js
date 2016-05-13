@@ -38,7 +38,7 @@
                 $scope.passwordErrorMessage = "Please enter Password";
             } else {
                 LoginService.login(loginInfo).then(function (val) {
-                    console.log(val);
+                    //console.log(val);
                     showErrorMessage(); // TODO | FIX THE PROBLEM AND CHANGE THIS LINE TO hideErrorMessage();
                 }).catch(function () {
                     showErrorMessage();
