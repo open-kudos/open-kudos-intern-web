@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    function LoginController($scope, $http, $cookies, $window, $base64, $httpParamSerializer, SERVER, LoginService) {
+    function LoginController($scope, $cookies, $base64, $httpParamSerializer, LoginService) {
 
         var email = document.getElementById('email');
         var psw = document.getElementById('password');
@@ -87,8 +87,9 @@
                 LoginService.checkUser();
             }
         }
-
     }
+
+    LoginController.$inject = ['$scope', '$cookies', '$base64', '$httpParamSerializer', 'LoginService'];
 
     angular
         .module('myApp.login', [

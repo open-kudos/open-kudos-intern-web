@@ -1,5 +1,75 @@
 (function () {
     'use strict';
+
+    var registrationController = function ($scope, $http, $cookies, $base64, $window, $translate, $httpParamSerializer, RegistrationService, LoginService) {
+        var checkSplited = false;
+        var splited = [];
+
+        $scope.showLoader = false;
+
+        $scope.register = register;
+        $scope.split = split;
+
+        function register() {
+            var fullName = $scope.fullName;
+            split(fullName);
+
+            if (checkSplited) {
+                var requestData = $httpParamSerializer({
+                    email: $scope.email,
+                    firstName: splited[0],
+                    lastName: splited[1],
+                    password: $scope.password,
+                    confirmPassword: $scope.confirmPassword
+                });
+
+                RegistrationService.register(requestData).then(function (val) {
+                    RegistrationService.confirm(val.emailHash).then(function (val) {
+                        var rememberMe = $scope.rememberMeCheckbox;
+                        var loginInfo = $httpParamSerializer({
+                            email: $scope.email,
+                            password: $scope.password
+                        });
+                        if (rememberMe) {
+                            rememberMeAndLogin(loginInfo)
+                        } else {
+                            loginAndValidate(loginInfo)
+                        }
+
+                    });
+                });
+            }
+        }
+
+        function rememberMeAndLogin(loginInfo) {
+            $scope.showLoader = false;
+            var expireDate = new Date();
+            expireDate.setDate(expireDate.getDate() + 180); // Setting expiration date to 180 days
+            $cookies.put('remember_user', 'true', {expires: expireDate});
+            $cookies.put('user_credentials', $base64.encode(loginInfo), {expires: expireDate});
+            LoginService.login(loginInfo).then(function () {
+                $scope.showLoader = false;
+            });
+        }
+
+        function loginAndValidate(loginInfo) {
+            $scope.showLoader = true;
+            LoginService.login(loginInfo).then(function () {
+                $scope.showLoader = false;
+            })
+        }
+
+        function split(val) {
+            if (val) {
+                splited = val.split(' ');
+                if (val[1]) checkSplited = true;
+                return splited;
+            }
+        }
+    };
+
+    registrationController.$inject = ['$scope', '$http', '$cookies', '$base64', '$window', '$translate', '$httpParamSerializer', 'RegistrationService', 'LoginService'];
+
     angular
         .module('myApp.registration', [
             'ngRoute',
@@ -7,74 +77,7 @@
             'ngMessages',
             'base64'
         ])
-
-        .controller('registrationController', function ($scope, $http, $cookies, $base64, $window, $translate, $httpParamSerializer, RegistrationService, LoginService) {
-            var checkSplited = false;
-            var splited = [];
-
-            $scope.showLoader = false;
-
-            $scope.register = register;
-            $scope.split = split;
-
-            function register() {
-                var fullName = $scope.fullName;
-                split(fullName);
-                
-                if (checkSplited) {
-                    var requestData = $httpParamSerializer({
-                        email: $scope.email,
-                        firstName: splited[0],
-                        lastName: splited[1],
-                        password: $scope.password,
-                        confirmPassword: $scope.confirmPassword
-                    });
-
-                    RegistrationService.register(requestData).then(function (val) {
-                        RegistrationService.confirm(val.emailHash).then(function (val) {
-                            var rememberMe = $scope.rememberMeCheckbox;
-                            var loginInfo = $httpParamSerializer({
-                                email: $scope.email,
-                                password: $scope.password
-                            });
-                            if (rememberMe) {
-                                rememberMeAndLogin(loginInfo)
-                            } else {
-                                loginAndValidate(loginInfo)
-                            }
-
-                        });
-                    });
-                }
-            }
-
-            function rememberMeAndLogin(loginInfo) {
-                $scope.showLoader = false;
-                var expireDate = new Date();
-                expireDate.setDate(expireDate.getDate() + 180); // Setting expiration date to 180 days
-                $cookies.put('remember_user', 'true', {expires: expireDate});
-                $cookies.put('user_credentials', $base64.encode(loginInfo), {expires: expireDate});
-                LoginService.login(loginInfo).then(function () {
-                    $scope.showLoader = false;
-                });
-            }
-
-            function loginAndValidate(loginInfo) {
-                $scope.showLoader = true;
-                LoginService.login(loginInfo).then(function () {
-                    $scope.showLoader = false;
-                })
-            }
-
-            function split(val) {
-                if (val) {
-                    splited = val.split(' ');
-                    if (val[1]) checkSplited = true;
-                    return splited;
-                }
-            }
-        })
-
+        .controller('registrationController', registrationController)
         .directive("passwordVerify", function () {
             return {
                 require: "ngModel",

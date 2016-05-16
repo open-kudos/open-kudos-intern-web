@@ -1,7 +1,5 @@
-/**
- * Created by vytautassugintas on 09/05/16.
- */
 (function () {
+
     var NotificationsController = function ($scope, $cookies, $httpParamSerializer, $location, Resources, KudosNotificationService) {
         $scope.newTransactionCollection = [];
         $scope.notificationBadgeAmount = 0;

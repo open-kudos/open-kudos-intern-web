@@ -24,5 +24,8 @@
             }
         }
     }
+
+    AppController.$inject = ['$scope', '$translate', '$cookies'];
+
 })();
 

@@ -1,10 +1,5 @@
-angular.module('myApp.components.giveKudos', [])
-    .component('kudosGiveKudos', {
-        templateUrl: 'app/components/kudos-give-kudos/kudos-give-kudos.html',
-        controller: 'GiveKudosController',
-    })
-    .controller('GiveKudosController', function ($scope, $timeout, $httpParamSerializer, GiveKudosService, Resources) {
-
+(function () {
+    var GiveKudosController = function ($scope, $timeout, $httpParamSerializer, GiveKudosService, Resources){
         var inputChangedPromise;
         var receiverValidated = false;
         var amountValidated = false;
@@ -163,4 +158,14 @@ angular.module('myApp.components.giveKudos', [])
                 $scope.moreOutgoing = true;
             }
         }
-    });
+    };
+
+    GiveKudosController.$inject = ['$scope', '$timeout', '$httpParamSerializer', 'GiveKudosService', 'Resources'];
+
+angular.module('myApp.components.giveKudos', [])
+    .component('kudosGiveKudos', {
+        templateUrl: 'app/components/kudos-give-kudos/kudos-give-kudos.html',
+        controller: 'GiveKudosController'
+    })
+    .controller('GiveKudosController',  GiveKudosController)
+})();

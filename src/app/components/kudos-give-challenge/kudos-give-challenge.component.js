@@ -1,9 +1,5 @@
-angular.module('myApp.components.giveChallenge', [])
-    .component('kudosGiveChallenge', {
-        templateUrl: 'app/components/kudos-give-challenge/kudos-give-challenge.html',
-        controller: 'GiveChallengeController'
-    })
-    .controller('GiveChallengeController', function ($scope, $httpParamSerializer, Resources, Challenges, GiveChallengeService, $filter) {
+(function () {
+    var GiveChallengeController = function($scope, $httpParamSerializer, Resources, Challenges, GiveChallengeService, $filter){
         var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
         $scope.userAvailableKudos = 0;
         $scope.autocompleteHide = true;
@@ -33,7 +29,7 @@ angular.module('myApp.components.giveChallenge', [])
         GiveChallengeService.listUsers().then(function (val) {
             $scope.usersCollection = val.userList;
         });
-        
+
         function giveChallenge() {
             var expirationDate = $filter('date')($scope.giveChallengeExpirationDate, requestDateFormat);
             var currentDate = $filter('date')(new Date(), requestDateFormat);
@@ -117,4 +113,15 @@ angular.module('myApp.components.giveChallenge', [])
             else
                 return 'Acorn';
         }
-    });
+    };
+
+    GiveChallengeController.$inject = ['$scope', '$httpParamSerializer', 'Resources', 'Challenges', 'GiveChallengeService', '$filter'];
+
+    angular.module('myApp.components.giveChallenge', [])
+    .component('kudosGiveChallenge', {
+        templateUrl: 'app/components/kudos-give-challenge/kudos-give-challenge.html',
+        controller: 'GiveChallengeController'
+    })
+    .controller('GiveChallengeController', GiveChallengeController)
+
+})();
