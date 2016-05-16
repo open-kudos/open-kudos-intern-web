@@ -1,9 +1,10 @@
-<div class="card card-block box-shadow-animation text-center">
-    <div class="box4" ng-repeat="outgoingKudos in outgoingKudosCollection | orderBy:'-timestamp' | limitTo: outgoingKudosShowLimit">
-        You sent
-        <span class="badge acorn-bg">{{acornPlural(outgoingKudos.amount)}}</span> to
-        <span class="bold">{{outgoingKudos.receiver}}</span> on
-        <span>{{outgoingKudos.timestamp}}</span>
+<div class="card card-block box-shadow-animation">
+    <div class="box4 text-center"
+         ng-repeat="outgoingKudos in outgoingKudosCollection | orderBy:'-timestamp' | limitTo: outgoingKudosShowLimit">
+        <p>You sent
+            <span class="badge acorn-bg">{{acornPlural(outgoingKudos.amount)}}</span> to
+            <span class="bold">{{outgoingKudos.receiver}}</span> on
+            <span>{{outgoingKudos.timestamp}}</span></p>
     </div>
 
     <div ng-if="!sentKudosTable" class="alert alert-info acorn-bg">

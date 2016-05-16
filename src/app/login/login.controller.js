@@ -5,6 +5,8 @@
         var email = document.getElementById('email');
         var psw = document.getElementById('password');
 
+        $scope.showLoader = false;
+
         activate();
 
         $scope.login = login;
@@ -32,15 +34,17 @@
         }
 
         function loginAndValidate(loginInfo) {
+            $scope.showLoader = true;
             if ($scope.email === "" || $scope.password === "") {
                 $scope.emailErrorMessage = "Please enter Email";
             } else if ($scope.password == "") {
                 $scope.passwordErrorMessage = "Please enter Password";
             } else {
                 LoginService.login(loginInfo).then(function (val) {
-                    //console.log(val);
+                    $scope.showLoader = false;
                     showErrorMessage(); // TODO | FIX THE PROBLEM AND CHANGE THIS LINE TO hideErrorMessage();
                 }).catch(function () {
+                    $scope.showLoader = false;
                     showErrorMessage();
                 });
             }

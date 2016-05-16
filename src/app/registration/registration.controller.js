@@ -11,6 +11,9 @@
         .controller('registrationController', function ($scope, $http, $cookies, $base64, $window, $translate, $httpParamSerializer, RegistrationService, LoginService) {
             var checkSplited = false;
             var splited = [];
+
+            $scope.showLoader = false;
+
             $scope.register = register;
             $scope.split = split;
 
@@ -29,7 +32,6 @@
 
                     RegistrationService.register(requestData).then(function (val) {
                         RegistrationService.confirm(val.emailHash).then(function (val) {
-
                             var rememberMe = $scope.rememberMeCheckbox;
                             var loginInfo = $httpParamSerializer({
                                 email: $scope.email,
@@ -47,16 +49,20 @@
             }
 
             function rememberMeAndLogin(loginInfo) {
+                $scope.showLoader = false;
                 var expireDate = new Date();
                 expireDate.setDate(expireDate.getDate() + 180); // Setting expiration date to 180 days
                 $cookies.put('remember_user', 'true', {expires: expireDate});
                 $cookies.put('user_credentials', $base64.encode(loginInfo), {expires: expireDate});
-                LoginService.login(loginInfo);
+                LoginService.login(loginInfo).then(function () {
+                    $scope.showLoader = false;
+                });
             }
 
             function loginAndValidate(loginInfo) {
+                $scope.showLoader = true;
                 LoginService.login(loginInfo).then(function () {
-
+                    $scope.showLoader = false;
                 })
             }
 

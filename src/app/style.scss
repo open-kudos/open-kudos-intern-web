@@ -1,5 +1,4 @@
 
-$color-clouds:              #ecf0f1;
 $color-grey-borders:        #c0c0c0;
 $color-grey-borders-light:  #ddd;
 $color-grey:                #777;
@@ -132,6 +131,26 @@ body{
 
 .btn-more {
   background: $color-clouds;
+}
+
+.loader {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  z-index: 1001;
+  border: 16px solid $color-grey-borders-light; /* Light grey */
+  border-top: 16px solid $color-swed-orange; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 @-webkit-keyframes arm {
