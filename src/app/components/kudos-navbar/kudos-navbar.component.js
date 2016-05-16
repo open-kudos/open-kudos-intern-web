@@ -19,12 +19,19 @@
             } else if ( $location.path() == '/acorns'){
                 $scope.selectedAcorns = true;
             }
+
+            if ($scope.user == undefined){
+                ProfileService.userHome().then(function (user) {
+                    Resources.setCurrentUser(user);
+                });
+            }
         }
         activate();
 
         $scope.$watch(function () {
             return $scope.user = Resources.getCurrentUser()
         });
+
 
         $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
             var $openModalSelector = $(".modal.fade.in");
