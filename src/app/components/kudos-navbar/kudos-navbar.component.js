@@ -26,6 +26,14 @@
             return $scope.user = Resources.getCurrentUser()
         });
 
+        $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
+            var $openModalSelector = $(".modal.fade.in");
+            if( ($openModalSelector.data('bs.modal') || {}).isShown == true){
+                $openModalSelector.modal("hide");
+                event.preventDefault();
+            }
+        });
+
         function logout() {
             clearCookies();
             ProfileService.logout().catch(function () {

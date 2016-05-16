@@ -33,7 +33,7 @@ angular.module('myApp.components.giveChallenge', [])
         GiveChallengeService.listUsers().then(function (val) {
             $scope.usersCollection = val.userList;
         });
-
+        
         function giveChallenge() {
             var expirationDate = $filter('date')($scope.giveChallengeExpirationDate, requestDateFormat);
             var currentDate = $filter('date')(new Date(), requestDateFormat);
