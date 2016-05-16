@@ -9,12 +9,16 @@
             <li><a href="" class="dropdown-toggle" type="button" id="dropdownMenu1"
                    aria-haspopup="true" aria-expanded="true"
                    ng-click="showDropDown == true ? showDropDown = false : showDropDown = true">
-                <span class="glyphicon glyphicon-user"></span><span class=""> {{user.firstName}} <br ng-if="checkUserLength(user)" class="hidden-lg"> {{user.lastName}}</span>
+                <span class="glyphicon glyphicon-user"></span><span class="hidden-sm hidden-xs"> {{user.firstName}} <br ng-if="checkUserLength(user)" class="hidden-lg"> {{user.lastName}}</span>
                 <span class="caret"></span>
             </a></li>
         </ul>
     </div>
     <div class="nav-dropdown" ng-hide="!showDropDown">
+
+        <div class="hidden-md hidden-lg">
+            <a><span class="glyphicon glyphicon-user"></span><span class=""> {{user.firstName}} <br ng-if="checkUserLength(user)" class="hidden-lg"> {{user.lastName}}</span></a>
+        </div>
 
         <div ng-click="logout()">
             <a ng-click="logout()" class="" href="#"><span class="glyphicon glyphicon-log-in"></span>
