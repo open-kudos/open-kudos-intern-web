@@ -72,7 +72,7 @@
                         refreshList();
                     })
                 } else toastr.error('You only have ' + ' ' + acornPlural(userAvailableKudos) +
-                    '. To accept challenge, you must have atleast ' + kudos);
+                    '. To accept challenge, you must have at least ' + kudos);
             }
 
             function declineChallenge(id, index) {

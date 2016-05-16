@@ -12,6 +12,7 @@
             $scope.showMoreOutgoingKudos = showMoreOutgoingKudos;
             $scope.showLessOutgoingKudos = showLessOutgoingKudos;
             $scope.showMoreOutgoingKudosButton = showMoreOutgoingKudosButton;
+            $scope.acornPlural = acornPlural;
 
             SentAcornsService.outgoingKudos().then(function (val) {
                 Resources.setOutgoingKudosCollection(val);
@@ -37,5 +38,8 @@
                 $scope.outgoingKudosShowLimit = showMoreLimit;
             }
 
+            function acornPlural(amount) {
+                return amount > 1 ? amount + " Acorns" : amount + " Acorn"
+            }
         });
 })();
