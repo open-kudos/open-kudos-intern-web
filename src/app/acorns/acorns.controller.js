@@ -26,6 +26,9 @@
 
         $scope.logout = logout;
         $scope.isValid = isValid;
+        $scope.checkUser = checkUser;
+
+        checkUser();
 
         ProfileService.remainingKudos().then(function (val) {
             Resources.setUserAvailableKudos(val);
@@ -61,6 +64,12 @@
 
         function isValid(value) {
             return typeof value === "undefined";
+        }
+
+        function checkUser() {
+            ProfileService.checkUser().then(function (val) {
+                val.logged ? $window.location.href = "#/acorns" : $window.location.href = "#/login";
+            });
         }
     };
 
