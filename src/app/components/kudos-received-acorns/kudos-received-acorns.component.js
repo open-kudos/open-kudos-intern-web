@@ -15,6 +15,7 @@
             $scope.splitDate = splitDate;
             $scope.formatDateWithoutYears = formatDateWithoutYears;
             $scope.test = test;
+            $scope.acornPlural = acornPlural;
 
             ReceivedAcornsService.incomingKudos().then(function (val) {
                 Resources.setIncomingKudosCollection(val);
@@ -53,6 +54,10 @@
 
             function splitDate(date) {
                 return date.split("-");
+            }
+
+            function acornPlural(amount) {
+                return amount > 1 ? amount + " Acorns" : amount + " Acorn"
             }
 
             $('#dateTooltip').tooltip('show');
