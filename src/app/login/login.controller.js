@@ -7,9 +7,15 @@
 
         $scope.showLoader = false;
 
-        activate();
-
         $scope.login = login;
+        $scope.isRememberedUser = isRememberedUser;
+        $scope.rememberUser = rememberUser;
+
+        function activate() {
+            isRememberedUser() ? LoginService.login($base64.decode($cookies.get('user_credentials'))) : LoginService.checkUser();
+        }
+
+        activate();
 
         function login() {
             var rememberMe = $scope.rememberMeCheckbox;
@@ -26,11 +32,15 @@
         }
 
         function rememberMeAndLogin(loginInfo) {
+            rememberUser(loginInfo);
+            LoginService.login(loginInfo);
+        }
+
+        function rememberUser(loginInfo) {
             var expireDate = new Date();
             expireDate.setDate(expireDate.getDate() + 180); // Setting expiration date to 180 days
             $cookies.put('remember_user', 'true', {expires: expireDate});
             $cookies.put('user_credentials', $base64.encode(loginInfo), {expires: expireDate});
-            LoginService.login(loginInfo);
         }
 
         function loginAndValidate(loginInfo) {
@@ -40,13 +50,14 @@
             } else if ($scope.password == "") {
                 $scope.passwordErrorMessage = "Please enter Password";
             } else {
-                LoginService.login(loginInfo).then(function (val) {
+                LoginService.login(loginInfo).then(function (response) {
                     $scope.showLoader = false;
-                    showErrorMessage(); // TODO | FIX THE PROBLEM AND CHANGE THIS LINE TO hideErrorMessage();
-                }).catch(function () {
-                    $scope.showLoader = false;
-                    showErrorMessage();
-                });
+                    if (response === "Error") {
+                        showErrorMessage();
+                    }else{
+                        hideErrorMessage();
+                    }
+                })
             }
         }
 
@@ -65,8 +76,6 @@
         }
 
         function validationLogin() {
-
-
             if (email.value == '') {
                 email.className = 'notValid';
             } else {
@@ -80,13 +89,7 @@
             }
         }
 
-        function activate() {
-            if (isRememberedUser()) {
-                LoginService.login($base64.decode($cookies.get('user_credentials')));
-            } else {
-                LoginService.checkUser();
-            }
-        }
+
     }
 
     LoginController.$inject = ['$scope', '$cookies', '$base64', '$httpParamSerializer', 'LoginService'];

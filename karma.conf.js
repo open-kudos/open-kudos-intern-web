@@ -9,7 +9,7 @@ module.exports = function (config) {
             'app/bower_components/angular-route/angular-route.js',
             "app/bower_components/angular-cookies/angular-cookies.min.js",
             "app/bower_components/angular-local-storage/dist/angular-local-storage.min.js",
-            "app/bower_components/angular-base64/angular-base64.min.js",
+            "app/bower_components/angular-base64/angular-base64.js",
             "app/bower_components/angular-translate/angular-translate.min.js",
             "app/bower_components/angular-translate-loader-url/angular-translate-loader-url.min.js",
             "app/bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js",
@@ -29,7 +29,7 @@ module.exports = function (config) {
             'app/profile/*.js',
             'app/acorns/*.js',
             'app/notifications/*.js',
-            'test/registration.spec.js'
+            'test/*.spec.js'
         ],
 
         autoWatch: true,
