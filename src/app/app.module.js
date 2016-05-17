@@ -10,7 +10,6 @@
             'myApp.registration',
             'myApp.profile',
             'myApp.acorn',
-            'myApp.version',
             'myApp.notification',
             'myApp.components.navbar',
             'myApp.components.notifications',
@@ -20,7 +19,6 @@
             'myApp.components.challengeParticipated',
             'myApp.components.transactions',
             'myApp.components.giveKudos',
-            'myApp.components.transactions',
             'myApp.components.giveChallenge',
             'myApp.components.challengeOngoing'
         ]);
