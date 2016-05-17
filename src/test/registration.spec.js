@@ -4,8 +4,16 @@
 "use strict";
 describe('registrationController', function() {
 
-    module('myApp.registration');
-    module("myApp.registration", function($provide) {
+    var $scope;
+    var $controller;
+    var someServiceMock;
+
+    beforeEach(function (){
+        someServiceMock = jasmine.createSpyObj('someService', ['someAsyncCall']); // Example how to mock services
+        module('myApp');
+    });
+
+    module("myApp", function($provide) {
         $provide.provider("$translate", function() {
             this.$get = function(MockTranslate) {
                 return MockTranslate.create(translations);
@@ -13,10 +21,7 @@ describe('registrationController', function() {
         });
     });
 
-    var $controller;
-
     beforeEach(inject(function(_$controller_){
-        // The injector unwraps the underscores (_) from around the parameter names when matching
         $controller = _$controller_;
     }));
 

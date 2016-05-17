@@ -1,13 +1,14 @@
 /**
  * Created by vytautassugintas on 20/04/16.
  */
-
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var minify = require('gulp-minify-css');
 var merge = require('merge-stream');
 var browserSync = require('browser-sync').create();
+var uglify = require('gulp-uglify');
+var pump = require('pump');
 
 gulp.task('serve', ['browserSync', 'sass'], function () {
     gulp.watch('src/app/**/*.scss', ['sass']);
@@ -22,6 +23,16 @@ gulp.task('browserSync', function () {
             baseDir: 'src/'
         },
     })
+});
+
+gulp.task('compress', function (cb) {
+    pump([
+            gulp.src('src/app/**/*.js'),
+            uglify(),
+            gulp.dest('src/dist')
+        ],
+        cb
+    );
 });
 
 gulp.task('sass', function () {
