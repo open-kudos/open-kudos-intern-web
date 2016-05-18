@@ -7,6 +7,7 @@ describe('registrationController', function() {
     var $scope;
     var $controller;
     var someServiceMock;
+    var controller;
 
     beforeEach(function (){
         someServiceMock = jasmine.createSpyObj('someService', ['someAsyncCall']); // Example how to mock services
@@ -25,24 +26,27 @@ describe('registrationController', function() {
         $controller = _$controller_;
     }));
 
-    describe('$scope.grade', function() {
-        var $scope, controller;
-
+    describe('Registration controller', function() {
         beforeEach(function() {
             $scope = {};
             controller = $controller('registrationController', { $scope: $scope });
         });
 
-        it('sets the strength to "strong" if the password length is >8 chars', function() {
-            $scope.password = 'longerthaneightchars';
-            $scope.grade();
-            expect($scope.strength).toEqual('strong');
+        it('Full name should be splited to "Name" and "Surname" ', function() {
+            $scope.fullName = 'Name Surname';
+            expect($scope.split($scope.fullName)[0]).toEqual('Name');
+            expect($scope.split($scope.fullName)[1]).toEqual('Surname');
+        });
+        
+        it('Email should contain "@swedbank."', function () {
+            $scope.email = 'sasasas.sss@swedbank.lt';
+            expect($scope.checkEmail($scope.email)).toBeTruthy();
         });
 
-        it('sets the strength to "weak" if the password length <3 chars', function() {
-            $scope.password = 'a';
-            $scope.grade();
-            expect($scope.strength).toEqual('weak');
+        it('"Password" and "confirmPassword" must match', function () {
+            $scope.password = 'password';
+            $scope.confirmPassword = 'password';
+            expect($scope.checkPasswordMatch($scope.password, $scope.confirmPassword)).toBeTruthy();
         });
     });
 });
