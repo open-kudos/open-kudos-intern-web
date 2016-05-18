@@ -1,0 +1,11 @@
+<title>Acorns</title>
+
+<kudos-navbar></kudos-navbar>
+
+        <div class="box4 text-center" ng-if ="$index < limit" ng-repeat="(key, value) in topReceivers">
+            <p>
+                <span>{{key}}</span>
+                <span class="badge acorn-bg">{{acornPlural(value)}}</span>
+            </p>
+        </div>
+

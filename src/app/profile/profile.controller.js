@@ -11,6 +11,7 @@
         $scope.userReceivedKudos = 0;
 
         $scope.usersCollection = [];
+        $scope.leaderboard = [];
         $scope.showLoader = true;
         $scope.buttonDisabled = true;
         $scope.receivedAcorns = false;
@@ -47,6 +48,10 @@
             ProfileService.listUsers().then(function (val) {
                 $scope.usersCollection = val.userList;
             });
+
+            ProfileService.getLeaderboard().then(function(val) {
+                $scope.leaderboard = val;
+            })
         }
 
         activate();

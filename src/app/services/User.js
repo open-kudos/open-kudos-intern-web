@@ -17,7 +17,8 @@ function User($http, SERVER) {
         check: checkUser,
         disable: disableUser,
         update: updateUserInfo,
-        list: listUsers
+        list: listUsers,
+        getLeaderboard: getLeaderboard
     }
     return user;
 
@@ -62,6 +63,16 @@ function User($http, SERVER) {
             method: 'POST',
             withCredentials: true,
             url: SERVER.ip + "/user/list"
+        }).then(function (response) {
+            return response.data;
+        })
+    }
+
+    function getLeaderboard() {
+        return $http({
+            method: 'GET',
+            withCredentials: true,
+            url: SERVER.ip + "/user/topreceivers"
         }).then(function (response) {
             return response.data;
         })

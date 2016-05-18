@@ -17,7 +17,6 @@
         $scope.convertDate = convertDate;
         $scope.acornPlural = acornPlural;
 
-
         GivenChallengesService.givenChallenges(requestData).then(function (val) {
             Resources.setGivenChallenges(val);
             $scope.givenChallengesCollection = Resources.getGivenChallenges();
