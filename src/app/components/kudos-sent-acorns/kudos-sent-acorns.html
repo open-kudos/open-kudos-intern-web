@@ -1,46 +1,25 @@
-<div class="table table-borderless">
-    <table ng-show="sentKudosTable" class="table">
-        <colgroup>
-            <col class="col-xs-6"/>
-            <col class="col-xs-2"/>
-            <col class="col-xs-4"/>
-        </colgroup>
-        <thead>
-        <tr>
-            <th>{{ 'ProfileMeColleague' | translate }}</th>
-            <th>{{'ProfileACorn' | translate }}</th>
-            <th>{{'ProfileMeDate' | translate }}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="animate-repeat"
-            ng-repeat="outgoingKudos in outgoingKudosCollection | orderBy:'-timestamp' | limitTo: outgoingKudosShowLimit">
-            <td>{{outgoingKudos.receiver}}</td>
-            <td>{{outgoingKudos.amount}}</td>
-            <td><span class="hidden-xs">{{outgoingKudos.timestamp}}</span>
-                <div class="box-shadow-animation text-center hidden-sm hidden-lg hidden-md" ng-click="showDropDown == true ? showDropDown = false : showDropDown = true">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                    <div class="nav-dropdown short" ng-hide="!showDropDown">
-                        <div style="width: 50%; float: right; margin-right: 5%">
-                            {{outgoingKudos.timestamp}}
-                        </div>
-                    </div>
-                </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-<div ng-if="!sentKudosTable" class="alert alert-info acorn-bg">
-    <span class="glyphicon glyphicon-info-sign"></span>
-    {{'ProfileMeSentAcorns' | translate}}
-</div>
+<div class="card card-block box-shadow-animation">
+    <div class="box4 text-center"
+         ng-repeat="outgoingKudos in outgoingKudosCollection | orderBy:'-timestamp' | limitTo: outgoingKudosShowLimit">
+        You sent
+            <span class="badge acorn-bg">{{acornPlural(outgoingKudos.amount)}}</span> to
+            <span class="bold">{{outgoingKudos.receiver}}</span> on
+            <span>{{outgoingKudos.timestamp}}</span>
+    </div>
 
-<button ng-click="showMoreOutgoingKudos(); lessOutgoing = true" ng-show="moreOutgoing" type="button"
-        class="btn btn-default btn-sm">
-    {{'ProfileShowMore' | translate}}
-</button>
-<button ng-show="lessOutgoing" ng-click="showLessOutgoingKudos(); lessOutgoing = false" type="button"
-        class="btn btn-default btn-sm">
-    {{'ProfileShowLess' | translate}}
-</button>
+    <div ng-if="!sentKudosTable" class="alert alert-info acorn-bg">
+        <span class="glyphicon glyphicon-info-sign"></span>
+        {{'ProfileMeSentAcorns' | translate}}
+    </div>
+
+    <div class="showMore">
+        <button ng-click="showMoreOutgoingKudos(); lessOutgoing = true" ng-show="moreOutgoing" type="button"
+                class="btn btn-default btn-sm">
+            {{'ProfileShowMore' | translate}}
+        </button>
+        <button ng-show="lessOutgoing" ng-click="showLessOutgoingKudos(); lessOutgoing = false" type="button"
+                class="btn btn-default btn-sm">
+            {{'ProfileShowLess' | translate}}
+        </button>
+    </div>
+</div>

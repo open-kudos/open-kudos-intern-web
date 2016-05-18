@@ -11,6 +11,8 @@
         $scope.userReceivedKudos = 0;
 
         $scope.usersCollection = [];
+        $scope.leaderboard = [];
+        $scope.showLoader = true;
         $scope.buttonDisabled = true;
         $scope.receivedAcorns = false;
         $scope.sentAcorns = true;
@@ -26,24 +28,34 @@
 
         $scope.isValid = isValid;
 
-        checkUser();
+        function activate() {
+            checkUser();
 
-        ProfileService.userHome().then(function (val) {
-            Resources.setCurrentUser(val);
-            Resources.setCurrentUserEmail(val.email);
-        });
+            ProfileService.userHome().then(function (val) {
+                Resources.setCurrentUser(val);
+                Resources.setCurrentUserEmail(val.email);
+            });
 
-        ProfileService.remainingKudos().then(function (val) {
-            Resources.setUserAvailableKudos(val);
-        });
+            ProfileService.remainingKudos().then(function (val) {
+                Resources.setUserAvailableKudos(val);
+            });
 
-        ProfileService.receivedKudos().then(function (val) {
-            $scope.userReceivedKudos = val;
-        });
+            ProfileService.receivedKudos().then(function (val) {
+                $scope.userReceivedKudos = val;
+                $scope.showLoader = false;
+            });
 
-        ProfileService.listUsers().then(function (val) {
-            $scope.usersCollection = val.userList;
-        });
+            ProfileService.listUsers().then(function (val) {
+                $scope.usersCollection = val.userList;
+            });
+
+            ProfileService.getLeaderboard().then(function(val) {
+                $scope.leaderboard = val;
+            })
+        }
+
+        activate();
+
 
         $scope.$watch(function () {
             return Resources.getUserAvailableKudos()

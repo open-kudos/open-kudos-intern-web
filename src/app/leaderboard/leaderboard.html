@@ -1,0 +1,13 @@
+<title>Leaderboard</title>
+<div class="container">
+    <div class="panel panel-body">
+        <div ng-hide="!showLoader" class="loader"></div>
+        <ul class="nav nav-pills">
+            <li role="presentation" class="tab-item" ng-class="topreceivers ? '' : 'active'">
+                <a href="" ng-click="sentAcorns=true;receivedAcorns=false;giveAcorns=true;">Top receivers</a>
+            </li>
+        </ul>
+            <kudos-top-receivers></kudos-top-receivers>
+    </div>
+</div>
+

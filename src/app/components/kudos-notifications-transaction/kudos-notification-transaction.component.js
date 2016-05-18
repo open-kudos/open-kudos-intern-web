@@ -1,7 +1,5 @@
-/**
- * Created by vytautassugintas on 09/05/16.
- */
 (function () {
+
     var NotificationsController = function ($scope, $cookies, $httpParamSerializer, $location, Resources, KudosNotificationService) {
         $scope.newTransactionCollection = [];
         $scope.notificationBadgeAmount = 0;
@@ -37,10 +35,11 @@
             $scope.notificationsToggle == true ? $scope.notificationsToggle = false : $scope.notificationsToggle = true;
             $location.path("/notifications");
             if ($cookies.get('last_transaction') != null) {
-                overwriteLastTransactionTimestamp($scope.newTransactionCollection[0].timestamp);
-                //$scope.newTransactionCollection = [];
-                $scope.notificationBadgeAmount = 0;
-                $scope.receivedNewTransaction = false;
+                if ($scope.newTransactionCollection.length != 0) {
+                    overwriteLastTransactionTimestamp($scope.newTransactionCollection[0].timestamp);
+                    $scope.notificationBadgeAmount = 0;
+                    $scope.receivedNewTransaction = false;
+                }
             }
         }
 

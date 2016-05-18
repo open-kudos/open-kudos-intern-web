@@ -32,15 +32,21 @@
                     incomingKudosCollection = val;
                 },
                 setSentKudosTable: function () {
-                    if (outgoingKudosCollection.length > 0)
+                    if (outgoingKudosCollection.length > 0) {
                         sentKudosTable = true;
+                    } else {
+                        sentKudosTable = false;
+                    }
                 },
                 getSentKudosTable: function () {
                     return sentKudosTable;
                 },
                 setReceivedKudosTable: function () {
-                    if (incomingKudosCollection.length > 0)
+                    if (incomingKudosCollection.length > 0) {
                         receivedKudosTable = true;
+                    } else {
+                        receivedKudosTable = false;
+                    }
                 },
                 getReceivedKudosTable: function () {
                     return receivedKudosTable;

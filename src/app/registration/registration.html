@@ -12,12 +12,13 @@
               <a href="#login" class="" id="login-form-link">{{ 'registrationLogin' | translate }}</a>
             </div>
             <div class="col-xs-4">
-              <a href="" class="active" id="register-form-link">{{ 'registrationTitle' | translate }}</a>
+              <a href="" class="active" id="register-form-link">Register</a>
             </div>
           </div>
           <hr>
         </div>
         <div class="panel-body">
+          <div ng-hide="!showLoader" class="loader"></div>
           <div class="row">
                 <form id="registrationForm" name="registrationForm">
 

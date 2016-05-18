@@ -4,6 +4,7 @@
 
 <div class="container">
     <div class="panel panel-body">
+        <div ng-hide="!showLoader" class="loader"></div>
         <ul class="nav nav-pills">
             <li role="presentation" class="tab-item" ng-class="receivedAcorns ? '' : 'active'">
                 <a href="" ng-click="sentAcorns=true;receivedAcorns=false;giveAcorns=true;">Received</a>
@@ -20,5 +21,4 @@
         </div>
 
     </div>
-
 </div>

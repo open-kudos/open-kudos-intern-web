@@ -7,6 +7,7 @@
 
         $scope.selectedHome = false;
         $scope.selectedAcorns = false;
+        $scope.selectedLeaderboard = false;
         $scope.selectedChallenges = false;
         $scope.user = Resources.getCurrentUser();
         $scope.checkUserLength = checkUserLength;
@@ -18,12 +19,29 @@
                 $scope.selectedHome = true;
             } else if ( $location.path() == '/acorns'){
                 $scope.selectedAcorns = true;
+            } else if ( $location.path() == '/leaderboard'){
+                $scope.selectedLeaderboard = true;
+            }
+
+            if ($scope.user == undefined){
+                ProfileService.userHome().then(function (user) {
+                    Resources.setCurrentUser(user);
+                });
             }
         }
         activate();
 
         $scope.$watch(function () {
             return $scope.user = Resources.getCurrentUser()
+        });
+
+
+        $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
+            var $openModalSelector = $(".modal.fade.in");
+            if( ($openModalSelector.data('bs.modal') || {}).isShown == true){
+                $openModalSelector.modal("hide");
+                event.preventDefault();
+            }
         });
 
         function logout() {

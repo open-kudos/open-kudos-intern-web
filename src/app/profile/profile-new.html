@@ -2,8 +2,6 @@
 
 <kudos-navbar></kudos-navbar>
 
-<kudos-notifications-transactions></kudos-notifications-transactions>
-
 <div class="container">
 
     <!-- Profile Edit Modal -->
@@ -29,26 +27,27 @@
         <!-- use later col-sm-push-3 -->
         <div class="col-sm-6 col-sm-push-3">
             <div class="panel panel-body">
+                <div ng-hide="!showLoader" class="loader"></div>
                 <div class="row text-center">
-                    <div class="col-xs-6">
+                    <div class="col-lg-6 col-sm-6">
                         <h1><b class="acorn-color">{{userAvailableKudos}}</b></h1>
                         <h4>{{ 'ProfileMeCorns' | translate }}</h4>
                         <div class="col-md-12">
                             <button name="giveKudosButton" id="giveKudosButton" ng-click="showSendKudosModal()"
                                     data-toggle="modal" data-target="#sendKudosModal"
                                     class="btn profile-buttons hvr-underline-from-center">
-                                    {{ 'ProfileMeGiveACorn' | translate }}
+                                {{ 'ProfileMeGiveACorn' | translate }}
                             </button>
                         </div>
                     </div>
-                    <div class="col-xs-6">
+                    <div class="col-lg-6 col-sm-6">
                         <h1><b class="acorn-color">{{userReceivedKudos}}</b></h1>
                         <h4>{{ 'ProfileMeTotalCorns' | translate }}</h4>
                         <div class="col-md-12">
                             <button name="giveChallengeButton" id="challengeButton"
                                     data-toggle="modal" data-target="#giveChallengeModal"
                                     class="btn profile-buttons hvr-underline-from-center" data-placement="top">
-                                    {{ 'ProfileMeChallenge' | translate }}
+                                {{ 'ProfileMeChallenge' | translate }}
                             </button>
                         </div>
                     </div>
@@ -75,6 +74,16 @@
 
         </div>
 
+        <div class="col-lg-3 col-sm-push-3 panel hidden-xs hidden-md hidden-sm">
+            <ul class="nav nav-pills">
+                <h3>Leaderboard</h3>
+                <li role="presentation" class="active"><a href="">Top receivers</a></li>
+            </ul>
+            <div class="">
+                <kudos-top-receivers></kudos-top-receivers>
+            </div>
+        </div>
+
         <div class="col-sm-3 col-sm-push-3">
 
             <!-- KUDOS FEED BUTTON DROPDOWN
@@ -90,14 +99,11 @@
                     <kudos-transactions-stream></kudos-transactions-stream>
                 </ul>
             </div>
-
-
             <div class="box4">
                 <h4><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> {{ 'ProfileMeTodayBirthday' |
                     translate }}</h4>
                 <p>Lorem</p>
             </div>
-
             <div class="box4">
                 <h4><span class="glyphicon glyphicon-king" aria-hidden="true"></span> {{ 'ProfileMeChallengeWinner' |
                     translate }}</h4>
@@ -106,27 +112,22 @@
                     <small>2020-20-20</small>
                 </h5>
             </div>
-
             <div class="box4">
                 <h4><span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{ 'ProfileMeEngagementLeaders' |
                     translate }}</h4>
                 <p>Dolor Matil</p>
             </div>
-
             <div class="box4">
                 <h4>{{ 'ProfileMeWisdomWall' | translate }}</h4>
                 <p>"Dolores sit amit"</p>
             </div>
-
             <div class="box4">
                 <h4>{{ 'ProfileMeTopReceivers' | translate }}</h4>
             </div>
             <div class="box4">
                 <h4>{{ 'ProfileMeTopSenders' | translate }}</h4>
             </div>
-
         </div>
-
         <div class="col-sm-3 col-sm-pull-9">
         -->
 
@@ -134,14 +135,12 @@
             <!--    <div class="box4">
                     <h3>{{userName}} {{userSurname}}</h3>
                     <h4>{{userPosition}}</h4>
-
                     <p>{{'ProfileMeLocation' | translate }}: {{userLocation}}</p>
                     <p>{{'ProfileMeEmail' | translate }}: {{userEmail}}</p>
                     <p>{{'ProfileMePhone' | translate }}: {{userPhone}}</p>
                     <p>{{'ProfileMeTeam' | translate }}: {{userTeam}}</p>
                     <p>{{'ProfileMeStartedToWork' | translate }}: {{userStartedToWork}}</p>
                     <p>{{'ProfileMeBirthday' | translate }}: {{userBirthday}}</p>
-
                     <button type="button" data-toggle="modal" data-target="#userDetailsModal"
                             class="btn btn-default btn-sm">
                         {{'ProfileMeEdit' | translate }}

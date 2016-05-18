@@ -2,23 +2,34 @@
     <div class="container">
         <ul class="nav navbar-nav navbar-left">
             <li><a ng-class="selectedHome ? 'selected' : ''" href="#/profile">Home</a></li>
-            <li><a ng-class="selectedAcorns ? 'selected' : ''" href="#/acorns">Acorns</a></li>
+            <li ng-controller="NotificationsController"><a ng-click="clearNotifications()" ng-class="selectedAcorns ? 'selected' : ''" href="#/acorns"><kudos-notifications-transactions></kudos-notifications-transactions></a></li>
+            <!-- <li><a href="#/acorns">Acorns <span ng-hide="receivedNewTransaction = false" class="badge acorn-bg text-center arm"> 5 </span></a></li> -->
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
             <li><a href="" class="dropdown-toggle" type="button" id="dropdownMenu1"
                    aria-haspopup="true" aria-expanded="true"
                    ng-click="showDropDown == true ? showDropDown = false : showDropDown = true">
-                <span class="glyphicon glyphicon-user"></span><span class=""> {{user.firstName}} <br ng-if="checkUserLength(user)" class="hidden-lg"> {{user.lastName}}</span>
-                <span class="caret"></span>
+                <span class="glyphicon glyphicon-menu-hamburger hidden-lg hidden-md"></span>
+                <span class="glyphicon glyphicon-user hidden-sm hidden-xs"></span><span class="hidden-sm hidden-xs"> {{user.firstName}} <br ng-if="checkUserLength(user)" class="hidden-lg"> {{user.lastName}}</span>
+                <span class="hidden-xs hidden-sm caret"></span>
             </a></li>
         </ul>
     </div>
     <div class="nav-dropdown" ng-hide="!showDropDown">
 
+        <div class="hidden-md hidden-lg">
+            <a><span class="glyphicon glyphicon-user"></span><span class=""> {{user.firstName}} <br ng-if="checkUserLength(user)" class="hidden-lg"> {{user.lastName}}</span></a>
+        </div>
+
+        <div class="hidden-lg">
+            <a href="#/leaderboard"><span class="glyphicon glyphicon-star"></span> Leaderboard</a>
+        </div>
+
         <div ng-click="logout()">
-            <a ng-click="logout()" class="" href="#"><span class="glyphicon glyphicon-log-in"></span>
-                {{ 'ProfileMeLogout' | translate }}</a>
+            <a ng-click="logout()" class="" href="#"><span class="glyphicon glyphicon-log-in"></span> {{ 'ProfileMeLogout' | translate }}</a>
         </div>
     </div>
 </nav>
+
+<!-- <span class="glyphicon glyphicon-menu-hamburger"></span><span class="hidden-sm hidden-xs"> {{user.firstName}} <br ng-if="checkUserLength(user)" class="hidden-lg"> {{user.lastName}}</span>  -->

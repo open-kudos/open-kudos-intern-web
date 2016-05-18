@@ -19,6 +19,7 @@
             userHome: UserHome,
             updateUser: UpdateUser,
             listUsers: ListUsers,
+            getLeaderboard: GetLeaderboard,
             remainingKudos: RemainingKudos,
             receivedKudos: ReceivedKudos,
             receivedChallenges: ReceivedChallenges,
@@ -43,6 +44,10 @@
 
         function UpdateUser(updateInfo) {
             return userBackend.update(updateInfo);
+        }
+
+        function GetLeaderboard() {
+            return userBackend.getLeaderboard();
         }
 
         function RemainingKudos() {
