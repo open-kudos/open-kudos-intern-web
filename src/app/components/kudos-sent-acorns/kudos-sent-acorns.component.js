@@ -38,7 +38,7 @@
             return amount > 1 ? amount + " Acorns" : amount + " Acorn"
         }
     };
-    
+
     SentAcornsController.$inject = ['$scope', 'SentAcornsService', 'Resources'];
 
     angular.module('myApp.components.sentAcorns', [])

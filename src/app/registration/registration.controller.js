@@ -9,14 +9,18 @@
 
         $scope.register = register;
         $scope.split = split;
+        $scope.checkEmail = checkEmail;
+        $scope.checkPasswordMatch = checkPasswordMatch;
 
         function register() {
             var fullName = $scope.fullName;
+            var email = checkEmail($scope.email);
+            var passwordMatch = checkPasswordMatch($scope.password, $scope.confirmPassword);
             split(fullName);
 
-            if (checkSplited) {
+            if (checkSplited && email && passwordMatch) {
                 var requestData = $httpParamSerializer({
-                    email: $scope.email,
+                    email: email,
                     firstName: splited[0],
                     lastName: splited[1],
                     password: $scope.password,
@@ -39,6 +43,17 @@
                     });
                 });
             }
+        }
+
+        function checkEmail(val) {
+            if (val.indexOf('@swedbank.') > -1)
+                return val;
+            else 
+                return false;
+        }
+        
+        function checkPasswordMatch(psw, confPsw) {
+            return psw == confPsw;
         }
 
         function rememberMeAndLogin(loginInfo) {

@@ -2,7 +2,8 @@
     <div class="container">
         <ul class="nav navbar-nav navbar-left">
             <li><a ng-class="selectedHome ? 'selected' : ''" href="#/profile">Home</a></li>
-            <li><a ng-class="selectedAcorns ? 'selected' : ''" href="#/acorns">Acorns</a></li>
+            <li ng-controller="NotificationsController"><a ng-click="clearNotifications()" ng-class="selectedAcorns ? 'selected' : ''" href="#/acorns"><kudos-notifications-transactions></kudos-notifications-transactions></a></li>
+            <!-- <li><a href="#/acorns">Acorns <span ng-hide="receivedNewTransaction = false" class="badge acorn-bg text-center arm"> 5 </span></a></li> -->
             <li><a ng-class="selectedLeaderboard ? 'selected' : ''" href="#/leaderboard">Leaderboard</a></li>
         </ul>
 

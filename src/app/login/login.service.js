@@ -24,6 +24,8 @@
         function LoginUser(loginInfo) {
             return authBackend.login(loginInfo).then(function () {
                 CheckUser();
+            }).catch(function () {
+                return "Error";
             })
         }
 

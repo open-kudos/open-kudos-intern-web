@@ -29,7 +29,7 @@
                 url: SERVER.ip + "/login?" + data
             }).then(function (response) {
                 return response;
-            });
+            })
         }
 
         function Logout() {
