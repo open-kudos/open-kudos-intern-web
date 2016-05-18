@@ -22,6 +22,7 @@
             'myApp.components.giveKudos',
             'myApp.components.transactions',
             'myApp.components.giveChallenge',
-            'myApp.components.challengeOngoing'
+            'myApp.components.challengeOngoing',
+            'myApp.components.topReceivers'
         ]);
 })();

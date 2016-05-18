@@ -27,6 +27,9 @@
                 templateUrl: 'app/acorns/acorns.html',
                 controller: 'AcornController'
             })
+            .when('/leaderboard', {
+                templateUrl: 'app/leaderboard/leaderboard.html'
+            })
             .when('/notifications', {
             templateUrl: 'app/notifications/notification.html',
                 controller: 'NotificationController'

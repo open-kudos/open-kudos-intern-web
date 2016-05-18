@@ -7,6 +7,7 @@
 
         $scope.selectedHome = false;
         $scope.selectedAcorns = false;
+        $scope.selectedLeaderboard = false;
         $scope.selectedChallenges = false;
         $scope.user = Resources.getCurrentUser();
         $scope.checkUserLength = checkUserLength;
@@ -18,6 +19,8 @@
                 $scope.selectedHome = true;
             } else if ( $location.path() == '/acorns'){
                 $scope.selectedAcorns = true;
+            } else if ( $location.path() == '/leaderboard'){
+                $scope.selectedLeaderboard = true;
             }
 
             if ($scope.user == undefined){

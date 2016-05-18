@@ -78,7 +78,7 @@
 
         <div class="col-sm-3 col-sm-push-3">
 
-            <!-- KUDOS FEED BUTTON DROPDOWN
+             KUDOS FEED BUTTON DROPDOWN
             <div class="box4">
                 <h4>Acorns feed</h4>
                 <button class="btn sidebar-buttons dropdown-toggle" type="button" id="dropdownFeed"
@@ -121,6 +121,9 @@
 
             <div class="box4">
                 <h4>{{ 'ProfileMeTopReceivers' | translate }}</h4>
+                <div ng-repeat="(key, value) in leaderboard">
+                    {{key}} {{value}}
+                </div>
             </div>
             <div class="box4">
                 <h4>{{ 'ProfileMeTopSenders' | translate }}</h4>
@@ -129,10 +132,9 @@
         </div>
 
         <div class="col-sm-3 col-sm-pull-9">
-        -->
 
 
-            <!--    <div class="box4">
+                <div class="box4">
                     <h3>{{userName}} {{userSurname}}</h3>
                     <h4>{{userPosition}}</h4>
 
@@ -147,7 +149,7 @@
                             class="btn btn-default btn-sm">
                         {{'ProfileMeEdit' | translate }}
                     </button>
-                </div>  -->
+                </div>
 
         </div>
 
