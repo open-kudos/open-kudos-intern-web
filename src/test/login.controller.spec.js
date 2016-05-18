@@ -8,8 +8,8 @@
 describe('LoginController', function() {
 
     var $scope;
+    var serviceMock;
     var $controller;
-    var someServiceMock;
 
     var loginInfo = {
         email: "test@swedbank.lt",
@@ -17,7 +17,7 @@ describe('LoginController', function() {
     };
 
     beforeEach(function (){
-        someServiceMock = jasmine.createSpyObj('someService', ['someAsyncCall']); // Example how to mock services
+        serviceMock = jasmine.createSpyObj('someService', ['someAsyncCall']); // Example how to mock services
         module('myApp');
     });
 
@@ -29,29 +29,18 @@ describe('LoginController', function() {
         });
     });
 
-    beforeEach(inject(function(_$controller_){
-        $controller = _$controller_;
+    beforeEach(inject(function(_$controller_) {
+        $scope = {};
+        $controller = _$controller_('LoginController', { $scope: $scope });
     }));
 
-    describe('$scope.grade', function() {
-        var $scope, controller;
-
-        beforeEach(function() {
-            $scope = {};
-            controller = $controller('LoginController', { $scope: $scope });
-        });
-
-        it('sets the strength to "strong" if the password length is >8 chars', function() {
-            expect(true).toEqual(true);
-        });
-
-        it('it should check if user is remembered', function() {
-            $scope.rememberUser(loginInfo);
-            expect($scope.isRememberedUser()).toEqual(true);
-        });
-
-        it('it should check if user is cleared from cookies', function () {
-            
-        })
+    it('should check if user is remembered', function() {
+        $scope.rememberUser(loginInfo);
+        expect($scope.isRememberedUser()).toEqual(true);
     });
+
+    //TODO Complete these
+    it('should ensure invalid email addresses are caught', function () {});
+    it('should ensure valid email addresses pass validation', function () {});
+    it('should show error messages for empty fields', function () {});
 });

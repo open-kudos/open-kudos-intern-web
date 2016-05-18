@@ -3,7 +3,7 @@
     function LoginController($scope, $cookies, $base64, $httpParamSerializer, LoginService) {
 
         var email = document.getElementById('email');
-        var psw = document.getElementById('password');
+        var password = document.getElementById('password');
 
         $scope.showLoader = false;
 
@@ -23,12 +23,8 @@
                 email: $scope.email,
                 password: $scope.password
             });
-            validationLogin();
-            if (rememberMe) {
-                rememberMeAndLogin(loginInfo)
-            } else {
-                loginAndValidate(loginInfo)
-            }
+            loginValidation();
+            rememberMe ? rememberMeAndLogin(loginInfo) : validateAndLogin(loginInfo)
         }
 
         function rememberMeAndLogin(loginInfo) {
@@ -43,7 +39,7 @@
             $cookies.put('user_credentials', $base64.encode(loginInfo), {expires: expireDate});
         }
 
-        function loginAndValidate(loginInfo) {
+        function validateAndLogin(loginInfo) {
             $scope.showLoader = true;
             if ($scope.email === "" || $scope.password === "") {
                 $scope.emailErrorMessage = "Please enter Email";
@@ -52,11 +48,7 @@
             } else {
                 LoginService.login(loginInfo).then(function (response) {
                     $scope.showLoader = false;
-                    if (response === "Error") {
-                        showErrorMessage();
-                    }else{
-                        hideErrorMessage();
-                    }
+                    response === "Error" ? showErrorMessage() : hideErrorMessage();
                 })
             }
         }
@@ -71,25 +63,14 @@
             errorMessage.className = 'errorMessage hidden';
         }
 
+        function loginValidation() {
+            email.value == '' ? email.className = 'notValid' : email.className = 'valid';
+            password.value == '' ? password.className = 'notValid' : password.className = 'valid'
+        }
+
         function isRememberedUser() {
             return $cookies.get('remember_user') === 'true'
         }
-
-        function validationLogin() {
-            if (email.value == '') {
-                email.className = 'notValid';
-            } else {
-                email.className = 'valid';
-            }
-
-            if (psw.value == '') {
-                psw.className = 'notValid';
-            } else {
-                psw.className = 'valid';
-            }
-        }
-
-
     }
 
     LoginController.$inject = ['$scope', '$cookies', '$base64', '$httpParamSerializer', 'LoginService'];
