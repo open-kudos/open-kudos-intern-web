@@ -4,7 +4,6 @@
             <li><a ng-class="selectedHome ? 'selected' : ''" href="#/profile">Home</a></li>
             <li ng-controller="NotificationsController"><a ng-click="clearNotifications()" ng-class="selectedAcorns ? 'selected' : ''" href="#/acorns"><kudos-notifications-transactions></kudos-notifications-transactions></a></li>
             <!-- <li><a href="#/acorns">Acorns <span ng-hide="receivedNewTransaction = false" class="badge acorn-bg text-center arm"> 5 </span></a></li> -->
-            <li class="hidden-sm hidden-xs"><a ng-class="selectedLeaderboard ? 'selected' : ''" href="#/leaderboard">Leaderboard</a></li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
@@ -23,7 +22,7 @@
             <a><span class="glyphicon glyphicon-user"></span><span class=""> {{user.firstName}} <br ng-if="checkUserLength(user)" class="hidden-lg"> {{user.lastName}}</span></a>
         </div>
 
-        <div class="hidden-md hidden-lg">
+        <div class="hidden-lg">
             <a href="#/leaderboard"><span class="glyphicon glyphicon-star"></span> Leaderboard</a>
         </div>
 
