@@ -1,5 +1,5 @@
 <div class="card card-block box-shadow-animation text-center">
-    <div class="box4" ng-repeat="incomingKudos in incomingKudosCollection | orderBy:'-timestamp' | limitTo: incomingKudosShowLimit">
+    <div style="overflow: auto" class="box4" ng-repeat="incomingKudos in incomingKudosCollection | orderBy:'-timestamp' | limitTo: incomingKudosShowLimit">
         You received
         <span class="badge acorn-bg">{{acornPlural(incomingKudos.amount)}}</span> from
         <span class="bold">{{incomingKudos.senderEmail}}</span> on
