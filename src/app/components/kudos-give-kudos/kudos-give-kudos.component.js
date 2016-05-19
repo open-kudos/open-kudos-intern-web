@@ -139,9 +139,12 @@
         function clearSendKudosFormValues() {
             $scope.sendKudosTo = "";
             $scope.sendKudosAmount = "";
-            $scope.sendKudosMessage = "";
-            $scope.errorClass = "error-message";
-            $scope.sendKudosErrorMessage = "Please enter receiver and amount";
+            $scope.receiverErrorMessage = "";
+            $scope.receiverErrorClass = "";
+            $scope.fieldReceiverErrorClass = "";
+            $scope.amountErrorMessage = "";
+            $scope.amountErrorClass = "";
+            $scope.fieldAmountErrorClass = "";
             disableSendKudosButton();
         }
 
