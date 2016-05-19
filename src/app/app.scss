@@ -146,6 +146,11 @@ body {
     background-color: #FF9A09;
 }
 
+.btn-login:disabled {
+    color: #fff;
+    background-color: #f39c12;
+}
+
 .forgot-password {
     text-decoration: underline;
     color: #888;
@@ -359,6 +364,10 @@ body {
     text-transform: uppercase;
 }
 
+.btn:focus{
+    outline: none;
+}
+
 .profile-buttons {
     background-color: #FF6100;
     color: #fff;
@@ -376,8 +385,8 @@ body {
 }
 
 .profile-buttons:focus {
+    outline: none;
     color: #fff;
-    background-color: #FF9A09
 }
 
 .sidebar-buttons {
@@ -687,6 +696,15 @@ div.box4 {
 .nav-dropdown div:hover {
     color: $color-grey-dark;
     background-color: #ecf0f1;
+}
+
+.nav-dropdown >.no-hover:hover > a {
+    color: $color-grey;
+}
+
+.nav-dropdown>.no-hover:hover {
+    background: #FAFAFA;
+    color: $color-grey;
 }
 
 .nav-dropdown div:nth-child(even) {

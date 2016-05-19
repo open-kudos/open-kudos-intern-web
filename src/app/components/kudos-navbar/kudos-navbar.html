@@ -18,12 +18,12 @@
     </div>
     <div class="nav-dropdown" ng-hide="!showDropDown">
 
-        <div class="hidden-md hidden-lg">
-            <a><span class="glyphicon glyphicon-user"></span><span class=""> {{user.firstName}} <br ng-if="checkUserLength(user)" class="hidden-lg"> {{user.lastName}}</span></a>
+        <div class="hidden-md hidden-lg no-hover">
+            <a disabled="true"><span class="glyphicon glyphicon-user"></span><span class=""> {{user.firstName}} {{user.lastName}}</span></a>
         </div>
 
         <div class="hidden-lg">
-            <a href="#/leaderboard"><span class="glyphicon glyphicon-star"></span> Leaderboard</a>
+            <a href="#/leaderboard" class="no-hover"><span class="glyphicon glyphicon-star"></span> Leaderboard</a>
         </div>
 
         <div ng-click="logout()">
