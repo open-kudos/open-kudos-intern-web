@@ -11,6 +11,7 @@
         $scope.split = split;
         $scope.checkEmail = checkEmail;
         $scope.checkPasswordMatch = checkPasswordMatch;
+        $scope.showErrorMessage = showErrorMessage;
 
         function register() {
             var fullName = $scope.fullName;
@@ -28,19 +29,21 @@
                 });
 
                 RegistrationService.register(requestData).then(function (val) {
-                    RegistrationService.confirm(val.emailHash).then(function (val) {
-                        var rememberMe = $scope.rememberMeCheckbox;
-                        var loginInfo = $httpParamSerializer({
-                            email: $scope.email,
-                            password: $scope.password
+                    showErrorMessage("");
+                    if (val != "Error") {
+                        RegistrationService.confirm(val.emailHash).then(function (val) {
+                            var rememberMe = $scope.rememberMeCheckbox;
+                            var loginInfo = $httpParamSerializer({
+                                email: $scope.email,
+                                password: $scope.password
+                            });
+                            if (rememberMe) {
+                                rememberMeAndLogin(loginInfo)
+                            } else {
+                                loginAndValidate(loginInfo)
+                            }
                         });
-                        if (rememberMe) {
-                            rememberMeAndLogin(loginInfo)
-                        } else {
-                            loginAndValidate(loginInfo)
-                        }
-
-                    });
+                    } else showErrorMessage("User already exists");
                 });
             }
         }
@@ -72,6 +75,10 @@
             LoginService.login(loginInfo).then(function () {
                 $scope.showLoader = false;
             })
+        }
+
+        function showErrorMessage(val){
+            $scope.errorMessage = val;
         }
 
         function split(val) {

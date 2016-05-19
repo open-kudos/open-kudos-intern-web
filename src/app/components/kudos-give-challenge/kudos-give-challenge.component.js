@@ -90,6 +90,7 @@
             $scope.giveChallengeExpirationDate = null;
             $scope.giveChallengeAmountOfKudos = null;
             $scope.autocompleteHide = true;
+            showChallengeFormErrorMessage("");
         }
 
         function showChallengeFormErrorMessage(message) {

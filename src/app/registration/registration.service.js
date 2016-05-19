@@ -18,7 +18,11 @@
         return service;
 
         function Register(requestData) {
-            return authBackend.register(requestData);
+            return authBackend.register(requestData).then(function (val) {
+                return val;
+            }).catch(function () {
+                return "Error";
+            })
         }
 
         function Confirm(requestData) {
