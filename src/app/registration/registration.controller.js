@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    var registrationController = function ($scope, $http, $cookies, $base64, $window, $translate, $httpParamSerializer, RegistrationService, LoginService) {
+    var registrationController = function ($scope, $http, $cookies, $base64, $window, $translate, $httpParamSerializer, RegistrationService, LoginService, $location) {
         var checkSplited = false;
         var splited = [];
 
@@ -31,21 +31,27 @@
                 RegistrationService.register(requestData).then(function (val) {
                     showErrorMessage("");
                     if (val != "Error") {
-                        RegistrationService.confirm(val.emailHash).then(function (val) {
-                            var rememberMe = $scope.rememberMeCheckbox;
-                            var loginInfo = $httpParamSerializer({
-                                email: $scope.email,
-                                password: $scope.password
-                            });
-                            if (rememberMe) {
-                                rememberMeAndLogin(loginInfo)
-                            } else {
-                                loginAndValidate(loginInfo)
-                            }
-                        });
+                        toastr.info("You have to check your " + email + " email for your account confirmation");
+                        toastr.success("Registration successful");
+                        $location.path("/login");
                     } else showErrorMessage("User already exists");
                 });
             }
+        }
+
+        function confirmRegistration() {
+            RegistrationService.confirm(val.emailHash).then(function (val) {
+                var rememberMe = $scope.rememberMeCheckbox;
+                var loginInfo = $httpParamSerializer({
+                    email: $scope.email,
+                    password: $scope.password
+                });
+                if (rememberMe) {
+                    rememberMeAndLogin(loginInfo)
+                } else {
+                    loginAndValidate(loginInfo)
+                }
+            });
         }
 
         function checkEmail(val) {
@@ -90,7 +96,7 @@
         }
     };
 
-    registrationController.$inject = ['$scope', '$http', '$cookies', '$base64', '$window', '$translate', '$httpParamSerializer', 'RegistrationService', 'LoginService'];
+    registrationController.$inject = ['$scope', '$http', '$cookies', '$base64', '$window', '$translate', '$httpParamSerializer', 'RegistrationService', 'LoginService', '$location'];
 
     angular
         .module('myApp.registration', [
