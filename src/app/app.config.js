@@ -28,7 +28,8 @@
                 controller: 'AcornController'
             })
             .when('/leaderboard', {
-                templateUrl: 'app/leaderboard/leaderboard.html'
+                templateUrl: 'app/leaderboard/leaderboard.html',
+                controller: 'LeaderboardController'
             })
             .when('/notifications', {
             templateUrl: 'app/notifications/notification.html',

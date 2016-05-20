@@ -2,14 +2,14 @@
     'use strict';
     var LeaderboardController = function ($http, $scope) {
 
-        $scope.topReceivers = true;
+        $scope.topSenders = true;
 
     };
 
     LeaderboardController.$inject = ['$http', '$scope'];
 
     angular
-        .module('myApp.acorn', [
+        .module('myApp.acorn.leaderboard', [
             'ngRoute',
             'ngCookies'
         ])

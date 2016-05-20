@@ -18,7 +18,8 @@ function User($http, SERVER) {
         disable: disableUser,
         update: updateUserInfo,
         list: listUsers,
-        getLeaderboard: getLeaderboard
+        getTopReceivers: getTopReceivers,
+        getTopSenders: getTopSenders
     }
     return user;
 
@@ -68,11 +69,21 @@ function User($http, SERVER) {
         })
     }
 
-    function getLeaderboard() {
+    function getTopReceivers() {
         return $http({
             method: 'GET',
             withCredentials: true,
             url: SERVER.ip + "/user/topreceivers"
+        }).then(function (response) {
+            return response.data;
+        })
+    }
+
+    function getTopSenders() {
+        return $http({
+            method: 'GET',
+            withCredentials: true,
+            url: SERVER.ip + "/user/topsenders"
         }).then(function (response) {
             return response.data;
         })

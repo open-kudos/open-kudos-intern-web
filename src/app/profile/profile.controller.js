@@ -11,7 +11,7 @@
         $scope.userReceivedKudos = 0;
 
         $scope.usersCollection = [];
-        $scope.leaderboard = [];
+        $scope.topReceivers = [];
         $scope.showLoader = true;
         $scope.buttonDisabled = true;
         $scope.receivedAcorns = false;
@@ -49,8 +49,8 @@
                 $scope.usersCollection = val.userList;
             });
 
-            ProfileService.getLeaderboard().then(function(val) {
-                $scope.leaderboard = val;
+            ProfileService.getTopReceivers().then(function(val) {
+                $scope.topReceivers = val;
             })
         }
 

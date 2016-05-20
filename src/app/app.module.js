@@ -21,6 +21,8 @@
             'myApp.components.giveKudos',
             'myApp.components.giveChallenge',
             'myApp.components.challengeOngoing',
-            'myApp.components.topReceivers'
+            'myApp.components.topReceivers',
+            'myApp.components.topSenders',
+            'myApp.acorn.leaderboard'
         ]);
 })();

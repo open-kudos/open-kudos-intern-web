@@ -77,10 +77,14 @@
         <div class="col-lg-3 col-sm-push-3 panel hidden-xs hidden-md hidden-sm">
             <ul class="nav nav-pills">
                 <h3>Leaderboard</h3>
-                <li role="presentation" class="active"><a href="">Top receivers</a></li>
+                <li role="presentation" ng-class="topReceivers ? 'active' : ''"><a href="" ng-click="topReceivers=true; topSenders=false;">Top receivers</a></li>
+                <li role="presentation" ng-class="topSenders ? 'active' : ''"><a href="" ng-click="topReceivers=false; topSenders=true;">Top senders</a></li>
             </ul>
-            <div class="">
+            <div class="" ng-show="topReceivers">
                 <kudos-top-receivers></kudos-top-receivers>
+            </div>
+            <div class="" ng-show="topSenders">
+                <kudos-top-senders></kudos-top-senders>
             </div>
         </div>
 

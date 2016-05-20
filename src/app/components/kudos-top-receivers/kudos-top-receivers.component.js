@@ -7,7 +7,7 @@
         $scope.acornPlural = acornPlural;
         $scope.limit = 5;
 
-        ProfileService.getLeaderboard().then(function(val) {
+        ProfileService.getTopReceivers().then(function(val) {
             $scope.topReceivers = val;
         })
 

@@ -19,7 +19,8 @@
             userHome: UserHome,
             updateUser: UpdateUser,
             listUsers: ListUsers,
-            getLeaderboard: GetLeaderboard,
+            getTopReceivers: GetTopReceivers,
+            getTopSenders: GetTopSenders,
             remainingKudos: RemainingKudos,
             receivedKudos: ReceivedKudos,
             receivedChallenges: ReceivedChallenges,
@@ -46,8 +47,12 @@
             return userBackend.update(updateInfo);
         }
 
-        function GetLeaderboard() {
-            return userBackend.getLeaderboard();
+        function GetTopReceivers() {
+            return userBackend.getTopReceivers();
+        }
+
+        function GetTopSenders() {
+            return userBackend.getTopSenders();
         }
 
         function RemainingKudos() {
