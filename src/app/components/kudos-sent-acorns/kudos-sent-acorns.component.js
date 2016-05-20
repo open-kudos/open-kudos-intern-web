@@ -21,6 +21,8 @@
         function showMoreOutgoingKudosButton(val) {
             if (val.length > 5) {
                 $scope.moreOutgoing = true;
+            } else {
+                $scope.moreOutgoing = false;
             }
         }
 
