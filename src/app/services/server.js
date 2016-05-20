@@ -4,6 +4,6 @@
 (function() {
 "use strict";
 angular.module("myApp").constant("SERVER", {
-	"ip": "https://openkudos.com/api"
+	"ip":"https://openkudos.com/api"
 })
 })();
