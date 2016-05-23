@@ -47,7 +47,7 @@
 
                   <div class="form-group col-lg-12">
                     <div class="msg-block" ng-show="registrationForm.$error">
-                      <span class="errorMessage" ng-show="registrationForm.confirmPassword.$error.passwordVerify">
+                      <span class="errorMessage" ng-if="registrationValidation" ng-show="registrationForm.confirmPassword.$error.passwordVerify">
                         {{ 'registrationPasswordMatch' | translate }}
                       </span>
                     </div>
