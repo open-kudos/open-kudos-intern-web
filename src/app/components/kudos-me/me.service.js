@@ -7,10 +7,16 @@
         "User"
     ];
 
-    function MeService() {
+    function MeService(User) {
         var service = {
-
+            edit: update
         };
         return service;
+
+        function update(requestData) {
+            return User.update(requestData).then(function (val) {
+                return val;
+            })
+        }
     }
 })();

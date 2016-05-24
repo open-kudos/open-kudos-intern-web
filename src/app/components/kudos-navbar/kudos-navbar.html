@@ -3,7 +3,7 @@
         <ul class="nav navbar-nav navbar-left">
             <li><a ng-class="selectedHome ? 'selected' : ''" href="#/profile">Home</a></li>
             <li ng-controller="NotificationsController"><a ng-click="clearNotifications()" ng-class="selectedAcorns ? 'selected' : ''" href="#/acorns"><kudos-notifications-transactions></kudos-notifications-transactions></a></li>
-            <li><a ng-class="selectedProfile ? 'selected' : ''" href="#/me">Profile</a></li>
+            <li><a ng-class="selectedProfile ? 'selected hidden-xs hidden-sm' : 'hidden-xs hidden-sm'" href="#/me">Profile</a></li>
             <!-- <li><a href="#/acorns">Acorns <span ng-hide="receivedNewTransaction = false" class="badge acorn-bg text-center arm"> 5 </span></a></li> -->
         </ul>
 
@@ -19,17 +19,23 @@
     </div>
     <div class="nav-dropdown" ng-hide="!showDropDown">
 
-        <div class="hidden-md hidden-lg no-hover">
-            <a disabled="true"><span class="glyphicon glyphicon-user"></span><span class=""> {{user.firstName}} {{user.lastName}}</span></a>
-        </div>
+        <a href="#/me">
+            <div class="hidden-md hidden-lg">
+                <span class="glyphicon glyphicon-user"></span><span class=""> {{user.firstName}} {{user.lastName}}</span>
+            </div>
+        </a>
 
-        <div class="hidden-lg">
-            <a href="#/leaderboard" class="no-hover"><span class="glyphicon glyphicon-star"></span> Leaderboard</a>
-        </div>
+        <a href="#/leaderboard" class="no-hover">
+            <div class="hidden-lg">
+               <span class="glyphicon glyphicon-star"></span> Leaderboard
+            </div>
+        </a>
 
-        <div ng-click="logout()">
-            <a ng-click="logout()" class="" href="#"><span class="glyphicon glyphicon-log-in"></span> {{ 'ProfileMeLogout' | translate }}</a>
-        </div>
+        <a ng-click="logout()" class="" href="#">
+            <div ng-click="logout()">
+                <span class="glyphicon glyphicon-log-in"></span> {{ 'ProfileMeLogout' | translate }}
+            </div>
+        </a>
     </div>
 </nav>
 
