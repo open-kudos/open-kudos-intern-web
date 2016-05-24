@@ -11,6 +11,8 @@
         "SERVER"
     ];
 
+    var noJsonTransform = function(data) { return data; };
+
     function Auth($http, SERVER) {
         var service = {
             login: Login,
@@ -21,8 +23,7 @@
             confirm: ConfirmRegistration
         };
         return service;
-
-        var noJsonTransform = function(data) { return data; };
+        
         function Login(data) {
             return $http({
                 method: 'POST',

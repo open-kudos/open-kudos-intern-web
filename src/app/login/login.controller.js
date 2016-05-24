@@ -20,10 +20,6 @@
 
         function login() {
             var rememberMe = $scope.rememberMeCheckbox;
-            var loginInfo = {
-                email: $scope.email,
-                password: $scope.password
-            };
 
             if ($scope.email == null) {
                 showError("Please enter Email");
@@ -32,7 +28,7 @@
             } else if (!validateEmail($scope.email)) {
                 showError("Wrong email format");
             } else {
-                rememberMe ? rememberMeAndLogin(loginInfo) : validateAndLogin(loginInfo)
+                rememberMe ? rememberMeAndLogin(getLoginInfo()) : validateAndLogin(getLoginInfo())
             }
         }
 
@@ -50,21 +46,32 @@
 
         function validateAndLogin(loginInfo) {
             $scope.showLoader = true;
+            if (formFieldsValid()) {
+                LoginService.login(loginInfo).then(function (response) {
+                    $scope.showLoader = false;
+                    responseValidation(response);
+                })
+            }
+        }
+
+        function formFieldsValid() {
             if ($scope.email === "" || $scope.password === "") {
                 $scope.emailErrorMessage = "Please enter Email";
             } else if ($scope.password == "") {
                 $scope.passwordErrorMessage = "Please enter Password";
             } else {
-                LoginService.login(loginInfo).then(function (response) {
-                    $scope.showLoader = false;
-                    if (response == "user_not_exist") {
-                        showError("User not exists");
-                    } else if (response == "email_password_mismatch") {
-                        showError("Wrong email or password");
-                    } else if (response == "user_not_confirmed") {
-                        showError("User not confirmed ");
-                    }
-                })
+                return true;
+            }
+            return false;
+        }
+
+        function responseValidation(response) {
+            if (response == "user_not_exist") {
+                showError("User not exists");
+            } else if (response == "email_password_mismatch") {
+                showError("Wrong email or password");
+            } else if (response == "user_not_confirmed") {
+                showError("User not confirmed ");
             }
         }
 
@@ -80,6 +87,13 @@
 
         function isRememberedUser() {
             return $cookies.get('remember_user') === 'true'
+        }
+
+        function getLoginInfo() {
+            return {
+                email: $scope.email,
+                password: $scope.password
+            };
         }
     }
 
