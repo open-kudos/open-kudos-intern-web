@@ -24,6 +24,7 @@
             'myApp.components.topReceivers',
             'myApp.components.topSenders',
             'myApp.components.confirm-email',
+            'myApp.components.me',
             'myApp.acorn.leaderboard'
         ]);
 })();
