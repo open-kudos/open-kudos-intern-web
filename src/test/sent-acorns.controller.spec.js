@@ -33,6 +33,9 @@ describe('SentAcornsController', function() {
             var collectionOfMoreThanFiveElements = [1,2,3,4,5,6];
             $scope.showMoreOutgoingKudosButton(collectionOfMoreThanFiveElements);
             expect($scope.moreOutgoing).toBeTruthy();
+        });
+
+        it('should check if show more button is being hidden', function() {
             var collectionOfLessThanFiveElements = [1];
             $scope.showMoreOutgoingKudosButton(collectionOfLessThanFiveElements);
             expect($scope.moreOutgoing).toBeFalsy();
@@ -50,10 +53,13 @@ describe('SentAcornsController', function() {
             expect($scope.outgoingKudosShowLimit).toEqual(5);
         });
 
-        it('should check if 1 or more acorns sent', function() {
+        it('should check if amount of sent acorns equals to 1', function() {
             $scope.amountSingular = 1;
-            $scope.amountPlural = 2;
             expect($scope.acornPlural($scope.amountSingular)).toEqual($scope.amountSingular + " Acorn");
+        });
+
+        it('should check if amount of sent acorns is more than 1', function () {
+            $scope.amountPlural = 2;
             expect($scope.acornPlural($scope.amountPlural)).toEqual($scope.amountPlural + " Acorns");
         });
 

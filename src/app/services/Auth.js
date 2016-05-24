@@ -26,6 +26,7 @@
             return $http({
                 method: 'POST',
                 withCredentials: true,
+                data : data,
                 url: SERVER.ip + "/login?" + data
             }).then(function (response) {
                 return response;
