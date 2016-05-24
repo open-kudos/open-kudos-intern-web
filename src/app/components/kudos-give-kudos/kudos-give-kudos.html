@@ -20,6 +20,7 @@
                                class="form-control"
                                autocomplete="off"
                                placeholder="{{ 'SEND_KUDOS_SENDING_TO_HINT' | translate }}">
+
                         <div class="autocomplete" ng-show="autocompleteHide==false">
                             <div ng-repeat="autoText in usersCollection | filter:sendKudosTo"
                                  ng-click="selectAutoText(autoText.email)">
@@ -43,6 +44,13 @@
                                placeholder="{{'SEND_KUDOS_AMOUNT_HINT' | translate }}" required>
                         <p ng-class="amountErrorClass" class="small">{{amountErrorMessage}}</p>
                     </div>
+
+                    <div class="form-group text-center">
+                        <div ng-hide="" class="alert alert-danger" role="alert">
+                            <strong>Whoops!</strong> {{errorMessage}}
+                        </div>
+                    </div>
+
                 </form>
 
                 <button ng-click="sendKudos()"

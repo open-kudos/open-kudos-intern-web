@@ -22,12 +22,14 @@
         };
         return service;
 
+        var noJsonTransform = function(data) { return data; };
         function Login(data) {
             return $http({
                 method: 'POST',
                 withCredentials: true,
                 data : data,
-                url: SERVER.ip + "/login"
+                url: SERVER.ip + "/login",
+                transformResponse: noJsonTransform
             }).then(function (response) {
                 return response;
             })

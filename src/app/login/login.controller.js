@@ -6,6 +6,7 @@
         var password = document.getElementById('password');
 
         $scope.showLoader = false;
+        $scope.showError = false;
 
         $scope.login = login;
         $scope.isRememberedUser = isRememberedUser;
@@ -20,12 +21,19 @@
         function login() {
             var rememberMe = $scope.rememberMeCheckbox;
             var loginInfo = {
-                    email: $scope.email,
-                    password: $scope.password
-                };
+                email: $scope.email,
+                password: $scope.password
+            };
 
-            loginValidation();
-            rememberMe ? rememberMeAndLogin(loginInfo) : validateAndLogin(loginInfo)
+            if ($scope.email == null) {
+                showError("Please enter Email");
+            } else if ($scope.password == null) {
+                showError("Please enter Password");
+            } else if (!validateEmail($scope.email)) {
+                showError("Wrong email format");
+            } else {
+                rememberMe ? rememberMeAndLogin(loginInfo) : validateAndLogin(loginInfo)
+            }
         }
 
         function rememberMeAndLogin(loginInfo) {
@@ -49,24 +57,25 @@
             } else {
                 LoginService.login(loginInfo).then(function (response) {
                     $scope.showLoader = false;
-                    response === "Error" ? showErrorMessage() : hideErrorMessage();
+                    if (response == "user_not_exist") {
+                        showError("User not exists");
+                    } else if (response == "email_password_mismatch") {
+                        showError("Wrong email or password");
+                    } else if (response == "user_not_confirmed") {
+                        showError("User not confirmed ");
+                    }
                 })
             }
         }
 
-        function showErrorMessage() {
-            var errorMessage = document.getElementById('errorMessage');
-            errorMessage.className = 'errorMessage';
+        function showError(message) {
+            $scope.errorMessage = message;
+            $scope.showError = true;
         }
 
-        function hideErrorMessage() {
-            var errorMessage = document.getElementById('errorMessage');
-            errorMessage.className = 'errorMessage hidden';
-        }
-
-        function loginValidation() {
-            email.value == '' ? email.className = 'notValid' : email.className = 'valid';
-            password.value == '' ? password.className = 'notValid' : password.className = 'valid'
+        function validateEmail(email) {
+            var reg = /[@]swedbank.[a-z]{2,}/;
+            return reg.test(email);
         }
 
         function isRememberedUser() {
