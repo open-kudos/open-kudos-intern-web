@@ -34,6 +34,10 @@
             .when('/notifications', {
             templateUrl: 'app/notifications/notification.html',
                 controller: 'NotificationController'
+            })
+            .when('/me', {
+                templateUrl: 'app/components/kudos-me/me.html',
+                controller: 'MeController'
         });
 
         $translateProvider.useStaticFilesLoader({
