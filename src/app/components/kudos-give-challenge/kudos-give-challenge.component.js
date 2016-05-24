@@ -43,7 +43,6 @@
                 amount: $scope.giveChallengeAmountOfKudos
             });
 
-
             var challengeCall = challengeFormCheck(expirationDate, currentDate);
 
             if (challengeCall)
@@ -116,7 +115,7 @@
         }
     };
 
-    GiveChallengeController.$inject = ['$scope', '$httpParamSerializer', 'Resources', 'Challenges', 'ConfirmEmailService', '$filter'];
+    GiveChallengeController.$inject = ['$scope', '$httpParamSerializer', 'Resources', 'Challenges', 'GiveChallengeService', '$filter'];
 
     angular.module('myApp.components.giveChallenge', [])
     .component('kudosGiveChallenge', {
