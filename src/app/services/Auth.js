@@ -26,7 +26,8 @@
             return $http({
                 method: 'POST',
                 withCredentials: true,
-                url: SERVER.ip + "/login?" + data
+                data : data,
+                url: SERVER.ip + "/login"
             }).then(function (response) {
                 return response;
             })
@@ -80,7 +81,7 @@
         function ConfirmRegistration(id) {
             return $http({
                 withCredentials: true,
-                method: 'POST',
+                method: 'GET',
                 url: SERVER.ip + "/confirm?id=" + id
             }).then(function (response) {
                 return response.data;

@@ -19,10 +19,11 @@
 
         function login() {
             var rememberMe = $scope.rememberMeCheckbox;
-            var loginInfo = $httpParamSerializer({
-                email: $scope.email,
-                password: $scope.password
-            });
+            var loginInfo = {
+                    email: $scope.email,
+                    password: $scope.password
+                };
+
             loginValidation();
             rememberMe ? rememberMeAndLogin(loginInfo) : validateAndLogin(loginInfo)
         }
