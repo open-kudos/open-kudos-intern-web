@@ -6,7 +6,7 @@
         .module("myApp").config(function ($routeProvider, $translateProvider, $locationProvider, $logProvider) {
         $routeProvider
             .otherwise({
-                redirectTo: '/feed'
+                redirectTo: '/login'
             })
             .when('/login', {
                 templateUrl: 'app/login/login.html',

@@ -31,7 +31,7 @@
                 RegistrationService.register(requestData).then(function (val) {
                     showErrorMessage("");
                     if (val != "Error") {
-                        toastr.info("You have to check your " + email + " email for your account confirmation");
+                        toastr.info("Check your email for account confirmation code");
                         toastr.success("Registration successful");
                         $location.path("/login");
                     } else showErrorMessage("User already exists");

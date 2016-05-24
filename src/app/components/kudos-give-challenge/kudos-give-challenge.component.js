@@ -116,7 +116,7 @@
         }
     };
 
-    GiveChallengeController.$inject = ['$scope', '$httpParamSerializer', 'Resources', 'Challenges', 'GiveChallengeService', '$filter'];
+    GiveChallengeController.$inject = ['$scope', '$httpParamSerializer', 'Resources', 'Challenges', 'ConfirmEmailService', '$filter'];
 
     angular.module('myApp.components.giveChallenge', [])
     .component('kudosGiveChallenge', {
