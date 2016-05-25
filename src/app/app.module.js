@@ -25,7 +25,10 @@
             'myApp.components.topSenders',
             'myApp.components.confirm-email',
             'myApp.components.me',
-            'myApp.components.info',
-            'myApp.acorn.leaderboard'
+            'myApp.components.wisdomWallIdeas',
+            'myApp.components.addNewIdea',
+            'myApp.acorn.leaderboard',
+            'myApp.components.relationship',
+            'myApp.components.info'
         ]);
 })();

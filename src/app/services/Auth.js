@@ -23,7 +23,7 @@
             confirm: ConfirmRegistration
         };
         return service;
-        
+
         function Login(data) {
             return $http({
                 method: 'POST',
