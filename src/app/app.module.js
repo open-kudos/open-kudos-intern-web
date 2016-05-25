@@ -26,6 +26,7 @@
             'myApp.components.confirm-email',
             'myApp.components.me',
             'myApp.components.relationship',
+            'myApp.components.info',
             'myApp.acorn.leaderboard'
         ]);
 })();
