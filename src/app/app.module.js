@@ -28,7 +28,6 @@
             'myApp.components.wisdomWallIdeas',
             'myApp.components.addNewIdea',
             'myApp.acorn.leaderboard',
-            'myApp.acorn.wisdomWall',
             'myApp.components.relationship',
             'myApp.components.info'
         ]);

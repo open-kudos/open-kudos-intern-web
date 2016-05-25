@@ -31,10 +31,6 @@
                 templateUrl: 'app/leaderboard/leaderboard.html',
                 controller: 'LeaderboardController'
             })
-            .when('/wisdomWall', {
-                templateUrl: 'app/wisdomWall/wisdomWall.html',
-                controller: 'WisdomWallController'
-            })
             .when('/notifications', {
             templateUrl: 'app/notifications/notification.html',
                 controller: 'NotificationController'

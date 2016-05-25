@@ -1,7 +1,8 @@
 (function () {
     var AddNewIdeaController = function ($scope, $timeout, $httpParamSerializer, AddNewIdeaService){
 
-
+        $scope.addIdeaFormCheck = addIdeaFormCheck;
+        $scope.showAddIdeaFormErrorMessage = showAddIdeaFormErrorMessage;
         $scope.addIdea = addIdea;
         $scope.clearAddIdeaFormValues = clearAddIdeaFormValues;
 
@@ -11,18 +12,39 @@
                 idea: $scope.idea
             });
 
-            AddNewIdeaService.addNewIdea(newIdea).then(function () {
-                $('#addIdeaModal').modal('hide');
-                toastr.success('You successfully added new idea to wisdom wall');
-                clearAddIdeaFormValues();
-            });
+            var isValid = addIdeaFormCheck();
+
+            if (isValid) {
+                AddNewIdeaService.addNewIdea(newIdea).then(function () {
+                    $('#addIdeaModal').modal('hide');
+                    toastr.success('You successfully added new idea to wisdom wall');
+                    clearAddIdeaFormValues();
+                });
+            }
         }
 
         function clearAddIdeaFormValues() {
-            $scope.author = "";
-            $scope.idea = "";
+            $scope.author = null;
+            $scope.idea = null;
+            showAddIdeaFormErrorMessage("");
         }
 
+        function addIdeaFormCheck() {
+            if ($scope.author == null) {
+                showAddIdeaFormErrorMessage("Please enter author of the idea");
+                return false;
+            } else if ($scope.idea == null) {
+                showAddIdeaFormErrorMessage("Please enter idea");
+                return false;
+            }
+            showAddIdeaFormErrorMessage("");
+            return true;
+        }
+
+        function showAddIdeaFormErrorMessage(message) {
+            $scope.errorClass = "error-message";
+            $scope.addIdeaFormErrorMessage = message;
+        }
     };
 
     AddNewIdeaController.$inject = ['$scope', '$timeout', '$httpParamSerializer', 'AddNewIdeaService'];

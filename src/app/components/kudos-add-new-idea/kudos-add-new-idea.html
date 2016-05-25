@@ -26,6 +26,10 @@
                     <div class="form-group col-sm-12">
                         <textarea ng-model="idea" class="form-control" id="idea" name="idea" placeholder="Idea" required></textarea>
                     </div>
+
+                    <div class="form-group col-sm-12" id="addIdeaFormErrorMessage">
+                        <p ng-class="errorClass" class="text-center">{{addIdeaFormErrorMessage}}</p>
+                    </div>
                 </form>
 
                 <button ng-click="addIdea()"
