@@ -10,24 +10,30 @@
         function edit(){
             var firstName = $scope.firstName;
             var lastName = $scope.lastName;
-            var birthday = $scope.birthday;
-            var startedToWork = $scope.startedToWork;
+            var department = $scope.department;
+            var team = $scope.team;
+            var birthday = $filter('date')($scope.birthday, requestDateFormat);
+            var startedToWork = $filter('date')($scope.startedToWork, requestDateFormat);
+            var phone = $scope.phone;
             var position = $scope.position;
 
-            birthday = $filter('date')(birthday, requestDateFormat);
-            startedToWork = $filter('date')(startedToWork, requestDateFormat);
+            if (birthday == 'Invalid Date')
+                birthday = null;
+
+            if (startedToWork == 'Invalid Date')
+                startedToWork = null;
 
             requestData = $httpParamSerializer({
                 email: $scope.email,
                 firstName: firstName,
                 lastName: lastName,
                 birthday: birthday,
-                phone: null,
+                phone: phone,
                 startedToWorkDate: startedToWork,
                 position: position,
-                department: null,
+                department: department,
                 location: null,
-                team: null
+                team: team
             });
             
             MeService.edit(requestData).then(function (val) {
@@ -41,8 +47,11 @@
                 checkUser = true;
                 $scope.firstName = user.firstName;
                 $scope.lastName = user.lastName;
-                $scope.birthday = splitDate(user.birthday);
-                $scope.startedToWork = splitDate(user.startedToWorkDate);
+                $scope.department = user.department;
+                $scope.team = user.team;
+                $scope.birthday = new Date(splitDate(user.birthday));
+                $scope.startedToWork = new Date(splitDate(user.startedToWorkDate));
+                $scope.phone = user.phone;
                 $scope.position = user.position;
                 $scope.email = user.email;
             }
@@ -57,10 +66,6 @@
 
         $scope.$watch(function () {
             userInformation();
-        });
-
-        $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();
         });
     };
 
