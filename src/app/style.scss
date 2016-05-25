@@ -3,6 +3,7 @@ $color-grey-borders:        #c0c0c0;
 $color-grey-borders-light:  #ddd;
 $color-grey:                #777;
 $color-grey-dark:           #222;
+$color-white:               #ffffff;
 $color-clouds:              #ECF0F1;
 $color-emerald:             #1abc9c;
 $color-emerald-dark:        #16a085;
@@ -95,7 +96,6 @@ body{
 .fixed-element-floating{
   position: fixed;
   z-index: 3;
-  //background: $color-swed-orange;
   width:60px;
   height:60px;
   text-align: center;
@@ -146,6 +146,17 @@ body{
   width: 60px;
   height: 60px;
   animation: spin 2s linear infinite;
+}
+
+.relation {
+  padding: $padding-small;
+  margin: $margin-small;
+  background: $color-white;
+  border-radius: $border-radius-small;
+
+  &:hover{
+
+  }
 }
 
 @keyframes spin {

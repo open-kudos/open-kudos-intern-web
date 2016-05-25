@@ -8,7 +8,7 @@
         $scope.friendsCollection = [];
 
         RelationService.followed().then(function (followed) {
-            $scope.friendsCollection = followed;
+            $scope.friendsCollection = followed.data;
         })
 
     };
