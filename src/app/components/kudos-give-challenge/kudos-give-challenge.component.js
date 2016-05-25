@@ -43,7 +43,6 @@
                 amount: $scope.giveChallengeAmountOfKudos
             });
 
-
             var challengeCall = challengeFormCheck(expirationDate, currentDate);
 
             if (challengeCall)

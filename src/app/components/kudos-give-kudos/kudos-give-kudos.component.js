@@ -1,22 +1,19 @@
 (function () {
-    var GiveKudosController = function ($scope, $timeout, $httpParamSerializer, GiveKudosService, Resources){
-        var inputChangedPromise;
-        var receiverValidated = false;
-        var amountValidated = false;
-        var errorMessage = "";
+    var GiveKudosController = function ($scope, $timeout, $httpParamSerializer, GiveKudosService, Resources) {
+
+        $scope.showError = false;
+        $scope.errorMessage = "";
 
         $scope.maxSendKudosLength = Resources.getUserAvailableKudos();
         $scope.autocompleteHide = true;
 
         $scope.sendKudos = sendKudos;
-        $scope.inputChanged = inputChanged;
         $scope.clearSendKudosFormValues = clearSendKudosFormValues;
 
         $scope.selectAutoText = function (text) {
             $scope.sendKudosTo = text;
             $scope.searchTermSelected = true;
             $scope.autocompleteHide = true;
-            sendKudosValidation();
         };
 
         $scope.$watch('sendKudosTo', function (newVal, oldVal) {
@@ -34,23 +31,21 @@
         });
 
         function sendKudos() {
-            var sendTo = $httpParamSerializer({
-                receiverEmail: $scope.sendKudosTo,
-                amount: $scope.sendKudosAmount,
-                message: $scope.sendKudosMessage
-            });
-
-            GiveKudosService.sendKudos(sendTo).then(function (val) {
-                $scope.showSendKudosModal = false;
-                $scope.showSuccess = true;
-                Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
-                $('#sendKudosModal').modal('hide');
-                toastr.success('You successfully sent ' + acornPlural(val.data.amount) + ' to ' + val.data.receiver);
-                pushOutgoingTransferIntoCollection(val.data);
-                clearSendKudosFormValues();
-            }).catch(function () {
-                errorMessage == "" ? showSendKudosErrorMessage("Receiver does not exist") : showSendKudosErrorMessage(errorMessage)
-            });
+            console.log(sendKudosValidation());
+            if (sendKudosValidation()) {
+                GiveKudosService.sendKudos(getSendToRequestData()).then(function (val) {
+                    console.log(val);
+                    $scope.showSendKudosModal = false;
+                    $scope.showSuccess = true;
+                    Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
+                    $('#sendKudosModal').modal('hide');
+                    toastr.success('You successfully sent ' + acornPlural(val.data.amount) + ' to ' + val.data.receiver);
+                    pushOutgoingTransferIntoCollection(val.data);
+                    clearSendKudosFormValues();
+                }).catch(function () {
+                    showValidationErrorMessage("Receiver doesn't exist");
+                });
+            }
         }
 
         function pushOutgoingTransferIntoCollection(val) {
@@ -68,84 +63,52 @@
         function sendKudosValidation() {
             clearErrorMessages();
             if ($scope.sendKudosTo == null) {
-                sendKudosReceiverErrorMessage("Please enter receiver");
+                showValidationErrorMessage("Please enter receiver");
             } else if (!validateEmail($scope.sendKudosTo)) {
-                sendKudosReceiverErrorMessage("Please enter valid receiver email");
+                showValidationErrorMessage("Please enter valid receiver email");
             } else if ($scope.sendKudosTo === Resources.getCurrentUserEmail()) {
-                sendKudosReceiverErrorMessage("Can't send kudos to yourself");
+                showValidationErrorMessage("Can't send kudos to yourself");
             } else if ($scope.sendKudosAmount > Resources.getUserAvailableKudos()) {
-                sendKudosAmountErrorMessage("You don't have enough Acorns");
+                showValidationErrorMessage("You don't have enough Acorns");
             } else if ($scope.sendKudosAmount == null) {
-                sendKudosAmountErrorMessage("Please enter amount");
+                showValidationErrorMessage("Please enter amount");
             } else if ($scope.sendKudosAmount <= 0) {
-                sendKudosAmountErrorMessage("Please enter more than zero");
+                showValidationErrorMessage("Please enter more than zero");
             } else {
                 clearErrorMessages();
+                return true;
             }
+            return false;
         }
 
-        function inputChanged() {
-            if (inputChangedPromise) $timeout.cancel(inputChangedPromise);
-            inputChangedPromise = $timeout(sendKudosValidation(), 100);
-        }
-
-        function sendKudosReceiverErrorMessage(message) {
-            $scope.receiverErrorClass = "error-message";
-            $scope.fieldReceiverErrorClass = "invalid";
-            $scope.receiverErrorMessage = message;
-            receiverValidated = false;
-            disableSendKudosButton();
-        }
-
-        function sendKudosAmountErrorMessage(message) {
-            $scope.amountErrorClass = "error-message";
-            $scope.fieldAmountErrorClass = "invalid";
-            $scope.amountErrorMessage = message;
-            amountValidated = false;
-            disableSendKudosButton();
+        function showValidationErrorMessage(message) {
+            $scope.showError = true;
+            $scope.errorMessage = message;
         }
 
         function clearErrorMessages() {
-            $scope.receiverErrorMessage = "";
-            $scope.receiverErrorClass = "";
-            $scope.fieldReceiverErrorClass = "";
-            $scope.amountErrorMessage = "";
-            $scope.amountErrorClass = "";
-            $scope.fieldAmountErrorClass = "";
-            enableSendKudosButton();
-        }
-
-        function enableSendKudosButton() {
-            $scope.sendKudosForm.$invalid = false;
-            $scope.buttonDisabled = false;
-        }
-
-        function disableSendKudosButton() {
-            $scope.sendKudosForm.$invalid = true;
-            $scope.buttonDisabled = true;
-        }
-
-        function validateEmail(email) {
-            var reg = /[@]swedbank.[a-z]{2,}/;
-            return reg.test(email);
-        }
-
-        function showSendKudosErrorMessage(message) {
-            $scope.errorClass = "error-message";
-            $scope.sendKudosErrorMessage = message;
-            disableSendKudosButton();
+            $scope.showError = false;
+            $scope.errorMessage = "";
         }
 
         function clearSendKudosFormValues() {
             $scope.sendKudosTo = "";
             $scope.sendKudosAmount = "";
-            $scope.receiverErrorMessage = "";
-            $scope.receiverErrorClass = "";
-            $scope.fieldReceiverErrorClass = "";
-            $scope.amountErrorMessage = "";
-            $scope.amountErrorClass = "";
-            $scope.fieldAmountErrorClass = "";
-            disableSendKudosButton();
+            $scope.sendKudosMessage = "";
+            clearErrorMessages();
+        }
+
+        function getSendToRequestData() {
+            return $httpParamSerializer({
+                receiverEmail: $scope.sendKudosTo,
+                amount: $scope.sendKudosAmount,
+                message: $scope.sendKudosMessage
+            })
+        }
+
+        function validateEmail(email) {
+            var reg = /[@]swedbank.[a-z]{2,}/;
+            return reg.test(email);
         }
 
         function acornPlural(amount) {
@@ -165,10 +128,10 @@
 
     GiveKudosController.$inject = ['$scope', '$timeout', '$httpParamSerializer', 'GiveKudosService', 'Resources'];
 
-angular.module('myApp.components.giveKudos', [])
-    .component('kudosGiveKudos', {
-        templateUrl: 'app/components/kudos-give-kudos/kudos-give-kudos.html',
-        controller: 'GiveKudosController'
-    })
-    .controller('GiveKudosController',  GiveKudosController)
+    angular.module('myApp.components.giveKudos', [])
+        .component('kudosGiveKudos', {
+            templateUrl: 'app/components/kudos-give-kudos/kudos-give-kudos.html',
+            controller: 'GiveKudosController'
+        })
+        .controller('GiveKudosController', GiveKudosController)
 })();

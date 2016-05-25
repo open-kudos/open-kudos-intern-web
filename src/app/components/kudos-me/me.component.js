@@ -1,24 +1,66 @@
 (function () {
 
-    var MeController = function ($scope, $httpParamSerializer, User, Resources) {
-        activate();
-        
-        var user;
-        
-        function activate() {
+    var MeController = function ($scope, $filter, $httpParamSerializer, MeService, Resources) {
+        var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
+        var user, requestData, checkUser;
 
+        $scope.edit = edit;
+        $scope.splitDate = splitDate;
+
+        function edit(){
+            var firstName = $scope.firstName;
+            var lastName = $scope.lastName;
+            var department = $scope.department;
+            var team = $scope.team;
+            var birthday = $filter('date')($scope.birthday, requestDateFormat);
+            var startedToWork = $filter('date')($scope.startedToWork, requestDateFormat);
+            var phone = $scope.phone;
+            var position = $scope.position;
+
+            if (birthday == 'Invalid Date')
+                birthday = null;
+
+            if (startedToWork == 'Invalid Date')
+                startedToWork = null;
+
+            requestData = $httpParamSerializer({
+                email: $scope.email,
+                firstName: firstName,
+                lastName: lastName,
+                birthday: birthday,
+                phone: phone,
+                startedToWorkDate: startedToWork,
+                position: position,
+                department: department,
+                location: null,
+                team: team
+            });
+            
+            MeService.edit(requestData).then(function (val) {
+                toastr.success("You have successfully edited your profile");
+            })
         }
 
         function userInformation(){
             user = Resources.getCurrentUser();
-            if (user){
-                console.log(user);
+            if (user && !checkUser){
+                checkUser = true;
                 $scope.firstName = user.firstName;
                 $scope.lastName = user.lastName;
-                $scope.birthday = user.birthday;
-                $scope.startedToWork = user.startedToWorkDate;
+                $scope.department = user.department;
+                $scope.team = user.team;
+                $scope.birthday = new Date(splitDate(user.birthday));
+                $scope.startedToWork = new Date(splitDate(user.startedToWorkDate));
+                $scope.phone = user.phone;
                 $scope.position = user.position;
                 $scope.email = user.email;
+            }
+        }
+
+        function splitDate(val){
+            if (val) {
+                val = val.split(" ");
+                return val[0];
             }
         }
 
@@ -27,7 +69,7 @@
         });
     };
 
-    MeController.$inject = ['$scope', '$httpParamSerializer', 'User', 'Resources'];
+    MeController.$inject = ['$scope', '$filter', '$httpParamSerializer', 'MeService', 'Resources'];
 
     angular.module('myApp.components.me', [])
         .component('kudosMe', {

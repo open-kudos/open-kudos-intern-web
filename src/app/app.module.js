@@ -23,10 +23,13 @@
             'myApp.components.challengeOngoing',
             'myApp.components.topReceivers',
             'myApp.components.topSenders',
+            'myApp.components.confirm-email',
             'myApp.components.me',
             'myApp.components.wisdomWallIdeas',
             'myApp.components.addNewIdea',
             'myApp.acorn.leaderboard',
-            'myApp.acorn.wisdomWall'
+            'myApp.acorn.wisdomWall',
+            'myApp.components.relationship',
+            'myApp.components.info'
         ]);
 })();
