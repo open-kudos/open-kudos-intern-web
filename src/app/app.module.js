@@ -24,6 +24,9 @@
             'myApp.components.topReceivers',
             'myApp.components.topSenders',
             'myApp.components.me',
-            'myApp.acorn.leaderboard'
+            'myApp.components.wisdomWallIdeas',
+            'myApp.components.addNewIdea',
+            'myApp.acorn.leaderboard',
+            'myApp.acorn.wisdomWall'
         ]);
 })();

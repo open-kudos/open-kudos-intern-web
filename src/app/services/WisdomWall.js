@@ -10,8 +10,8 @@
 
     function WisdomWall($http, SERVER) {
         var wisdomWall = {
-            addIdeaToWisdomWall: addIdea,
-            getAllWisdomWallIdeas: getAllIdeas
+            addIdea: addIdea,
+            getAllIdeas: getAllIdeas
         }
         return wisdomWall;
 
