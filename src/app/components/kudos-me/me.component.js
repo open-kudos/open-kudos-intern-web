@@ -4,8 +4,23 @@
         var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
         var user, requestData, checkUser;
 
+        $scope.followersCount = 0;
+        $scope.followingCount = 0;
+
         $scope.edit = edit;
         $scope.splitDate = splitDate;
+
+        function activate() {
+            MeService.followers().then(function (val) {
+                $scope.followersCount = val.data.length;
+            });
+
+            MeService.following().then(function (val) {
+                $scope.followingCount = val.data.length;
+            });
+        }
+
+        activate();
 
         function edit(){
             var firstName = $scope.firstName;
