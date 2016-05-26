@@ -3,17 +3,56 @@
  */
 (function () {
 
-    var RelationshipController = function ($scope, $filter, $httpParamSerializer, RelationService ,Resources) {
+    var RelationshipController = function ($scope, $httpParamSerializer, RelationService, Resources) {
 
-        $scope.friendsCollection = [];
+        $scope.followedCollection = [];
+        $scope.followersCollection = [];
 
-        RelationService.followed().then(function (followed) {
-            $scope.friendsCollection = followed.data;
-        })
+        $scope.addFollower = addFollower;
+        $scope.removeFollowing = removeFollowing;
+
+        RelationService.getFollowing().then(function () {
+            $scope.followedCollection = RelationService.getFollowingCollection();
+        });
+
+        RelationService.getFollowers().then(function () {
+            $scope.followersCollection = RelationService.getFollowers();
+        });
+
+        function addFollower(email) {
+            RelationService.addFollower(transferDataToParam(email)).then(function (response) {
+               // addFollowingToCollection(response);
+                console.log(response);
+                toastr.success("Started to follow " + response.data.userName);
+            })
+        }
+
+        function removeFollowing(email, name, index) {
+            RelationService.removeFollowing(transferDataToParam(email)).then(function () {
+                removeFollowingFromCollection(index);
+                toastr.success("Unfollowed " + name);
+            })
+        }
+        
+        function addFollowingToCollection(follower) {
+            RelationService.getFollowingCollection().push(follower);
+            $scope.followedCollection.push(follower);
+        }
+
+        function removeFollowingFromCollection(followerIndex) {
+            RelationService.getFollowingCollection().splice(followerIndex, 1);
+            $scope.followedCollection.splice(followerIndex, 1);
+        }
+        
+        function transferDataToParam(email) {
+            return $httpParamSerializer({
+                email: email
+            });
+        }
 
     };
 
-    RelationshipController.$inject = ['$scope', '$filter', '$httpParamSerializer', 'RelationService', 'Resources'];
+    RelationshipController.$inject = ['$scope', '$httpParamSerializer', 'RelationService', 'Resources'];
 
     angular.module('myApp.components.relationship', [])
         .component('kudosRelationship', {

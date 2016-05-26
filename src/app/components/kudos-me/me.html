@@ -32,12 +32,26 @@
         <div class="col-lg-6 col-sm-6 col-sm-push-3">
             <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group">
                 <div class="btn-group" role="group">
-                    <button type="button" id="user" class="btn acorn-bg-darker" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-user hidden-xs" aria-hidden="true"></span>
+                    <button type="button"
+                            id="user"
+                            ng-class="isFriendsActive ? 'btn-default' : 'acorn-bg-darker'"
+                            ng-click="isFriendsActive = false; isMeActive = true;"
+                            class="btn"
+                            href="#tab1"
+                            data-toggle="tab">
+                        <span class="glyphicon glyphicon-user hidden-xs" aria-hidden="true"></span>
                         <div>Me</div>
                     </button>
                 </div>
                 <div class="btn-group" role="group">
-                    <button type="button" id="friends" class="btn btn-default" href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-heart hidden-xs" aria-hidden="true"></span>
+                    <button type="button"
+                            id="friends"
+                            ng-class="isMeActive ? 'btn-default' : 'acorn-bg-darker'"
+                            ng-click="isFriendsActive = true; isMeActive = false;"
+                            class="btn"
+                            href="#tab2"
+                            data-toggle="tab">
+                        <span class="glyphicon glyphicon-heart hidden-xs" aria-hidden="true"></span>
                         <div>Friends</div>
                     </button>
                 </div>

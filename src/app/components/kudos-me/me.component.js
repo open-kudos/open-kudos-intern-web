@@ -7,6 +7,9 @@
         $scope.followersCount = 0;
         $scope.followingCount = 0;
 
+        $scope.isMeActive = true;
+        $scope.isFriendsActive = false;
+
         $scope.edit = edit;
         $scope.splitDate = splitDate;
 
