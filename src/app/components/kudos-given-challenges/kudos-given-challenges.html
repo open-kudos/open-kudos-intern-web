@@ -1,24 +1,17 @@
 <div class="card card-block text-center">
-    <li ng-click="!givenChallenges.show ? showMoreInfo($index) : showLessInfo($index)" ng-repeat="givenChallenges in givenChallengesCollection | orderBy:'-timestamp'"
-        class="animate-repeat list-group-item cursor-hand">
-        <i ng-click="cancelChallenge($index)" ng-show="doesDateExist($index)" class="glyphicon glyphicon-remove leftAlignment"></i>
-        <span>{{givenChallenges.name}}</span>
-        <span class="acorn-bg badge">{{acornPlural(givenChallenges.amount)}}</span>
-        <div ng-show="givenChallenges.show" align="left">
-            <div>
-                <span class="bold" ng-if="givenChallenges.description">{{'ProfileMeDescription' | translate}}: </span>
-                <span>{{givenChallenges.description}}</span>
-            </div>
-            <div>
-                <span class="bold">{{'ProfileMeChallengeReceiver' | translate}}: </span>
-                <span>{{givenChallenges.participant}}</span>
-            </div>
-            <div>
-                <span class="bold" ng-if="givenChallenges.finishDate">{{'ProfileMeExpirationDate' | translate}}: </span>
-                <span>{{convertDate(givenChallenges.finishDate)}}</span>
-            </div>
+    <div ng-if="showList" class="card box4 box-shadow-animation" ng-repeat="givenChallenges in givenChallengesCollection | orderBy:'-timestamp'">
+        <p class="card-text"><span class="bold">{{givenChallenges.name}}</span>
+            <span class="badge acorn-bg">{{acornPlural(givenChallenges.amount * 2)}}</span>
+        </p>
+        Participant:
+        <span class="bold" ng-if="givenChallenges.participant != userEmail">{{givenChallenges.participant}}</span>
+        <p ng-if="givenChallenges.description">Description: {{givenChallenges.description}}</p>
+        <p ng-if="givenChallenges.finishDate">Finish date: {{convertDate(givenChallenges.finishDate)}}</p>
+
+        <div ng-show="doesDateExist($index)">
+            <button ng-hide="buttons" class="btn btn-danger btn-challenge-participated" ng-click="cancelChallenge($index); buttons = true">Cancel challenge</button>
         </div>
-    </li>
+    </div>
 
     <div ng-if="!showList">
         <div class="alert alert-info acorn-bg">
