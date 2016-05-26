@@ -3,34 +3,35 @@
     var MeController = function ($scope, $filter, $httpParamSerializer, MeService, Resources) {
         var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
         var user, requestData, checkUser;
+        var self = this;
 
-        $scope.followersCount = 0;
-        $scope.followingCount = 0;
+        self.followersCount = 0;
+        self.followingCount = 0;
 
-        $scope.edit = edit;
-        $scope.splitDate = splitDate;
+        self.edit = edit;
+        self.splitDate = splitDate;
 
         function activate() {
             MeService.followers().then(function (val) {
-                $scope.followersCount = val.data.length;
+                self.followersCount = val.data.length;
             });
 
             MeService.following().then(function (val) {
-                $scope.followingCount = val.data.length;
+                self.followingCount = val.data.length;
             });
         }
 
         activate();
 
         function edit(){
-            var firstName = $scope.firstName;
-            var lastName = $scope.lastName;
-            var department = $scope.department;
-            var team = $scope.team;
-            var birthday = $filter('date')($scope.birthday, requestDateFormat);
-            var startedToWork = $filter('date')($scope.startedToWork, requestDateFormat);
-            var phone = $scope.phone;
-            var position = $scope.position;
+            var firstName = self.firstName;
+            var lastName = self.lastName;
+            var department = self.department;
+            var team = self.team;
+            var birthday = $filter('date')(self.birthday, requestDateFormat);
+            var startedToWork = $filter('date')(self.startedToWork, requestDateFormat);
+            var phone = self.phone;
+            var position = self.position;
 
             if (birthday == 'Invalid Date')
                 birthday = null;
@@ -39,7 +40,7 @@
                 startedToWork = null;
 
             requestData = $httpParamSerializer({
-                email: $scope.email,
+                email: self.email,
                 firstName: firstName,
                 lastName: lastName,
                 birthday: birthday,
@@ -50,7 +51,7 @@
                 location: null,
                 team: team
             });
-            
+
             MeService.edit(requestData).then(function (val) {
                 toastr.success("You have successfully edited your profile");
             })
@@ -60,15 +61,15 @@
             user = Resources.getCurrentUser();
             if (user && !checkUser){
                 checkUser = true;
-                $scope.firstName = user.firstName;
-                $scope.lastName = user.lastName;
-                $scope.department = user.department;
-                $scope.team = user.team;
-                $scope.birthday = new Date(splitDate(user.birthday));
-                $scope.startedToWork = new Date(splitDate(user.startedToWorkDate));
-                $scope.phone = user.phone;
-                $scope.position = user.position;
-                $scope.email = user.email;
+                self.firstName = user.firstName;
+                self.lastName = user.lastName;
+                self.department = user.department;
+                self.team = user.team;
+                self.birthday = new Date(splitDate(user.birthday));
+                self.startedToWork = new Date(splitDate(user.startedToWorkDate));
+                self.phone = user.phone;
+                self.position = user.position;
+                self.email = user.email;
             }
         }
 
