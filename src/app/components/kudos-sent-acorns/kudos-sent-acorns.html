@@ -5,7 +5,7 @@
             <span class="badge acorn-bg">{{acornPlural(outgoingKudos.amount)}}</span> to
             <span class="bold">{{outgoingKudos.receiver}}</span> on
             <span>{{outgoingKudos.timestamp}}</span>
-            <div ng-if="outgoingKudos.message != null" class="acorns-message">
+            <div ng-if="outgoingKudos.message != '' && outgoingKudos.message != null" class="acorns-message">
                 <p ><span class="glyphicon glyphicon-envelope"></span> {{outgoingKudos.message}}</p>
             </div>
 

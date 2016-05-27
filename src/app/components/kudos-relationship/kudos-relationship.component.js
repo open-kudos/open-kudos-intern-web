@@ -35,12 +35,10 @@
         }
         
         function addFollowingToCollection(follower) {
-        //    RelationService.getFollowingCollection().push(follower);
             $scope.followedCollection.push(follower);
         }
 
         function removeFollowingFromCollection(followerIndex) {
-        //    RelationService.getFollowingCollection().splice(followerIndex, 1);
             $scope.followedCollection.splice(followerIndex, 1);
         }
         
