@@ -771,6 +771,15 @@ div.box4 {
     }
 }
 
+@media (min-width: 1584px) {
+    .nav-dropdown {
+        width: 15%;
+        right: 15%;
+    }
+}
+
+
+
 .card {
   background-color: rgba(214, 224, 226, 0.2);
   -webkit-border-top-left-radius:5px;
@@ -855,3 +864,4 @@ div.box4 {
     font-size: 35px;
     margin-top: 0;
 }
+

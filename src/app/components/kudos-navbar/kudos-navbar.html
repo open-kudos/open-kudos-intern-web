@@ -19,23 +19,25 @@
     </div>
     <div class="nav-dropdown" ng-hide="!showDropDown">
 
-        <a href="#/me">
+
             <div class="hidden-md hidden-lg">
+                <a href="#/me">
                 <span class="glyphicon glyphicon-user"></span><span class=""> {{user.firstName}} {{user.lastName}} - Profile</span>
+                </a>
             </div>
-        </a>
 
-        <a href="#/leaderboard" class="no-hover">
             <div class="hidden-lg">
+                <a href="#/leaderboard" class="no-hover">
                <span class="glyphicon glyphicon-star"></span> Leaderboard
+                </a>
             </div>
-        </a>
 
-        <a ng-click="logout()" class="" href="#">
             <div ng-click="logout()">
+                <a ng-click="logout()" class="" href="#">
                 <span class="glyphicon glyphicon-log-in"></span> {{ 'ProfileMeLogout' | translate }}
+                </a>
             </div>
-        </a>
+
     </div>
 </nav>
 

@@ -21,7 +21,7 @@
 
         function addFollower(email) {
             RelationService.addFollower(transferDataToParam(email)).then(function (response) {
-               // addFollowingToCollection(response);
+                addFollowingToCollection(response.data);
                 console.log(response);
                 toastr.success("Started to follow " + response.data.userName);
             })
@@ -35,12 +35,12 @@
         }
         
         function addFollowingToCollection(follower) {
-            RelationService.getFollowingCollection().push(follower);
+        //    RelationService.getFollowingCollection().push(follower);
             $scope.followedCollection.push(follower);
         }
 
         function removeFollowingFromCollection(followerIndex) {
-            RelationService.getFollowingCollection().splice(followerIndex, 1);
+        //    RelationService.getFollowingCollection().splice(followerIndex, 1);
             $scope.followedCollection.splice(followerIndex, 1);
         }
         
