@@ -7,10 +7,6 @@
     <!-- Profile Edit Modal -->
     <ng-include src="'app/profile/partials/user-detail-popup.html'"></ng-include>
 
-    <!-- Send Kudos Modal -->
-    <div>
-        <kudos-give-kudos></kudos-give-kudos>
-    </div>
 
     <!-- Give Challenges Modal -->
     <div>
@@ -28,10 +24,7 @@
                         <h1><b class="acorn-color">{{userAvailableKudos}}</b></h1>
                         <h4>{{ 'ProfileMeCorns' | translate }}</h4>
                         <div class="col-md-12">
-                            <button name="giveKudosButton" id="giveKudosButton" ng-click="showSendKudosModal()"
-                                    data-toggle="modal" data-target="#sendKudosModal"
-                                    class="btn profile-buttons hvr-underline-from-center">{{ 'ProfileMeGiveACorn' | translate }}
-                            </button>
+                            <kudos-give-kudos></kudos-give-kudos>
                         </div>
                     </div>
                     <div class="col-xs-6">

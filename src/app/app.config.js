@@ -32,12 +32,13 @@
                 controller: 'LeaderboardController'
             })
             .when('/notifications', {
-            templateUrl: 'app/notifications/notification.html',
+                templateUrl: 'app/notifications/notification.html',
                 controller: 'NotificationController'
             })
             .when('/me', {
                 templateUrl: 'app/components/kudos-me/me.html',
-                controller: 'MeController'
+                controller: 'MeController',
+                controllerAs: 'me'
         });
 
         $translateProvider.useStaticFilesLoader({

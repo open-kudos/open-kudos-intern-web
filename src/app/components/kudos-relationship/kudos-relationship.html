@@ -3,14 +3,14 @@
 <h1>Following</h1>
 
 <div class="input-group">
-    <input type="text" class="form-control" placeholder="Search for...">
+    <input ng-model="followerEmail" type="text" class="form-control" placeholder="Search for...">
         <span class="input-group-btn">
-          <button class="btn btn-default" type="button">Go!</button>
+          <button class="btn btn-default" type="button" ng-click="addFollower(followerEmail)">Go!</button>
         </span>
 </div>
 
 <div class="row">
-    <div ng-repeat="relation in friendsCollection | orderBy:'followerName'"
+    <div ng-repeat="relation in followedCollection | orderBy:'followerName'"
          class="col-md-6">
         <div class="well well-sm">
             <div class="media">
@@ -21,15 +21,16 @@
                 <div class="media-body">
                     <h4 class="media-heading">{{ relation.userName }} {{ relation.userSurname }}</h4>
                     <p class="small">{{ relation.userEmail }}</p>
-                    <p><span class="label label-info">888 photos</span> <span
+                    <!--<p><span class="label label-info">888 photos</span> <span
                             class="label label-warning">150 followers</span></p>
-                    <p>
+                    <p> -->
+
                         <button href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-comment"></span>
-                            Message</button>
-                        <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-heart"></span>
-                            Favorite</a>
-                        <a href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ban-circle"></span>
-                            Unfollow</a>
+                            Give</button>
+                        <button href="#" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-heart"></span>
+                            Challenge</button>
+                        <button href="#" class="btn btn-xs btn-default" ng-click="removeFollowing(relation.userEmail, relation.userName, $index)"><span class="glyphicon glyphicon-ban-circle"></span>
+                            Unfollow</button>
                     </p>
                 </div>
             </div>
