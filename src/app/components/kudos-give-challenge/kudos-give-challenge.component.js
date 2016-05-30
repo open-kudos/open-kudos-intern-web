@@ -3,6 +3,7 @@
         var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
         $scope.userAvailableKudos = 0;
         $scope.autocompleteHide = true;
+        $scope.showError = false;
 
         $scope.clearChallengeFormValues = clearChallengeFormValues;
         $scope.challengeFormCheck = challengeFormCheck;
@@ -78,6 +79,7 @@
                 return false;
             }
             showChallengeFormErrorMessage("");
+            showError = false;
             return true;
         }
 
@@ -89,11 +91,12 @@
             $scope.giveChallengeExpirationDate = null;
             $scope.giveChallengeAmountOfKudos = null;
             $scope.autocompleteHide = true;
-            showChallengeFormErrorMessage("");
+            $scope.showError = false;
+            $scope.challengeFormErrorMessage = "";
         }
 
         function showChallengeFormErrorMessage(message) {
-            $scope.errorClass = "error-message";
+            $scope.showError = true;
             $scope.challengeFormErrorMessage = message;
         }
 
