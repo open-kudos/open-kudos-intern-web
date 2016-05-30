@@ -10,6 +10,9 @@
 
         $scope.addFollower = addFollower;
         $scope.removeFollowing = removeFollowing;
+        $scope.addFollowingToCollection = addFollowingToCollection;
+        $scope.removeFollowingFromCollection = removeFollowingFromCollection;
+        $scope.transferDataToParam = transferDataToParam;
 
         RelationService.getFollowing().then(function () {
             $scope.followedCollection = RelationService.getFollowingCollection();
