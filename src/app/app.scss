@@ -167,6 +167,22 @@ body {
     color: #666;
 }
 
+.margin--top{
+    margin-top: -6px;
+}
+
+.margin-top{
+    margin-top: 6px;
+}
+
+.margin--bot{
+    margin-bottom: -6px;
+}
+
+.margin-bot{
+    margin-bottom: 6px;
+}
+
 .challenge-participated{
     color: #fff;
     position: relative;
@@ -865,3 +881,17 @@ div.box4 {
     margin-top: 0;
 }
 
+.click-li li:hover {
+  cursor: pointer;
+  background-color: lightgrey;
+}
+
+.click-li li {
+  background-color: whitesmoke;
+}
+
+.fade{
+  -webkit-transition: opacity 1s; /* For Safari 3.1 to 6.0 */
+  transition: opacity 1s;
+  opacity: 0;
+}

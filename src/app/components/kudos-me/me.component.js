@@ -7,11 +7,12 @@
 
         self.followersCount = 0;
         self.followingCount = 0;
+        self.isMeActive = true;
+        self.isFriendsActive = false;
 
         self.edit = edit;
         self.splitDate = splitDate;
-        $scope.isMeActive = true;
-        $scope.isFriendsActive = false;
+        self.checkIsCompleted = checkIsCompleted;
         
         function activate() {
             MeService.followers().then(function (val) {
@@ -56,6 +57,8 @@
 
             MeService.edit(requestData).then(function (val) {
                 toastr.success("You have successfully edited your profile");
+                user = Resources.getCurrentUser();
+                checkIsCompleted(birthday, startedToWork, user);
             })
         }
 
@@ -74,6 +77,13 @@
                 self.email = user.email;
             }
         }
+
+        function checkIsCompleted(val1, val2) {
+            if (val1 && val2) {
+                user.completed = true;
+                Resources.setCurrentUser(user);
+            }
+        } 
 
         function splitDate(val){
             if (val) {

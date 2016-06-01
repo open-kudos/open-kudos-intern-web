@@ -34,8 +34,8 @@
                 <div class="btn-group" role="group">
                     <button type="button"
                             id="user"
-                            ng-class="isFriendsActive ? 'btn-default' : 'acorn-bg-darker'"
-                            ng-click="isFriendsActive = false; isMeActive = true;"
+                            ng-class="me.isFriendsActive ? 'btn-default' : 'acorn-bg-darker'"
+                            ng-click="me.isFriendsActive = false; me.isMeActive = true;"
                             class="btn"
                             href="#tab1"
                             data-toggle="tab">
@@ -46,8 +46,8 @@
                 <div class="btn-group" role="group">
                     <button type="button"
                             id="friends"
-                            ng-class="isMeActive ? 'btn-default' : 'acorn-bg-darker'"
-                            ng-click="isFriendsActive = true; isMeActive = false;"
+                            ng-class="me.isMeActive ? 'btn-default' : 'acorn-bg-darker'"
+                            ng-click="me.isFriendsActive = true; me.isMeActive = false;"
                             class="btn"
                             href="#tab2"
                             data-toggle="tab">

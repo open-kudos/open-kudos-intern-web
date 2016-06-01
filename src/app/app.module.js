@@ -20,6 +20,7 @@
             'myApp.components.transactions',
             'myApp.components.giveKudos',
             'myApp.components.giveChallenge',
+            'myApp.components.giveTeamChallenge',
             'myApp.components.challengeOngoing',
             'myApp.components.topReceivers',
             'myApp.components.topSenders',
