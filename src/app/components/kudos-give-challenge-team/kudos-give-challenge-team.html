@@ -66,23 +66,23 @@
         </div>
 
         <div class="form-group col-sm-12">
-            <label for="giveChallengeDescription">{{'GIVE_CHALLENGE_OPTIONAL_FIELD_DESCRIPTION' |
+            <label for="giveTeamChallengeDescription">{{'GIVE_CHALLENGE_OPTIONAL_FIELD_DESCRIPTION' |
                 translate }} (optional)</label>
-                                <textarea ng-model="giveChallengeDescription" class="form-control"
-                                          id="giveChallengeDescription"
-                                          name="giveChallengeDescription">
+                                <textarea ng-model="giveTeamChallengeDescription" class="form-control"
+                                          id="giveTeamChallengeDescription"
+                                          name="giveTeamChallengeDescription">
                                 </textarea>
         </div>
 
         <div class="form-group col-sm-12 text-center">
-            <div ng-hide="!showError" class="alert alert-danger" role="alert">
-                <strong>Whoops!</strong> {{challengeFormErrorMessage}}
+            <div ng-hide="!showTeamError" class="alert alert-danger" role="alert">
+                <strong>Whoops!</strong> {{teamChallengeFormErrorMessage}}
             </div>
         </div>
 
     </form>
 
-    <button ng-click="" name="giveChallengeButton" id="giveChallengeButton"
+    <button ng-click="challenge(userAvailableKudos)" name="giveTeamChallengeButton" id="giveTeamChallengeButton"
             class="form-control btn btn-login">{{'GIVE_CHALLENGE_GIVE_BUTTON' | translate}}
     </button>
 </div>

@@ -3,12 +3,13 @@
         $scope.team1 = [];
         $scope.team2 = [];
         $scope.autocompleteHide = true;
-        var fade = 2000;
+        var fade = 2000, userKudos = 0;
 
         activate();
         
         $scope.addUser = addUser;
         $scope.removeUser = removeUser;
+        $scope.challenge = challenge;
 
         function activate() {
             GiveChallengeService.listUsers().then(function (val) {
@@ -65,11 +66,50 @@
             return false;
         }
 
+        function challenge() {
+            if (validate()){
+                $scope.showTeamError = false;
+                var requestData = $httpParamSerializer({
+                    name : $scope.giveTeamChallengeName,
+                    firstTeam : $scope.team1,
+                    secondTeam : $scope.team2,
+                    description : $scope.giveTeamChallengeDescription,
+                    amount : $scope.giveTeamChallengeAmountOfKudos
+                });
+                console.log(requestData);
+            }
+        }
+
+        function validate() {
+            $scope.showTeamError = true;
+            if (!$scope.giveTeamChallengeName){
+                $scope.teamChallengeFormErrorMessage = "Enter challenge name";
+                return false;
+            } else if (!$scope.giveTeamChallengeAmountOfKudos){
+                $scope.teamChallengeFormErrorMessage = "Enter valid challenge Acorns";
+                return false;
+            } else if ($scope.giveTeamChallengeAmountOfKudos > userKudos){
+                $scope.teamChallengeFormErrorMessage = "You do not have enough Acorns";
+                return false;
+            } else if (!$scope.team1[0]){
+                $scope.teamChallengeFormErrorMessage = "Team 1 is empty";
+                return false;
+            } else if (!$scope.team2[0]){
+                $scope.teamChallengeFormErrorMessage = "Team 2 is empty";
+                return false;
+            }
+            return true;
+        }
+
         $scope.selectAutoText = function (text) {
             $scope.teamChallengeParticipant = text;
             $scope.searchTermSelected = true;
             $scope.autocompleteHide = true;
         };
+
+        $scope.$watch(function () {
+            return userKudos = Resources.getUserAvailableKudos()
+        });
 
         $scope.$watch('teamChallengeParticipant', function (newVal, oldVal) {
             if ($scope.searchTermSelected == false) {
