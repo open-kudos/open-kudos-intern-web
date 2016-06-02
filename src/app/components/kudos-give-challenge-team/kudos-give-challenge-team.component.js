@@ -3,7 +3,7 @@
         $scope.team1 = [];
         $scope.team2 = [];
         $scope.autocompleteHide = true;
-        var fade = 2000, userKudos = 0;
+        var fade = 2000;
 
         activate();
         
@@ -78,7 +78,10 @@
                     description : $scope.giveTeamChallengeDescription,
                     amount : $scope.giveTeamChallengeAmountOfKudos
                 });
-                console.log(requestData);
+
+                GiveTeamChallengeService.create(requestData).then(function (val) {
+                    toastr.success("Team challenge was created successfully. \n Challenge will start when all participants will accept this challenge");
+                });
             }
         }
 

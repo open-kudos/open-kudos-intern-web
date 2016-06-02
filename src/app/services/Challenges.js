@@ -18,7 +18,8 @@ function Challenges($http, SERVER) {
         acceptChallenge: acceptChallenge,
         accomplishChallenge: accomplishChallenge,
         failChallenge: failChallenge,
-        allReceivedChallenges: allReceivedChallenges
+        allReceivedChallenges: allReceivedChallenges,
+        createTeam: createTeamChallenge
     }
     return challenges;
 
@@ -108,6 +109,16 @@ function Challenges($http, SERVER) {
             url: SERVER.ip + "/challenges/participatedByStatus?" + requestData,
             withCredentials: true
         }).then(function(response) {
+            return response.data;
+        });
+    }
+
+    function createTeamChallenge(requestData) {
+        return $http({
+            method: 'POST',
+            url: SERVER.ip + "/teamchallenges/create?" + requestData,
+            withCredentials: true
+        }).then(function (response) {
             return response.data;
         });
     }
