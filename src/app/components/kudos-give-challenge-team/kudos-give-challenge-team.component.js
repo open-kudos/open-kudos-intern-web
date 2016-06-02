@@ -70,6 +70,7 @@
 
         function challenge() {
             if (validate()){
+                $scope.showLoader = true;
                 $scope.showTeamError = false;
                 var requestData = $httpParamSerializer({
                     name : $scope.giveTeamChallengeName,
@@ -80,6 +81,7 @@
                 });
 
                 GiveTeamChallengeService.create(requestData).then(function (val) {
+                    $scope.showLoader = false;
                     toastr.success("Team challenge was created successfully. \n Challenge will start when all participants will accept this challenge");
                 });
             }

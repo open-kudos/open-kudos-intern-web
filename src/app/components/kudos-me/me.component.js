@@ -1,30 +1,40 @@
 (function () {
 
-    var MeController = function ($scope, $filter, $httpParamSerializer, MeService, Resources) {
+    var MeController = function ($scope, $filter, $window, $httpParamSerializer, MeService, Resources, ProfileService) {
         var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
         var user, requestData, checkUser;
         var self = this;
+
+        activate();
 
         self.followersCount = 0;
         self.followingCount = 0;
         self.isMeActive = true;
         self.isFriendsActive = false;
+        self.showLoader = true;
 
         self.edit = edit;
         self.splitDate = splitDate;
         self.checkIsCompleted = checkIsCompleted;
         
         function activate() {
+            isLoggedIn();
+
             MeService.followers().then(function (val) {
                 self.followersCount = val.data.length;
             });
 
             MeService.following().then(function (val) {
                 self.followingCount = val.data.length;
+                self.showLoader = false;
             });
         }
 
-        activate();
+        function isLoggedIn() {
+            ProfileService.checkUser().then(function (val) {
+                val.logged ? $window.location.href = "#/me" : $window.location.href = "#/login";
+            });
+        }
 
         function edit(){
             var firstName = self.firstName;
@@ -97,7 +107,7 @@
         });
     };
 
-    MeController.$inject = ['$scope', '$filter', '$httpParamSerializer', 'MeService', 'Resources'];
+    MeController.$inject = ['$scope', '$filter', '$window', '$httpParamSerializer', 'MeService', 'Resources', 'ProfileService'];
 
     angular.module('myApp.components.me', [])
         .component('kudosMe', {
