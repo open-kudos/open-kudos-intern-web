@@ -3,51 +3,72 @@
  */
 
 "use strict";
-describe('RelationshipComponent', function() {
+describe('RelationshipComponent', function () {
 
     var $scope;
-    var serviceMock;
     var $controller;
+    var $httpBackend, serviceMock;
+    var authRequestHandler;
 
     var testFollower = {
-        followerEmail: "gilius.giliukas@swedbank.lt",
-        followerName: "Gilius",
-        followerSurname: "Giliukas",
-        id: "5746fcf2d4c61a6e8bbab70a",
-        userEmail: "vytautas.sugintas@swedbank.lt",
-        userName: "Vytautas",
-        userSurname: "Sugintas"
+        followerEmail: "test.test@test.lt",
+        followerName: "Tester",
+        followerSurname: "Test",
+        id: "5746fcf2d4c61a6e8test70a",
+        userEmail: "test.test@testr.lt",
+        userName: "Tester",
+        userSurname: "Test"
     };
 
-    beforeEach(function (){
-        serviceMock = jasmine.createSpyObj('someService', ['someAsyncCall']); // Example how to mock services
+    beforeEach(function () {
+        serviceMock = jasmine.createSpyObj('RelationService', ['someAsyncCall']); // Example how to mock services
         module('myApp');
     });
 
-    module("myApp", function($provide) {
-        $provide.provider("$translate", function() {
-            this.$get = function(MockTranslate) {
+    module("myApp", function ($provide) {
+        $provide.provider("$translate", function () {
+            this.$get = function (MockTranslate) {
                 return MockTranslate.create(translations);
             }
         });
     });
 
-    beforeEach(inject(function(_$controller_) {
+
+    beforeEach(inject(function (_$controller_, $injector) {
         $scope = {};
-        $controller = _$controller_('RelationshipController', { $scope: $scope });
+        $httpBackend = $injector.get('$httpBackend');
+        $controller = _$controller_('RelationshipController', {$scope: $scope});
+        authRequestHandler = $httpBackend.when('POST', '/relations/add?test@test.test')
+            .respond(testFollower);
     }));
 
-    it('should ensure that followed can be added to collection', function () {
-        $scope.addFollowingToCollection(testFollower);
-        expect($scope.followedCollection.length).toEqual(1);
+
+
+    describe("RelationshipController", function () {
+
+        it('should ensure that followed can be added to collection', function () {
+            $scope.addFollowingToCollection(testFollower);
+            expect($scope.followedCollection.length).toEqual(1);
+        });
+
+        it('should ensure that followed can be removed from collection', function () {
+            $scope.removeFollowingFromCollection(1);
+            expect($scope.followedCollection.length).toEqual(0);
+        });
+
+        it('should ensure that email can be transformed to data params', function () {
+            expect($scope.transferDataToParam("test@test.lt")).toEqual("email=test@test.lt");
+        });
+        
     });
 
-    it('should ensure that followed can be removed from collection', function () {
-        $scope.removeFollowingFromCollection(1);
-        expect($scope.followedCollection.length).toEqual(0);
-    });
+    describe("RelationService", function () {
 
-    it('should ensure that email can be transformed to data params', function () {
-        expect($scope.transferDataToParam("test@test.lt")).toEqual("email=test@test.lt");
-    });
+        it('should fetch followers', function () {
+            $scope.addFollowingToCollection(testFollower);
+            expect($scope.followedCollection.length).toEqual(1);
+        });
+
+    })
+
 });

@@ -9,6 +9,8 @@ $color-emerald-dark:        #16a085;
 $color-pomegranate:         #e74c3c;
 $color-pomegranate-dark:    #c0392b;
 $color-swed-orange:         #FF6100;
+$color-orange:              #f1c40f;
+$color-orange-dark:         #f39c12;
 
 $padding-small:             10px;
 
@@ -32,21 +34,43 @@ body{
 .btn-danger {
   background: $color-pomegranate;
   border-color: $color-pomegranate;
-}
-
-.btn-danger:hover {
-  background: $color-pomegranate-dark;
-  border-color: $color-pomegranate-dark;
+  &:hover {
+    background: $color-pomegranate-dark;
+    border-color: $color-pomegranate-dark;
+  }
+  &:focus {
+    background: $color-pomegranate-dark;
+    border-color: $color-pomegranate-dark;
+  }
 }
 
 .btn-success {
   background: $color-emerald;
   border-color: $color-emerald;
+  &:hover {
+    background: $color-emerald-dark;
+    border-color: $color-emerald-dark;
+  }
+  &:focus {
+    background: $color-emerald-dark;
+    border-color: $color-emerald-dark;
+  }
 }
 
-.btn-success:hover {
-  background: $color-emerald-dark;
-  border-color: $color-emerald-dark;
+.btn-give {
+  background: $color-orange-dark;
+  border-color: $color-orange-dark;
+  color: $color-white;
+  &:hover {
+    background: $color-swed-orange;
+    border-color: $color-swed-orange;
+    color: $color-white;
+  }
+  &:focus {
+    background: $color-swed-orange;
+    border-color: $color-swed-orange;
+    color: $color-white;
+  }
 }
 
 .table-borderless tbody tr td, .table-borderless tbody tr th, .table-borderless thead tr th {
@@ -149,7 +173,7 @@ body{
 
 .relation {
   padding: $padding-small;
-  margin: $margin-small;
+  margin-bottom: $margin-small;
   background: $color-white;
   border-radius: $border-radius-small;
 
@@ -160,6 +184,11 @@ body{
 
 .acorns-message{
   padding-top: $padding-small;
+}
+
+.kudos-instant-send-container{
+  padding-top: $padding-small;
+  padding-bottom: $padding-small;
 }
 
 @keyframes spin {

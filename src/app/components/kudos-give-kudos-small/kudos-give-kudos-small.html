@@ -1,0 +1,32 @@
+<!-- INPUT AMOUNT -->
+<div class="input-group">
+    <span class="input-group-btn">
+        <button ng-click="sendKudosAmount = sendKudosAmount - 1"
+                type="button"
+                class="btn btn-default btn-number"><span class="glyphicon glyphicon-minus"></span></button>
+    </span>
+    <input ng-model="sendKudosAmount"
+           type="number"
+           placeholder="Amount"
+           class="form-control input-number" required>
+    <div class="input-group-btn">
+        <button ng-click="sendKudosAmount = sendKudosAmount + 1" type="button"
+                class="btn btn-default btn-number"><span class="glyphicon glyphicon-plus"></span></button>
+        <button ng-click="sendKudos()"
+                type="button"
+                name="sendKudosButton"
+                id="sendKudosButton"
+                class="btn btn-give">GIVE
+        </button>
+    </div>
+</div>
+
+<!-- INPUT MESSAGE -->
+
+
+<div ng-if="showError" class="form-group col-sm-12 text-center">
+    <div class="alert alert-danger" role="alert">
+        <strong>Whoops!</strong> {{errorMessage}}
+    </div>
+</div>
+

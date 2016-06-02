@@ -3,16 +3,39 @@
  */
 (function () {
 
-    var RelationshipController = function ($scope, $httpParamSerializer, RelationService, Resources) {
-
+    var RelationshipController = function ($scope, $httpParamSerializer, RelationService, GiveKudosService, Resources) {
+        
         $scope.followedCollection = [];
         $scope.followersCollection = [];
+        $scope.selectedEmail = "namas";
+        $scope.acornsAmount = 1;
 
         $scope.addFollower = addFollower;
         $scope.removeFollowing = removeFollowing;
         $scope.addFollowingToCollection = addFollowingToCollection;
         $scope.removeFollowingFromCollection = removeFollowingFromCollection;
         $scope.transferDataToParam = transferDataToParam;
+        $scope.selectRelationEmail = selectRelationEmail;
+
+        $scope.selectAutoText = function (text) {
+            $scope.followerEmail = text;
+            $scope.searchTermSelected = true;
+            $scope.autocompleteHide = true;
+        };
+
+        $scope.$watch('followerEmail', function (newVal, oldVal) {
+            if ($scope.searchTermSelected == false) {
+                if (newVal != undefined) {
+                    (newVal.length > 1) ? $scope.autocompleteHide = false : $scope.autocompleteHide = true;
+                }
+            } else {
+                $scope.searchTermSelected = false;
+            }
+        });
+
+        GiveKudosService.listUsers().then(function (val) {
+            $scope.usersCollection = val.userList;
+        });
 
         RelationService.getFollowing().then(function () {
             $scope.followedCollection = RelationService.getFollowingCollection();
@@ -25,7 +48,6 @@
         function addFollower(email) {
             RelationService.addFollower(transferDataToParam(email)).then(function (response) {
                 addFollowingToCollection(response.data);
-                console.log(response);
                 toastr.success("Started to follow " + response.data.userName);
             })
         }
@@ -51,9 +73,14 @@
             });
         }
 
+        function selectRelationEmail(email) {
+            $scope.selectedEmail = email;
+            console.log(email);
+        }
+
     };
 
-    RelationshipController.$inject = ['$scope', '$httpParamSerializer', 'RelationService', 'Resources'];
+    RelationshipController.$inject = ['$scope', '$httpParamSerializer', 'RelationService', 'GiveKudosService', 'Resources'];
 
     angular.module('myApp.components.relationship', [])
         .component('kudosRelationship', {

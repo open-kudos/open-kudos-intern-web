@@ -19,6 +19,7 @@
             'myApp.components.challengeParticipated',
             'myApp.components.transactions',
             'myApp.components.giveKudos',
+            'myApp.components.giveKudosSmall',
             'myApp.components.giveChallenge',
             'myApp.components.giveTeamChallenge',
             'myApp.components.challengeOngoing',

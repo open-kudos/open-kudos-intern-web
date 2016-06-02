@@ -1,5 +1,5 @@
 (function () {
-    var GiveKudosController = function ($scope, $timeout, $httpParamSerializer, GiveKudosService, Resources) {
+    var GiveKudosSmallController = function ($scope, $timeout, $httpParamSerializer, GiveKudosService, Resources) {
 
         $scope.showError = false;
         $scope.errorMessage = "";
@@ -9,6 +9,10 @@
         
         $scope.sendKudos = sendKudos;
         $scope.clearSendKudosFormValues = clearSendKudosFormValues;
+
+        this.$onInit = function() {
+            $scope.sendKudosTo = this.email;
+        };
 
         $scope.selectAutoText = function (text) {
             $scope.sendKudosTo = text;
@@ -92,8 +96,7 @@
         }
 
         function clearSendKudosFormValues() {
-            $scope.sendKudosTo = "";
-            $scope.sendKudosAmount = "";
+            $scope.sendKudosAmount = 0;
             $scope.sendKudosMessage = "";
             clearErrorMessages();
         }
@@ -126,11 +129,14 @@
         }
     };
 
-    GiveKudosController.$inject = ['$scope', '$timeout', '$httpParamSerializer', 'GiveKudosService', 'Resources'];
+    GiveKudosSmallController.$inject = ['$scope', '$timeout', '$httpParamSerializer', 'GiveKudosService', 'Resources'];
 
-    angular.module('myApp.components.giveKudos', [])
-        .component('kudosGiveKudos', {
-            templateUrl: 'app/components/kudos-give-kudos/kudos-give-kudos.html',
-            controller: GiveKudosController
+    angular.module('myApp.components.giveKudosSmall', [])
+        .component('kudosGiveKudosSmall', {
+            templateUrl: 'app/components/kudos-give-kudos-small/kudos-give-kudos-small.html',
+            bindings: {
+                email: '@'
+            },
+            controller: GiveKudosSmallController
         })
 })();

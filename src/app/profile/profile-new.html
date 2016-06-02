@@ -27,6 +27,7 @@
         <!-- use later col-sm-push-3 -->
         <div class="col-md-6 col-md-push-3">
             <kudos-info></kudos-info>
+
             <div class="panel panel-body">
                 <div ng-hide="!showLoader" class="loader"></div>
                 <div class="row text-center">
@@ -36,7 +37,7 @@
                         <div class="col-md-12">
                             <button name="giveKudosButton" id="giveKudosButton"
                                     data-toggle="modal" data-target="#sendKudosModal"
-                                    class="btn profile-buttons hvr-underline-from-center">
+                                    class="btn profile-buttons hvr-underline-from-center" onclick="console.log('clicked');">
                                 {{ 'ProfileMeGiveACorn' | translate }}
                             </button>
                         </div>

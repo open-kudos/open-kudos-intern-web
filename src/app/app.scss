@@ -556,6 +556,9 @@ body {
     color: #ffffff;
     background: #FF6100;
     border-color: transparent;
+    &:focus{
+        color: white;
+    }
 }
 
 .bg-transparent {
