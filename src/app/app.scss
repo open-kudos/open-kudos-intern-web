@@ -47,11 +47,6 @@ body {
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
-.modal-body {
-    max-height: calc(100vh - 212px);
-    overflow-y: auto;
-}
-
 .valid {
     height: 45px;
     -moz-transition: all 0.1s linear;

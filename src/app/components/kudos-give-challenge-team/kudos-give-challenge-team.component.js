@@ -8,8 +8,10 @@
         activate();
         
         $scope.addUser = addUser;
+        $scope.checkUser = checkUser;
         $scope.removeUser = removeUser;
         $scope.challenge = challenge;
+        $scope.validate = validate;
 
         function activate() {
             GiveChallengeService.listUsers().then(function (val) {
@@ -88,7 +90,7 @@
             } else if (!$scope.giveTeamChallengeAmountOfKudos){
                 $scope.teamChallengeFormErrorMessage = "Enter valid challenge Acorns";
                 return false;
-            } else if ($scope.giveTeamChallengeAmountOfKudos > userKudos){
+            } else if ($scope.giveTeamChallengeAmountOfKudos > $scope.userKudos){
                 $scope.teamChallengeFormErrorMessage = "You do not have enough Acorns";
                 return false;
             } else if (!$scope.team1[0]){
@@ -105,21 +107,20 @@
             $scope.teamChallengeParticipant = text;
             $scope.searchTermSelected = true;
             $scope.autocompleteHide = true;
+            $scope.text = text;
         };
 
         $scope.$watch(function () {
-            return userKudos = Resources.getUserAvailableKudos()
-        });
-
-        $scope.$watch('teamChallengeParticipant', function (newVal, oldVal) {
+            $scope.userKudos = Resources.getUserAvailableKudos();
             if ($scope.searchTermSelected == false) {
-                if (newVal != undefined) {
-                    (newVal.length > 1) ? $scope.autocompleteHide = false : $scope.autocompleteHide = true;
+                if ($scope.teamChallengeParticipant != undefined) {
+                    if ($scope.text != $scope.teamChallengeParticipant)
+                        ($scope.teamChallengeParticipant.length > 1) ? $scope.autocompleteHide = false : $scope.autocompleteHide = true;
                 }
             } else {
                 $scope.searchTermSelected = false;
             }
-        });
+        }, true);
     };
 
     GiveTeamChallengeController.$inject = ['$scope', '$timeout', '$httpParamSerializer', 'Resources', 'Challenges', 'GiveChallengeService', 'GiveTeamChallengeService', '$filter'];
