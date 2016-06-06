@@ -2,7 +2,6 @@
  * Created by vytautassugintas on 12/05/16.
  */
 (function () {
-    
     function KudosNavbarController($scope, $location, $window, $cookies, Resources, ProfileService) {
 
         $scope.selectedHome = false;
@@ -18,11 +17,11 @@
         function activate(){
             if ( $location.path() == '/profile'){
                 $scope.selectedHome = true;
-            } else if ( $location.path() == '/acorns'){
+            } else if ($location.path() == '/acorns'){
                 $scope.selectedAcorns = true;
-            } else if ( $location.path() == '/leaderboard'){
+            } else if ($location.path() == '/leaderboard'){
                 $scope.selectedLeaderboard = true;
-            } else if ( $location.path() == '/me'){
+            } else if ($location.path() == '/me'){
                 $scope.selectedProfile = true;
             }
 

@@ -1,4 +1,3 @@
-<!-- INPUT AMOUNT -->
 <div class="input-group">
     <span class="input-group-btn">
         <button ng-click="sendKudosAmount = sendKudosAmount - 1"
@@ -21,12 +20,10 @@
     </div>
 </div>
 
-<!-- INPUT MESSAGE -->
-
-
-<div ng-if="showError" class="form-group col-sm-12 text-center">
-    <div class="alert alert-danger" role="alert">
-        <strong>Whoops!</strong> {{errorMessage}}
+<div ng-if="showError" class="error-box">
+    <div class="">
+        <div class="alert alert-danger" role="alert">
+            <strong>Whoops!</strong> {{errorMessage}}
+        </div>
     </div>
 </div>
-

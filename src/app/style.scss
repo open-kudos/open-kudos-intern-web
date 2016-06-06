@@ -94,6 +94,7 @@ body{
   width: 100%;
 }
 
+/*
 .navbar .container-fluid>.navbar-header {
   float: left;
   margin-right: 10px;
@@ -105,6 +106,7 @@ body{
 .nav>li {
   float: left;
 }
+*/
 
 .box-shadow-animation {
   box-shadow: none;
@@ -186,9 +188,12 @@ body{
   padding-top: $padding-small;
 }
 
+.error-box {
+  padding-top: $padding-small;
+}
+
 .kudos-instant-send-container{
   padding-top: $padding-small;
-  padding-bottom: $padding-small;
 }
 
 @keyframes spin {

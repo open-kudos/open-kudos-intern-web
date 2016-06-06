@@ -686,7 +686,7 @@ div.box4 {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
-
+/*
 .nav-dropdown{
     position: absolute;
     right: 0;
@@ -736,10 +736,22 @@ div.box4 {
     border-bottom-right-radius: 5px;
     border-bottom: 1px solid #E1E1E1;
 }
+*/
 
 .selected {
     border-bottom: 4px solid $color-swed-orange;
 }
+
+/*
+.navbar-right {float: right !important;}
+
+@media (min-width: 767px) {
+    .navbar-nav > li > a {
+        line-height: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;}
+}
+*/
 
 .nav-pills>.active{
     border-bottom: 3px solid $color-swed-orange;
@@ -757,25 +769,22 @@ div.box4 {
     border-bottom-right-radius: 0;
 }
 
-.navbar-right {float: right !important;}
-
-@media (min-width: 767px) {
-    .navbar-nav > li > a {
-        line-height: 20px;
-        padding-top: 10px;
-        padding-bottom: 10px;}
-}
-
 @media(max-width:767px)
 {
+    /*
     .navbar-right {margin-right:20px;}
 
     .navbar-nav.navbar-right > li { float: left; }
-
+    */
 }
 
 
 @media (max-width: 767px) {
+    .selected {
+        border-bottom: 0;
+    }
+
+    /*
     .nav-dropdown {
         width: 100%;
     }
@@ -783,13 +792,16 @@ div.box4 {
     .navbar-right {
         float: right;
     }
+    */
 }
 
 @media (min-width: 1584px) {
+    /*
     .nav-dropdown {
         width: 15%;
         right: 15%;
     }
+    */
 }
 
 
