@@ -13,7 +13,8 @@
             getList: getChallengeParticipatedList,
             getFullList: getAllChallengeParticipatedList,
             decline: declineChallenge,
-            accept: acceptChallenge
+            accept: acceptChallenge,
+            getTeamList: getTeamChallengeParticipatedList
         }
         return service;
 
@@ -37,6 +38,12 @@
         
         function getAllChallengeParticipatedList(requestData) {
             return Challenges.allReceivedChallenges(requestData).then(function (val) {
+                return val;
+            })
+        }
+
+        function getTeamChallengeParticipatedList(requestData){
+            return Challenges.teamReceivedChallenges(requestData).then(function (val) {
                 return val;
             })
         }

@@ -4,20 +4,12 @@
         $scope.team2 = [];
         $scope.autocompleteHide = true;
         var fade = 2000;
-
-        activate();
         
         $scope.addUser = addUser;
         $scope.checkUser = checkUser;
         $scope.removeUser = removeUser;
         $scope.challenge = challenge;
         $scope.validate = validate;
-
-        function activate() {
-            GiveChallengeService.listUsers().then(function (val) {
-                $scope.usersCollection = val.userList;
-            });
-        }
 
         function addUser(val) {
             if(!checkUser($scope.teamChallengeParticipant)) {

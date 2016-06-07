@@ -33,14 +33,29 @@ describe('LoginController', function() {
         $scope = {};
         $controller = _$controller_('LoginController', { $scope: $scope });
     }));
-
+ 
     it('should check if user is remembered', function() {
         $scope.rememberUser(loginInfo);
         expect($scope.isRememberedUser()).toEqual(true);
     });
 
-    //TODO Complete these
-    it('should ensure invalid email addresses are caught', function () {});
-    it('should ensure valid email addresses pass validation', function () {});
-    it('should show error messages for empty fields', function () {});
+    it('should show error messages for empty fields', function () {
+        $scope.email = '';
+        $scope.password = '';
+        expect($scope.formFieldsValid($scope.email, $scope.password)).toEqual(false);
+        $scope.email = 'email';
+        $scope.password = 'pass';
+        expect($scope.formFieldsValid($scope.email, $scope.password)).toEqual(true);
+    });
+
+    it('should check if email field contains ".", letter before and after', function() {
+        $scope.email = 't.t';
+        expect($scope.validateEmail($scope.email)).toEqual(true);
+        $scope.email = 't.';
+        expect($scope.validateEmail($scope.email)).toEqual(false);
+        $scope.email = '.t';
+        expect($scope.validateEmail($scope.email)).toEqual(false);
+        $scope.email = '.';
+        expect($scope.validateEmail($scope.email)).toEqual(false);
+    });
 });

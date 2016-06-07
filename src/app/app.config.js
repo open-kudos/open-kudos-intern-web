@@ -21,7 +21,8 @@
                 controller: 'registrationController'
             })
             .when('/feed', {
-                templateUrl: 'app/kudos-feed/kudos-feed.html'
+                templateUrl: 'app/kudos-feed/kudos-feed.html',
+                controller: 'FeedController'
             })
             .when('/acorns', {
                 templateUrl: 'app/acorns/acorns.html',

@@ -29,7 +29,17 @@
 
             KudosChallengeParticipatedService.getList(requestData).then(function (val) {
                 $scope.challengeList = val;
+                //console.log($scope.challengeList);
                 refreshList();
+            });
+
+            var teamRequestData = $httpParamSerializer({
+                status: challengeStatus
+            });
+
+            KudosChallengeParticipatedService.getTeamList(teamRequestData).then(function (val) {
+                //$scope.challengeList.push(val[0]);
+                //console.log($scope.challengeList);
             })
         }
 

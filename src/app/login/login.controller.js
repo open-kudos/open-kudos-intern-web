@@ -7,10 +7,13 @@
 
         $scope.showLoader = false;
         $scope.showError = false;
+        $scope.domain = '.lt';
 
         $scope.login = login;
         $scope.isRememberedUser = isRememberedUser;
         $scope.rememberUser = rememberUser;
+        $scope.formFieldsValid = formFieldsValid;
+        $scope.validateEmail = validateEmail;
 
         function activate() {
             isRememberedUser() ? LoginService.login($base64.decode($cookies.get('user_credentials'))) : LoginService.checkUser();
@@ -46,7 +49,7 @@
 
         function validateAndLogin(loginInfo) {
             $scope.showLoader = true;
-            if (formFieldsValid()) {
+            if (formFieldsValid($scope.email, $scope.password)) {
                 LoginService.login(loginInfo).then(function (response) {
                     $scope.showLoader = false;
                     responseValidation(response);
@@ -54,8 +57,8 @@
             }
         }
 
-        function formFieldsValid() {
-            if ($scope.email === "" || $scope.password === "") {
+        function formFieldsValid(email, password) {
+            if (email === "" || password === "") {
                 $scope.emailErrorMessage = "Please enter Email";
             } else if ($scope.password == "") {
                 $scope.passwordErrorMessage = "Please enter Password";
@@ -81,7 +84,7 @@
         }
 
         function validateEmail(email) {
-            var reg = /[@]swedbank.[a-z]{2,}/;
+            var reg = /[a-z]\W[a-z]/;
             return reg.test(email);
         }
 
@@ -91,7 +94,7 @@
 
         function getLoginInfo() {
             return {
-                email: $scope.email,
+                email: $scope.email + '@swedbank' + $scope.domain,
                 password: $scope.password
             };
         }

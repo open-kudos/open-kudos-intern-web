@@ -19,7 +19,8 @@ function Challenges($http, SERVER) {
         accomplishChallenge: accomplishChallenge,
         failChallenge: failChallenge,
         allReceivedChallenges: allReceivedChallenges,
-        createTeam: createTeamChallenge
+        createTeam: createTeamChallenge,
+        teamReceivedChallenges: receiveTeamChallenges
     }
     return challenges;
 
@@ -119,6 +120,16 @@ function Challenges($http, SERVER) {
             url: SERVER.ip + "/teamchallenges/create?" + requestData,
             withCredentials: true
         }).then(function (response) {
+            return response.data;
+        });
+    }
+
+    function receiveTeamChallenges(requestData) {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/teamchallenges/participatedByStatus?" + requestData,
+            withCredentials: true
+        }).then(function(response) {
             return response.data;
         });
     }

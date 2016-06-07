@@ -6,6 +6,7 @@ $color-swed-orange:         #FF9A09;
 $color-grey:                #777;
 $color-grey-dark:           #222;
 $color-clouds:              #ECF0F1;
+$bg-image:                  url(../treebg.png);
 
 $padding-small:             10px;
 
@@ -13,10 +14,11 @@ $margin-small:              10px;
 
 body {
     padding-top: 60px;
-    background: -webkit-linear-gradient(left, #ff6c00, #ffdd00); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(right, #ff6c00, #ffdd00); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(right, #ff6c00, #ffdd00); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(to right, #ff6c00, #ffdd00); /* Standard syntax */
+    background: $bg-image no-repeat fixed center;
+    -webkit-background-size: cover; /* For WebKit*/
+    -moz-background-size: cover;    /* Mozilla*/
+    -o-background-size: cover;      /* Opera*/
+    background-size: cover;
 }
 
 .invalid {

@@ -24,13 +24,24 @@
                             <form id="login-form" role="form">
 
                                 <div class="form-group">
-                                    <input ng-model="email" type="email" id="email" tabindex="1" name="username"
-                                           class='valid' placeholder="{{ 'loginEmail' | translate }}">
+                                    <div class="input-group">
+                                        <input ng-model="email" type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="{{ 'loginEmail' | translate }}" required>
+                                        <span class="input-group-addon" id="basic-addon2">@swedbank</span>
+                                        <div class="input-group-btn">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{domain}} <span class="caret"></span></button>
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                <li><a href="" ng-click="domain = '.lt'">.lt</a></li>
+                                                <li><a href="" ng-click="domain = '.se'">.se</a></li>
+                                                <li><a href="" ng-click="domain = '.lv'">.lv</a></li>
+                                                <li><a href="" ng-click="domain = '.ee'">.ee</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
                                     <input ng-model="password" type="password" name="password" id="password"
-                                           tabindex="2" class="valid" placeholder="{{ 'loginPassword' | translate }}">
+                                           tabindex="2" class="form-control" placeholder="{{ 'loginPassword' | translate }}">
                                 </div>
 
                                 <div class="form-group text-center">

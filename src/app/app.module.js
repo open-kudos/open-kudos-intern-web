@@ -31,6 +31,7 @@
             'myApp.components.addNewIdea',
             'myApp.acorn.leaderboard',
             'myApp.components.relationship',
-            'myApp.components.info'
+            'myApp.components.info',
+            'myApp.components.feed'
         ]);
 })();
