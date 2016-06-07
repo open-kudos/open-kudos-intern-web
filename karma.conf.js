@@ -20,6 +20,7 @@ module.exports = function (config) {
             'app/*.module.js',
             'app/*.controller.js',
             'app/*.config.js',
+            'app/kudos-feed/kudos-feed.controller.js',
             'app/components/**/*.component.js',
             'app/components/**/*.directive.js',
             'app/components/**/*.service.js',
