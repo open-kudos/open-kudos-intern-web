@@ -4,9 +4,10 @@
 "use strict";
 describe('KudosNavbarComponent', function() {
 
-    var $scope;
-    var $controller;
-    var $location;
+    var scope;
+    var location;
+    var rootScope;
+    var locationSpy;
     var someServiceMock;
 
     beforeEach(function (){
@@ -22,24 +23,46 @@ describe('KudosNavbarComponent', function() {
         });
     });
 
-    beforeEach(inject(function($rootScope, _$controller_, _$location_) {
-        $scope = $rootScope.$new();
-        $location = _$location_;
-
-        $controller = _$controller_('KudosNavbarController', {
-            $scope: $scope
-        });
-
+    beforeEach(inject(function ($controller, $rootScope, $location) {
+        scope = $rootScope.$new();
+        location = $location;
+        locationSpy = spyOn(location, 'path', false).and.returnValue("/profile");
+        createController($controller);
     }));
 
     describe('KudosNavbarController', function() {
-
         it('it should check #/profile location path', function() {
-        //    $location.path() = '/profile';
-
+            expect(location.path).toHaveBeenCalled();
+            expect(scope.selectedHome).toBe(true);
         });
 
+        it('it should check #/acorns location path', function() {
+            setLocationSpyPathAndActivateComponent("/acorns");
+            expect(scope.selectedAcorns).toBe(true);
+        });
 
+        it('it should check #/leaderboard location path', function() {
+            setLocationSpyPathAndActivateComponent("/leaderboard");
+            expect(scope.selectedLeaderboard).toBe(true);
+        });
+
+        it('it should check #/me location path', function() {
+            setLocationSpyPathAndActivateComponent("/me");
+            expect(scope.selectedProfile).toBe(true);
+        });
 
     });
+
+    function createController($controller) {
+        $controller('KudosNavbarController', {
+            $scope: scope,
+            $location: location
+        });
+    }
+    
+    function setLocationSpyPathAndActivateComponent(path) {
+        location.path.and.returnValue(path);
+        scope.activate();
+    }
+
 });
