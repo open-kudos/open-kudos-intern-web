@@ -33,11 +33,23 @@ describe('RelationshipComponent', function () {
         });
     });
 
+    beforeEach(inject(function($rootScope, _$controller_) {
+        $scope = $rootScope.$new();
 
-    beforeEach(inject(function (_$controller_, $injector) {
-        $scope = {};
+        $controller = _$controller_('RelationshipController', {
+            $scope: $scope
+        });
+    }));
+
+    beforeEach(inject(function ($rootScope, _$controller_, $injector) {
         $httpBackend = $injector.get('$httpBackend');
-        $controller = _$controller_('RelationshipController', {$scope: $scope});
+        $scope = $rootScope.$new();
+
+        $controller = _$controller_('RelationshipController', {
+            $scope: $scope
+        });
+
+
         authRequestHandler = $httpBackend.when('POST', '/relations/add?test@test.test')
             .respond(testFollower);
     }));
