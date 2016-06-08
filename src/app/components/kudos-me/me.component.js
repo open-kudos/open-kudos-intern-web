@@ -16,6 +16,7 @@
         self.edit = edit;
         self.splitDate = splitDate;
         self.checkIsCompleted = checkIsCompleted;
+        self.editAsView = editAsView;
         
         function activate() {
             isLoggedIn();
@@ -37,36 +38,32 @@
         }
 
         function edit(){
-            var firstName = self.firstName;
-            var lastName = self.lastName;
-            var department = self.department;
-            var team = self.team;
-            var birthday = $filter('date')(self.birthday, requestDateFormat);
-            var startedToWork = $filter('date')(self.startedToWork, requestDateFormat);
-            var phone = self.phone;
-            var position = self.position;
+            var birthday = $filter('date')(self.birthdayEdit, requestDateFormat);
+            var startedToWork = $filter('date')(self.startedToWorkEdit, requestDateFormat);
+            self.birthdayView = $filter('date')(self.birthdayEdit, requestDateFormat);
+            self.startedToWorkView = $filter('date')(self.startedToWorkEdit, requestDateFormat);
 
-            if (birthday == 'Invalid Date')
+            if (birthday == 'Invalid Date') {
                 birthday = null;
+                self.birthdayView = null;
+            }
 
-            if (startedToWork == 'Invalid Date')
+            if (startedToWork == 'Invalid Date') {
                 startedToWork = null;
+                self.startedToWorkView = null;
+            }
 
             requestData = $httpParamSerializer({
                 email: self.email,
-                firstName: firstName,
-                lastName: lastName,
+                firstName: self.firstNameEdit,
+                lastName: self.lastNameEdit,
                 birthday: birthday,
-                phone: phone,
-                startedToWorkDate: startedToWork,
-                position: position,
-                department: department,
-                location: null,
-                team: team
+                startedToWorkDate: startedToWork
             });
 
             MeService.edit(requestData).then(function (val) {
                 toastr.success("You have successfully edited your profile");
+                setValuesView(val);
                 user = Resources.getCurrentUser();
                 checkIsCompleted(birthday, startedToWork, user);
             })
@@ -76,16 +73,31 @@
             user = Resources.getCurrentUser();
             if (user && !checkUser){
                 checkUser = true;
-                self.firstName = user.firstName;
-                self.lastName = user.lastName;
-                self.department = user.department;
-                self.team = user.team;
-                self.birthday = new Date(splitDate(user.birthday));
-                self.startedToWork = new Date(splitDate(user.startedToWorkDate));
-                self.phone = user.phone;
-                self.position = user.position;
+                setValuesEdit(user);
+                setValuesView(user);
                 self.email = user.email;
             }
+        }
+
+        function setValuesView(val) {
+            self.firstName = val.firstName;
+            self.lastName = val.lastName;
+            self.birthday = val.birthday;
+            self.startedToWork = val.startedToWorkDate;
+        }
+
+        function setValuesEdit(val) {
+            self.firstNameEdit = val.firstName;
+            self.lastNameEdit = val.lastName;
+            self.birthdayEdit = new Date(splitDate(val.birthday));
+            self.startedToWorkEdit = new Date(splitDate(val.startedToWorkDate));
+        }
+
+        function editAsView() {
+            self.firstNameEdit = self.firstName;
+            self.lastNameEdit = self.lastName;
+            self.birthdayEdit = new Date(splitDate(self.birthday));
+            self.startedToWorkEdit = new Date(splitDate(self.startedToWorkDate));
         }
 
         function checkIsCompleted(val1, val2) {
