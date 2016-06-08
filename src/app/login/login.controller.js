@@ -85,7 +85,10 @@
 
         function validateEmail(email) {
             var reg = /[a-z]\W[a-z]/;
-            return reg.test(email);
+            if (reg.test(email)){
+                reg = /@/;
+                return !reg.test(email);
+            } else return reg.test(email);
         }
 
         function isRememberedUser() {
