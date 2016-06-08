@@ -9,26 +9,20 @@
         $scope.acornPlural = acornPlural;
         $scope.clearNotifications = clearNotifications;
 
-        var requestData = $httpParamSerializer({
-            timestamp: $cookies.get('last_transaction')
-        });
-
         var lastTransactionTimestamp;
 
         checkNotifications();
 
         function checkNotifications() {
-            if ($cookies.get('last_transaction') != null) {
-                KudosNotificationService.getNewTransactions(requestData).then(function (val) {
-                    if (val.length != 0) {
-                        Resources.setNotificationsTransactionCollection(val);
-                        $scope.newTransactionCollection = val;
-                        $scope.notificationBadgeAmount = val.length;
-                        $scope.receivedNewTransaction = true;
-                        lastTransactionTimestamp = val[0].timestamp;
-                    }
-                });
-            }
+            KudosNotificationService.getNewTransactions().then(function (val) {
+                if (val.length != 0) {
+                    Resources.setNotificationsTransactionCollection(val);
+                    $scope.newTransactionCollection = val;
+                    $scope.notificationBadgeAmount = val.length;
+                    $scope.receivedNewTransaction = true;
+                    lastTransactionTimestamp = val[0].timestamp;
+                }
+            });
         }
 
         function clearNotifications() {
@@ -44,9 +38,7 @@
         }
 
         function overwriteLastTransactionTimestamp(timestamp) {
-            var expireDate = new Date();
-            expireDate.setDate(expireDate.getDate() + 180); // Setting expiration date to 180 days
-            $cookies.put('last_transaction', timestamp, {expires: expireDate});
+            KudosNotificationService.setLastTransaction(timestamp);
         }
 
         function acornPlural(amount) {
