@@ -1,71 +1,40 @@
-<div class="input-group hidden-xs hidden-sm profile-input">
-    <span class="input-group-addon acorn-bg" id="sizing-addon1">Name:</span>
-    <input ng-model="me.firstName" type="text" class="form-control" aria-describedby="sizing-addon1">
+<div class="form-group col-lg-12">
+    <div class="col-lg-4">
+        <label for="Firstname">First Name <span class="glyphicon glyphicon-user"> </span></label>
+    </div>
+    <div class="col-lg-8">
+        <input ng-model="me.firstNameEdit" id="Firstname" name="Firstname" type="text" class="form-control" value="{{me.firstNameEdit}}">
+    </div>
 </div>
-<div class="hidden-md hidden-lg profile-input">
-    <span class="input-group-addon acorn-bg" id="sizing-addon1">Name:</span>
-    <input ng-model="me.firstName" type="text" class="form-control" aria-describedby="sizing-addon1">
+<div class="form-group col-lg-12">
+    <div class="col-lg-4">
+        <label for="Lastname">Last Name <span class="glyphicon glyphicon-user"> </span></label>
+    </div>
+    <div class="col-lg-8">
+        <input ng-model="me.lastNameEdit" id="Lastname" name="Lastname" type="text" class="form-control" value="{{me.lastNameEdit}}">
+    </div>
 </div>
-
-<div class="input-group hidden-xs hidden-sm profile-input">
-    <span class="input-group-addon acorn-bg" id="sizing-addon2">Surname:</span>
-    <input ng-model="me.lastName" type="text" class="form-control" aria-describedby="sizing-addon2">
+<div class="form-group col-lg-12">
+    <div class="col-lg-4">
+        <label for="birthday">Birthday <span class="glyphicon glyphicon-gift"> </span></label>
+    </div>
+    <div class="col-lg-8">
+        <input ng-model="me.birthdayEdit" id="birthday" name="date" type="date" class="form-control" value="{{me.birthdayEdit}}">
+    </div>
 </div>
-<div class="hidden-md hidden-lg profile-input">
-    <span class="input-group-addon acorn-bg" id="sizing-addon2">Surname:</span>
-    <input ng-model="me.lastName" type="text" class="form-control" aria-describedby="sizing-addon2">
+<div class="form-group col-lg-12">
+    <div class="col-lg-4">
+        <label for="startedToWork">Started to work <span class="glyphicon glyphicon-calendar"> </span></label>
+    </div>
+    <div class="col-lg-8">
+        <input ng-model="me.startedToWorkEdit" id="startedToWork" name="date" type="date" class="form-control" value="{{me.startedToWorkEdit}}">
+    </div>
 </div>
-
-<div class="input-group hidden-xs hidden-sm profile-input">
-    <span class="input-group-addon acorn-bg" id="sizing-addon6">Department:</span>
-    <input ng-model="me.department" type="text" class="form-control" value="{{me.department}}" aria-describedby="sizing-addon6">
-</div>
-<div class="hidden-md hidden-lg profile-input">
-    <span class="input-group-addon acorn-bg" id="sizing-addon6">Department:</span>
-    <input ng-model="me.department" type="text" class="form-control" value="{{me.department}}" aria-describedby="sizing-addon6">
-</div>
-
-<div class="input-group hidden-xs hidden-sm profile-input">
-    <span class="input-group-addon acorn-bg" id="sizing-addon7">Team:</span>
-    <input ng-model="me.team" type="text" class="form-control" value="{{me.team}}" aria-describedby="sizing-addon7">
-</div>
-<div class="hidden-md hidden-lg profile-input">
-    <span class="input-group-addon acorn-bg" id="sizing-addon7">Team:</span>
-    <input ng-model="me.team" type="text" class="form-control" value="{{me.team}}" aria-describedby="sizing-addon7">
-</div>
-
-<div class="input-group hidden-xs hidden-sm profile-input">
-    <span class="input-group-addon acorn-bg" id="sizing-addon5">Position:</span>
-    <input ng-model="me.position" type="text" class="form-control" value="{{me.position}}" aria-describedby="sizing-addon5">
-</div>
-<div class="hidden-md hidden-lg profile-input">
-    <span class="input-group-addon acorn-bg" id="sizing-addon5">Position:</span>
-    <input ng-model="me.position" type="text" class="form-control" value="{{me.position}}" aria-describedby="sizing-addon5">
-</div>
-
-<div class="input-group hidden-xs hidden-sm profile-input">
-    <span class="input-group-addon acorn-bg" id="sizing-addon8">Phone number:</span>
-    <input ng-model="me.phone" type="text" class="form-control" value="{{me.phone}}" aria-describedby="sizing-addon8">
-</div>
-<div class="hidden-md hidden-lg profile-input">
-    <span class="input-group-addon acorn-bg" id="sizing-addon8">Phone number:</span>
-    <input ng-model="me.phone" type="text" class="form-control" value="{{me.phone}}" aria-describedby="sizing-addon8">
-</div>
-
-<div class="input-group hidden-xs hidden-sm profile-input">
-    <span class="input-group-addon acorn-bg" id="sizing-addon3">Birthday:</span>
-    <input ng-model="me.birthday" type="date" value="{{me.birthday}}" class="form-control" aria-describedby="sizing-addon3">
-</div>
-<div class="hidden-md hidden-lg profile-input">
-    <span class="input-group-addon acorn-bg" id="sizing-addon3">Birthday:</span>
-    <input ng-model="me.birthday" type="date" value="{{me.birthday}}" class="form-control" aria-describedby="sizing-addon3">
-</div>
-
-<div class="input-group hidden-xs hidden-sm profile-input">
-    <span class="input-group-addon acorn-bg" id="sizing-addon4">Started to work:</span>
-    <input ng-model="me.startedToWork" type="date" class="form-control" value="{{me.startedToWork}}" aria-describedby="sizing-addon4">
-</div>
-<div class="hidden-md hidden-lg profile-input">
-    <span class="input-group-addon acorn-bg" id="sizing-addon4">Started to work:</span>
-    <input ng-model="me.startedToWork" type="date" class="form-control" value="{{me.startedToWork}}" aria-describedby="sizing-addon4">
+<div class="text-center">
+    <button class="btn btn-default" ng-click="me.editAsView(); me.editMode = !me.editMode">
+        <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Cancel
+    </button>
+    <button class="btn acorn-bg-darker" ng-click="me.edit(); me.editMode = !me.editMode">
+        <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Confirm
+    </button>
 </div>
