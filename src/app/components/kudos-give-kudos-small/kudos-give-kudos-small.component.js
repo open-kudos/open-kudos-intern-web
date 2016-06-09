@@ -3,15 +3,15 @@
 
         $scope.showError = false;
         $scope.errorMessage = "";
-
-        $scope.maxSendKudosLength = Resources.getUserAvailableKudos();
-        $scope.autocompleteHide = true;
         
+        $scope.maxSendKudosLength = Resources.getUserAvailableKudos();
+
         $scope.sendKudos = sendKudos;
         $scope.clearSendKudosFormValues = clearSendKudosFormValues;
 
         this.$onInit = function() {
             $scope.sendKudosTo = this.email;
+            $scope.id = this.index;
         };
 
         $scope.selectAutoText = function (text) {
@@ -19,31 +19,16 @@
             $scope.searchTermSelected = true;
             $scope.autocompleteHide = true;
         };
-
-        $scope.$watch('sendKudosTo', function (newVal, oldVal) {
-            if ($scope.searchTermSelected == false) {
-                if (newVal != undefined) {
-                    (newVal.length > 1) ? $scope.autocompleteHide = false : $scope.autocompleteHide = true;
-                }
-            } else {
-                $scope.searchTermSelected = false;
-            }
-        });
-
-        GiveKudosService.listUsers().then(function (val) {
-            $scope.usersCollection = val.userList;
-        });
-
+        
         function sendKudos() {
-            console.log(sendKudosValidation());
             if (sendKudosValidation()) {
                 GiveKudosService.sendKudos(getSendToRequestData()).then(function (val) {
-                    console.log(val);
                     $scope.showSendKudosModal = false;
                     $scope.showSuccess = true;
                     Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
                     $('#sendKudosModal').modal('hide');
                     toastr.success('You successfully sent ' + acornPlural(val.data.amount) + ' to ' + val.data.receiver);
+                    $('#modal' + $scope.id).modal('hide');
                     pushOutgoingTransferIntoCollection(val.data);
                     clearSendKudosFormValues();
                 }).catch(function () {
@@ -135,7 +120,8 @@
         .component('kudosGiveKudosSmall', {
             templateUrl: 'app/components/kudos-give-kudos-small/kudos-give-kudos-small.html',
             bindings: {
-                email: '@'
+                email: '<',
+                index: '<'
             },
             controller: GiveKudosSmallController
         })

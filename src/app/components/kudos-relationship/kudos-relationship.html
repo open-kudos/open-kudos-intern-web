@@ -37,11 +37,7 @@
                     <h4 class="media-heading">{{ relation.userName }} {{ relation.userSurname }}</h4>
                     <p class="small">{{ relation.userEmail }}</p>
 
-                    <button href="#"
-                            class="btn btn-sm btn-default"
-                            ng-click="showGiveBox == true ? showGiveBox = false : showGiveBox = true">
-                        <span class="glyphicon glyphicon-tree-deciduous"></span> Give
-                    </button>
+                    <kudos-give-kudos-small email="relation.userEmail" index="relation.id"></kudos-give-kudos-small>
 
                     <div class="btn-group pull-right" >
                         <button type="button"
@@ -59,12 +55,8 @@
                     </div>
 
 
-                    <!-- GIVE BOX -->
-                    <div ng-if="showGiveBox" class="kudos-instant-send-container">
 
-                        <kudos-give-kudos-small email="{{ relation.userEmail }}"></kudos-give-kudos-small>
-
-                    </div>
+                    <!-- GIVE MODAL -->
 
                 </div>
             </div>

@@ -9,6 +9,7 @@
         $scope.followersCollection = [];
         $scope.selectedEmail = "namas";
         $scope.acornsAmount = 1;
+        $scope.showGiveBox = false;
 
         $scope.addFollower = addFollower;
         $scope.removeFollowing = removeFollowing;
@@ -16,6 +17,7 @@
         $scope.removeFollowingFromCollection = removeFollowingFromCollection;
         $scope.transferDataToParam = transferDataToParam;
         $scope.selectRelationEmail = selectRelationEmail;
+        $scope.onModalHideEvent = onModalHideEvent;
 
         $scope.selectAutoText = function (text) {
             $scope.followerEmail = text;
@@ -44,6 +46,16 @@
         RelationService.getFollowers().then(function () {
             $scope.followersCollection = RelationService.getFollowers();
         });
+
+        function onModalHideEvent(whichBox) {
+            whichBox == true ? whichBox = false : whichBox = true;
+            console.log(whichBox);
+            $(document).on('hide.bs.modal','#sendKudosModalSmall', function () {
+                whichBox == true ? whichBox = false : whichBox = true;
+                console.log(whichBox);
+                console.log("hidding");
+            });
+        }
 
         function addFollower(email) {
             RelationService.addFollower(transferDataToParam(email)).then(function (response) {

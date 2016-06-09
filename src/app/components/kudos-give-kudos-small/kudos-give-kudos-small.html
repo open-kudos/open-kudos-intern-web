@@ -1,3 +1,89 @@
+<button name="giveKudosButton" id="giveKudosButton"
+        data-toggle="modal" data-target="#modal{{id}}"
+        class="btn btn-sm btn-default">
+    <span class="glyphicon glyphicon-tree-deciduous"></span> Give
+</button>
+
+<div id="modal{{id}}" class="modal fade" role="dialog" data-keyboard="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" ng-click="clearSendKudosFormValues()" class="close"
+                        data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'SEND_KUDOS_POPUP_TITLE' | translate }}</h4>
+            </div>
+
+            <div class="modal-body">
+                <form name="sendKudosForm">
+                    <div class="form-group col-sm-6">
+                        <!-- INPUT RECEIVER -->
+                        <input ng-model="sendKudosTo"
+                               id="sendKudosTo"
+                               name="sendKudosTo"
+                               type="text"
+                               class="form-control"
+                               autocomplete="off"
+                               placeholder="{{ 'SEND_KUDOS_SENDING_TO_HINT' | translate }}">
+
+                        <div class="autocomplete" ng-show="autocompleteHide==false">
+                            <div ng-repeat="autoText in usersCollection | filter:sendKudosTo"
+                                 ng-click="selectAutoText(autoText.email)">
+                                <p>{{autoText.firstName}} {{autoText.lastName}}</p>
+                                <p class="small">{{autoText.email}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- INPUT AMOUNT -->
+                    <div class="form-group col-sm-6">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button ng-click="sendKudosAmount > 0 ? sendKudosAmount = sendKudosAmount - 1 : sendKudosAmount = 0"
+                                        type="button"
+                                        class="btn btn-default btn-number"><span class="glyphicon glyphicon-minus"></span></button>
+                            </span>
+                            <input ng-model="sendKudosAmount"
+                                   type="number"
+                                   placeholder="Amount"
+                                   min="0"
+                                   class="form-control input-number" required>
+                            <div class="input-group-btn">
+                                <button ng-click="sendKudosAmount = sendKudosAmount + 1" type="button"
+                                        class="btn btn-default btn-number"><span class="glyphicon glyphicon-plus"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- INPUT MESSAGE -->
+                    <div class="form-group col-sm-12">
+                        <input ng-model="sendKudosMessage"
+                               id="sendKudosMessage"
+                               name="sendKudosMessage"
+                               type="text"
+                               class="form-control"
+                               autocomplete="off"
+                               placeholder="Message (optional)">
+                    </div>
+
+                    <div class="form-group col-sm-12 text-center">
+                        <div ng-hide="!showError" class="alert alert-danger" role="alert">
+                            <strong>Whoops!</strong> {{errorMessage}}
+                        </div>
+                    </div>
+
+                </form>
+
+                <button ng-click="sendKudos()"
+                        name="sendKudosButton"
+                        id="sendKudosButton"
+                        class="form-control btn btn-login">Give
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--
 <div class="input-group">
     <span class="input-group-btn">
         <button ng-click="sendKudosAmount = sendKudosAmount - 1"
@@ -27,3 +113,5 @@
         </div>
     </div>
 </div>
+
+-->
