@@ -33,17 +33,17 @@ function Transaction($http, SERVER) {
     function getNewKudosTransactions() {
         return $http({
             method: 'GET',
-            url: SERVER.ip + "/transaction/newTransactions?",
+            url: SERVER.ip + "/transaction/newTransactions",
             withCredentials: true
         }).then(function (response) {
             return response.data;
         });
     }
 
-    function kudosTransactionListChanged() {
+    function kudosTransactionListChanged(requestData) {
         return $http({
             method: 'GET',
-            url: SERVER.ip + "/transaction/kudosFeedPool",
+            url: SERVER.ip + "/transaction/kudosFeedPool?" + requestData,
             withCredentials: true
         }).then(function (response) {
             return response.data;
