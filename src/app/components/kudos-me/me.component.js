@@ -1,9 +1,9 @@
 (function () {
 
     var MeController = function ($scope, $filter, $window, $httpParamSerializer, MeService, Resources, ProfileService) {
+        var self = this;
         var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
         var user, requestData, checkUser;
-        var self = this;
 
         activate();
 
@@ -38,6 +38,7 @@
         }
 
         function edit(){
+            self.showLoader = true;
             var birthday = $filter('date')(self.birthdayEdit, requestDateFormat);
             var startedToWork = $filter('date')(self.startedToWorkEdit, requestDateFormat);
             self.birthdayView = $filter('date')(self.birthdayEdit, requestDateFormat);
@@ -62,11 +63,13 @@
             });
 
             MeService.edit(requestData).then(function (val) {
+                self.showLoader = false;
                 toastr.success("You have successfully edited your profile");
                 setValuesView(val);
                 user = Resources.getCurrentUser();
                 checkIsCompleted(birthday, startedToWork, user);
-            })
+            });
+            self.showLoader = false;
         }
 
         function userInformation(){

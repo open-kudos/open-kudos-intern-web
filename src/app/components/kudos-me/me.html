@@ -12,7 +12,7 @@
                 </div>
                 <div class="card-info"> <span class="card-title">{{me.firstName}} {{me.lastName}}</span></div>
             </div>
-
+<div ng-hide="!me.showLoader" class="loader"></div>
 <div class="container">
     <!--
     <div class="row">
@@ -30,7 +30,6 @@
         </div>
     </div>
     -->
-    <div ng-hide="!self.showLoader" class="loader"></div>
     <div class="row">
         <div class="col-lg-6 col-sm-6 col-sm-push-3">
             <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group">
