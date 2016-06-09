@@ -8,6 +8,7 @@
 
         $scope.acornPlural = acornPlural;
         $scope.clearNotifications = clearNotifications;
+        $scope.checkNotifications = checkNotifications;
 
         var lastTransactionTimestamp;
 
@@ -28,12 +29,10 @@
         function clearNotifications() {
             $scope.notificationsToggle == true ? $scope.notificationsToggle = false : $scope.notificationsToggle = true;
             $location.path("/notifications");
-            if ($cookies.get('last_transaction') != null) {
-                if ($scope.newTransactionCollection.length != 0) {
-                    overwriteLastTransactionTimestamp($scope.newTransactionCollection[0].timestamp);
-                    $scope.notificationBadgeAmount = 0;
-                    $scope.receivedNewTransaction = false;
-                }
+            if ($scope.newTransactionCollection.length != 0) {
+                overwriteLastTransactionTimestamp($scope.newTransactionCollection[0].timestamp);
+                $scope.notificationBadgeAmount = 0;
+                $scope.receivedNewTransaction = false;
             }
         }
 
