@@ -31,10 +31,8 @@
         });
 
         function sendKudos() {
-            console.log(sendKudosValidation());
             if (sendKudosValidation()) {
                 GiveKudosService.sendKudos(getSendToRequestData()).then(function (val) {
-                    console.log(val);
                     $scope.showSendKudosModal = false;
                     $scope.showSuccess = true;
                     Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);

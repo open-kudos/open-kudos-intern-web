@@ -10,15 +10,16 @@
             </div>
 
             <div class="modal-body">
-                <div class="margin-bot margin--top">
-                    <label ng-hide="selectOption">Select challenge type: </label>
-                    <ul class="nav nav-pills">
-                        <li role="presentation" ng-class="oneVersusOne ? 'active' : ''"><a href="" ng-click="team = false;oneVersusOne=true;selectOption=true">1 vs. 1</a></li>
+                <!-- <div class="margin-bot margin--top">
+                     <label ng-hide="selectOption">Select challenge type: </label>
+                     <ul class="nav nav-pills">
+                         <li role="presentation" ng-class="oneVersusOne ? 'active' : ''"><a href="" ng-click="team = false;oneVersusOne=true;selectOption=true">1 vs. 1</a></li>
                         <li role="presentation" ng-class="team ? 'active' : ''"><a href="" ng-click="team = true;oneVersusOne=false;selectOption=true"> Team </a></li>
                     </ul>
                 </div>
+                    -->
 
-                <div class="" ng-show="oneVersusOne">
+                <div class=""> <!-- ng-show="oneVersusOne" -->
                     <form name="giveChallengeForm">
                         <div class="form-group col-sm-6">
                             <label for="giveChallengeName">{{ 'GIVE_CHALLENGE_NAME' | translate }}</label>

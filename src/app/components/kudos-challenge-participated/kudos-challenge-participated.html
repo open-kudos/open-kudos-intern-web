@@ -1,4 +1,4 @@
-<div class="card card-block text-center">
+<div class="text-center">
     <div ng-if="id" class="box4 box-shadow-animation">
         <h4 class="card-title text-center">You have been challenged!</h4>
         <p class="card-text"><span class="bold">{{challengeName}}</span>  by
@@ -12,7 +12,7 @@
         <button class="btn btn-success btn-challenge-participated" ng-click="acceptChallenge(id, $index, challengeAmount)">Accept ({{acornPlural(challengeAmount)}})</button>
     </div>
     <div ng-if="!id">
-        <div class="alert alert-info acorn-bg">
+        <div class="alert alert-info acorn-bg margin-top">
             <span class="glyphicon glyphicon-info-sign"></span>
             So far, no one Challenged you
         </div>

@@ -29,14 +29,22 @@
                     </div>
                     <!-- INPUT AMOUNT -->
                     <div class="form-group col-sm-6">
-                        <input ng-model="sendKudosAmount"
-                               ng-pattern="/^[0-9]+$/"
-                               id="sendKudosAmount"
-                               name="sendKudosAmount"
-                               type="number"
-                               class="form-control"
-                               min="1" max="userAvailableKudos"
-                               placeholder="{{'SEND_KUDOS_AMOUNT_HINT' | translate }}" required>
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button ng-click="sendKudosAmount > 0 ? sendKudosAmount = sendKudosAmount - 1 : sendKudosAmount = 0"
+                                        type="button"
+                                        class="btn btn-default btn-number"><span class="glyphicon glyphicon-minus"></span></button>
+                            </span>
+                            <input ng-model="sendKudosAmount"
+                                   type="number"
+                                   placeholder="Amount"
+                                   min="0"
+                                   class="form-control" required>
+                            <div class="input-group-btn">
+                                <button ng-click="sendKudosAmount = sendKudosAmount + 1" type="button"
+                                        class="btn btn-default btn-number"><span class="glyphicon glyphicon-plus"></span></button>
+                            </div>
+                        </div>
                     </div>
                     <!-- INPUT MESSAGE -->
                     <div class="form-group col-sm-12">

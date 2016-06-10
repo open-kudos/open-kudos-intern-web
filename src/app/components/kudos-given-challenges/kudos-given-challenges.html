@@ -1,4 +1,4 @@
-<div class="card card-block text-center">
+<div class="text-center">
     <div ng-if="showList" class="card box4 box-shadow-animation" ng-repeat="givenChallenges in givenChallengesCollection | orderBy:'-timestamp'">
         <p class="card-text"><span class="bold">{{givenChallenges.name}}</span>
             <span class="badge acorn-bg">{{acornPlural(givenChallenges.amount * 2)}}</span>
@@ -14,7 +14,7 @@
     </div>
 
     <div ng-if="!showList">
-        <div class="alert alert-info acorn-bg">
+        <div class="alert alert-info acorn-bg margin-top">
             <span class="glyphicon glyphicon-info-sign"></span>
             You have not Challenged anyone
         </div>
