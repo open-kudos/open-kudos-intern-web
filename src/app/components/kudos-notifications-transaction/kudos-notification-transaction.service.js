@@ -12,12 +12,17 @@
 
     function KudosNotificationService(transactionBackend) {
         var service = {
-            getNewTransactions: getNewTransactions
+            getNewTransactions: getNewTransactions,
+            setLastTransaction: setLastSeenTransaction
         };
         return service;
 
-        function getNewTransactions(requestData) {
-            return transactionBackend.getNewTransactions(requestData)
+        function getNewTransactions() {
+            return transactionBackend.getNewTransactions()
+        }
+
+        function setLastSeenTransaction(timestamp) {
+            return transactionBackend.setLastSeenTransactionTimestamp(timestamp)
         }
     }
 })();

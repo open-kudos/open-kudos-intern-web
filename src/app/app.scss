@@ -6,6 +6,7 @@ $color-swed-orange:         #FF9A09;
 $color-grey:                #777;
 $color-grey-dark:           #222;
 $color-clouds:              #ECF0F1;
+$bg-image:                  url(../treebg.png);
 
 $padding-small:             10px;
 
@@ -13,10 +14,11 @@ $margin-small:              10px;
 
 body {
     padding-top: 60px;
-    background: -webkit-linear-gradient(left, #ff6c00, #ffdd00); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(right, #ff6c00, #ffdd00); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(right, #ff6c00, #ffdd00); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(to right, #ff6c00, #ffdd00); /* Standard syntax */
+    background: $bg-image no-repeat fixed center;
+    -webkit-background-size: cover; /* For WebKit*/
+    -moz-background-size: cover;    /* Mozilla*/
+    -o-background-size: cover;      /* Opera*/
+    background-size: cover;
 }
 
 .invalid {
@@ -45,11 +47,6 @@ body {
     -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
     -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-}
-
-.modal-body {
-    max-height: calc(100vh - 212px);
-    overflow-y: auto;
 }
 
 .valid {
@@ -167,6 +164,22 @@ body {
     color: #666;
 }
 
+.margin--top{
+    margin-top: -6px;
+}
+
+.margin-top{
+    margin-top: 6px;
+}
+
+.margin--bot{
+    margin-bottom: -6px;
+}
+
+.margin-bot{
+    margin-bottom: 6px;
+}
+
 .challenge-participated{
     color: #fff;
     position: relative;
@@ -278,7 +291,7 @@ body {
     outline: none;
 }
 
-.dropdown {
+.dropdown-hack {
     width: 53px;
     position: absolute;
     right: 4px;
@@ -545,6 +558,9 @@ body {
     color: #ffffff;
     background: #FF6100;
     border-color: transparent;
+    &:focus{
+        color: white;
+    }
 }
 
 .bg-transparent {
@@ -647,7 +663,7 @@ div.box4 {
     width: 90%;
     display: inline-block;
     position: absolute;
-    z-index: 1;
+    z-index: 3000;
 }
 
 .autocomplete div{
@@ -672,7 +688,7 @@ div.box4 {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
-
+/*
 .nav-dropdown{
     position: absolute;
     right: 0;
@@ -722,10 +738,22 @@ div.box4 {
     border-bottom-right-radius: 5px;
     border-bottom: 1px solid #E1E1E1;
 }
+*/
 
 .selected {
     border-bottom: 4px solid $color-swed-orange;
 }
+
+/*
+.navbar-right {float: right !important;}
+
+@media (min-width: 767px) {
+    .navbar-nav > li > a {
+        line-height: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;}
+}
+*/
 
 .nav-pills>.active{
     border-bottom: 3px solid $color-swed-orange;
@@ -743,25 +771,22 @@ div.box4 {
     border-bottom-right-radius: 0;
 }
 
-.navbar-right {float: right !important;}
-
-@media (min-width: 767px) {
-    .navbar-nav > li > a {
-        line-height: 20px;
-        padding-top: 10px;
-        padding-bottom: 10px;}
-}
-
 @media(max-width:767px)
 {
+    /*
     .navbar-right {margin-right:20px;}
 
     .navbar-nav.navbar-right > li { float: left; }
-
+    */
 }
 
 
 @media (max-width: 767px) {
+    .selected {
+        border-bottom: 0;
+    }
+
+    /*
     .nav-dropdown {
         width: 100%;
     }
@@ -769,4 +794,116 @@ div.box4 {
     .navbar-right {
         float: right;
     }
+    */
+}
+
+@media (min-width: 1584px) {
+    /*
+    .nav-dropdown {
+        width: 15%;
+        right: 15%;
+    }
+    */
+}
+
+
+
+.card {
+  background-color: rgba(214, 224, 226, 0.2);
+  -webkit-border-top-left-radius:5px;
+  -moz-border-top-left-radius:5px;
+  border-top-left-radius:5px;
+  -webkit-border-top-right-radius:5px;
+  -moz-border-top-right-radius:5px;
+  border-top-right-radius:5px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.card.hovercard {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+//  background-color: #fff;
+//  background-color: rgba(255, 255, 255, 1);
+}
+.card.hovercard .card-background {
+  height: 130px;
+}
+.card-background img {
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+  margin-left: -100px;
+  margin-top: -200px;
+  min-width: 130%;
+}
+.card.hovercard .useravatar {
+  position: absolute;
+  top: 15px;
+  left: 0;
+  right: 0;
+}
+.card.hovercard .useravatar img {
+  width: 100px;
+  height: 100px;
+  max-width: 100px;
+  max-height: 100px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border: 5px solid rgba(255, 255, 255, 0.5);
+}
+.card.hovercard .card-info {
+  position: absolute;
+  bottom: 14px;
+  left: 0;
+  right: 0;
+}
+.card.hovercard .card-info .card-title {
+  font-size: 20px;
+  line-height: 1;
+  color: #262626;
+  background-color: rgba(255, 255, 255, 0.4);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.card.hovercard .card-info {
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 20px;
+  color: #737373;
+  text-overflow: ellipsis;
+}
+.card.hovercard .bottom {
+  margin-bottom: 17px;
+}
+
+.overview h4 {
+    font-weight: 200;
+    margin: 10px 0 0 0;
+}
+
+.overview h5 {
+    font-weight: bold!important;
+    font-size: 35px;
+    margin-top: 0;
+}
+
+.click-li li:hover {
+  cursor: pointer;
+  background-color: lightgrey;
+}
+
+.click-li li {
+  background-color: whitesmoke;
+}
+
+.fade{
+  -webkit-transition: opacity 1s; /* For Safari 3.1 to 6.0 */
+  transition: opacity 1s;
+  opacity: 0;
 }

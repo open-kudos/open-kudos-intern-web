@@ -1,0 +1,40 @@
+<div class="form-group col-lg-12">
+    <div class="col-lg-4">
+        <label for="Firstname">First Name <span class="glyphicon glyphicon-user"> </span></label>
+    </div>
+    <div class="col-lg-8">
+        <input ng-model="me.firstNameEdit" id="Firstname" name="Firstname" type="text" class="form-control" value="{{me.firstNameEdit}}">
+    </div>
+</div>
+<div class="form-group col-lg-12">
+    <div class="col-lg-4">
+        <label for="Lastname">Last Name <span class="glyphicon glyphicon-user"> </span></label>
+    </div>
+    <div class="col-lg-8">
+        <input ng-model="me.lastNameEdit" id="Lastname" name="Lastname" type="text" class="form-control" value="{{me.lastNameEdit}}">
+    </div>
+</div>
+<div class="form-group col-lg-12">
+    <div class="col-lg-4">
+        <label for="birthday">Birthday <span class="glyphicon glyphicon-gift"> </span></label>
+    </div>
+    <div class="col-lg-8">
+        <input ng-model="me.birthdayEdit" id="birthday" name="date" type="date" class="form-control" value="{{me.birthdayEdit}}">
+    </div>
+</div>
+<div class="form-group col-lg-12">
+    <div class="col-lg-4">
+        <label for="startedToWork">Started to work <span class="glyphicon glyphicon-calendar"> </span></label>
+    </div>
+    <div class="col-lg-8">
+        <input ng-model="me.startedToWorkEdit" id="startedToWork" name="date" type="date" class="form-control" value="{{me.startedToWorkEdit}}">
+    </div>
+</div>
+<div class="text-center">
+    <button class="btn btn-default" ng-click="me.editAsView(); me.editMode = !me.editMode">
+        <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Cancel
+    </button>
+    <button class="btn acorn-bg-darker" ng-click="me.edit(); me.editMode = !me.editMode">
+        <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Confirm
+    </button>
+</div>

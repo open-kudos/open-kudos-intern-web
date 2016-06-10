@@ -11,6 +11,8 @@
         "SERVER"
     ];
 
+    var noJsonTransform = function(data) { return data; };
+
     function Auth($http, SERVER) {
         var service = {
             login: Login,
@@ -27,7 +29,8 @@
                 method: 'POST',
                 withCredentials: true,
                 data : data,
-                url: SERVER.ip + "/login"
+                url: SERVER.ip + "/login",
+                transformResponse: noJsonTransform
             }).then(function (response) {
                 return response;
             })

@@ -12,14 +12,13 @@
                     <div class="form-group col-sm-6">
                         <!-- INPUT RECEIVER -->
                         <input ng-model="sendKudosTo"
-                               ng-class="fieldReceiverErrorClass"
-                               ng-change="inputChanged()"
                                id="sendKudosTo"
                                name="sendKudosTo"
                                type="text"
                                class="form-control"
                                autocomplete="off"
                                placeholder="{{ 'SEND_KUDOS_SENDING_TO_HINT' | translate }}">
+
                         <div class="autocomplete" ng-show="autocompleteHide==false">
                             <div ng-repeat="autoText in usersCollection | filter:sendKudosTo"
                                  ng-click="selectAutoText(autoText.email)">
@@ -27,26 +26,46 @@
                                 <p class="small">{{autoText.email}}</p>
                             </div>
                         </div>
-                        <p ng-class="receiverErrorClass" class="small">{{receiverErrorMessage}}</p>
                     </div>
                     <!-- INPUT AMOUNT -->
                     <div class="form-group col-sm-6">
-                        <input ng-model="sendKudosAmount"
-                               ng-pattern="/^[0-9]+$/"
-                               ng-change="inputChanged()"
-                               ng-class="fieldAmountErrorClass"
-                               id="sendKudosAmount"
-                               name="sendKudosAmount"
-                               type="number"
-                               class="form-control"
-                               min="1" max="userAvailableKudos"
-                               placeholder="{{'SEND_KUDOS_AMOUNT_HINT' | translate }}" required>
-                        <p ng-class="amountErrorClass" class="small">{{amountErrorMessage}}</p>
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button ng-click="sendKudosAmount > 0 ? sendKudosAmount = sendKudosAmount - 1 : sendKudosAmount = 0"
+                                        type="button"
+                                        class="btn btn-default btn-number"><span class="glyphicon glyphicon-minus"></span></button>
+                            </span>
+                            <input ng-model="sendKudosAmount"
+                                   type="number"
+                                   placeholder="Amount"
+                                   min="0"
+                                   class="form-control" required>
+                            <div class="input-group-btn">
+                                <button ng-click="sendKudosAmount = sendKudosAmount + 1" type="button"
+                                        class="btn btn-default btn-number"><span class="glyphicon glyphicon-plus"></span></button>
+                            </div>
+                        </div>
                     </div>
+                    <!-- INPUT MESSAGE -->
+                    <div class="form-group col-sm-12">
+                        <input ng-model="sendKudosMessage"
+                               id="sendKudosMessage"
+                               name="sendKudosMessage"
+                               type="text"
+                               class="form-control"
+                               autocomplete="off"
+                               placeholder="Message (optional)">
+                    </div>
+
+                    <div class="form-group col-sm-12 text-center">
+                        <div ng-hide="!showError" class="alert alert-danger" role="alert">
+                            <strong>Whoops!</strong> {{errorMessage}}
+                        </div>
+                    </div>
+
                 </form>
 
                 <button ng-click="sendKudos()"
-                        ng-disabled="sendKudosForm.$invalid"
                         name="sendKudosButton"
                         id="sendKudosButton"
                         class="form-control btn btn-login">Give

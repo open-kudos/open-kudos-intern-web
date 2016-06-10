@@ -38,8 +38,8 @@ describe('registrationController', function() {
             expect($scope.split($scope.fullName)[1]).toEqual('Surname');
         });
         
-        it('Email should contain "@swedbank."', function () {
-            $scope.email = 'sasasas.sss@swedbank.lt';
+        it('Name.surname should contain "."', function () {
+            $scope.email = 'name.surname';
             expect($scope.checkEmail($scope.email)).toBeTruthy();
         });
 
@@ -47,6 +47,16 @@ describe('registrationController', function() {
             $scope.password = 'password';
             $scope.confirmPassword = 'password';
             expect($scope.checkPasswordMatch($scope.password, $scope.confirmPassword)).toBeTruthy();
+
+            $scope.password = 'password';
+            $scope.confirmPassword = 'pass';
+            expect($scope.checkPasswordMatch($scope.password, $scope.confirmPassword)).toBeFalsy();
+        });
+
+        it('Should be possible to change domain', function () {
+            $scope.domain = '.lt';
+            $scope.changeDomain('.se');
+            expect($scope.domain).toBe('.se');
         });
     });
 });

@@ -15,7 +15,8 @@ function Transaction($http, SERVER) {
     var transaction = {
         feedChanged: kudosTransactionListChanged,
         getCompletedKudosTransactions : getCompletedKudosTransactions,
-        getNewTransactions : getNewKudosTransactions
+        getNewTransactions : getNewKudosTransactions,
+        setLastSeenTransactionTimestamp : setLastSeenTransactionTimestamp
     }
     return transaction;
 
@@ -29,10 +30,10 @@ function Transaction($http, SERVER) {
         });
     }
 
-    function getNewKudosTransactions(requestData) {
+    function getNewKudosTransactions() {
         return $http({
             method: 'GET',
-            url: SERVER.ip + "/transaction/newTransactions?" + requestData,
+            url: SERVER.ip + "/transaction/newTransactions",
             withCredentials: true
         }).then(function (response) {
             return response.data;
@@ -43,6 +44,16 @@ function Transaction($http, SERVER) {
         return $http({
             method: 'GET',
             url: SERVER.ip + "/transaction/kudosFeedPool?" + requestData,
+            withCredentials: true
+        }).then(function (response) {
+            return response.data;
+        });
+    }
+
+    function setLastSeenTransactionTimestamp(requestData) {
+        return $http({
+            method: 'POST',
+            url: SERVER.ip + "/transaction/timestamp?timestamp=" + requestData,
             withCredentials: true
         }).then(function (response) {
             return response.data;

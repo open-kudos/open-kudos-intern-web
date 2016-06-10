@@ -1,0 +1,73 @@
+<title>Relationship</title>
+
+<h3>Following</h3>
+
+<div class="input-group">
+    <input ng-model="followerEmail"
+           id="followerEmail"
+           name="followerEmail"
+           type="text"
+           class="form-control"
+           autocomplete="off"
+           placeholder="Search for...">
+        <span class="input-group-btn">
+          <button class="btn btn-success"
+                  type="button"
+                  ng-click="addFollower(followerEmail)">Add
+          </button>
+        </span>
+</div>
+
+<div class="autocomplete" ng-show="autocompleteHide==false">
+    <div ng-repeat="autoText in usersCollection | filter:followerEmail"
+         ng-click="selectAutoText(autoText.email)">
+        <p>{{autoText.firstName}} {{autoText.lastName}}</p>
+        <p class="small">{{autoText.email}}</p>
+    </div>
+</div>
+
+<div class="row">
+    <div ng-repeat="relation in followedCollection | orderBy:'followerName'"
+         class="col-md-12">
+                <!-- <a class="thumbnail pull-left" href="#">
+                    <img class="media-object"
+                         src="http://images.brighthub.com/a3/d/a3d2a3f5888d96ddde78d526bf9448dddf2fb4aa_small.jpg">
+                </a> -->
+            <div class="relation">
+                    <h4 class="media-heading">{{ relation.userName }} {{ relation.userSurname }}</h4>
+                    <p class="small">{{ relation.userEmail }}</p>
+
+                    <kudos-give-kudos-small email="relation.userEmail" index="relation.id"></kudos-give-kudos-small>
+
+                    <div class="btn-group pull-right" >
+                        <button type="button"
+                                class="btn btn-sm btn-default dropdown-toggle"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+                            <span class="glyphicon glyphicon-option-vertical"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href=""
+                                   ng-click="removeFollowing(relation.userEmail, relation.userName, $index)"><span class="glyphicon glyphicon-remove"></span> Unfollow</a>
+                            </li>
+                        </ul>
+                    </div>
+
+
+
+                    <!-- GIVE MODAL -->
+
+                </div>
+            </div>
+    </div>
+</div>
+<!--
+
+Nuotraukos
+
+Kitu profiliai
+
+Follow ir give per acorns
+
+-->

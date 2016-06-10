@@ -20,6 +20,7 @@ module.exports = function (config) {
             'app/*.module.js',
             'app/*.controller.js',
             'app/*.config.js',
+            'app/kudos-feed/kudos-feed.controller.js',
             'app/components/**/*.component.js',
             'app/components/**/*.directive.js',
             'app/components/**/*.service.js',
@@ -30,7 +31,8 @@ module.exports = function (config) {
             'app/acorns/*.js',
             'app/notifications/*.js',
             'app/leaderboard/*.js',
-            'test/*.spec.js'
+            'test/*.spec.js',
+            'app/components/**/*.spec.js'
         ],
 
         autoWatch: true,

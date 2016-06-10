@@ -1,4 +1,4 @@
-<div class="card card-block text-center">
+<div class="text-center">
     <div ng-if="showList" class="card box4 box-shadow-animation" ng-repeat="list in ongoingChallengeList | orderBy:'-createDateDate'">
         <p class="card-text"><span class="bold">{{list.name}}</span>  by
             <span class="bold" ng-if="list.creator != userEmail">{{list.creator}}</span>
@@ -27,7 +27,7 @@
     </div>
 
     <div ng-if="!showList">
-        <div class="alert alert-info acorn-bg">
+        <div class="alert alert-info acorn-bg margin-top">
             <span class="glyphicon glyphicon-info-sign"></span>
             You do not have any ongoing Challenge
         </div>

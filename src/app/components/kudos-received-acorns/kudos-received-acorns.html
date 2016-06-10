@@ -1,9 +1,10 @@
-<div class="card card-block box-shadow-animation text-center">
+<div class="text-center">
     <div style="overflow: auto" class="box4" ng-repeat="incomingKudos in incomingKudosCollection | orderBy:'-timestamp' | limitTo: incomingKudosShowLimit">
         You received
         <span class="badge acorn-bg">{{acornPlural(incomingKudos.amount)}}</span> from
         <span class="bold">{{incomingKudos.senderEmail}}</span> on
         <span>{{incomingKudos.timestamp}}</span>
+        <p ng-if="incomingKudos.message != '' && incomingKudos.message != null"><span class="glyphicon glyphicon-envelope"></span> {{outgoingKudos.message}}</p>
     </div>
 
     <div ng-if="!receivedKudosTable" class="alert alert-info acorn-bg">

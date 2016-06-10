@@ -6,12 +6,14 @@
         var splited = [];
 
         $scope.showLoader = false;
+        $scope.domain = '.lt';
 
         $scope.register = register;
         $scope.split = split;
         $scope.checkEmail = checkEmail;
         $scope.checkPasswordMatch = checkPasswordMatch;
         $scope.showErrorMessage = showErrorMessage;
+        $scope.changeDomain = changeDomain;
 
         function register() {
             var fullName = $scope.fullName;
@@ -20,8 +22,9 @@
             split(fullName);
 
             if (checkSplited && email && passwordMatch) {
+                $scope.showLoader = true;
                 var requestData = $httpParamSerializer({
-                    email: email,
+                    email: email + '@swedbank' + $scope.domain,
                     firstName: splited[0],
                     lastName: splited[1],
                     password: $scope.password,
@@ -29,6 +32,7 @@
                 });
 
                 RegistrationService.register(requestData).then(function (val) {
+                    $scope.showLoader = false;
                     showErrorMessage("");
                     if (val != "Error") {
                         toastr.info("Check your email for account confirmation code");
@@ -55,10 +59,12 @@
         }
 
         function checkEmail(val) {
-            if (val.indexOf('@swedbank.') > -1)
-                return val;
-            else 
-                return false;
+            if (val) {
+                if (val.indexOf('.') > -1)
+                    return val;
+                else
+                    return false;
+            }
         }
         
         function checkPasswordMatch(psw, confPsw) {
@@ -93,6 +99,10 @@
                 if (val[1]) checkSplited = true;
                 return splited;
             }
+        }
+        
+        function changeDomain(val) {
+            $scope.domain = val;
         }
     };
 

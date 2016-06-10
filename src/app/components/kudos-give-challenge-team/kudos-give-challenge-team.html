@@ -1,0 +1,89 @@
+<div ng-controller="GiveTeamChallengeController">
+    <div ng-hide="!showLoader" class="loader"></div>
+    <form name="giveTeamChallengeForm">
+        <div class="form-group col-sm-6">
+            <label for="giveTeamChallengeName">Team Challenge name</label>
+            <input ng-model="giveTeamChallengeName" class="form-control"
+                   id="giveTeamChallengeName" name="giveTeamChallengeName" type="text" required>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label for="giveTeamChallengeAmountOfKudos">{{'GIVE_CHALLENGE_AMOUNT' | translate }} | Max:
+                {{userAvailableKudos}}</label>
+            <input ng-model="giveTeamChallengeAmountOfKudos"
+                   id="giveTeamChallengeAmountOfKudos"
+                   name="giveTeamChallengeAmountOfKudos" type="number" ng-pattern="/^[0-9]+$/"
+                   class="form-control" min="1" max="{userAvailableKudos}" required>
+        </div>
+
+        <div class="form-group col-sm-12 margin--bot">
+            <label for="giveChallengeTo">Challenge participant</label>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <input ng-model="teamChallengeParticipant"
+                   class="form-control"
+                   id="giveChallengeTo"
+                   name="giveChallengeTo"
+                   type="text"
+                   autocomplete="off"
+                   required>
+            <div class="autocomplete" ng-show="autocompleteHide==false">
+                <div ng-repeat="autoText in usersCollection | filter:giveChallengeTo"
+                     ng-click="selectAutoText(autoText.email)">
+                    <p>{{autoText.firstName}} {{autoText.lastName}}</p>
+                    <p class="small">{{autoText.email}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <button type="button" class="btn acorn-bg-darker" ng-click="addUser(1)">Team 1</button>
+            <button type="button" class="btn acorn-bg-darker" ng-click="addUser(2)">Team 2</button>
+        </div>
+
+        <div class="form group col-sm-12 text-center">
+            <label ng-class="{fade: startFade}" class="errorMessage">{{teamErrorMessage}}</label>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label>Team 1</label>
+            <ul class="list-group click-li">
+                <li ng-repeat="item in team1" class="list-group-item" ng-click="removeUser(item)">
+                    <span class="glyphicon glyphicon-remove-circle"> </span>
+                    {{item}}</li>
+                <h5 ng-if="!team1[0]">Team 1 is empty</h5>
+            </ul>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label>Team 2</label>
+            <ul class="list-group click-li">
+                <li ng-repeat="item in team2" class="list-group-item" ng-click="removeUser(item)">
+                    <span class="glyphicon glyphicon-remove-circle"> </span>
+                    {{item}}</li>
+                <h5 ng-if="!team2[0]">Team 2 is empty</h5>
+            </ul>
+        </div>
+
+        <div class="form-group col-sm-12">
+            <label for="giveTeamChallengeDescription">{{'GIVE_CHALLENGE_OPTIONAL_FIELD_DESCRIPTION' |
+                translate }} (optional)</label>
+                                <textarea ng-model="giveTeamChallengeDescription" class="form-control"
+                                          id="giveTeamChallengeDescription"
+                                          name="giveTeamChallengeDescription">
+                                </textarea>
+        </div>
+
+        <div class="form-group col-sm-12 text-center">
+            <div ng-hide="!showTeamError" class="alert alert-danger" role="alert">
+                <strong>Whoops!</strong> {{teamChallengeFormErrorMessage}}
+            </div>
+        </div>
+
+    </form>
+
+    <button ng-click="challenge(userAvailableKudos)" name="giveTeamChallengeButton" id="giveTeamChallengeButton"
+            class="form-control btn btn-login">{{'GIVE_CHALLENGE_GIVE_BUTTON' | translate}}
+    </button>
+</div>

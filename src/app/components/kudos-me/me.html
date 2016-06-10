@@ -1,0 +1,80 @@
+<title>Profile</title>
+
+<kudos-navbar></kudos-navbar>
+
+            <!-- <div class="card hovercard">
+                <div class="card-background">
+                   <img class="card-bkimg" alt="" src="http://devv.it/wp-content/uploads/2015/07/swedbank-tr%C3%A4-e1444297648219.jpg">http://lorempixel.com/850/280/people/9/
+                </div>
+                    <div class="useravatar">
+                        <img alt="" src="http://images.brighthub.com/a3/d/a3d2a3f5888d96ddde78d526bf9448dddf2fb4aa_small.jpg">
+                    </div>
+                <div class="card-info"> <span class="card-title">{{me.firstName}} {{me.lastName}}</span></div>
+            </div>  -->
+<div ng-hide="!me.showLoader" class="loader"></div>
+<div class="container">
+    <!--
+    <div class="row">
+        <div class="user-details col-md-4 col-md-push-4 col-md-pull-4">
+            <div class="row overview">
+                <div class="col-xs-6 text-center">
+                    <h4>FOLLOWERS</h4>
+                    <h5>{{me.followersCount}}</h5>
+                </div>
+                <div class="col-xs-6 text-center">
+                    <h4>FOLLOWING</h4>
+                    <h5>{{me.followingCount}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    -->
+    <div class="row">
+        <div class="col-lg-6 col-sm-6 col-sm-push-3">
+            <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group">
+                <div class="btn-group" role="group">
+                    <button type="button"
+                            id="user"
+                            ng-class="me.isFriendsActive ? 'btn-default' : 'acorn-bg-darker'"
+                            ng-click="me.isFriendsActive = false; me.isMeActive = true;"
+                            class="btn"
+                            href="#tab1"
+                            data-toggle="tab">
+                        <span class="glyphicon glyphicon-user hidden-xs" aria-hidden="true"></span>
+                        <div>Me</div>
+                    </button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button"
+                            id="friends"
+                            ng-class="me.isMeActive ? 'btn-default' : 'acorn-bg-darker'"
+                            ng-click="me.isFriendsActive = true; me.isMeActive = false;"
+                            class="btn"
+                            href="#tab2"
+                            data-toggle="tab">
+                        <span class="glyphicon glyphicon-heart hidden-xs" aria-hidden="true"></span>
+                        <div>Following</div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="well">
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="tab1">
+                        <div class="col-lg-12 form-group">
+                            <h3>My Profile</h3>
+                        </div>
+
+                        <ng-include ng-if="me.editMode" src="'app/components/kudos-me/me-edit-mode.html'"></ng-include>
+                        <ng-include ng-if="!me.editMode" src="'app/components/kudos-me/me-view-mode.html'"></ng-include>
+                    </div>
+
+                    <div class="tab-pane fade in" id="tab2">
+                        <kudos-relationship></kudos-relationship>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

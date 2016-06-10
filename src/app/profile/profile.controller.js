@@ -55,8 +55,7 @@
         }
 
         activate();
-
-
+        
         $scope.$watch(function () {
             return Resources.getUserAvailableKudos()
         }, function (newVal) {

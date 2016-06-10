@@ -1,35 +1,33 @@
-<nav class="navbar navbar-default navbar-fixed-top" id="mainnavbar">
+<nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
-        <ul class="nav navbar-nav navbar-left">
-            <li><a ng-class="selectedHome ? 'selected' : ''" href="#/profile">Home</a></li>
-            <li ng-controller="NotificationsController"><a ng-click="clearNotifications()" ng-class="selectedAcorns ? 'selected' : ''" href="#/acorns"><kudos-notifications-transactions></kudos-notifications-transactions></a></li>
-            <!-- <li><a href="#/acorns">Acorns <span ng-hide="receivedNewTransaction = false" class="badge acorn-bg text-center arm"> 5 </span></a></li> -->
-        </ul>
-
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="" class="dropdown-toggle" type="button" id="dropdownMenu1"
-                   aria-haspopup="true" aria-expanded="true"
-                   ng-click="showDropDown == true ? showDropDown = false : showDropDown = true">
-                <span class="glyphicon glyphicon-menu-hamburger hidden-lg hidden-md"></span>
-                <span class="glyphicon glyphicon-user hidden-sm hidden-xs"></span><span class="hidden-sm hidden-xs"> {{user.firstName}} <br ng-if="checkUserLength(user)" class="hidden-lg"> {{user.lastName}}</span>
-                <span class="hidden-xs hidden-sm caret"></span>
-            </a></li>
-        </ul>
-    </div>
-    <div class="nav-dropdown" ng-hide="!showDropDown">
-
-        <div class="hidden-md hidden-lg no-hover">
-            <a disabled="true"><span class="glyphicon glyphicon-user"></span><span class=""> {{user.firstName}} {{user.lastName}}</span></a>
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#/profile">Acorns</a>
         </div>
-
-        <div class="hidden-lg">
-            <a href="#/leaderboard" class="no-hover"><span class="glyphicon glyphicon-star"></span> Leaderboard</a>
-        </div>
-
-        <div ng-click="logout()">
-            <a ng-click="logout()" class="" href="#"><span class="glyphicon glyphicon-log-in"></span> {{ 'ProfileMeLogout' | translate }}</a>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li ng-class="selectedHome ? 'selected active' : ''"><a href="#/profile">Home</a></li>
+                <li ng-class="selectedAcorns ? 'selected active' : ''" ng-controller="NotificationsController"><a ng-click="clearNotifications()" href="#/acorns"><kudos-notifications-transactions></kudos-notifications-transactions></a></li>
+                <li ng-class="selectedProfile ? 'selected active' : ''"><a href="#/me">Profile</a></li>
+                <li ng-class="selectedLeaderboard ? 'selected active' : ''"><a href="#/leaderboard" class="no-hover">Leaderboard</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" type="button" class="dropdown-toggle" data-toggle="dropdown" href=""
+                       ng-click="showDropDown == true ? showDropDown = false : showDropDown = true">
+                        <span class="glyphicon glyphicon-user"></span> {{user.firstName}} {{user.lastName}}</span>
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a ng-click="logout()" class="" href="#">
+                            <span class="glyphicon glyphicon-log-in"></span> {{ 'ProfileMeLogout' | translate }}
+                        </a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
-
-<!-- <span class="glyphicon glyphicon-menu-hamburger"></span><span class="hidden-sm hidden-xs"> {{user.firstName}} <br ng-if="checkUserLength(user)" class="hidden-lg"> {{user.lastName}}</span>  -->

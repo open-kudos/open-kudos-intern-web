@@ -54,7 +54,11 @@ function User($http, SERVER) {
     }
 
     function updateUserInfo(userInfo) {
-        return $http.post(SERVER.ip + "/user/update?" + userInfo).then(function (response) {
+        return $http({
+            method: 'POST',
+            withCredentials: true,
+            url: SERVER.ip + "/user/update?" + userInfo
+        }).then(function (response) {
             return response.data;
         })
     }
