@@ -1,9 +1,10 @@
 (function () {
 
-    var MeController = function ($scope, $filter, $window, $httpParamSerializer, MeService, Resources, ProfileService) {
+    var MeController = function ($scope, $filter, $window, $timeout, $httpParamSerializer, MeService, Resources, ProfileService) {
         var self = this;
         var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
         var user, requestData, checkUser;
+        var fade = 2000;
 
         activate();
 
@@ -17,6 +18,7 @@
         self.splitDate = splitDate;
         self.checkIsCompleted = checkIsCompleted;
         self.editAsView = editAsView;
+        self.checkLengths = checkLengths;
         
         function activate() {
             isLoggedIn();
@@ -37,7 +39,7 @@
             });
         }
 
-        function edit(){
+        function edit() {
             self.showLoader = true;
             var birthday = $filter('date')(self.birthdayEdit, requestDateFormat);
             var startedToWork = $filter('date')(self.startedToWorkEdit, requestDateFormat);
@@ -56,20 +58,45 @@
 
             requestData = $httpParamSerializer({
                 email: self.email,
-                firstName: self.firstName,
-                lastName: self.lastName,
+                firstName: self.firstNameEdit,
+                lastName: self.lastNameEdit,
                 birthday: birthday,
                 startedToWorkDate: startedToWork
             });
 
-            MeService.edit(requestData).then(function (val) {
+            if (!checkLengths()) {
+                MeService.edit(requestData).then(function (val) {
+                    self.editMode = false;
+                    toastr.success("You have successfully edited your profile");
+                    setValuesView(val);
+                    user = Resources.getCurrentUser();
+                    checkIsCompleted(birthday, startedToWork, user);
+                    self.showLoader = false;
+                });
+            } else {
+                self.meErrorMessage = checkLengths();
+                self.startFade = false;
+                $timeout(function () {
+                    self.startFade = true;
+                    $timeout(function () {
+                        self.meErrorMessage = "";
+                        self.startFade = false;
+                    }, 1000)
+                }, fade);
                 self.showLoader = false;
-                toastr.success("You have successfully edited your profile");
-                setValuesView(val);
-                user = Resources.getCurrentUser();
-                checkIsCompleted(birthday, startedToWork, user);
-            });
-            self.showLoader = false;
+            }
+        }
+
+        function checkLengths() {
+            if (self.firstNameEdit){
+                if (self.firstNameEdit.length > 20) return "First name is too long";
+            } else return "First name can't be empty";
+
+            if (self.lastNameEdit){
+                if (self.lastNameEdit.length > 30) return "Last name is too long";
+            } else return "Last name can't be empty";
+
+            return false;
         }
 
         function userInformation(){
@@ -122,7 +149,7 @@
         });
     };
 
-    MeController.$inject = ['$scope', '$filter', '$window', '$httpParamSerializer', 'MeService', 'Resources', 'ProfileService'];
+    MeController.$inject = ['$scope', '$filter', '$window', '$timeout', '$httpParamSerializer', 'MeService', 'Resources', 'ProfileService'];
 
     angular.module('myApp.components.me', [])
         .component('kudosMe', {
