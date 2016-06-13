@@ -4,6 +4,7 @@
         $scope.userAvailableKudos = 0;
         $scope.autocompleteHide = true;
         $scope.showError = false;
+        $scope.usersCollection = [];
 
         $scope.clearChallengeFormValues = clearChallengeFormValues;
         $scope.challengeFormCheck = challengeFormCheck;
@@ -27,8 +28,14 @@
             }
         });
 
-        GiveChallengeService.listUsers().then(function (val) {
-            $scope.usersCollection = val.userList;
+        if($scope.usersCollection.length == 0){
+            GiveChallengeService.listUsers().then(function (val) {
+                $scope.usersCollection = val.userList;
+            });
+        }
+
+        $('#giveChallengeModal').on('hidden.bs.modal', function () {
+            clearChallengeFormValues();
         });
 
         function giveChallenge() {
@@ -93,6 +100,7 @@
             $scope.autocompleteHide = true;
             $scope.showError = false;
             $scope.challengeFormErrorMessage = "";
+            $scope.$apply();
         }
 
         function showChallengeFormErrorMessage(message) {

@@ -4,6 +4,8 @@
         $scope.showError = false;
         $scope.errorMessage = "";
 
+        $scope.usersCollection = [];
+
         $scope.maxSendKudosLength = Resources.getUserAvailableKudos();
         $scope.autocompleteHide = true;
         
@@ -26,9 +28,15 @@
             }
         });
 
-        GiveKudosService.listUsers().then(function (val) {
-            $scope.usersCollection = val.userList;
+        $('#sendKudosModal').on('hidden.bs.modal', function () {
+            clearSendKudosFormValues();
         });
+
+        if ($scope.usersCollection.length == 0){
+            GiveKudosService.listUsers().then(function (val) {
+                $scope.usersCollection = val.userList;
+            });
+        }
 
         function sendKudos() {
             if (sendKudosValidation()) {
@@ -91,9 +99,10 @@
 
         function clearSendKudosFormValues() {
             $scope.sendKudosTo = "";
-            $scope.sendKudosAmount = "";
+            $scope.sendKudosAmount = null;
             $scope.sendKudosMessage = "";
             clearErrorMessages();
+            $scope.$apply();
         }
 
         function getSendToRequestData() {
