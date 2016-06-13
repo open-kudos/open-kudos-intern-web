@@ -56,8 +56,8 @@
 
             requestData = $httpParamSerializer({
                 email: self.email,
-                firstName: self.firstNameEdit,
-                lastName: self.lastNameEdit,
+                firstName: self.firstName,
+                lastName: self.lastName,
                 birthday: birthday,
                 startedToWorkDate: startedToWork
             });

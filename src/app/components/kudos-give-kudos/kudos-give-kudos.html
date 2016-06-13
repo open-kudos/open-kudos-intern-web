@@ -17,7 +17,8 @@
                                type="text"
                                class="form-control"
                                autocomplete="off"
-                               placeholder="{{ 'SEND_KUDOS_SENDING_TO_HINT' | translate }}">
+                               placeholder="{{ 'SEND_KUDOS_SENDING_TO_HINT' | translate }}"
+                               required>
 
                         <div class="autocomplete" ng-show="autocompleteHide==false">
                             <div ng-repeat="autoText in usersCollection | filter:sendKudosTo"
