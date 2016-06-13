@@ -34,10 +34,6 @@
             });
         }
 
-        $('#giveChallengeModal').on('hidden.bs.modal', function () {
-            clearChallengeFormValues();
-        });
-
         function giveChallenge() {
             var expirationDate = $filter('date')($scope.giveChallengeExpirationDate, requestDateFormat);
             var currentDate = $filter('date')(new Date(), requestDateFormat);
@@ -100,7 +96,6 @@
             $scope.autocompleteHide = true;
             $scope.showError = false;
             $scope.challengeFormErrorMessage = "";
-            $scope.$apply();
         }
 
         function showChallengeFormErrorMessage(message) {

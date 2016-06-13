@@ -29,11 +29,7 @@
                 $scope.searchTermSelected = false;
             }
         });
-
-        $('#sendKudosModal').on('hidden.bs.modal', function () {
-            clearSendKudosFormValues();
-        });
-
+        
         if ($scope.usersCollection.length == 0){
             GiveKudosService.listUsers().then(function (val) {
                 $scope.usersCollection = val.userList;
@@ -104,7 +100,6 @@
             $scope.sendKudosAmount = null;
             $scope.sendKudosMessage = "";
             clearErrorMessages();
-            $scope.$apply();
         }
 
         function getSendToRequestData() {
