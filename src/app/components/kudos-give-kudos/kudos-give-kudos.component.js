@@ -16,12 +16,14 @@
             $scope.sendKudosTo = text;
             $scope.searchTermSelected = true;
             $scope.autocompleteHide = true;
+            $scope.text = text;
         };
 
-        $scope.$watch('sendKudosTo', function (newVal, oldVal) {
+        $scope.$watch('sendKudosTo', function () {
             if ($scope.searchTermSelected == false) {
-                if (newVal != undefined) {
-                    (newVal.length > 1) ? $scope.autocompleteHide = false : $scope.autocompleteHide = true;
+                if ($scope.sendKudosTo != undefined) {
+                    if ($scope.text != $scope.sendKudosTo)
+                        ($scope.sendKudosTo.length > 1) ? $scope.autocompleteHide = false : $scope.autocompleteHide = true;
                 }
             } else {
                 $scope.searchTermSelected = false;
