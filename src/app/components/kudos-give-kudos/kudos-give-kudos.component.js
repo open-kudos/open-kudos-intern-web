@@ -19,6 +19,16 @@
             $scope.text = text;
         };
 
+        $scope.$watch('sendKudosTo', function (newVal, oldVal) {
+            if ($scope.searchTermSelected == false) {
+                if (newVal != undefined) {
+                    (newVal.length > 1) ? $scope.autocompleteHide = false : $scope.autocompleteHide = true;
+                }
+            } else {
+                $scope.searchTermSelected = false;
+            }
+        });
+       /*
         $scope.$watch('sendKudosTo', function () {
             if ($scope.searchTermSelected == false) {
                 if ($scope.sendKudosTo != undefined) {
@@ -29,7 +39,7 @@
                 $scope.searchTermSelected = false;
             }
         });
-        
+        */
         if ($scope.usersCollection.length == 0){
             GiveKudosService.listUsers().then(function (val) {
                 $scope.usersCollection = val.userList;
