@@ -9,12 +9,17 @@
 
     function WisdomWallIdeasService(wisdomWallBackend) {
         var service = {
-            getAllIdeas: GetAllIdeas
+            getAllIdeas: GetAllIdeas,
+            getRandomIdea: GetRandomIdea
         };
         return service;
 
         function GetAllIdeas() {
             return wisdomWallBackend.getAllIdeas();
+        }
+
+        function GetRandomIdea() {
+            return wisdomWallBackend.getRandomIdea();
         }
 
     }
