@@ -36,6 +36,12 @@
             } else if ($scope.idea == null) {
                 showAddIdeaFormErrorMessage("Please enter idea");
                 return false;
+            } else if ($scope.author.length > 30) {
+                showAddIdeaFormErrorMessage("Author name is too long");
+                return false;
+            } else if ($scope.idea.length > 100) {
+                showAddIdeaFormErrorMessage("Idea is too long");
+                return false;
             }
             showAddIdeaFormErrorMessage("");
             return true;

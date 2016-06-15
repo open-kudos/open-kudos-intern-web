@@ -11,7 +11,8 @@
     function WisdomWall($http, SERVER) {
         var wisdomWall = {
             addIdea: addIdea,
-            getAllIdeas: getAllIdeas
+            getAllIdeas: getAllIdeas,
+            getRandomIdea: getRandomIdea
         }
         return wisdomWall;
 
@@ -29,6 +30,16 @@
             return $http({
                 method: 'GET',
                 url: SERVER.ip + "/wisdomwall/getideas",
+                withCredentials: true
+            }).then(function successCallback(response) {
+                return response.data;
+            });
+        }
+
+        function getRandomIdea() {
+            return $http({
+                method: 'GET',
+                url: SERVER.ip + "/wisdomwall/randomIdea",
                 withCredentials: true
             }).then(function successCallback(response) {
                 return response.data;

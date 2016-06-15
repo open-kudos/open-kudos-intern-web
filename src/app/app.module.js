@@ -21,6 +21,7 @@
             'myApp.components.giveKudos',
             'myApp.components.giveKudosSmall',
             'myApp.components.giveChallenge',
+            'myApp.components.giveChallengeSmall',
             'myApp.components.giveTeamChallenge',
             'myApp.components.challengeOngoing',
             'myApp.components.topReceivers',
