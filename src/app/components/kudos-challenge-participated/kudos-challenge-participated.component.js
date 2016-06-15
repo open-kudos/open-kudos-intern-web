@@ -106,11 +106,7 @@
 
             $scope.showAllReceived = !!$scope.challengeList[1];
         }
-
-        function acornPlural(amount) {
-            return amount > 1 ? amount + " Acorns" : amount + " Acorn"
-        }
-
+        
         function convertDate(val){
             if (val) {
                 val = val.split(":");

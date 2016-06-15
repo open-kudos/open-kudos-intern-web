@@ -36,9 +36,6 @@
             $scope.outgoingKudosShowLimit = showMoreLimit;
         }
 
-        function acornPlural(amount) {
-            return amount > 1 ? amount + " Acorns" : amount + " Acorn"
-        }
     };
 
     SentAcornsController.$inject = ['$scope', 'SentAcornsService', 'Resources'];

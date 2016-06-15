@@ -4,7 +4,7 @@
         $scope.showError = false;
         $scope.errorMessage = "";
 
-        $scope.usersCollection = Resources.getUsersCollection();
+        $scope.usersCollection = [];
 
         $scope.maxSendKudosLength = Resources.getUserAvailableKudos();
         $scope.autocompleteHide = true;
@@ -29,10 +29,10 @@
             }
         });
 
-        if(isEmptyCollection(Resources.getUsersCollection())) {
-            ProfileService.listUsers().then(function (val) {
-                Resources.setUsersCollection(val.usersList);
-                $scope.usersCollection = Resources.getUsersCollection;
+        if(isEmptyCollection(Resources.getUsersCollection())){
+            GiveKudosService.listUsers().then(function (val) {
+                Resources.setUsersCollection(val.userList);
+                $scope.usersCollection = Resources.getUsersCollection();
             });
         }
 
@@ -110,25 +110,11 @@
             })
         }
 
-        function validateEmail(email) {
-            var reg = /[@]swedbank.[a-z]{2,}/;
-            return reg.test(email);
-        }
-
-        function acornPlural(amount) {
-            return amount > 1 ? amount + " Acorns" : amount + " Acorn"
-        }
-
-        function trimDate(dateString) {
-            return dateString.substring(0, 16);
-        }
-
         function showMoreOutgoingKudosButton(val) {
             if (val.length > 5) {
                 $scope.moreOutgoing = true;
             }
         }
-
     };
 
     GiveKudosController.$inject = ['$scope', '$timeout', '$httpParamSerializer', 'GiveKudosService', 'Resources'];
@@ -139,7 +125,3 @@
             controller: GiveKudosController
         })
 })();
-
-function isEmptyCollection(collection) {
-    return collection.length == 0;
-}

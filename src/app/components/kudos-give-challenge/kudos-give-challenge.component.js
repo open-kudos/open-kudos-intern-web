@@ -27,11 +27,11 @@
                 $scope.searchTermSelected = false;
             }
         });
-
-        if(isEmptyCollection(Resources.getUsersCollection())) {
-            ProfileService.listUsers().then(function (val) {
-                Resources.setUsersCollection(val.usersList);
-                $scope.usersCollection = Resources.getUsersCollection;
+        
+        if(isEmptyCollection(Resources.getUsersCollection())){
+            GiveChallengeService.listUsers().then(function (val) {
+                Resources.setUsersCollection(val.userList);
+                $scope.usersCollection = Resources.getUsersCollection();
             });
         }
 
