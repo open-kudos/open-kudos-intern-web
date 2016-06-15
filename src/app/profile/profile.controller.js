@@ -45,9 +45,12 @@
                 $scope.showLoader = false;
             });
 
-            ProfileService.listUsers().then(function (val) {
-                $scope.usersCollection = val.userList;
-            });
+            if(isEmptyCollection(Resources.getUsersCollection())) {
+                ProfileService.listUsers().then(function (val) {
+                    Resources.setUsersCollection(val.usersList);
+                    $scope.usersCollection = Resources.getUsersCollection;
+                });
+            }
 
             ProfileService.getTopReceivers().then(function(val) {
                 $scope.topReceivers = val;
@@ -71,6 +74,10 @@
         function isValid(value) {
             value == undefined;
             return typeof value === "undefined";
+        }
+
+        function isEmptyCollection(collection) {
+            return collection.length == 0;
         }
     };
 

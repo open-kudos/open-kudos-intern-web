@@ -4,7 +4,7 @@
         $scope.showError = false;
         $scope.errorMessage = "";
 
-        $scope.usersCollection = [];
+        $scope.usersCollection = Resources.getUsersCollection();
 
         $scope.maxSendKudosLength = Resources.getUserAvailableKudos();
         $scope.autocompleteHide = true;
@@ -28,21 +28,11 @@
                 $scope.searchTermSelected = false;
             }
         });
-       /*
-        $scope.$watch('sendKudosTo', function () {
-            if ($scope.searchTermSelected == false) {
-                if ($scope.sendKudosTo != undefined) {
-                    if ($scope.text != $scope.sendKudosTo)
-                        ($scope.sendKudosTo.length > 1) ? $scope.autocompleteHide = false : $scope.autocompleteHide = true;
-                }
-            } else {
-                $scope.searchTermSelected = false;
-            }
-        });
-        */
-        if ($scope.usersCollection.length == 0){
-            GiveKudosService.listUsers().then(function (val) {
-                $scope.usersCollection = val.userList;
+
+        if(isEmptyCollection(Resources.getUsersCollection())) {
+            ProfileService.listUsers().then(function (val) {
+                Resources.setUsersCollection(val.usersList);
+                $scope.usersCollection = Resources.getUsersCollection;
             });
         }
 
@@ -138,6 +128,7 @@
                 $scope.moreOutgoing = true;
             }
         }
+
     };
 
     GiveKudosController.$inject = ['$scope', '$timeout', '$httpParamSerializer', 'GiveKudosService', 'Resources'];
@@ -148,3 +139,7 @@
             controller: GiveKudosController
         })
 })();
+
+function isEmptyCollection(collection) {
+    return collection.length == 0;
+}

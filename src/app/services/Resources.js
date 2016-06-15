@@ -8,6 +8,7 @@
             var transactionsCollection = [];
             var notificationsTransactionCollection = [];
             var givenChallenges = [];
+            var usersCollection = [];
             var userAvailableKudos;
             var sentKudosTable;
             var receivedKudosTable;
@@ -92,7 +93,14 @@
                 },
                 setOngoingChallenges: function (val) {
                     ongoingChallenges = val;
+                },
+                setUsersCollection: function (collection) {
+                    usersCollection = collection;
+                },
+                getUsersCollection: function () {
+                    return usersCollection;
                 }
+
             };
         });
 

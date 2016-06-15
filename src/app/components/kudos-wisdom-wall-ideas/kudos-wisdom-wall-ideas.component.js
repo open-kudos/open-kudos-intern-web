@@ -1,14 +1,9 @@
 (function () {
     var WisdomWallIdeasController = function ($scope, WisdomWallIdeasService){
 
-        WisdomWallIdeasService.getAllIdeas().then(function(val) {
-            $scope.allIdeas = val;
-            $scope.randomQuote = getRandomQuote();
+        WisdomWallIdeasService.getRandomIdea().then(function(val) {
+            $scope.randomQuote = val;
         });
-
-        function getRandomQuote() {
-            return $scope.allIdeas[Math.floor(Math.random() * $scope.allIdeas.length)];
-        }
 
     };
 
