@@ -58,6 +58,7 @@
                     clearChallengeFormValues();
                     $('#giveChallengeModal').modal('hide');
                     toastr.success('You successfully challenged ' + val.data.participant + " with " + val.data.amount + " " + acornPlural(val.data.amount) + '.');
+                    $('#modal'+$scope.id+'challenge').modal('hide');
                     Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
                     Resources.getGivenChallenges().push(val.data);
                 }).catch(function () {
@@ -91,7 +92,6 @@
         }
 
         function clearChallengeFormValues() {
-            $scope.giveChallengeTo = null;
             $scope.giveChallengeReferee = null;
             $scope.giveChallengeName = null;
             $scope.giveChallengeDescription = null;

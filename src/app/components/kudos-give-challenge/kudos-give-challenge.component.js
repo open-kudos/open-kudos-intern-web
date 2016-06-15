@@ -27,10 +27,11 @@
                 $scope.searchTermSelected = false;
             }
         });
-
-        if($scope.usersCollection.length == 0){
+        
+        if(isEmptyCollection(Resources.getUsersCollection())){
             GiveChallengeService.listUsers().then(function (val) {
-                $scope.usersCollection = val.userList;
+                Resources.setUsersCollection(val.userList);
+                $scope.usersCollection = Resources.getUsersCollection();
             });
         }
 

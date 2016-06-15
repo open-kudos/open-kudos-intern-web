@@ -28,21 +28,11 @@
                 $scope.searchTermSelected = false;
             }
         });
-       /*
-        $scope.$watch('sendKudosTo', function () {
-            if ($scope.searchTermSelected == false) {
-                if ($scope.sendKudosTo != undefined) {
-                    if ($scope.text != $scope.sendKudosTo)
-                        ($scope.sendKudosTo.length > 1) ? $scope.autocompleteHide = false : $scope.autocompleteHide = true;
-                }
-            } else {
-                $scope.searchTermSelected = false;
-            }
-        });
-        */
-        if ($scope.usersCollection.length == 0){
+
+        if(isEmptyCollection(Resources.getUsersCollection())){
             GiveKudosService.listUsers().then(function (val) {
-                $scope.usersCollection = val.userList;
+                Resources.setUsersCollection(val.userList);
+                $scope.usersCollection = Resources.getUsersCollection();
             });
         }
 
@@ -118,19 +108,6 @@
                 amount: $scope.sendKudosAmount,
                 message: $scope.sendKudosMessage
             })
-        }
-
-        function validateEmail(email) {
-            var reg = /[@]swedbank.[a-z]{2,}/;
-            return reg.test(email);
-        }
-
-        function acornPlural(amount) {
-            return amount > 1 ? amount + " Acorns" : amount + " Acorn"
-        }
-
-        function trimDate(dateString) {
-            return dateString.substring(0, 16);
         }
 
         function showMoreOutgoingKudosButton(val) {
