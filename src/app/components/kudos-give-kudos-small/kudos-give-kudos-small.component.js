@@ -26,7 +26,6 @@
                     $scope.showSendKudosModal = false;
                     $scope.showSuccess = true;
                     Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
-                    $('#sendKudosModal').modal('hide');
                     toastr.success('You successfully sent ' + acornPlural(val.data.amount) + ' to ' + val.data.receiver);
                     $('#modal' + $scope.id).modal('hide');
                     pushOutgoingTransferIntoCollection(val.data);
