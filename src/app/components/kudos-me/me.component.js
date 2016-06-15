@@ -129,6 +129,7 @@
             self.lastNameEdit = val.lastName;
             self.birthdayEdit = new Date(splitDate(val.birthday));
             self.startedToWorkEdit = new Date(splitDate(val.startedToWorkDate));
+            self.maxDate = new Date(date.getDate());
         }
 
         function editAsView() {

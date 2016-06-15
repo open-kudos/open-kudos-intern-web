@@ -27,9 +27,10 @@
         <label for="startedToWork">Started to work <span class="glyphicon glyphicon-calendar"> </span></label>
     </div>
     <div class="col-lg-8">
-        <input ng-model="me.startedToWorkEdit" id="startedToWork" name="date" type="date" class="form-control" value="{{me.startedToWorkEdit}}">
+        <input ng-model="me.startedToWorkEdit" id="startedToWork" name="date" type="date" max='2000-13-13' class="form-control" value="{{me.startedToWorkEdit}}">
     </div>
 </div>
+{{ date_expression | date : format : timezone}}
 
 <div ng-class="{fade: startFade}" class="form-group col-sm-12 text-center">
     <div ng-if="me.meErrorMessage" class="alert alert-danger" role="alert">
