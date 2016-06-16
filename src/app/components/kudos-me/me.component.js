@@ -3,8 +3,13 @@
     var MeController = function ($scope, $filter, $window, $timeout, $httpParamSerializer, MeService, Resources, ProfileService) {
         var self = this;
         var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
-        var user, requestData, checkUser;
-        var fade = 2000;
+        var currentDate = $filter('date')(new Date(), requestDateFormat);
+        var user,
+            requestData,
+            checkUser,
+            birthday,
+            startedToWork;
+        var fade = 4500;
 
         activate();
 
@@ -42,8 +47,8 @@
 
         function edit() {
             self.showLoader = true;
-            var birthday = $filter('date')(self.birthdayEdit, requestDateFormat);
-            var startedToWork = $filter('date')(self.startedToWorkEdit, requestDateFormat);
+            birthday = $filter('date')(self.birthdayEdit, requestDateFormat);
+            startedToWork = $filter('date')(self.startedToWorkEdit, requestDateFormat);
             self.birthdayView = $filter('date')(self.birthdayEdit, requestDateFormat);
             self.startedToWorkView = $filter('date')(self.startedToWorkEdit, requestDateFormat);
 
@@ -98,6 +103,12 @@
                 if (self.lastNameEdit.length > 30) return "Last name is too long";
                 if (checkPattern(self.lastNameEdit)) return "In last name field only letters are allowed";
             } else return "Last name can't be empty";
+
+            if (birthday)
+                if (birthday > currentDate) return "Your birthday cannot be in the future...";
+
+            if (startedToWork)
+                if (startedToWork > currentDate) return "You are already working here. Please change your started to work date";
 
             return false;
         }
