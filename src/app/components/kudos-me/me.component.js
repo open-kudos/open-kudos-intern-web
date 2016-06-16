@@ -18,7 +18,7 @@
         self.splitDate = splitDate;
         self.checkIsCompleted = checkIsCompleted;
         self.editAsView = editAsView;
-        self.checkLengths = checkLengths;
+        self.checkInputs = checkInputs;
         self.checkPattern = checkPattern;
         
         function activate() {
@@ -65,7 +65,7 @@
                 startedToWorkDate: startedToWork
             });
 
-            if (!checkLengths()) {
+            if (!checkInputs()) {
                 MeService.edit(requestData).then(function (val) {
                     self.editMode = false;
                     toastr.success("You have successfully edited your profile");
@@ -75,7 +75,7 @@
                     self.showLoader = false;
                 });
             } else {
-                self.meErrorMessage = checkLengths();
+                self.meErrorMessage = checkInputs();
                 self.startFade = false;
                 $timeout(function () {
                     self.startFade = true;
@@ -88,7 +88,7 @@
             }
         }
 
-        function checkLengths() {
+        function checkInputs() {
             if (self.firstNameEdit){
                 if (self.firstNameEdit.length > 20) return "First name is too long";
                 if (checkPattern(self.firstNameEdit)) return "In first name field only letters are allowed";
@@ -103,7 +103,7 @@
         }
 
         function checkPattern(val) {
-            var reg = /[^\s\w]/;
+            var reg = /[^ąčęėįšųūžĄČĘĖĮŠŲŪŽåäöÅÄÖĀĒĢĪĶĻŅēīāņļķģüÜÕõa-z A-Z]/;
             return !!reg.test(val);
         }
 
