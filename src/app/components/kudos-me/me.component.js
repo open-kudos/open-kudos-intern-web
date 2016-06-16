@@ -148,7 +148,7 @@
             self.firstNameEdit = self.firstName;
             self.lastNameEdit = self.lastName;
             self.birthdayEdit = new Date(splitDate(self.birthday));
-            self.startedToWorkEdit = new Date(splitDate(self.startedToWorkDate));
+            self.startedToWorkEdit = new Date(splitDate(self.startedToWork));
         }
 
         function checkIsCompleted(val1, val2, val) {
