@@ -8,11 +8,10 @@ angular.module("myApp")
 
 User.$inject = [
     "$http",
-    "SERVER",
-    "Resources"
+    "SERVER"
 ];
 
-function User($http, SERVER, Resources) {
+function User($http, SERVER) {
     var user = {
         home: getHomeInfo,
         check: checkUser,
@@ -70,11 +69,9 @@ function User($http, SERVER, Resources) {
             withCredentials: true,
             url: SERVER.ip + "/user/list"
         }).then(function (response) {
-            Resources.setUsersCollection(response.data);
             return response.data;
         })
     }
-
 
     function getTopReceivers() {
         return $http({
