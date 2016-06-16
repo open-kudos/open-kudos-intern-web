@@ -25,6 +25,8 @@
         self.editAsView = editAsView;
         self.checkInputs = checkInputs;
         self.checkPattern = checkPattern;
+        self.setValuesView = setValuesView;
+        self.setValuesEdit = setValuesEdit;
         
         function activate() {
             isLoggedIn();
@@ -149,9 +151,9 @@
             self.startedToWorkEdit = new Date(splitDate(self.startedToWorkDate));
         }
 
-        function checkIsCompleted(val1, val2) {
+        function checkIsCompleted(val1, val2, val) {
             if (val1 && val2) {
-                user.completed = true;
+                val.completed = true;
                 Resources.setCurrentUser(user);
             }
         } 
