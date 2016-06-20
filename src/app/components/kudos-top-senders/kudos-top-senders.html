@@ -2,6 +2,6 @@
     <li ng-repeat="sender in topSenders"
         class="animate-repeat list-group-item">
         <span class="badge acorn-bg">{{acornPlural(sender.amountOfKudos)}}</span>
-        <span class="bold">{{sender.email}}</span>
+        <span class="bold">{{sender.firstName}} {{sender.lastName}}</span>
     </li>
 </ul>
