@@ -12,7 +12,7 @@ function Challenges($http, SERVER) {
     var challenges = {
         create: createChallenge,
         cancel: cancelChallenge,
-        givenChallenges: getGivenChallenges,
+        completedChallenges: getCompletedChallenges,
         receivedChallenges: getReceivedChallenges,
         declineChallenge: declineChallenge,
         acceptChallenge: acceptChallenge,
@@ -44,10 +44,10 @@ function Challenges($http, SERVER) {
         })
     }
 
-    function getGivenChallenges(requestData) {
+    function getCompletedChallenges(requestData) {
         return $http({
             method: 'GET',
-            url: SERVER.ip + "/challenges/createdByStatus?" + requestData,
+            url: SERVER.ip + "/challenges/completedChallenges?" + requestData,
             withCredentials: true
         }).then(function(response) {
             return response.data;

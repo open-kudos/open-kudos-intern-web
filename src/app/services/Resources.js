@@ -8,7 +8,7 @@
             var transactionsCollection = [];
             var notificationsTransactionCollection = [];
             var usersCollection = [];
-            var givenChallenges = [];
+            var completedChallenges = [];
             var userAvailableKudos;
             var sentKudosTable;
             var receivedKudosTable;
@@ -58,11 +58,11 @@
                 getUserAvailableKudos: function () {
                     return userAvailableKudos;
                 },
-                setGivenChallenges: function (val) {
-                    givenChallenges = val;
+                setCompletedChallenges: function (val) {
+                    completedChallenges = val;
                 },
-                getGivenChallenges: function () {
-                    return givenChallenges;
+                getCompletedChallenges: function () {
+                    return completedChallenges;
                 },
                 setCurrentUserEmail: function (userEmail) {
                     currentUserEmail = userEmail;

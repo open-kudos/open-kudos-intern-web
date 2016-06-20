@@ -120,12 +120,12 @@
 
     angular.module('myApp.components.challengeParticipated', [])
 
-        .directive('kudosChallengeParticipated', function () {
+        .directive('kudosChallengeNew', function () {
             return {
                 controller: 'KudosChallengeParticipatedController',
                 restrict: 'E',
                 scope: false,
-                templateUrl: 'app/components/kudos-challenge-participated/kudos-challenge-participated.html'
+                templateUrl: 'app/components/kudos-challenge-new/kudos-challenge-new.html'
             }
         })
         .controller('KudosChallengeParticipatedController', KudosChallengeParticipatedController)

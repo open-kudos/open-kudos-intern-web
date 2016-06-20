@@ -23,7 +23,7 @@
         }
         
         function getGivenChallenges(requestData){
-            return Challenges.givenChallenges(requestData).then(function (val) {
+            return Challenges.completedChallenges(requestData).then(function (val) {
                 return val;
             });
         }
