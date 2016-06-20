@@ -1,5 +1,5 @@
 (function () {
-    var GiveChallengeController = function($scope, $httpParamSerializer, Resources, Challenges, GiveChallengeService, $filter){
+    var GiveChallengeSmallController = function($scope, $httpParamSerializer, Resources, Challenges, GiveChallengeService, $filter){
         var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
         $scope.userAvailableKudos = 0;
         $scope.autocompleteHide = true;
@@ -11,6 +11,10 @@
         $scope.giveChallenge = giveChallenge;
         $scope.showChallengeFormErrorMessage = showChallengeFormErrorMessage;
 
+        this.$onInit = function() {
+            $scope.giveChallengeTo = this.email;
+            $scope.id = this.index;
+        };
 
         $scope.selectAutoText = function (text) {
             $scope.giveChallengeTo = text;
@@ -27,11 +31,10 @@
                 $scope.searchTermSelected = false;
             }
         });
-        
-        if(isEmptyCollection(Resources.getUsersCollection())){
+
+        if($scope.usersCollection.length == 0){
             GiveChallengeService.listUsers().then(function (val) {
-                Resources.setUsersCollection(val.userList);
-                $scope.usersCollection = Resources.getUsersCollection();
+                $scope.usersCollection = val.userList;
             });
         }
 
@@ -55,6 +58,7 @@
                     clearChallengeFormValues();
                     $('#giveChallengeModal').modal('hide');
                     toastr.success('You successfully challenged ' + val.data.participant + " with " + val.data.amount + " " + acornPlural(val.data.amount) + '.');
+                    $('#modal'+$scope.id+'challenge').modal('hide');
                     Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
                     Resources.getGivenChallenges().push(val.data);
                 }).catch(function () {
@@ -88,7 +92,6 @@
         }
 
         function clearChallengeFormValues() {
-            $scope.giveChallengeTo = null;
             $scope.giveChallengeReferee = null;
             $scope.giveChallengeName = null;
             $scope.giveChallengeDescription = null;
@@ -122,13 +125,17 @@
         }
     };
 
-    GiveChallengeController.$inject = ['$scope', '$httpParamSerializer', 'Resources', 'Challenges', 'GiveChallengeService', '$filter'];
+    GiveChallengeSmallController.$inject = ['$scope', '$httpParamSerializer', 'Resources', 'Challenges', 'GiveChallengeService', '$filter'];
 
-    angular.module('myApp.components.giveChallenge', [])
-    .component('kudosGiveChallenge', {
-        templateUrl: 'app/components/kudos-give-challenge/kudos-give-challenge.html',
-        controller: 'GiveChallengeController'
+    angular.module('myApp.components.giveChallengeSmall', [])
+    .component('kudosGiveChallengeSmall', {
+        templateUrl: 'app/components/kudos-give-challenge-small/kudos-give-challenge-small.html',
+        bindings: {
+            email: '<',
+            index: '<'
+        },
+        controller: 'GiveChallengeSmallController'
     })
-    .controller('GiveChallengeController', GiveChallengeController)
+    .controller('GiveChallengeSmallController', GiveChallengeSmallController)
 
 })();

@@ -22,6 +22,7 @@
         }
 
         function setLastSeenTransaction(timestamp) {
+            console.log(transactionBackend.setLastSeenTransactionTimestamp(timestamp));
             return transactionBackend.setLastSeenTransactionTimestamp(timestamp)
         }
     }

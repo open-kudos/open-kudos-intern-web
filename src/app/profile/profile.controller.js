@@ -44,10 +44,13 @@
                 $scope.userReceivedKudos = val;
                 $scope.showLoader = false;
             });
-
-            ProfileService.listUsers().then(function (val) {
-                $scope.usersCollection = val.userList;
-            });
+            
+            if(isEmptyCollection(Resources.getUsersCollection())){
+                ProfileService.listUsers().then(function (val) {
+                    Resources.setUsersCollection(val.userList);
+                    $scope.usersCollection = Resources.getUsersCollection();
+                });
+            }
 
             ProfileService.getTopReceivers().then(function(val) {
                 $scope.topReceivers = val;

@@ -3,8 +3,13 @@
     var MeController = function ($scope, $filter, $window, $timeout, $httpParamSerializer, MeService, Resources, ProfileService) {
         var self = this;
         var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
-        var user, requestData, checkUser;
-        var fade = 2000;
+        var currentDate = $filter('date')(new Date(), requestDateFormat);
+        var user,
+            requestData,
+            checkUser,
+            birthday,
+            startedToWork;
+        var fade = 4500;
 
         activate();
 
@@ -18,8 +23,10 @@
         self.splitDate = splitDate;
         self.checkIsCompleted = checkIsCompleted;
         self.editAsView = editAsView;
-        self.checkLengths = checkLengths;
+        self.checkInputs = checkInputs;
         self.checkPattern = checkPattern;
+        self.setValuesView = setValuesView;
+        self.setValuesEdit = setValuesEdit;
         
         function activate() {
             isLoggedIn();
@@ -42,8 +49,8 @@
 
         function edit() {
             self.showLoader = true;
-            var birthday = $filter('date')(self.birthdayEdit, requestDateFormat);
-            var startedToWork = $filter('date')(self.startedToWorkEdit, requestDateFormat);
+            birthday = $filter('date')(self.birthdayEdit, requestDateFormat);
+            startedToWork = $filter('date')(self.startedToWorkEdit, requestDateFormat);
             self.birthdayView = $filter('date')(self.birthdayEdit, requestDateFormat);
             self.startedToWorkView = $filter('date')(self.startedToWorkEdit, requestDateFormat);
 
@@ -65,7 +72,7 @@
                 startedToWorkDate: startedToWork
             });
 
-            if (!checkLengths()) {
+            if (!checkInputs()) {
                 MeService.edit(requestData).then(function (val) {
                     self.editMode = false;
                     toastr.success("You have successfully edited your profile");
@@ -75,7 +82,7 @@
                     self.showLoader = false;
                 });
             } else {
-                self.meErrorMessage = checkLengths();
+                self.meErrorMessage = checkInputs();
                 self.startFade = false;
                 $timeout(function () {
                     self.startFade = true;
@@ -88,7 +95,7 @@
             }
         }
 
-        function checkLengths() {
+        function checkInputs() {
             if (self.firstNameEdit){
                 if (self.firstNameEdit.length > 20) return "First name is too long";
                 if (checkPattern(self.firstNameEdit)) return "In first name field only letters are allowed";
@@ -99,11 +106,17 @@
                 if (checkPattern(self.lastNameEdit)) return "In last name field only letters are allowed";
             } else return "Last name can't be empty";
 
+            if (birthday)
+                if (birthday > currentDate) return "Your birthday cannot be in the future...";
+
+            if (startedToWork)
+                if (startedToWork > currentDate) return "You are already working here. Please change your started to work date";
+
             return false;
         }
 
         function checkPattern(val) {
-            var reg = /[^\s\w]/;
+            var reg = /[^ąčęėįšųūžĄČĘĖĮŠŲŪŽåäöÅÄÖĀĒĢĪĶĻŅēīāņļķģüÜÕõa-z A-Z]/;
             return !!reg.test(val);
         }
 
@@ -135,12 +148,12 @@
             self.firstNameEdit = self.firstName;
             self.lastNameEdit = self.lastName;
             self.birthdayEdit = new Date(splitDate(self.birthday));
-            self.startedToWorkEdit = new Date(splitDate(self.startedToWorkDate));
+            self.startedToWorkEdit = new Date(splitDate(self.startedToWork));
         }
 
-        function checkIsCompleted(val1, val2) {
+        function checkIsCompleted(val1, val2, val) {
             if (val1 && val2) {
-                user.completed = true;
+                val.completed = true;
                 Resources.setCurrentUser(user);
             }
         } 
