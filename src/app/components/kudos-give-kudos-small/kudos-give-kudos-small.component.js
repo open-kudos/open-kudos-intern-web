@@ -3,7 +3,8 @@
 
         $scope.showError = false;
         $scope.errorMessage = "";
-        
+        $scope.userAvailableKudos = 0;
+
         $scope.maxSendKudosLength = Resources.getUserAvailableKudos();
 
         $scope.sendKudos = sendKudos;
@@ -14,11 +15,18 @@
             $scope.id = this.index;
         };
 
-        $scope.selectAutoText = function (text) {
-            $scope.sendKudosTo = text;
-            $scope.searchTermSelected = true;
-            $scope.autocompleteHide = true;
-        };
+        $scope.$watch(function () {
+            return Resources.getUserAvailableKudos()
+        }, function (newVal) {
+            if (newVal == undefined){
+                GiveKudosService.userAvailableKudos().then(function (val) {
+                    Resources.setUserAvailableKudos(val);
+                    $scope.userAvailableKudos = val;
+                })
+            } else {
+                $scope.userAvailableKudos = Resources.getUserAvailableKudos();
+            }
+        });
         
         function sendKudos() {
             if (sendKudosValidation()) {

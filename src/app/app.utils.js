@@ -18,3 +18,7 @@ function acornPlural(amount) {
 function trimDate(dateString) {
     return dateString.substring(0, 16);
 }
+
+function isValid(value) {
+    return typeof value === "undefined";
+}

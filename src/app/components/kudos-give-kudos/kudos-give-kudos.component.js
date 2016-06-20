@@ -3,7 +3,7 @@
 
         $scope.showError = false;
         $scope.errorMessage = "";
-
+        $scope.userAvailableKudos = 0;
         $scope.usersCollection = [];
 
         $scope.maxSendKudosLength = Resources.getUserAvailableKudos();
@@ -27,6 +27,12 @@
             } else {
                 $scope.searchTermSelected = false;
             }
+        });
+
+        $scope.$watch(function () {
+            return Resources.getUserAvailableKudos()
+        }, function (newVal) {
+            if (!isValid(newVal)) $scope.userAvailableKudos = Resources.getUserAvailableKudos();
         });
 
         if(isEmptyCollection(Resources.getUsersCollection())){
@@ -58,7 +64,7 @@
                 message: val.message,
                 amount: val.amount,
                 timestamp: trimDate(val.timestamp)
-            };
+                };
             Resources.getOutgoingKudosCollection().push(itemToAdd);
             Resources.setSentKudosTable();
             showMoreOutgoingKudosButton(Resources.getOutgoingKudosCollection());

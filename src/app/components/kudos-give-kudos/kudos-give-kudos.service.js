@@ -11,7 +11,8 @@ GiveKudosService.$inject = [
 function GiveKudosService($q, kudosBackend, userBackend){
     var service = {
         sendKudos : SendKudos,
-        listUsers : ListUsers
+        listUsers : ListUsers,
+        userAvailableKudos : GetUserAvailableKudos
     };
     return service;
 
@@ -27,5 +28,9 @@ function GiveKudosService($q, kudosBackend, userBackend){
 
     function ListUsers(){
         return userBackend.list();
+    }
+    
+    function GetUserAvailableKudos() {
+        return kudosBackend.remaining();
     }
 }
