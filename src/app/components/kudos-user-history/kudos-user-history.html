@@ -10,13 +10,35 @@
             <div class="modal-header">
                 <button type="button" class="close"
                         data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">{{self.currentUser.email}}</h4>
+                <h4 class="modal-title">Acorns history</h4>
             </div>
 
             <div class="modal-body">
-
+                <nav class="navbar navbar-default">
+                    <div class="container">
+                        <div class="collapse navbar-collapse" id="myNavbar">
+                            <ul class="nav navbar-nav">
+                                <li ng-class="self.allOperations ? 'selected active' : ''"
+                                    ng-click="self.receivedOperations=false;self.allOperations=true;self.gaveOperations=false;self.challengeOperations=false">
+                                    <a>All</a></li>
+                                <li ng-class="self.receivedOperations ? 'selected active' : ''"
+                                    ng-click="self.receivedOperations=true;self.allOperations=false;self.gaveOperations=false;self.challengeOperations=false">
+                                    <a>Received</a></li>
+                                <li ng-class="self.gaveOperations ? 'selected active' : ''"
+                                    ng-click="self.receivedOperations=false;self.allOperations=false;self.gaveOperations=true;self.challengeOperations=false">
+                                    <a>Gave</a></li>
+                                <li ng-class="self.challengeOperations ? 'selected active' : ''"
+                                    ng-click="self.receivedOperations=false;self.allOperations=false;self.gaveOperations=false;self.challengeOperations=true">
+                                    <a>Challenges</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <ng-include ng-if="self.allOperations" src="'app/components/kudos-user-history/partials/all.view.html'"></ng-include>
+                <ng-include ng-if="self.receivedOperations" src="'app/components/kudos-user-history/partials/received.view.html'"></ng-include>
+                <ng-include ng-if="self.gaveOperations" src="'app/components/kudos-user-history/partials/gave.view.html'"></ng-include>
+                <ng-include ng-if="self.challengeOperations" src="'app/components/kudos-user-history/partials/challenges.view.html'"></ng-include>
             </div>
-
         </div>
     </div>
 </div>

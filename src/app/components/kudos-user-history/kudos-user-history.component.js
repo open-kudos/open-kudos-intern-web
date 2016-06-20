@@ -2,6 +2,7 @@
     var UserHistoryController = function(){
         var self = this;
 
+        self.allOperations = true;
         self.acornPlural = acornPlural;
 
         this.$onInit = function() {
