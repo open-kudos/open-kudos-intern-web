@@ -1,6 +1,7 @@
-<ul class="list-group">
+<ul class="list-group click-li">
     <li ng-repeat="sender in topSenders"
-        class="animate-repeat list-group-item">
+        class="animate-repeat list-group-item"
+        ng-click>
         <span class="badge acorn-bg">{{acornPlural(sender.amountOfKudos)}}</span>
         <span class="bold">{{sender.firstName}} {{sender.lastName}}</span>
     </li>
