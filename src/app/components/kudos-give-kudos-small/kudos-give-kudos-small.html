@@ -14,56 +14,48 @@
             </div>
 
             <div class="modal-body">
-                <form name="sendKudosForm">
-                    <div class="form-group col-sm-6">
-                        <!-- INPUT RECEIVER -->
-                        <input ng-model="sendKudosTo"
-                               id="sendKudosTo"
-                               name="sendKudosTo"
-                               type="text"
-                               class="form-control"
-                               autocomplete="off"
-                               placeholder="{{ 'SEND_KUDOS_SENDING_TO_HINT' | translate }}" disabled>
-
-                        <div class="autocomplete" ng-show="autocompleteHide==false">
-                            <div ng-repeat="autoText in usersCollection | filter:sendKudosTo"
-                                 ng-click="selectAutoText(autoText.email)">
-                                <p>{{autoText.firstName}} {{autoText.lastName}}</p>
-                                <p class="small">{{autoText.email}}</p>
-                            </div>
+                <div class="">
+                    <form name="sendKudosForm">
+                        <div class="form-group col-sm-12">
+                            <label for="sendKudosTo">Sending to</label>
+                            <input ng-model="sendKudosTo"
+                                   class="form-control"
+                                   id="sendKudosTo"
+                                   name="giveChallengeTo"
+                                   type="text"
+                                   autocomplete="off"
+                                   required disabled>
                         </div>
-                    </div>
-                    <!-- INPUT AMOUNT -->
-                    <div class="form-group col-sm-6">
-                        <div class="input-group">
+
+                        <div class="form-group col-sm-12">
+                            <label for="sendKudosTo">Amount | Max: {{userAvailableKudos}}</label>
+                            <div class="input-group">
                             <span class="input-group-btn">
                                 <button ng-click="sendKudosAmount > 0 ? sendKudosAmount = sendKudosAmount - 1 : sendKudosAmount = 0"
                                         type="button"
                                         class="btn btn-default btn-number"><span class="glyphicon glyphicon-minus"></span></button>
                             </span>
-                            <input ng-model="sendKudosAmount"
-                                   type="number"
-                                   placeholder="Amount"
-                                   min="0"
-                                   class="form-control input-number" required>
-                            <div class="input-group-btn">
-                                <button ng-click="sendKudosAmount = sendKudosAmount + 1" type="button"
-                                        class="btn btn-default btn-number"><span class="glyphicon glyphicon-plus"></span></button>
+                                <input ng-model="sendKudosAmount"
+                                       type="number"
+                                       min="0"
+                                       class="form-control" required>
+                                <div class="input-group-btn">
+                                    <button ng-click="sendKudosAmount = sendKudosAmount + 1" type="button"
+                                            class="btn btn-default btn-number"><span class="glyphicon glyphicon-plus"></span></button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- INPUT MESSAGE -->
-                    <div class="form-group col-sm-12">
-                        <input ng-model="sendKudosMessage"
-                               id="sendKudosMessage"
-                               name="sendKudosMessage"
-                               type="text"
-                               class="form-control"
-                               autocomplete="off"
-                               placeholder="Message (optional)">
-                    </div>
 
-                    <div class="form-group col-sm-12 text-center">
+                        <div class="form-group col-sm-12">
+                            <label for="sendKudosMessage">Message (optional)</label>
+                            <textarea ng-model="sendKudosMessage"
+                                      id="sendKudosMessage"
+                                      name="sendKudosMessage"
+                                      class="form-control">
+                            </textarea>
+                        </div>
+
+                        <div class="form-group col-sm-12 text-center">
                         <div ng-hide="!showError" class="alert alert-danger" role="alert">
                             <strong>Whoops!</strong> {{errorMessage}}
                         </div>
