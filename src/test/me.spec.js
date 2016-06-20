@@ -54,9 +54,41 @@ describe('Me (profile)', function() {
             expect(ctrl.birthdayEdit).toBeGreaterThan(0);
         });
 
+        it('should not be possible to give string longer than 20 for first name', function () {
+            ctrl.firstNameEdit = '123456789012345678901';
+            expect(ctrl.checkInputs()).toBe('First name is too long');
+        });
+
+        it('should not be possible to give string longer than 30 for last name', function () {
+            ctrl.firstNameEdit = 'a';
+            ctrl.lastNameEdit = '1234567890123456789012345678901';
+            expect(ctrl.checkInputs()).toBe('Last name is too long');
+        });
+
+        it('should not be possible to give empty string for first name', function () {
+            ctrl.firstNameEdit = "First name can't be empty";
+            expect(ctrl.checkInputs()).toBe('First name is too long');
+        });
+
+        it('should not be possible to give empty string for last name', function () {
+            ctrl.firstNameEdit = 'a';
+            ctrl.lastNameEdit = '';
+            expect(ctrl.checkInputs()).toBe("Last name can't be empty");
+        });
+
         it('should be possible to split date', function () {
             var val = '2000-01-01 12:20';
             expect(ctrl.splitDate(val)).toBe('2000-01-01');
+        });
+
+        it('should be possible to enter multi language letters', function () {
+            var val = 'ąčęėįšųūžĄČĘĖĮŠŲŪŽåäöÅÄÖĀĒĢĪĶĻŅēīāņļķģüÜÕõ qwertyuiopasdfghjklzxcvbnm QWERTYUIOPLKJHGFDSAMNBVCXZ';
+            expect(ctrl.checkPattern(val)).toBeFalsy();
+        });
+
+        it('should not be possible to enter symbols or numbers', function () {
+            var val = '[];./, 0123456789';
+            expect(ctrl.checkPattern(val)).toBeTruthy();
         });
 
         it('"completed" status should be set to true if both values is not null', function () {

@@ -13,13 +13,13 @@
     </div>
 
     <div class="showMore">
-        <button ng-click="showMoreIncomingKudos(); lessIncoming = true" ng-show="moreIncoming" type="button"
-                class="btn btn-default btn-sm">
-            {{'ProfileShowMore' | translate}}
-        </button>
         <button ng-show="lessIncoming" ng-click="showLessIncomingKudos(); lessIncoming = false" type="button"
                 class="btn btn-default btn-sm">
             {{'ProfileShowLess' | translate}}
+        </button>
+        <button ng-click="showMoreIncomingKudos(); lessIncoming = true" ng-show="moreIncoming" type="button"
+                class="btn btn-default btn-sm">
+            {{'ProfileShowMore' | translate}}
         </button>
     </div>
 </div>
