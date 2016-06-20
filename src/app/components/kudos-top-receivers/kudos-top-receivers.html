@@ -1,5 +1,5 @@
 <ul class="list-group">
-    <li ng-if ="$index < limit" ng-repeat="receiver in topReceivers"
+    <li ng-repeat="receiver in topReceivers"
         class="animate-repeat list-group-item">
         <span class="badge acorn-bg">{{acornPlural(receiver.amountOfKudos)}}</span>
         <span class="bold">{{receiver.email}}</span>

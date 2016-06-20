@@ -4,7 +4,6 @@
 
         $scope.topSenders = [];
         $scope.acornPlural = acornPlural;
-        $scope.limit = 5;
 
         ProfileService.getTopSenders().then(function(val) {
             $scope.topSenders = val;

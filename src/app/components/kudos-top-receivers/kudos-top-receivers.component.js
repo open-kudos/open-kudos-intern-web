@@ -5,7 +5,6 @@
         $scope.userReceivedKudos = 0;
         $scope.topReceivers = [];
         $scope.acornPlural = acornPlural;
-        $scope.limit = 5;
 
         ProfileService.getTopReceivers().then(function(val) {
             $scope.topReceivers = val;
