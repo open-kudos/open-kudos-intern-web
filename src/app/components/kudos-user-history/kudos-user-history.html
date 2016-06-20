@@ -1,15 +1,22 @@
-<div id="history{{self.id}}" class="modal fade" role="dialog">
+<li class="list-group-item"
+    data-toggle="modal" data-target="#history{{self.modalIndex}}">
+    <span class="badge acorn-bg">{{self.acornPlural(self.currentUser.amountOfKudos)}}</span>
+    <span class="bold">{{self.currentUser.firstName}} {{self.currentUser.lastName}}</span>
+</li>
+
+<div id="history{{self.modalIndex}}" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close"
                         data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">{{self.userEmail}}</h4>
+                <h4 class="modal-title">{{self.currentUser.email}}</h4>
             </div>
 
             <div class="modal-body">
 
             </div>
+
         </div>
     </div>
 </div>

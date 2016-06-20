@@ -22,3 +22,7 @@ function trimDate(dateString) {
 function isValid(value) {
     return typeof value === "undefined";
 }
+
+function split(splitValue, splitMark) {
+    return splitValue.split(splitMark);
+}

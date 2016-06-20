@@ -1,23 +1,23 @@
 (function () {
-    var UserHistoryController = function($scope){
+    var UserHistoryController = function(){
         var self = this;
 
+        self.acornPlural = acornPlural;
+
         this.$onInit = function() {
-            self.userEmail = this.email;
-            self.id = this.index;
-            console.log(self.userEmail);
+            self.currentUser = this.user;
+            self.modalIndex = split(this.user.$$hashKey, ":")[1];
         };
 
-    };
+    };ß
 
-    UserHistoryController.$inject = ['$scope'];
+    UserHistoryController.$inject = [];
 
     angular.module('myApp.components.userHistory', [])
         .component('kudosUserHistory', {
             templateUrl: 'app/components/kudos-user-history/kudos-user-history.html',
             bindings: {
-                email: '<',
-                index: '<'
+                user: '<'
             },
             controller: 'UserHistoryController',
             controllerAs: 'self'

@@ -1,9 +1,5 @@
 <ul class="list-group click-li">
-    <li ng-repeat="receiver in topReceivers"
-        class="list-group-item"
-        data-toggle="modal" data-target="#history{{$index}}">
-        <kudos-user-history email="receiver.email" index="$index"></kudos-user-history>
-        <span class="badge acorn-bg">{{acornPlural(receiver.amountOfKudos)}}</span>
-        <span class="bold">{{receiver.firstName}} {{receiver.lastName}}</span>
-    </li>
+
+        <kudos-user-history ng-repeat="receiver in topReceivers" user="receiver"></kudos-user-history>
+
 </ul>
