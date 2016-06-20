@@ -14,6 +14,7 @@
         $scope.acornPlural = acornPlural;
 
         CompletedChallengesService.completedChallenges().then(function (val) {
+            console.log(val);
             Resources.setCompletedChallenges(val);
             $scope.completedChallengesCollection = Resources.getCompletedChallenges();
         });

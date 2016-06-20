@@ -3,10 +3,18 @@
         <p class="card-text"><span class="bold">{{completedChallenges.name}}</span>
             <span class="badge acorn-bg">{{acornPlural(completedChallenges.amount * 2)}}</span>
         </p>
-        Participant:
-        <span class="bold" ng-if="completedChallenges.participant != userEmail">{{completedChallenges.participant}}</span>
-        <p ng-if="completedChallenges.description">Description: {{completedChallenges.description}}</p>
-        <p ng-if="completedChallenges.finishDate">Finish date: {{convertDate(completedChallenges.finishDate)}}</p>
+        <p>
+            Creator:
+            <span class="bold" >{{completedChallenges.creator}}</span>
+        </p>
+        <p>
+            Participant:
+            <span class="bold" >{{completedChallenges.participant}}</span>
+        </p>
+        <p>
+            Status:
+            <span class="bold">{{completedChallenges.status}}</span>
+        </p>
 
         <!--<div ng-show="doesDateExist($index)">-->
             <!--<button ng-hide="buttons" class="btn btn-danger btn-challenge-participated" ng-click="cancelChallenge($index); buttons = true">Cancel challenge</button>-->
