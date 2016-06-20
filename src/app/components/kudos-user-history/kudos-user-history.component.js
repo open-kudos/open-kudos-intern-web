@@ -9,7 +9,7 @@
             self.modalIndex = split(this.user.$$hashKey, ":")[1];
         };
 
-    };ß
+    };
 
     UserHistoryController.$inject = [];
 

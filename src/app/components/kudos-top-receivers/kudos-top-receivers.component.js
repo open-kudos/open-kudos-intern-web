@@ -8,8 +8,7 @@
 
         ProfileService.getTopReceivers().then(function(val) {
             $scope.topReceivers = val;
-            console.log($scope.topReceivers = val);
-        })
+        });
 
         function acornPlural(amount) {
             return amount > 1 ? amount + " Acorns" : amount + " Acorn"
