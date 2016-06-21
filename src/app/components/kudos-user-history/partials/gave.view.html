@@ -1,4 +1,19 @@
 <div class="input-group col-lg-6">
-    <div class="input-group-addon">To:</div>
-    <input ng-model="userHistoryCriterion" type="text" class="form-control" placeholder="">
+    <div class="input-group col-lg-12">
+        <div class="input-group-addon">To:</div>
+        <input ng-model="self.associatedEmail" type="text" class="form-control"
+               placeholder=""
+               autocomplete="off"
+               ng-change="self.checkUserList()"
+               required>
+    </div>
+    <div class="col-lg-12">
+        <div class="autocomplete" ng-show="self.autocompleteHide==false">
+            <div ng-repeat="autoText in self.usersCollection"
+                 ng-click="self.selectAutoText(autoText.email)">
+                <p>{{autoText.firstName}} {{autoText.lastName}}</p>
+                <p class="small">{{autoText.email}}</p>
+            </div>
+        </div>
+    </div>
 </div>
