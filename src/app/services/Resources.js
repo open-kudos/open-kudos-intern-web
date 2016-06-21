@@ -14,6 +14,7 @@
             var receivedKudosTable;
             var currentUser;
             var ongoingChallenges;
+            var newChallenges;
 
 
             var lastTransactionTimestamp;
@@ -99,6 +100,12 @@
                 },
                 setUsersCollection: function (val) {
                     usersCollection = val;
+                },
+                setNewChallenges: function (val) {
+                    newChallenges = val;
+                },
+                getNewChallenges: function () {
+                    return newChallenges;
                 }
             };
         });

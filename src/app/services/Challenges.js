@@ -149,7 +149,7 @@ function Challenges($http, SERVER) {
     function getNewChallenges() {
         return $http({
             method: 'GET',
-            url: SERVER.ip + "/challenges/ongoing",
+            url: SERVER.ip + "/challenges/new",
             withCredentials: true
         }).then(function(response) {
             return response.data;

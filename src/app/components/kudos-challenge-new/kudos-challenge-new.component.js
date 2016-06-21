@@ -3,9 +3,7 @@
         var requestData;
 
         $scope.challengeList = [];
-        $scope.challengeFullList = [];
-        $scope.allChallengeList = [];
-        $scope.showAllReceived = false;
+
 
         $scope.getChallengeParticipatedList = getChallengeParticipatedList;
         $scope.acceptChallenge = acceptChallenge;
@@ -13,41 +11,20 @@
         $scope.removeElement = removeElement;
         $scope.refreshList = refreshList;
         $scope.acornPlural = acornPlural;
-        $scope.getAllChallengeParticipatedList = getAllChallengeParticipatedList;
+
         $scope.convertDate = convertDate;
 
         getChallengeParticipatedList();
 
         function getChallengeParticipatedList() {
-            var challengeStatus = "CREATED";
-            requestData = $httpParamSerializer({
-                status: challengeStatus,
-                page: 0,
-                pageSize: 2
-            });
             $scope.id = false;
 
             KudosChallengeNewService.getNewChallenges().then(function (val) {
-                $scope.challengeList = val;
-                //console.log($scope.challengeList);
-                refreshList();
+                Resources.setNewChallenges(val);
+                $scope.challengeList = Resources.getNewChallenges();
+                if ($scope.challengeList[0])
+                    $scope.id = true;
             });
-
-            var teamRequestData = $httpParamSerializer({
-                status: challengeStatus
-            });
-
-            KudosChallengeNewService.getTeamList(teamRequestData).then(function (val) {
-                //$scope.challengeList.push(val[0]);
-                //console.log($scope.challengeList);
-            })
-        }
-
-        function getAllChallengeParticipatedList() {
-
-            KudosChallengeNewService.getNewChallenges().then(function (val) {
-                $scope.challengeFullList = val;
-            })
         }
 
         function acceptChallenge(id, index, kudos) {
@@ -83,24 +60,17 @@
         }
 
         function removeElement(index){
-            if ($scope.challengeFullList[0]){
-                $scope.challengeFullList.splice(index, 1);
+            if ($scope.challengeList[0]){
+                $scope.challengeList.splice(index, 1);
             }
         }
 
         function refreshList(){
             $scope.id = false;
+            $scope.challengeList = Resources.getNewChallenges();
             if ($scope.challengeList[0]) {
-                $scope.id = $scope.challengeList[0].id;
-                $scope.challengeAmount = $scope.challengeList[0].amount;
-                $scope.challengeName = $scope.challengeList[0].name;
-                $scope.challengeCreator = $scope.challengeList[0].creator;
-                $scope.challengeDescription = $scope.challengeList[0].description;
-                $scope.challengeFinishDate = $scope.challengeList[0].finishDate;
-                $scope.challengeReferee = $scope.challengeList[0].referee;
+                $scope.id = true;
             }
-
-            $scope.showAllReceived = !!$scope.challengeList[1];
         }
         
         function convertDate(val){
