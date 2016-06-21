@@ -33,6 +33,7 @@
             'myApp.acorn.leaderboard',
             'myApp.components.relationship',
             'myApp.components.info',
-            'myApp.components.feed'
+            'myApp.components.feed',
+            'myApp.components.userHistory'
         ]);
 })();
