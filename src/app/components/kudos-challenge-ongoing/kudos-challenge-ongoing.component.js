@@ -4,8 +4,6 @@
         var requestData;
 
         $scope.showList = false;
-        $scope.givenList = [];
-        $scope.receivedList = [];
         $scope.ongoingChallengeList = [];
 
         $scope.getChallengeOngoingList = getChallengeOngoingList;
@@ -18,19 +16,12 @@
         getChallengeOngoingList();
 
         function getChallengeOngoingList() {
-            var challengeStatus = "ACCEPTED";
-            requestData = $httpParamSerializer({
-                status: challengeStatus
+
+            KudosChallengeOngoingService.getOngoingChallenges().then(function (val) {
+                Resources.setOngoingChallenges(val);
+                $scope.ongoingChallengeList = Resources.getOngoingChallenges();
             });
 
-            KudosChallengeOngoingService.getReceivedList(requestData).then(function (val) {
-                $scope.receivedList = val;
-                KudosChallengeOngoingService.getGivenList(requestData).then(function (value) {
-                    $scope.givenList = value;
-                    $scope.ongoingChallengeList = $scope.receivedList.concat($scope.givenList);
-                    Resources.setOngoingChallenges($scope.ongoingChallengeList);
-                });
-            });
         }
 
         function lost(id) {

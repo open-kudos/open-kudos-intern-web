@@ -14,7 +14,6 @@
         $scope.acornPlural = acornPlural;
 
         CompletedChallengesService.completedChallenges().then(function (val) {
-            console.log(val);
             Resources.setCompletedChallenges(val);
             $scope.completedChallengesCollection = Resources.getCompletedChallenges();
         });
@@ -67,7 +66,7 @@
 
     CompletedChallengesController.$inject = ['$scope', '$httpParamSerializer', 'CompletedChallengesService', 'Challenges', 'Resources'];
 
-    angular.module('myApp.components.givenChallenges', [])
+    angular.module('myApp.components.completedChallenges', [])
         .component('kudosChallengeCompleted', {
             templateUrl: 'app/components/kudos-challenge-completed/kudos-challenge-completed.html',
             controller: 'CompletedChallengesController'

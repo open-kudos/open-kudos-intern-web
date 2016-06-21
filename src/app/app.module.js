@@ -15,7 +15,7 @@
             'myApp.components.notifications',
             'myApp.components.sentAcorns',
             'myApp.components.receivedAcorns',
-            'myApp.components.givenChallenges',
+            'myApp.components.completedChallenges',
             'myApp.components.challengeParticipated',
             'myApp.components.transactions',
             'myApp.components.giveKudos',

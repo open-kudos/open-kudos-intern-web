@@ -20,7 +20,8 @@ function Challenges($http, SERVER) {
         failChallenge: failChallenge,
         allReceivedChallenges: allReceivedChallenges,
         createTeam: createTeamChallenge,
-        teamReceivedChallenges: receiveTeamChallenges
+        teamReceivedChallenges: receiveTeamChallenges,
+        getOngoingChallenges: getOngoingChallenges
     }
     return challenges;
 
@@ -44,10 +45,10 @@ function Challenges($http, SERVER) {
         })
     }
 
-    function getCompletedChallenges(requestData) {
+    function getCompletedChallenges() {
         return $http({
             method: 'GET',
-            url: SERVER.ip + "/challenges/completedChallenges?" + requestData,
+            url: SERVER.ip + "/challenges/completedChallenges",
             withCredentials: true
         }).then(function(response) {
             return response.data;
@@ -128,6 +129,16 @@ function Challenges($http, SERVER) {
         return $http({
             method: 'GET',
             url: SERVER.ip + "/teamchallenges/participatedByStatus?" + requestData,
+            withCredentials: true
+        }).then(function(response) {
+            return response.data;
+        });
+    }
+
+    function getOngoingChallenges() {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/challenges/ongoing",
             withCredentials: true
         }).then(function(response) {
             return response.data;

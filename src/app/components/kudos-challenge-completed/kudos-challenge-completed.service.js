@@ -1,6 +1,6 @@
 (function () {
     "use strict";
-    angular.module("myApp.components.givenChallenges")
+    angular.module("myApp.components.completedChallenges")
         .factory("CompletedChallengesService", CompletedChallengesService);
 
     CompletedChallengesService.$inject = [
@@ -13,8 +13,8 @@
         };
         return service;
 
-        function CompletedChallenges(requestData) {
-            return challengesBackend.completedChallenges(requestData);
+        function CompletedChallenges() {
+            return challengesBackend.completedChallenges();
         }
     }
 })();

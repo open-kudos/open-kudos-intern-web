@@ -12,7 +12,8 @@
         var service = {
             getReceivedList: getReceivedChallenges,
             getGivenList: getGivenChallenges,
-            accomplish: accomplishChallenge
+            accomplish: accomplishChallenge,
+            getOngoingChallenges: getOngoingChallenges
         }
         return service;
 
@@ -30,6 +31,12 @@
         
         function accomplishChallenge(requestData) {
             return Challenges.accomplishChallenge(requestData).then(function (val) {
+                return val;
+            });
+        }
+
+        function getOngoingChallenges() {
+            return Challenges.getOngoingChallenges().then(function(val) {
                 return val;
             });
         }
