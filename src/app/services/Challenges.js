@@ -21,7 +21,8 @@ function Challenges($http, SERVER) {
         allReceivedChallenges: allReceivedChallenges,
         createTeam: createTeamChallenge,
         teamReceivedChallenges: receiveTeamChallenges,
-        getOngoingChallenges: getOngoingChallenges
+        getOngoingChallenges: getOngoingChallenges,
+        getNewChallenges: getNewChallenges
     }
     return challenges;
 
@@ -136,6 +137,16 @@ function Challenges($http, SERVER) {
     }
 
     function getOngoingChallenges() {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/challenges/ongoing",
+            withCredentials: true
+        }).then(function(response) {
+            return response.data;
+        });
+    }
+
+    function getNewChallenges() {
         return $http({
             method: 'GET',
             url: SERVER.ip + "/challenges/ongoing",

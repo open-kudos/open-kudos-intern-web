@@ -1,5 +1,5 @@
 (function () {
-    var KudosChallengeParticipatedController = function($httpParamSerializer, $scope, KudosChallengeParticipatedService, Resources){
+    var KudosChallengeNewController = function($httpParamSerializer, $scope, KudosChallengeNewService, Resources){
         var requestData;
 
         $scope.challengeList = [];
@@ -27,7 +27,7 @@
             });
             $scope.id = false;
 
-            KudosChallengeParticipatedService.getList(requestData).then(function (val) {
+            KudosChallengeNewService.getNewChallenges().then(function (val) {
                 $scope.challengeList = val;
                 //console.log($scope.challengeList);
                 refreshList();
@@ -37,19 +37,15 @@
                 status: challengeStatus
             });
 
-            KudosChallengeParticipatedService.getTeamList(teamRequestData).then(function (val) {
+            KudosChallengeNewService.getTeamList(teamRequestData).then(function (val) {
                 //$scope.challengeList.push(val[0]);
                 //console.log($scope.challengeList);
             })
         }
 
         function getAllChallengeParticipatedList() {
-            var challengeStatus = "CREATED";
-            requestData = $httpParamSerializer({
-                status: challengeStatus
-            });
 
-            KudosChallengeParticipatedService.getFullList(requestData).then(function (val) {
+            KudosChallengeNewService.getNewChallenges().then(function (val) {
                 $scope.challengeFullList = val;
             })
         }
@@ -62,7 +58,7 @@
             });
 
             if (userAvailableKudos >=  kudos) {
-                KudosChallengeParticipatedService.accept(requestData).then(function (val) {
+                KudosChallengeNewService.accept(requestData).then(function (val) {
                     toastr.success('You accepted ' + val.data.creator + ' challenge');
                     removeElement(index);
                     Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
@@ -78,7 +74,7 @@
             requestData = $httpParamSerializer({
                 id: id
             });
-            KudosChallengeParticipatedService.decline(requestData).then(function (val) {
+            KudosChallengeNewService.decline(requestData).then(function (val) {
                 toastr.info('You declined ' + val.data.creator + ' challenge');
                 removeElement(index);
                 getChallengeParticipatedList();
@@ -116,17 +112,17 @@
         }
     };
 
-    KudosChallengeParticipatedController.$inject = ['$httpParamSerializer', '$scope', 'KudosChallengeParticipatedService', 'Resources'];
+    KudosChallengeNewController.$inject = ['$httpParamSerializer', '$scope', 'KudosChallengeNewService', 'Resources'];
 
-    angular.module('myApp.components.challengeParticipated', [])
+    angular.module('myApp.components.challengeNew', [])
 
         .directive('kudosChallengeNew', function () {
             return {
-                controller: 'KudosChallengeParticipatedController',
+                controller: 'KudosChallengeNewController',
                 restrict: 'E',
                 scope: false,
                 templateUrl: 'app/components/kudos-challenge-new/kudos-challenge-new.html'
             }
         })
-        .controller('KudosChallengeParticipatedController', KudosChallengeParticipatedController)
+        .controller('KudosChallengeNewController', KudosChallengeNewController)
 })();
