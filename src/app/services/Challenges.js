@@ -12,7 +12,7 @@ function Challenges($http, SERVER) {
     var challenges = {
         create: createChallenge,
         cancel: cancelChallenge,
-        givenChallenges: getGivenChallenges,
+        completedChallenges: getCompletedChallenges,
         receivedChallenges: getReceivedChallenges,
         declineChallenge: declineChallenge,
         acceptChallenge: acceptChallenge,
@@ -20,7 +20,9 @@ function Challenges($http, SERVER) {
         failChallenge: failChallenge,
         allReceivedChallenges: allReceivedChallenges,
         createTeam: createTeamChallenge,
-        teamReceivedChallenges: receiveTeamChallenges
+        teamReceivedChallenges: receiveTeamChallenges,
+        getOngoingChallenges: getOngoingChallenges,
+        getNewChallenges: getNewChallenges
     }
     return challenges;
 
@@ -44,10 +46,10 @@ function Challenges($http, SERVER) {
         })
     }
 
-    function getGivenChallenges(requestData) {
+    function getCompletedChallenges() {
         return $http({
             method: 'GET',
-            url: SERVER.ip + "/challenges/createdByStatus?" + requestData,
+            url: SERVER.ip + "/challenges/completedChallenges",
             withCredentials: true
         }).then(function(response) {
             return response.data;
@@ -128,6 +130,26 @@ function Challenges($http, SERVER) {
         return $http({
             method: 'GET',
             url: SERVER.ip + "/teamchallenges/participatedByStatus?" + requestData,
+            withCredentials: true
+        }).then(function(response) {
+            return response.data;
+        });
+    }
+
+    function getOngoingChallenges() {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/challenges/ongoing",
+            withCredentials: true
+        }).then(function(response) {
+            return response.data;
+        });
+    }
+
+    function getNewChallenges() {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/challenges/new",
             withCredentials: true
         }).then(function(response) {
             return response.data;

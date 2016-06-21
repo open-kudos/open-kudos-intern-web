@@ -1,0 +1,27 @@
+<div class="text-center">
+    <div ng-if="showList" class="card box4 box-shadow-animation" ng-repeat="completedChallenges in completedChallengesCollection | orderBy:'-timestamp'">
+        <p class="card-text"><span class="bold">{{completedChallenges.name}}</span>
+            <span class="badge acorn-bg">{{acornPlural(completedChallenges.amount * 2)}}</span>
+        </p>
+        <p>
+            Creator:
+            <span class="bold" >{{completedChallenges.creator}}</span>
+        </p>
+        <p>
+            Participant:
+            <span class="bold" >{{completedChallenges.participant}}</span>
+        </p>
+        <p>
+            Status:
+            <span class="bold">{{completedChallenges.status}}</span>
+        </p>
+
+    </div>
+
+    <div ng-if="!showList">
+        <div class="alert alert-info acorn-bg margin-top">
+            <span class="glyphicon glyphicon-info-sign"></span>
+            You don't have any completed challenges
+        </div>
+    </div>
+</div>

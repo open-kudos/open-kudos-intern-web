@@ -1,19 +1,20 @@
 (function () {
     "use strict";
-    angular.module("myApp.components.challengeParticipated")
-        .factory("KudosChallengeParticipatedService", KudosChallengeParticipatedService);
+    angular.module("myApp.components.challengeNew")
+        .factory("KudosChallengeNewService", KudosChallengeNewService);
 
-    KudosChallengeParticipatedService.$inject = [
+    KudosChallengeNewService.$inject = [
         "$httpParamSerializer",
         "Challenges"
     ];
 
-    function KudosChallengeParticipatedService($httpParamSerializer, Challenges) {
+    function KudosChallengeNewService($httpParamSerializer, Challenges) {
         var service = {
             getList: getChallengeParticipatedList,
             getFullList: getAllChallengeParticipatedList,
             decline: declineChallenge,
             accept: acceptChallenge,
+            getNewChallenges: getNewChallenges,
             getTeamList: getTeamChallengeParticipatedList
         }
         return service;
@@ -38,6 +39,12 @@
         
         function getAllChallengeParticipatedList(requestData) {
             return Challenges.allReceivedChallenges(requestData).then(function (val) {
+                return val;
+            })
+        }
+
+        function getNewChallenges() {
+            return Challenges.getNewChallenges().then(function (val) {
                 return val;
             })
         }
