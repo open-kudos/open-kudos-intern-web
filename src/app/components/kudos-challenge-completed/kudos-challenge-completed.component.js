@@ -7,8 +7,6 @@
 
         $scope.showMoreInfo = showMoreInfo;
         $scope.showLessInfo = showLessInfo;
-        $scope.doesDateExist = doesDateExist;
-        $scope.cancelChallenge = cancelChallenge;
         $scope.checkList = checkList;
         $scope.convertDate = convertDate;
         $scope.acornPlural = acornPlural;
@@ -24,22 +22,6 @@
 
         function showLessInfo(index) {
             Resources.getCompletedChallenges()[index].show = false;
-        }
-
-        function doesDateExist(index) {
-            return Resources.getCompletedChallenges()[index].finishDate == null;
-        }
-
-        function cancelChallenge(index) {
-            var challengeId = $httpParamSerializer({
-                id: Resources.getCompletedChallenges()[index].id
-            });
-            Challenges.cancel(challengeId).then(function (val) {
-                Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() + val.data.amount);
-                Resources.getCompletedChallenges().splice(index, 1);
-                $scope.completedChallengesCollection = Resources.getCompletedChallenges();
-                toastr.success("Challenge canceled");
-            });
         }
 
         function checkList() {

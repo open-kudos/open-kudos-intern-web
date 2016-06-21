@@ -1,5 +1,5 @@
 (function () {
-    var KudosChallengeNewController = function($httpParamSerializer, $scope, KudosChallengeNewService, Resources){
+    var KudosChallengeNewController = function($httpParamSerializer, $scope, KudosChallengeNewService, Challenges, Resources){
         var requestData;
 
         $scope.challengeList = [];
@@ -8,9 +8,12 @@
         $scope.getChallengeParticipatedList = getChallengeParticipatedList;
         $scope.acceptChallenge = acceptChallenge;
         $scope.declineChallenge = declineChallenge;
+        $scope.cancelChallenge = cancelChallenge;
         $scope.removeElement = removeElement;
         $scope.refreshList = refreshList;
         $scope.acornPlural = acornPlural;
+        $scope.userEmail = Resources.getCurrentUserEmail();
+        $scope.doesDateExist = doesDateExist;
 
         $scope.convertDate = convertDate;
 
@@ -47,6 +50,18 @@
                 '. To accept challenge, you must have at least ' + kudos);
         }
 
+        function cancelChallenge(index) {
+            var challengeId = $httpParamSerializer({
+                id: Resources.getNewChallenges()[index].id
+            });
+            Challenges.cancel(challengeId).then(function (val) {
+                Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() + val.data.amount);
+                Resources.getNewChallenges().splice(index, 1);
+                $scope.challengeList = Resources.getNewChallenges();
+                toastr.success("Challenge canceled");
+            });
+        }
+
         function declineChallenge(id, index) {
             requestData = $httpParamSerializer({
                 id: id
@@ -80,9 +95,14 @@
                 return val;
             }
         }
+
+        function doesDateExist(index) {
+            return Resources.getNewChallenges()[index].finishDate == null;
+        }
+
     };
 
-    KudosChallengeNewController.$inject = ['$httpParamSerializer', '$scope', 'KudosChallengeNewService', 'Resources'];
+    KudosChallengeNewController.$inject = ['$httpParamSerializer', '$scope', 'KudosChallengeNewService', 'Challenges', 'Resources'];
 
     angular.module('myApp.components.challengeNew', [])
 

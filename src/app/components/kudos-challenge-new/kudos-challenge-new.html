@@ -1,5 +1,6 @@
 <div class="text-center">
     <div ng-if="id" class="box4 box-shadow-animation" ng-repeat="challenge in challengeList">
+
         <h4 class="card-title text-center">You have been challenged!</h4>
 
         <p class="card-text"><span class="bold">{{challenge.name}}</span>  by
@@ -10,8 +11,15 @@
         <p ng-if="challenge.description">Description: {{challenge.description}}</p>
         <p ng-if="challenge.finishDate">Finish date: {{convertDate(challenge.finishDate)}}</p>
 
-        <button class="btn btn-danger btn-challenge-participated" ng-click="declineChallenge(challenge.id, $index)">Decline</button>
-        <button class="btn btn-success btn-challenge-participated" ng-click="acceptChallenge(challenge.id, $index, challenge.amount)">Accept</button>
+        <div ng-if="challenge.participant == userEmail">
+            <button class="btn btn-danger btn-challenge-participated" ng-click="declineChallenge(challenge.id, $index)">Decline</button>
+            <button class="btn btn-success btn-challenge-participated" ng-click="acceptChallenge(challenge.id, $index, challenge.amount)">Accept</button>
+        </div>
+
+        <div ng-show="doesDateExist($index)">
+            <button ng-if="challenge.creator == userEmail"  class="btn btn-danger btn-challenge-participated" ng-click="cancelChallenge($index); buttons = true">Cancel challenge</button>
+        </div>
+
     </div>
 
     <div ng-if="!id">
