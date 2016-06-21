@@ -10,6 +10,7 @@
         $scope.checkList = checkList;
         $scope.convertDate = convertDate;
         $scope.acornPlural = acornPlural;
+        $scope.getWinner = getWinner;
 
         CompletedChallengesService.completedChallenges().then(function (val) {
             Resources.setCompletedChallenges(val);
@@ -43,6 +44,24 @@
         $scope.$watch(function () {
             checkList();
         });
+
+        function getWinner(index) {
+            if (Resources.getCompletedChallenges()[index].creatorStatus) {
+                if (Resources.getCompletedChallenges()[index].creator == Resources.getCurrentUserEmail) {
+                    return "You won the challenge!"
+                } else {
+                    return Resources.getCompletedChallenges()[index].creator + " won the challenge";
+                }
+            }
+
+            if (Resources.getCompletedChallenges()[index].participantStatus) {
+                if (Resources.getCompletedChallenges()[index].participant == Resources.getCurrentUserEmail()) {
+                    return "You won the challenge!"
+                } else {
+                    return Resources.getCompletedChallenges()[index].participant + " won the challenge";
+                }
+            }
+        }
 
     };
 

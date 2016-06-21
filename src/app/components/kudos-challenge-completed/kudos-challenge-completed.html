@@ -15,6 +15,7 @@
             Status:
             <span class="bold">{{completedChallenges.status}}</span>
         </p>
+        <span class="bold" ng-if="completedChallenges.status == 'ACCOMPLISHED' ">{{getWinner($index)}}</span>
 
     </div>
 
