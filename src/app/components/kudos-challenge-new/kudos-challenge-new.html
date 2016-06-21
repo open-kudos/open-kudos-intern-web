@@ -1,10 +1,19 @@
 <div class="text-center">
     <div ng-if="id" class="box4 box-shadow-animation" ng-repeat="challenge in challengeList">
 
-        <h4 class="card-title text-center">You have been challenged!</h4>
+        <h4 ng-if="challenge.participant == userEmail" class="card-title text-center">You have been challenged!</h4>
+        <h4 ng-if="challenge.creator == userEmail" class="card-title text-center">You created challenge!</h4>
 
-        <p class="card-text"><span class="bold">{{challenge.name}}</span>  by
-            <span class="bold">{{challenge.creator}}</span>  for
+
+        <p class="card-text" ng-if="challenge.participant == userEmail">
+            <span class="bold">{{challenge.name}}</span> received from
+            <span class="bold">{{challenge.creator}}</span> for
+            <span class="badge acorn-bg">{{acornPlural(challenge.amount * 2)}}</span>
+        </p>
+
+        <p class="card-text" ng-if="challenge.creator == userEmail">
+            <span class="bold">{{challenge.name}}</span> given to
+            <span class="bold">{{challenge.participant}}</span> for
             <span class="badge acorn-bg">{{acornPlural(challenge.amount * 2)}}</span>
         </p>
 
