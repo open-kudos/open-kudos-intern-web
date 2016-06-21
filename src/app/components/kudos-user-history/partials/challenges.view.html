@@ -1,0 +1,27 @@
+<div class="input-group col-lg-4">
+    <input value="wonLost" ng-click="self.changeRadioValue('wonLost')"
+           type="radio" id="historyWonLost" name="userHistoryChallenges" checked/>
+    <label for="historyWonLost"><span></span>Won and Lost</label>
+</div>
+<div class="input-group col-lg-4">
+    <input value="won" ng-click="self.changeRadioValue('won')"
+           type="radio" id="historyWon" name="userHistoryChallenges" />
+    <label for="historyWon"><span></span>Won</label>
+</div>
+<div class="input-group col-lg-4">
+    <input value="lost" ng-click="self.changeRadioValue('lost')"
+           type="radio" id="historyLost" name="userHistoryChallenges" />
+    <label for="historyLost"><span></span>Lost</label>
+</div>
+
+<div ng-if="self.historyRadioBox == 'wonLost'">
+    Won and Lost
+</div>
+
+<div ng-if="self.historyRadioBox == 'won'">
+    Won
+</div>
+
+<div ng-if="self.historyRadioBox == 'lost'">
+    Lost
+</div>
