@@ -8,10 +8,17 @@
         $scope.checkList = checkList;
         $scope.acornPlural = acornPlural;
         $scope.getWinner = getWinner;
+        $scope.userEmail = Resources.getCurrentUserEmail();
 
         CompletedChallengesService.completedChallenges().then(function (val) {
             Resources.setCompletedChallenges(val);
             $scope.completedChallengesCollection = Resources.getCompletedChallenges();
+        });
+
+        $scope.$watch(function () {
+            return Resources.getCurrentUserEmail()
+        }, function (newVal) {
+            if (!isValid(newVal)) $scope.userEmail = Resources.getCurrentUserEmail();
         });
 
         function checkList() {
