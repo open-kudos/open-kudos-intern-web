@@ -1,5 +1,10 @@
 <div class="text-center row">
-    <div class="box4" ng-repeat="item in self.transactionHistory">
+    <div ng-if="!self.transactionHistory[0]">
+        <div class="alert alert-info acorn-bg margin-top">
+            <strong>Whoops!</strong> This user has no transaction history yet
+        </div>
+    </div>
+    <div class="box4" ng-repeat="item in self.transactionHistory | limitTo:self.transactionEndingIndex-1">
         <div ng-if="item.status == 'COMPLETED'">
             <div style="margin-top: -8px"><b><h4>Transaction</h4></b></div>
             <div ng-if="item.receiverEmail == self.thisUsersEmail">
@@ -64,5 +69,6 @@
             </div>
         </div>
     </div>
-    <button ng-if="self.showMoreButton" class="btn btn-default">Show more</button>
+    <button ng-if="self.showLessButton" class="btn btn-default" ng-click="self.showMoreLess('less')">Show less</button>
+    <button ng-if="self.showMoreButton" class="btn btn-default" ng-click="self.showMoreLess('more')">Show more</button>
 </div>

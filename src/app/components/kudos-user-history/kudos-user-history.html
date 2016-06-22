@@ -1,5 +1,5 @@
 <li class="list-group-item"
-    data-toggle="modal" data-target="#history{{self.modalIndex}}" ng-click="self.updateListAll(self.currentUser.email)">
+    data-toggle="modal" data-target="#history{{self.modalIndex}}" ng-click="self.updateListAll(self.currentUser.email, true)">
     <span class="badge acorn-bg">{{self.acornPlural(self.currentUser.amountOfKudos)}}</span>
     <span class="bold">{{self.currentUser.firstName}} {{self.currentUser.lastName}}</span>
 </li>
@@ -20,16 +20,16 @@
                         <div class="navbar-collapse">
                             <ul class="nav navbar-nav">
                                 <li ng-class="self.allOperations ? 'selected active' : ''"
-                                    ng-click="self.changeView('all')">
+                                    ng-click="self.changeView('all'); self.updateListAll(self.currentUser.email, true)">
                                     <a>All</a></li>
                                 <li ng-class="self.receivedOperations ? 'selected active' : ''"
-                                    ng-click="self.changeView('received')">
+                                    ng-click="self.changeView('received'); self.updateListReceived(self.currentUser.email, true)">
                                     <a>Received</a></li>
                                 <li ng-class="self.gaveOperations ? 'selected active' : ''"
-                                    ng-click="self.changeView('gave')">
+                                    ng-click="self.changeView('gave'); self.updateListGave(self.currentUser.email, true)">
                                     <a>Gave</a></li>
                                 <li ng-class="self.challengeOperations ? 'selected active' : ''"
-                                    ng-click="self.changeView('challenges')">
+                                    ng-click="self.changeView('challenges'); self.updateListChallenges(self.currentUser.email, true)">
                                     <a>Challenges</a></li>
                             </ul>
                         </div>

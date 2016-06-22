@@ -17,7 +17,10 @@ function Transaction($http, SERVER) {
         getCompletedKudosTransactions : getCompletedKudosTransactions,
         getNewTransactions : getNewKudosTransactions,
         setLastSeenTransactionTimestamp : setLastSeenTransactionTimestamp,
-        getAllByEmail : getAllByEmail
+        getAllByEmail : getAllByEmail,
+        getReceivedByEmail : getReceivedByEmail,
+        getGaveByEmail : getGaveByEmail,
+        getChallengesByEmail : getChallengesByEmail
     }
     return transaction;
 
@@ -65,6 +68,36 @@ function Transaction($http, SERVER) {
         return $http({
             method: 'GET',
             url: SERVER.ip + "/history/all?" + requestData,
+            withCredentials: true
+        }).then(function (response) {
+            return response.data;
+        });
+    }
+
+    function getReceivedByEmail(requestData) {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/history/received?" + requestData,
+            withCredentials: true
+        }).then(function (response) {
+            return response.data;
+        });
+    }
+
+    function getGaveByEmail(requestData) {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/history/gave?" + requestData,
+            withCredentials: true
+        }).then(function (response) {
+            return response.data;
+        });
+    }
+    
+    function getChallengesByEmail(requestData) {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/history/challenges?" + requestData,
             withCredentials: true
         }).then(function (response) {
             return response.data;

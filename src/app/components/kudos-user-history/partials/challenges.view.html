@@ -14,14 +14,54 @@
     <label for="historyLost"><span></span>Lost</label>
 </div>
 
-<div ng-if="self.historyRadioBox == 'wonLost'">
-    Won and Lost
-</div>
-
-<div ng-if="self.historyRadioBox == 'won'">
-    Won
-</div>
-
-<div ng-if="self.historyRadioBox == 'lost'">
-    Lost
+<div class="text-center row">
+    <div ng-if="!self.transactionHistory[0]">
+        <div class="alert alert-info acorn-bg margin-top">
+            <strong>Whoops!</strong> This user does not have any challenge history
+        </div>
+    </div>
+    <div ng-repeat="item in self.transactionHistory | limitTo:self.transactionEndingIndex-1">
+        <div ng-if="item.status == 'COMPLETED_CHALLENGE_PARTICIPANT'">
+            <div class="box4" ng-if="item.receiverEmail == self.thisUsersEmail && (self.historyRadioBox == 'wonLost' || self.historyRadioBox == 'won')">
+                <label>{{item.receiverFullName}}</label>
+                won
+                <span class="badge acorn-bg ng-binding">{{self.acornPlural(item.amount)}}</span>
+                against
+                <label>{{item.senderFullName}}</label>
+                <div ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
+                <div ng-if="item.timestamp">{{self.split(item.timestamp, " ")[0]}}</div>
+            </div>
+            <div class="box4" ng-if="item.senderEmail == self.thisUsersEmail && (self.historyRadioBox == 'wonLost' || self.historyRadioBox == 'lost')">
+                <label>{{item.senderFullName}}</label>
+                lost
+                <span class="badge acorn-bg ng-binding">{{self.acornPlural(item.amount / 2)}}</span>
+                against
+                <label>{{item.receiverFullName}}</label>
+                <div ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
+                <div ng-if="item.timestamp">{{self.split(item.timestamp, " ")[0]}}</div>
+            </div>
+        </div>
+        <div ng-if="item.status == 'COMPLETED_CHALLENGE_CREATOR'">
+            <div class="box4" ng-if="item.receiverEmail == self.thisUsersEmail && (self.historyRadioBox == 'wonLost' || self.historyRadioBox == 'lost')">
+                <label>{{item.receiverFullName}}</label>
+                lost
+                <span class="badge acorn-bg ng-binding">{{self.acornPlural(item.amount / 2)}}</span>
+                against
+                <label>{{item.senderFullName}}</label>
+                <div ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
+                <div ng-if="item.timestamp">{{self.split(item.timestamp, " ")[0]}}</div>
+            </div>
+            <div class="box4" ng-if="item.senderEmail == self.thisUsersEmail && (self.historyRadioBox == 'wonLost' || self.historyRadioBox == 'won')">
+                <label>{{item.senderFullName}}</label>
+                won
+                <span class="badge acorn-bg ng-binding">{{self.acornPlural(item.amount)}}</span>
+                against
+                <label>{{item.receiverFullName}}</label>
+                <div ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
+                <div ng-if="item.timestamp">{{self.split(item.timestamp, " ")[0]}}</div>
+            </div>
+        </div>
+    </div>
+    <button ng-if="self.showLessButton" class="btn btn-default" ng-click="self.showMoreLess('less')">Show less</button>
+    <button ng-if="self.showMoreButton" class="btn btn-default" ng-click="self.showMoreLess('more')">Show more</button>
 </div>
