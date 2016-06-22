@@ -3,13 +3,11 @@
         var self = this;
 
         self.showHistoryLoader = true;
-        self.associatedEmail = '';
         self.historyRadioBox = 'wonLost';
         self.receivedOperations = false;
         self.allOperations = true;
         self.gaveOperations = false;
         self.challengeOperations = false;
-        self.autocompleteHide = true;
         self.transactionEndingIndex = 6;
         self.transactionStartingIndex = 0;
         self.showMoreButton = false;
@@ -19,9 +17,9 @@
         self.acornPlural = acornPlural;
         self.changeRadioValue = changeRadioValue;
         self.changeView = changeView;
-        self.updateListAll = updateListAll;
         self.checkButtons = checkButtons;
         self.showMoreLess = showMoreLess;
+        self.updateListAll = updateListAll;
         self.updateListReceived = updateListReceived;
         self.updateListGave = updateListGave;
         self.updateListChallenges = updateListChallenges;
