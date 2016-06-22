@@ -1,16 +1,68 @@
-<div ng-repeat="item in self.transactionHistor">
-    <div ng-if="item.receiverEmail == self.thisUsersEmail">
-        <label>{{item.receiverFullName}}</label>
-            received
-            <span class="badge acorn-bg ng-binding">{{self.acornPlural(item.amount)}}</span>
-            from
-        <label>{{item.senderFullName}}</label>
+<div class="text-center row">
+    <div class="box4" ng-repeat="item in self.transactionHistory">
+        <div ng-if="item.status == 'COMPLETED'">
+            <div style="margin-top: -8px"><b><h4>Transaction</h4></b></div>
+            <div ng-if="item.receiverEmail == self.thisUsersEmail">
+                <label>{{item.receiverFullName}}</label>
+                received
+                <span class="badge acorn-bg ng-binding">{{self.acornPlural(item.amount)}}</span>
+                from
+                <label>{{item.senderFullName}}</label>
+                <div ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
+                <div ng-if="item.timestamp">{{self.split(item.timestamp, " ")[0]}}</div>
+            </div>
+            <div ng-if="item.senderEmail == self.thisUsersEmail">
+                <label>{{item.senderFullName}}</label>
+                gave
+                <span class="badge acorn-bg ng-binding">{{self.acornPlural(item.amount)}}</span>
+                to
+                <label>{{item.receiverFullName}}</label>
+                <div ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
+                <div ng-if="item.timestamp">{{self.split(item.timestamp, " ")[0]}}</div>
+            </div>
+        </div>
+        <div ng-if="item.status == 'COMPLETED_CHALLENGE_PARTICIPANT'">
+            <div style="margin-top: -8px"><b><h4>Challenge</h4></b></div>
+            <div ng-if="item.receiverEmail == self.thisUsersEmail">
+                <label>{{item.receiverFullName}}</label>
+                won
+                <span class="badge acorn-bg ng-binding">{{self.acornPlural(item.amount)}}</span>
+                against
+                <label>{{item.senderFullName}}</label>
+                <div ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
+                <div ng-if="item.timestamp">{{self.split(item.timestamp, " ")[0]}}</div>
+            </div>
+            <div ng-if="item.senderEmail == self.thisUsersEmail">
+                <label>{{item.senderFullName}}</label>
+                lost
+                <span class="badge acorn-bg ng-binding">{{self.acornPlural(item.amount / 2)}}</span>
+                against
+                <label>{{item.receiverFullName}}</label>
+                <div ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
+                <div ng-if="item.timestamp">{{self.split(item.timestamp, " ")[0]}}</div>
+            </div>
+        </div>
+        <div ng-if="item.status == 'COMPLETED_CHALLENGE_CREATOR'">
+            <div style="margin-top: -8px"><b><h4>Challenge</h4></b></div>
+            <div ng-if="item.receiverEmail == self.thisUsersEmail">
+                <label>{{item.receiverFullName}}</label>
+                lost
+                <span class="badge acorn-bg ng-binding">{{self.acornPlural(item.amount / 2)}}</span>
+                against
+                <label>{{item.senderFullName}}</label>
+                <div ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
+                <div ng-if="item.timestamp">{{self.split(item.timestamp, " ")[0]}}</div>
+            </div>
+            <div ng-if="item.senderEmail == self.thisUsersEmail">
+                <label>{{item.senderFullName}}</label>
+                won
+                <span class="badge acorn-bg ng-binding">{{self.acornPlural(item.amount)}}</span>
+                against
+                <label>{{item.receiverFullName}}</label>
+                <div ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
+                <div ng-if="item.timestamp">{{self.split(item.timestamp, " ")[0]}}</div>
+            </div>
+        </div>
     </div>
-    <div ng-if="item.senderEmail == self.thisUsersEmail">
-        <label>{{item.senderFullName}}</label>
-        sent
-        <span class="badge acorn-bg ng-binding">{{self.acornPlural(item.amount)}}</span>
-        to
-        <label>{{item.receiverFullName}}</label>
-    </div>
+    <button ng-if="self.showMoreButton" class="btn btn-default">Show more</button>
 </div>
