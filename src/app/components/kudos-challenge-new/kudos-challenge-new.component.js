@@ -19,6 +19,13 @@
 
         getChallengeParticipatedList();
 
+        $scope.$watch(function () {
+            return Resources.getCurrentUserEmail()
+        }, function (newVal) {
+            if (!isValid(newVal)) $scope.userEmail = Resources.getCurrentUserEmail();
+        });
+
+
         function getChallengeParticipatedList() {
             $scope.id = false;
 
