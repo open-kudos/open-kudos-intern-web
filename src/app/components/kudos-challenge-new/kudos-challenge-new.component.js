@@ -64,6 +64,7 @@
             Challenges.cancel(challengeId).then(function (val) {
                 Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() + val.data.amount);
                 Resources.getNewChallenges().splice(index, 1);
+                Resources.getCompletedChallenges().push(val.data);
                 $scope.challengeList = Resources.getNewChallenges();
                 toastr.success("Challenge canceled");
             });

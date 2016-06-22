@@ -56,7 +56,7 @@
                     $('#giveChallengeModal').modal('hide');
                     toastr.success('You successfully challenged ' + val.data.participant + " with " + val.data.amount + " " + acornPlural(val.data.amount) + '.');
                     Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
-                    Resources.getGivenChallenges().push(val.data);
+                    Resources.getNewChallenges().push(val.data);
                 }).catch(function () {
                     showChallengeFormErrorMessage("Challenge receiver does not exist");
                 })

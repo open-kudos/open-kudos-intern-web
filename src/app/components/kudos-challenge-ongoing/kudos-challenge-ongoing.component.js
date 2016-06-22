@@ -12,16 +12,21 @@
         $scope.convertDate = convertDate;
         $scope.showButtons = showButtons;
         $scope.isSelected = isSelected;
+        $scope.userEmail = Resources.getCurrentUserEmail();
 
         getChallengeOngoingList();
 
-        function getChallengeOngoingList() {
+        $scope.$watch(function () {
+            return Resources.getCurrentUserEmail()
+        }, function (newVal) {
+            if (!isValid(newVal)) $scope.userEmail = Resources.getCurrentUserEmail();
+        });
 
+        function getChallengeOngoingList() {
             KudosChallengeOngoingService.getOngoingChallenges().then(function (val) {
                 Resources.setOngoingChallenges(val);
                 $scope.ongoingChallengeList = Resources.getOngoingChallenges();
             });
-
         }
 
         function lost(id) {
