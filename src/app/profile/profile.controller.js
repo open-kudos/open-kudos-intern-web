@@ -17,7 +17,7 @@
         $scope.receivedAcorns = false;
         $scope.sentAcorns = true;
         $scope.giveAcorns = false;
-        $scope.received = true;
+        $scope.new = true;
 
         $scope.showDropDown = false;
 

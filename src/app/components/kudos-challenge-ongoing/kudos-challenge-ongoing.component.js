@@ -16,12 +16,10 @@
         getChallengeOngoingList();
 
         function getChallengeOngoingList() {
-
             KudosChallengeOngoingService.getOngoingChallenges().then(function (val) {
                 Resources.setOngoingChallenges(val);
                 $scope.ongoingChallengeList = Resources.getOngoingChallenges();
             });
-
         }
 
         function lost(id) {

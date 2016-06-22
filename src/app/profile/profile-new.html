@@ -59,17 +59,17 @@
             <div class="panel panel-body">
                 <ul class="nav nav-pills">
                     <h3>Challenges</h3>
-                    <li role="presentation" ng-class="received ? 'active' : ''"><a href="" ng-click="ongoing = false;received=true;given=false">New</a></li>
-                    <li role="presentation" ng-class="ongoing ? 'active' : ''"><a href="" ng-click="ongoing = true;received=false;given=false">Ongoing</a></li>
-                    <li role="presentation" ng-class="given ? 'active' : ''"><a href="" ng-click="ongoing = false;received=false;given=true">Completed</a></li>
+                    <li role="presentation" ng-class="new ? 'active' : ''"><a href="" ng-click="ongoing = false;new=true;completed=false">New</a></li>
+                    <li role="presentation" ng-class="ongoing ? 'active' : ''"><a href="" ng-click="ongoing = true;new=false;completed=false">Ongoing</a></li>
+                    <li role="presentation" ng-class="completed ? 'active' : ''"><a href="" ng-click="ongoing = false;new=false;completed=true">Completed</a></li>
                 </ul>
                 <div class="" ng-show="ongoing">
                     <kudos-challenge-ongoing></kudos-challenge-ongoing>
                 </div>
-                <div class="" ng-show="received">
+                <div class="" ng-show="new">
                     <kudos-challenge-new></kudos-challenge-new>
                 </div>
-                <div class="" ng-show="given">
+                <div class="" ng-show="completed">
                     <kudos-challenge-completed></kudos-challenge-completed>
                 </div>
             </div>
