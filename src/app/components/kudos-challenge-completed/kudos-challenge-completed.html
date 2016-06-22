@@ -1,5 +1,5 @@
 <div class="text-center">
-    <div ng-if="showList" class="card box4 box-shadow-animation" ng-repeat="challenge in completedChallengesCollection | orderBy:'-timestamp'">
+    <div ng-if="showList" class="card box4 box-shadow-animation" ng-repeat="challenge in completedChallengesCollection | orderBy:'-timestamp' | limitTo: completedChallengesLimit">
         <p class="card-text" ng-if="challenge.participant == userEmail">
             <span class="bold">{{challenge.name}}</span> received from
             <span class="bold">{{challenge.creator}}</span> for
@@ -17,7 +17,17 @@
             <span class="bold">{{challenge.status}}</span>
         </p>
         <span class="bold" ng-if="challenge.status == 'ACCOMPLISHED' ">{{getWinner($index)}}</span>
+    </div>
 
+    <div class="showMore">
+        <button ng-show="lessChallenges" ng-click="showLess(); lessChallenges = false" type="button"
+                class="btn btn-default btn-sm">
+            {{'ProfileShowLess' | translate}}
+        </button>
+        <button ng-click="showMore(); lessChallenges = true" ng-show="showMoreButton" type="button"
+                class="btn btn-default btn-sm">
+            {{'ProfileShowMore' | translate}}
+        </button>
     </div>
 
     <div ng-if="!showList">

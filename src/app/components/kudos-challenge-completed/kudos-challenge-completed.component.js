@@ -9,6 +9,11 @@
         $scope.acornPlural = acornPlural;
         $scope.getWinner = getWinner;
         $scope.userEmail = Resources.getCurrentUserEmail();
+        $scope.showMore = showMore;
+        $scope.showLess = showLess;
+        $scope.showMoreButton = showMoreButton;
+        var showMoreLimit = 5;
+        $scope.completedChallengesLimit = 5;
 
         CompletedChallengesService.completedChallenges().then(function (val) {
             Resources.setCompletedChallenges(val);
@@ -49,6 +54,24 @@
                     return Resources.getCompletedChallenges()[index].participant + " won the challenge";
                 }
             }
+        }
+
+        function showMoreButton(val) {
+            if (val.length > 5) {
+                $scope.showMoreButton = true;
+            } else {
+                $scope.showMoreButton = false;
+            }
+        }
+
+        function showMore() {
+            if ($scope.completedChallengesLimit <= Resources.getCompletedChallenges().length) {
+                $scope.completedChallengesLimit += showMoreLimit;
+            }
+        }
+
+        function showLess() {
+            $scope.completedChallengesLimit = showMoreLimit;
         }
 
     };
