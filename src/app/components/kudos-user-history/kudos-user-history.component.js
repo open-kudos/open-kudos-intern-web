@@ -25,6 +25,7 @@
         self.updateListReceived = updateListReceived;
         self.updateListGave = updateListGave;
         self.updateListChallenges = updateListChallenges;
+        self.showList = showList;
 
         this.$onInit = function() {
             self.currentUser = this.user;
@@ -33,7 +34,7 @@
 
         function updateListAll(email, trigger){
             self.showHistoryLoader = true;
-            self.thisUsersEmail= email;
+            self.thisUsersEmail = email;
             var requestData = {
                 email: self.thisUsersEmail,
                 start: self.transactionStartingIndex,
@@ -54,8 +55,9 @@
             }
         }
 
-        function updateListReceived(trigger){
+        function updateListReceived(email, trigger){
             self.showHistoryLoader = true;
+            self.thisUsersEmail = email;
             var requestData = {
                 email: self.thisUsersEmail,
                 start: self.transactionStartingIndex,
@@ -76,8 +78,9 @@
             }
         }
 
-        function updateListGave(trigger){
+        function updateListGave(email, trigger){
             self.showHistoryLoader = true;
+            self.thisUsersEmail = email;
             var requestData = {
                 email: self.thisUsersEmail,
                 start: self.transactionStartingIndex,
@@ -98,8 +101,9 @@
             }
         }
 
-        function updateListChallenges(trigger){
+        function updateListChallenges(email, trigger){
             self.showHistoryLoader = true;
+            self.thisUsersEmail = email;
             var requestData = {
                 email: self.thisUsersEmail,
                 start: self.transactionStartingIndex,
@@ -137,6 +141,15 @@
                 self.showMoreButton = true;
                 self.showLessButton = false;
             }
+        }
+        
+        function showList(email, trigger) {
+            self.transactionEndingIndex = 6;
+
+            if (self.allOperations) updateListAll(email, trigger);
+            else if (self.receivedOperations) updateListReceived(email, trigger);
+            else if (self.gaveOperations) updateListGave(email, trigger);
+            else if (self.challengeOperations) updateListChallenges(email, trigger);
         }
 
         function changeRadioValue(value) {
