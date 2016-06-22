@@ -1,5 +1,5 @@
 <li class="list-group-item"
-    data-toggle="modal" data-target="#history{{self.modalIndex}}">
+    data-toggle="modal" data-target="#history{{self.modalIndex}}" ng-click="self.updateList(self.currentUser.email)">
     <span class="badge acorn-bg">{{self.acornPlural(self.currentUser.amountOfKudos)}}</span>
     <span class="bold">{{self.currentUser.firstName}} {{self.currentUser.lastName}}</span>
 </li>
@@ -11,6 +11,7 @@
                 <button type="button" class="close"
                         data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Acorns history</h4>
+                <div ng-hide="!self.showHistoryLoader" class="loader"></div>
             </div>
 
             <div class="modal-body">

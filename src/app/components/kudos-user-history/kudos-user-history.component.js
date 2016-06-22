@@ -1,7 +1,8 @@
 (function () {
-    var UserHistoryController = function(Resources){
+    var UserHistoryController = function(Resources, UserHistoryService){
         var self = this;
 
+        self.showHistoryLoader = true;
         self.associatedEmail = '';
         self.historyRadioBox = 'wonLost';
         self.receivedOperations = false;
@@ -9,22 +10,38 @@
         self.gaveOperations = false;
         self.challengeOperations = false;
         self.autocompleteHide = true;
+        self.transactionIndex = 5;
 
         self.acornPlural = acornPlural;
         self.changeRadioValue = changeRadioValue;
         self.changeView = changeView;
         self.selectAutoText = selectAutoText;
         self.checkUserList = checkUserList;
+        self.updateList = updateList;
 
         this.$onInit = function() {
             self.currentUser = this.user;
             self.modalIndex = split(this.user.$$hashKey, ":")[1];
         };
 
+        function updateList(email){
+            var requestData = {
+                email: email,
+                start: self.transactionIndex - 5,
+                end: self.transactionIndex
+            };
+
+            UserHistoryService.getAllTransactions(requestData).then(function (val) {
+                self.transactionHistor = val;
+                self.thisUsersEmail = email;
+                console.log(val);
+                self.showHistoryLoader = false;
+            });
+        }
+
         function changeRadioValue(value) {
             if (self.historyRadioBox != value) {
                 self.historyRadioBox = value;
-                console.log(self.historyRadioBox);
             }
         }
 
@@ -74,7 +91,7 @@
         }
     };
 
-    UserHistoryController.$inject = ['Resources'];
+    UserHistoryController.$inject = ['Resources', 'UserHistoryService'];
 
     angular.module('myApp.components.userHistory', [])
         .component('kudosUserHistory', {

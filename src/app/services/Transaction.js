@@ -16,7 +16,8 @@ function Transaction($http, SERVER) {
         feedChanged: kudosTransactionListChanged,
         getCompletedKudosTransactions : getCompletedKudosTransactions,
         getNewTransactions : getNewKudosTransactions,
-        setLastSeenTransactionTimestamp : setLastSeenTransactionTimestamp
+        setLastSeenTransactionTimestamp : setLastSeenTransactionTimestamp,
+        getAllByEmail : getAllByEmail
     }
     return transaction;
 
@@ -54,6 +55,16 @@ function Transaction($http, SERVER) {
         return $http({
             method: 'POST',
             url: SERVER.ip + "/transaction/timestamp?timestamp=" + requestData,
+            withCredentials: true
+        }).then(function (response) {
+            return response.data;
+        });
+    }
+
+    function getAllByEmail(requestData) {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/history/email?" + requestData,
             withCredentials: true
         }).then(function (response) {
             return response.data;
