@@ -10,57 +10,50 @@
         self.gaveOperations = false;
         self.challengeOperations = false;
         self.autocompleteHide = true;
-        self.transactionIndex = 5;
+        self.transactionEndingIndex = 4;
+        self.transactionStartingIndex = 0;
+        self.showMoreButton = false;
 
+        self.split = split;
         self.acornPlural = acornPlural;
         self.changeRadioValue = changeRadioValue;
         self.changeView = changeView;
-        self.selectAutoText = selectAutoText;
-        self.checkUserList = checkUserList;
-        self.updateList = updateList;
+        self.updateListAll = updateListAll;
+        self.checkButtons = checkButtons;
 
         this.$onInit = function() {
             self.currentUser = this.user;
             self.modalIndex = split(this.user.$$hashKey, ":")[1];
         };
 
-        function updateList(email){
+        function updateListAll(email){
+            self.thisUsersEmail= email;
             var requestData = {
-                email: email,
-                start: self.transactionIndex - 5,
-                end: self.transactionIndex
+                email: self.thisUsersEmail,
+                start: self.transactionStartingIndex,
+                end: self.transactionEndingIndex
             };
 
-            UserHistoryService.getAllTransactions(requestData).then(function (val) {
-                self.transactionHistor = val;
-                self.thisUsersEmail = email;
-                console.log(val);
-                self.showHistoryLoader = false;
-            });
+            if (!UserHistoryService.checkAll(requestData)) {
+                UserHistoryService.getAllTransactions(requestData).then(function (val) {
+                    self.transactionHistory = val;
+                    console.log(val);
+                    checkButtons();
+                    UserHistoryService.setAll(self.thisUsersEmail, val);
+                    self.showHistoryLoader = false;
+                });
+            } else self.transactionHistory = UserHistoryService.checkAll(requestData);
+        }
+        
+        function checkButtons() {
+            if (self.transactionHistory[self.transactionEndingIndex + 1]){
+                self.showMoreButton = true;
+            }
         }
 
         function changeRadioValue(value) {
             if (self.historyRadioBox != value) {
                 self.historyRadioBox = value;
-            }
-        }
-
-        function selectAutoText(text) {
-            self.associatedEmail = text;
-            self.searchTermSelected = false;
-            self.autocompleteHide = true;
-            self.text = text;
-        }
-        
-        function checkUserList() {
-            self.usersCollection = Resources.getUsersCollection();
-            if (self.searchTermSelected == false) {
-                if (self.associatedEmail != undefined) {
-                    if (self.text != self.associatedEmail)
-                        (self.associatedEmail.length > 1) ? self.autocompleteHide = false : self.autocompleteHide = true;
-                }
-            } else {
-                self.searchTermSelected = false;
             }
         }
 

@@ -12,8 +12,13 @@
     ];
 
     function UserHistoryService($httpParamSerializer, Transaction) {
+        var transactionsAll = {},
+            users = [];
+
         var service = {
-            getAllTransactions : getAllTransactions
+            getAllTransactions : getAllTransactions,
+            checkAll : checkUserTransactionsAll,
+            setAll : setUserTransactionsAll
         };
         return service;
 
@@ -30,5 +35,25 @@
             }
         }
 
+        function checkUserTransactionsAll(data) {
+            var found = false;
+            var index = null;
+
+            for(var i = 0; i < users.length; i++){
+                if (users[i] == data.email){
+                    found = true;
+                    index = i;
+                    break;
+                }
+            }
+
+            if (found) return transactionsAll[index];
+            else return false;
+        }
+        
+        function setUserTransactionsAll(email, val) {
+            transactionsAll[users.length] = val;
+            users[users.length] = email;
+        }
     }
 })();

@@ -64,7 +64,7 @@ function Transaction($http, SERVER) {
     function getAllByEmail(requestData) {
         return $http({
             method: 'GET',
-            url: SERVER.ip + "/history/email?" + requestData,
+            url: SERVER.ip + "/history/all?" + requestData,
             withCredentials: true
         }).then(function (response) {
             return response.data;
