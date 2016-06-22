@@ -180,7 +180,6 @@
                 self.gaveOperations=false;
                 self.challengeOperations=true;
             }
-            self.associatedEmail = '';
             self.historyRadioBox = 'wonLost';
         }
 
