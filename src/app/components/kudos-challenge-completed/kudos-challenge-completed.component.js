@@ -5,10 +5,7 @@
         $scope.completedChallengesCollection = [];
         $scope.showList = false;
 
-        $scope.showMoreInfo = showMoreInfo;
-        $scope.showLessInfo = showLessInfo;
         $scope.checkList = checkList;
-        $scope.convertDate = convertDate;
         $scope.acornPlural = acornPlural;
         $scope.getWinner = getWinner;
 
@@ -17,24 +14,8 @@
             $scope.completedChallengesCollection = Resources.getCompletedChallenges();
         });
 
-        function showMoreInfo(index) {
-            Resources.getCompletedChallenges()[index].show = true;
-        }
-
-        function showLessInfo(index) {
-            Resources.getCompletedChallenges()[index].show = false;
-        }
-
         function checkList() {
             $scope.showList = $scope.completedChallengesCollection.length > 0;
-        }
-
-        function convertDate(val) {
-            if (val) {
-                val = val.split(":");
-                val = val[0] + ":" + val[1];
-                return val;
-            }
         }
 
         function acornPlural(amount) {
