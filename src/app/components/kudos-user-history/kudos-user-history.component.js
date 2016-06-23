@@ -131,7 +131,11 @@
             if (val == 'more'){
                 self.transactionEndingIndex += 5;
                 self.showLessButton = true;
-                updateListAll(self.thisUsersEmail, false);
+
+                if (self.allOperations) updateListAll(self.thisUsersEmail, false);
+                else if (self.receivedOperations) updateListReceived(self.thisUsersEmail, false);
+                else if (self.gaveOperations) updateListGave(self.thisUsersEmail, false);
+                else if (self.challengeOperations) updateListChallenges(self.thisUsersEmail, false);
             }
 
             if (val == 'less') {
