@@ -37,10 +37,10 @@
                 showAddIdeaFormErrorMessage("Please enter idea");
                 return false;
             } else if ($scope.author.length > 30) {
-                showAddIdeaFormErrorMessage("Author name is too long");
+                showAddIdeaFormErrorMessage("Author name is too long (max 30 characters)");
                 return false;
             } else if ($scope.idea.length > 100) {
-                showAddIdeaFormErrorMessage("Idea is too long");
+                showAddIdeaFormErrorMessage("Idea is too long (max 100 characters)");
                 return false;
             }
             showAddIdeaFormErrorMessage("");
