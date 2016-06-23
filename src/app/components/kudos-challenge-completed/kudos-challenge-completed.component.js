@@ -18,6 +18,7 @@
         CompletedChallengesService.completedChallenges().then(function (val) {
             Resources.setCompletedChallenges(val);
             $scope.completedChallengesCollection = Resources.getCompletedChallenges();
+            showMoreButton(val);
         });
 
         $scope.$watch(function () {
@@ -57,7 +58,7 @@
         }
 
         function showMoreButton(val) {
-            if (val.length > 5) {
+            if (val.length > $scope.completedChallengesLimit) {
                 $scope.showMoreButton = true;
             } else {
                 $scope.showMoreButton = false;
@@ -65,13 +66,14 @@
         }
 
         function showMore() {
-            if ($scope.completedChallengesLimit <= Resources.getCompletedChallenges().length) {
-                $scope.completedChallengesLimit += showMoreLimit;
-            }
+            $scope.completedChallengesLimit += showMoreLimit;
+            showMoreButton(Resources.getCompletedChallenges());
         }
 
         function showLess() {
             $scope.completedChallengesLimit = showMoreLimit;
+            showMoreButton(Resources.getCompletedChallenges());
+            $scope.showLessButton = false;
         }
 
     };
