@@ -1,5 +1,5 @@
 <div class="text-center">
-    <div ng-if="showList" class="card box4 box-shadow-animation" ng-repeat="challenge in completedChallengesCollection | orderBy:'-createDateDate' | limitTo: completedChallengesLimit">
+    <div ng-if="showList" class="card box4 box-shadow-animation" ng-repeat="challenge in completedChallengesCollection | limitTo: completedChallengesLimit">
         <p class="card-text" ng-if="challenge.participant == userEmail">
             <span class="bold">{{challenge.name}}</span> received from
             <span class="bold">{{challenge.creator}}</span> for

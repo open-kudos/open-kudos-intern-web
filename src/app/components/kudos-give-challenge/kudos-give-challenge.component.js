@@ -33,6 +33,8 @@
                 Resources.setUsersCollection(val.userList);
                 $scope.usersCollection = Resources.getUsersCollection();
             });
+        } else {
+            $scope.usersCollection = Resources.getUsersCollection();
         }
 
         function giveChallenge() {

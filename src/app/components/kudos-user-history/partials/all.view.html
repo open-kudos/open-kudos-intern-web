@@ -8,8 +8,8 @@
         <div ng-if="item.status == 'COMPLETED'">
             <div ng-if="item.receiverEmail == self.thisUsersEmail">
                 <label>{{item.receiverFullName}}</label>
-                <span class="history-positive">received</span>
-                <span class="badge acorn-bg ng-binding">{{self.acornPlural(item.amount)}}</span>
+                <span>received</span>
+                <span class="badge acorn-bg-victory ng-binding">{{self.acornPlural(item.amount)}}</span>
                 from
                 <label>{{item.senderFullName}}</label>
                 <div ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
@@ -17,7 +17,7 @@
             </div>
             <div ng-if="item.senderEmail == self.thisUsersEmail">
                 <label>{{item.senderFullName}}</label>
-                <span class="history-negative">gave</span>
+                <span>gave</span>
                 <span class="badge acorn-bg ng-binding">{{self.acornPlural(item.amount)}}</span>
                 to
                 <label>{{item.receiverFullName}}</label>
@@ -28,8 +28,8 @@
         <div ng-if="item.status == 'COMPLETED_CHALLENGE_PARTICIPANT'">
             <div ng-if="item.receiverEmail == self.thisUsersEmail">
                 <label>{{item.receiverFullName}}</label>
-                <span class="history-positive">won</span>
-                <span class="badge acorn-bg ng-binding">{{self.acornPlural(item.amount)}}</span>
+                <span>won</span>
+                <span class="badge acorn-bg-victory ng-binding">{{self.acornPlural(item.amount)}}</span>
                 against
                 <label>{{item.senderFullName}}</label>
                 <div ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
@@ -37,8 +37,8 @@
             </div>
             <div ng-if="item.senderEmail == self.thisUsersEmail">
                 <label>{{item.senderFullName}}</label>
-                <span class="history-negative">lost</span>
-                <span class="badge acorn-bg ng-binding">{{self.acornPlural(item.amount / 2)}}</span>
+                <span>lost</span>
+                <span class="badge acorn-bg-lost ng-binding">{{self.acornPlural(item.amount / 2)}}</span>
                 against
                 <label>{{item.receiverFullName}}</label>
                 <div ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
@@ -48,8 +48,8 @@
         <div ng-if="item.status == 'COMPLETED_CHALLENGE_CREATOR'">
             <div ng-if="item.receiverEmail == self.thisUsersEmail">
                 <label>{{item.receiverFullName}}</label>
-                <span class="history-negative">lost</span>
-                <span class="badge acorn-bg ng-binding">{{self.acornPlural(item.amount / 2)}}</span>
+                <span>lost</span>
+                <span class="badge acorn-bg-lost ng-binding">{{self.acornPlural(item.amount / 2)}}</span>
                 against
                 <label>{{item.senderFullName}}</label>
                 <div ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
@@ -57,8 +57,8 @@
             </div>
             <div ng-if="item.senderEmail == self.thisUsersEmail">
                 <label>{{item.senderFullName}}</label>
-                <span class="history-positive">won</span>
-                <span class="badge acorn-bg ng-binding">{{self.acornPlural(item.amount)}}</span>
+                <span>won</span>
+                <span class="badge acorn-bg-victory ng-binding">{{self.acornPlural(item.amount)}}</span>
                 against
                 <label>{{item.receiverFullName}}</label>
                 <div ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
