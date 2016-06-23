@@ -6,7 +6,6 @@
     </div>
     <div class="box4" ng-repeat="item in self.transactionHistory | limitTo:self.transactionEndingIndex-1">
         <div ng-if="item.status == 'COMPLETED'">
-            <div style="margin-top: -8px"><b><h4>Transaction</h4></b></div>
             <div ng-if="item.receiverEmail == self.thisUsersEmail">
                 <label>{{item.receiverFullName}}</label>
                 <span class="history-positive">received</span>
@@ -27,7 +26,6 @@
             </div>
         </div>
         <div ng-if="item.status == 'COMPLETED_CHALLENGE_PARTICIPANT'">
-            <div style="margin-top: -8px"><b><h4>Challenge</h4></b></div>
             <div ng-if="item.receiverEmail == self.thisUsersEmail">
                 <label>{{item.receiverFullName}}</label>
                 <span class="history-positive">won</span>
@@ -48,7 +46,6 @@
             </div>
         </div>
         <div ng-if="item.status == 'COMPLETED_CHALLENGE_CREATOR'">
-            <div style="margin-top: -8px"><b><h4>Challenge</h4></b></div>
             <div ng-if="item.receiverEmail == self.thisUsersEmail">
                 <label>{{item.receiverFullName}}</label>
                 <span class="history-negative">lost</span>
