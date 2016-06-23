@@ -1,6 +1,7 @@
 (function () {
 
     var TopReceiversController = function ($scope, ProfileService) {
+        $scope.showLoader = true;
 
         $scope.userReceivedKudos = 0;
         $scope.topReceivers = [];
@@ -8,6 +9,7 @@
 
         ProfileService.getTopReceivers().then(function(val) {
             $scope.topReceivers = val;
+            $scope.showLoader = false;
         });
 
         function acornPlural(amount) {

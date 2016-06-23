@@ -1,6 +1,7 @@
 (function () {
     var KudosChallengeNewController = function($httpParamSerializer, $scope, KudosChallengeNewService, Challenges, Resources){
         var requestData;
+        $scope.showLoaderNew = true;
 
         $scope.challengeList = [];
 
@@ -34,6 +35,8 @@
                 $scope.challengeList = Resources.getNewChallenges();
                 if ($scope.challengeList[0])
                     $scope.id = true;
+
+                $scope.showLoaderNew = false;
             });
         }
 

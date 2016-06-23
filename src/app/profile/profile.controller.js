@@ -4,6 +4,8 @@
 (function () {
     'use strict';
     var ProfileController = function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, $filter, ProfileService, Challenges, Resources) {
+        $scope.showLoaderUserAvailableKudos = true;
+        $scope.showLoaderUserReceivedKudos = true;
         
         $scope.greeting = "hello";
 
@@ -12,7 +14,6 @@
 
         $scope.usersCollection = [];
         $scope.topReceivers = [];
-        $scope.showLoader = true;
         $scope.buttonDisabled = true;
         $scope.receivedAcorns = false;
         $scope.sentAcorns = true;
@@ -42,7 +43,7 @@
 
             ProfileService.receivedKudos().then(function (val) {
                 $scope.userReceivedKudos = val;
-                $scope.showLoader = false;
+                $scope.showLoaderUserReceivedKudos = false;
             });
             
             if(isEmptyCollection(Resources.getUsersCollection())){
@@ -62,7 +63,10 @@
         $scope.$watch(function () {
             return Resources.getUserAvailableKudos()
         }, function (newVal) {
-            if (!isValid(newVal)) $scope.userAvailableKudos = Resources.getUserAvailableKudos();
+            if (!isValid(newVal)) {
+                $scope.userAvailableKudos = Resources.getUserAvailableKudos();
+                $scope.showLoaderUserAvailableKudos = false;
+            }
         });
 
         function checkUser() {

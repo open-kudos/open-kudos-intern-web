@@ -29,10 +29,14 @@
             <kudos-info></kudos-info>
 
             <div class="panel panel-body">
-                <div ng-hide="!showLoader" class="loader"></div>
                 <div class="row text-center">
                     <div class="col-lg-6 col-sm-6">
-                        <h1><b class="acorn-color">{{userAvailableKudos}}</b></h1>
+                        <div ng-hide="!showLoaderUserAvailableKudos" class="loader"></div>
+                        <h1>
+                            <b class="acorn-color">{{userAvailableKudos}}
+
+                            </b>
+                        </h1>
                         <h4>{{ 'ProfileMeCorns' | translate }}</h4>
                         <div class="col-md-12">
                             <button name="giveKudosButton" id="giveKudosButton"
@@ -43,6 +47,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 col-sm-6">
+                        <div ng-hide="!showLoaderUserReceivedKudos" class="loader"></div>
                         <h1><b class="acorn-color">{{userReceivedKudos}}</b></h1>
                         <h4>{{ 'ProfileMeTotalCorns' | translate }}</h4>
                         <div class="col-md-12">
