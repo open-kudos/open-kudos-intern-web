@@ -563,6 +563,18 @@ body {
     }
 }
 
+.acorn-bg-victory {
+    color: #ffffff;
+    background: #1abc9c;
+    border-color: transparent;
+}
+
+.acorn-bg-lost {
+    color: #ffffff;
+    background: $color-pomegranate;
+    border-color: transparent;
+}
+
 .bg-transparent {
     background: transparent;
 }
