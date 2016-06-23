@@ -39,6 +39,15 @@
                 <ng-include ng-if="self.receivedOperations" src="'app/components/kudos-user-history/partials/received.view.html'"></ng-include>
                 <ng-include ng-if="self.gaveOperations" src="'app/components/kudos-user-history/partials/gave.view.html'"></ng-include>
                 <ng-include ng-if="self.challengeOperations" src="'app/components/kudos-user-history/partials/challenges.view.html'"></ng-include>
+
+                <div ng-if="self.transactionHistory[0]" class="text-right" style="margin-top: 10px">
+                    <button ng-if="self.showLessButton" class="btn btn-default" ng-click="self.showMoreLess('less')">
+                        <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span> Show less
+                    </button>
+                    <button ng-if="self.showMoreButton" class="btn acorn-bg-darker" ng-click="self.showMoreLess('more')">
+                        <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span> Show more
+                    </button>
+                </div>
             </div>
         </div>
     </div>

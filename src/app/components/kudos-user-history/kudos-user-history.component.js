@@ -178,6 +178,9 @@
                 self.gaveOperations=false;
                 self.challengeOperations=true;
             }
+
+            self.showLessButton = false;
+            self.transactionEndingIndex = 6;
             self.historyRadioBox = 'wonLost';
         }
 

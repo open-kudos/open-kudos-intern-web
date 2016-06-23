@@ -9,7 +9,7 @@
             <div style="margin-top: -8px"><b><h4>Transaction</h4></b></div>
             <div ng-if="item.receiverEmail == self.thisUsersEmail">
                 <label>{{item.receiverFullName}}</label>
-                received
+                <span class="history-positive">received</span>
                 <span class="badge acorn-bg ng-binding">{{self.acornPlural(item.amount)}}</span>
                 from
                 <label>{{item.senderFullName}}</label>
@@ -18,7 +18,7 @@
             </div>
             <div ng-if="item.senderEmail == self.thisUsersEmail">
                 <label>{{item.senderFullName}}</label>
-                gave
+                <span class="history-negative">gave</span>
                 <span class="badge acorn-bg ng-binding">{{self.acornPlural(item.amount)}}</span>
                 to
                 <label>{{item.receiverFullName}}</label>
@@ -30,7 +30,7 @@
             <div style="margin-top: -8px"><b><h4>Challenge</h4></b></div>
             <div ng-if="item.receiverEmail == self.thisUsersEmail">
                 <label>{{item.receiverFullName}}</label>
-                won
+                <span class="history-positive">won</span>
                 <span class="badge acorn-bg ng-binding">{{self.acornPlural(item.amount)}}</span>
                 against
                 <label>{{item.senderFullName}}</label>
@@ -39,7 +39,7 @@
             </div>
             <div ng-if="item.senderEmail == self.thisUsersEmail">
                 <label>{{item.senderFullName}}</label>
-                lost
+                <span class="history-negative">lost</span>
                 <span class="badge acorn-bg ng-binding">{{self.acornPlural(item.amount / 2)}}</span>
                 against
                 <label>{{item.receiverFullName}}</label>
@@ -51,7 +51,7 @@
             <div style="margin-top: -8px"><b><h4>Challenge</h4></b></div>
             <div ng-if="item.receiverEmail == self.thisUsersEmail">
                 <label>{{item.receiverFullName}}</label>
-                lost
+                <span class="history-negative">lost</span>
                 <span class="badge acorn-bg ng-binding">{{self.acornPlural(item.amount / 2)}}</span>
                 against
                 <label>{{item.senderFullName}}</label>
@@ -60,7 +60,7 @@
             </div>
             <div ng-if="item.senderEmail == self.thisUsersEmail">
                 <label>{{item.senderFullName}}</label>
-                won
+                <span class="history-positive">won</span>
                 <span class="badge acorn-bg ng-binding">{{self.acornPlural(item.amount)}}</span>
                 against
                 <label>{{item.receiverFullName}}</label>
@@ -69,6 +69,4 @@
             </div>
         </div>
     </div>
-    <button ng-if="self.showLessButton" class="btn btn-default" ng-click="self.showMoreLess('less')">Show less</button>
-    <button ng-if="self.showMoreButton" class="btn btn-default" ng-click="self.showMoreLess('more')">Show more</button>
 </div>

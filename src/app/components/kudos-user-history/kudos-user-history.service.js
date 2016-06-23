@@ -22,8 +22,8 @@
             getReceivedTransactions : getReceivedTransactions,
             getGaveTransactions : getGaveTransactions,
             getChallengesTransactions : getChallengesTransactions,
-            getAll : getUserTransactionsAll,
-            setAll : setUserTransactionsAll,
+            getAll : getAllUserTransactions,
+            setAll : setAllUserTransactions,
             getReceived : getReceivedUserTransactions,
             setReceived : setReceivedUserTransactions,
             getGave : getGaveUserTransactions,
@@ -106,14 +106,14 @@
             setTransactions(email, val, transactionsGave)
         }
 
-        function getUserTransactionsAll(data, trigger) {
+        function getAllUserTransactions(data, trigger) {
             if (trigger) {
                 if (getTransactions(data.email)) return transactionsAll[index];
                 else return false;
             } else return false;
         }
         
-        function setUserTransactionsAll(email, val) {
+        function setAllUserTransactions(email, val) {
             setTransactions(email, val, transactionsAll)
         }
         

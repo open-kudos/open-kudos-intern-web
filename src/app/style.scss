@@ -245,3 +245,11 @@ input[type="radio"]:checked + label span {
   -moz-transition:background-color 0.4s linear;
   transition:background-color 0.4s linear;
 }
+
+.history-positive{
+  color: rgb(0, 165, 11);
+}
+
+.history-negative{
+  color: rgb(187, 0, 8);
+}
