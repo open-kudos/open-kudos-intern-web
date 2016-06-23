@@ -1,4 +1,9 @@
 <div class="text-center row">
+    <div class="text-right">
+        <p class="clickable" ng-click="self.updateListReceived(self.thisUsersEmail, false); self.spin=true">
+            <span ng-class="self.spin ? 'glyphicon glyphicon-refresh spin' : 'glyphicon glyphicon-refresh'"></span> Refresh
+        </p>
+    </div>
     <div ng-if="!self.transactionHistory[0]">
         <div class="alert alert-info acorn-bg margin-top">
             <strong>Whoops!</strong> This user has not received any acorns yet

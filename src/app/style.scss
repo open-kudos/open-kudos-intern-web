@@ -253,3 +253,17 @@ input[type="radio"]:checked + label span {
 .history-negative{
   color: rgb(187, 0, 8);
 }
+
+.clickable{
+  margin-top: -8px;
+  padding-right: 10px;
+  margin-bottom: -5px;
+}
+
+.clickable:hover{
+  cursor: pointer;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}

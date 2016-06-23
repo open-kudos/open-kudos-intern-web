@@ -1,5 +1,5 @@
 (function () {
-    var UserHistoryController = function(Resources, UserHistoryService){
+    var UserHistoryController = function(Resources, UserHistoryService, $timeout){
         var self = this;
 
         self.showHistoryLoader = true;
@@ -31,6 +31,7 @@
         };
 
         function updateListAll(email, trigger){
+            spin();
             self.showHistoryLoader = true;
             self.thisUsersEmail = email;
             var requestData = {
@@ -54,6 +55,7 @@
         }
 
         function updateListReceived(email, trigger){
+            spin();
             self.showHistoryLoader = true;
             self.thisUsersEmail = email;
             var requestData = {
@@ -77,6 +79,7 @@
         }
 
         function updateListGave(email, trigger){
+            spin();
             self.showHistoryLoader = true;
             self.thisUsersEmail = email;
             var requestData = {
@@ -100,6 +103,7 @@
         }
 
         function updateListChallenges(email, trigger){
+            spin();
             self.showHistoryLoader = true;
             self.thisUsersEmail = email;
             var requestData = {
@@ -188,13 +192,19 @@
             self.historyRadioBox = 'wonLost';
         }
 
+        function spin() {
+            $timeout(function () {
+                self.spin = false;
+            }, 1000);
+        }
+
         $('#history'+self.modalIndex).on('hidden', function () {
             console.log('nx');
             self.transactionEndingIndex = 5;
         })
     };
 
-    UserHistoryController.$inject = ['Resources', 'UserHistoryService'];
+    UserHistoryController.$inject = ['Resources', 'UserHistoryService', '$timeout'];
 
     angular.module('myApp.components.userHistory', [])
         .component('kudosUserHistory', {
