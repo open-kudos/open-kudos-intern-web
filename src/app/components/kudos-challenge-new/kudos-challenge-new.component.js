@@ -26,7 +26,6 @@
             if (!isValid(newVal)) $scope.userEmail = Resources.getCurrentUserEmail();
         });
 
-
         function getChallengeParticipatedList() {
             $scope.id = false;
 
@@ -62,13 +61,17 @@
 
         function cancelChallenge(index) {
             var challengeId = $httpParamSerializer({
-                id: Resources.getNewChallenges()[index].id
+                id: $scope.challengeList[index].id
             });
+            console.log(challengeId);
+            console.log(index);
             Challenges.cancel(challengeId).then(function (val) {
                 Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() + val.data.amount);
                 Resources.getNewChallenges().splice(index, 1);
                 Resources.getCompletedChallenges().push(val.data);
+                console.log(Resources.getNewChallenges());
                 $scope.challengeList = Resources.getNewChallenges();
+
                 toastr.success("Challenge canceled");
             });
         }
