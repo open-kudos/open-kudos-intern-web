@@ -12,10 +12,7 @@
             <span class="badge acorn-bg">{{acornPlural(challenge.amount * 2)}}</span>
         </p>
 
-        <p>
-            Status:
-            <span class="bold">{{challenge.status}}</span>
-        </p>
+        <p>Status:<span class="bold">{{challenge.status}}</span></p>
         <span class="bold" ng-if="challenge.status == 'ACCOMPLISHED' ">{{getWinner($index)}}</span>
     </div>
 
