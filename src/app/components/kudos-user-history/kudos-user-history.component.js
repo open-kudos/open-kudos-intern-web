@@ -129,7 +129,7 @@
 
         function showMoreLess(val) {
             if (val == 'more'){
-                self.transactionEndingIndex += 5;
+                self.transactionEndingIndex += 10;
                 self.showLessButton = true;
 
                 if (self.allOperations) updateListAll(self.thisUsersEmail, false);
