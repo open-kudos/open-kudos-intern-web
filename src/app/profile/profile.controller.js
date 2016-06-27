@@ -76,7 +76,6 @@
         }
 
         function isValid(value) {
-            value == undefined;
             return typeof value === "undefined";
         }
     };

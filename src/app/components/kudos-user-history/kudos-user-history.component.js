@@ -24,9 +24,13 @@
         self.updateListGave = updateListGave;
         self.updateListChallenges = updateListChallenges;
         self.showList = showList;
+        self.getTemplate = getTemplate;
 
         this.$onInit = function() {
             self.currentUser = this.user;
+            if (this.page == true){
+                updateListAll(self.currentUser.email, true);
+            }
             self.modalIndex = split(this.user.$$hashKey, ":")[1];
         };
 
@@ -35,7 +39,7 @@
             self.showHistoryLoader = true;
             self.thisUsersEmail = email;
             var requestData = {
-                email: self.thisUsersEmail,
+                email: self.user.email,
                 start: self.transactionStartingIndex,
                 end: self.transactionEndingIndex
             };
@@ -192,25 +196,30 @@
             self.historyRadioBox = 'wonLost';
         }
 
+        function getTemplate(page) {
+            if (this.page == true){
+                return 'app/components/kudos-user-history/kudos-user-history-page.html';
+            } else {
+                return 'app/components/kudos-user-history/kudos-user-history.html';
+            }
+        }
+
         function spin() {
             $timeout(function () {
                 self.spin = false;
             }, 1000);
         }
 
-        $('#history'+self.modalIndex).on('hidden', function () {
-            console.log('nx');
-            self.transactionEndingIndex = 5;
-        })
     };
 
     UserHistoryController.$inject = ['Resources', 'UserHistoryService', '$timeout'];
 
     angular.module('myApp.components.userHistory', [])
         .component('kudosUserHistory', {
-            templateUrl: 'app/components/kudos-user-history/kudos-user-history.html',
+            template: '<ng-include src="self.getTemplate()"/>' ,
             bindings: {
-                user: '<'
+                user: '<',
+                page: '<'
             },
             controller: 'UserHistoryController',
             controllerAs: 'self'
