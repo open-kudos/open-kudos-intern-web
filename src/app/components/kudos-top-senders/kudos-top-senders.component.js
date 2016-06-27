@@ -1,6 +1,6 @@
 (function () {
 
-    var TopSendersController = function ($scope, ProfileService, $httpParamSerializer) {
+    var TopSendersController = function ($scope, ProfileService, $httpParamSerializer, Resources) {
         $scope.topSenders = [];
         $scope.acornPlural = acornPlural;
         $scope.setTopSenders = setTopSenders;
@@ -20,12 +20,18 @@
             });
         }
 
+        $scope.$watch(function () {
+            return Resources.getTopSenders();
+        }, function (newVal) {
+            $scope.topSenders = newVal;
+        });
+
         function acornPlural(amount) {
             return amount > 1 ? amount + " Acorns" : amount + " Acorn"
         }
     };
 
-    TopSendersController.$inject = ['$scope', 'ProfileService', '$httpParamSerializer'];
+    TopSendersController.$inject = ['$scope', 'ProfileService', '$httpParamSerializer', 'Resources'];
 
     angular.module('myApp.components.topSenders', [])
         .component('kudosTopSenders', {

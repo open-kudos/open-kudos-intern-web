@@ -218,7 +218,7 @@
         .component('kudosUserHistory', {
             template: '<ng-include src="self.getTemplate()"/>' ,
             bindings: {
-                user: '<',
+                user: '=',
                 page: '<'
             },
             controller: 'UserHistoryController',

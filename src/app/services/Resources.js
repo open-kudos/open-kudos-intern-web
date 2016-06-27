@@ -9,6 +9,8 @@
             var notificationsTransactionCollection = [];
             var usersCollection = [];
             var completedChallenges = [];
+            var topReceivers = [];
+            var topSenders = [];
             var userAvailableKudos;
             var sentKudosTable;
             var receivedKudosTable;
@@ -106,6 +108,18 @@
                 },
                 getNewChallenges: function () {
                     return newChallenges;
+                },
+                getTopReceivers: function () {
+                    return topReceivers;
+                },
+                setTopReceivers: function (val) {
+                    topReceivers = val;
+                },
+                getTopSenders: function () {
+                    return topSenders;
+                },
+                setTopSenders: function (val) {
+                    topSenders = val;
                 }
             };
         });

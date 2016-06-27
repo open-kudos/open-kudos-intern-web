@@ -1,34 +1,48 @@
 (function () {
 
-    var LeaderboardFilterController = function ($scope, $controller) {
-        var TopReceiversController = $scope.$new(),
-            TopSendersController = $scope.$new();
-        $controller('TopSendersController',{$scope : TopSendersController});
-        $controller('TopReceiversController',{$scope : TopReceiversController});
+    var LeaderboardFilterController = function (ProfileService, Resources, $httpParamSerializer) {
         var self = this;
-        
+
         self.criterion = 'All over period';
         
         self.setFilter = setFilter;
-
+        
         function setFilter(value) {
             if (value == 'all') {
                 self.criterion = 'All over period';
-                TopReceiversController.setTopReceivers('all');
-                TopSendersController.setTopSenders('all');
+                updateTopReceivers('all');
+                updateTopSenders('all');
             } else if (value == '7'){
                 self.criterion = 'Past 7 days';
-                TopReceiversController.setTopReceivers('week');
-                TopSendersController.setTopSenders('week');
+                updateTopReceivers('week');
+                updateTopSenders('week');
             } else if (value == '30'){
+                updateTopReceivers('month');
+                updateTopSenders('month');
                 self.criterion = 'Past 30 days';
-                TopReceiversController.setTopReceivers('month');
-                TopSendersController.setTopSenders('month');
             }
+        }
+        
+        function updateTopReceivers(param) {
+            ProfileService.getTopReceivers(getRequestParams(param)).then(function (val) {
+                Resources.setTopReceivers(val);
+            });
+        }
+
+        function updateTopSenders(param) {
+            ProfileService.getTopSenders(getRequestParams(param)).then(function (val) {
+                Resources.setTopSenders(val);
+            });
+        }
+
+        function getRequestParams(param) {
+            return $httpParamSerializer({
+                period : param
+            });
         }
     };
 
-    LeaderboardFilterController.$inject = ['$scope', '$controller'];
+    LeaderboardFilterController.$inject = ['ProfileService', 'Resources', '$httpParamSerializer'];
 
     angular.module('myApp.components.leaderboardFilter', [])
         .component('kudosLeaderboardFilter', {
