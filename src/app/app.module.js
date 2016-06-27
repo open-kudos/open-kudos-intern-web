@@ -34,6 +34,7 @@
             'myApp.components.relationship',
             'myApp.components.info',
             'myApp.components.feed',
-            'myApp.components.userHistory'
+            'myApp.components.userHistory',
+            'myApp.components.leaderboardFilter'
         ]);
 })();

@@ -73,21 +73,21 @@ function User($http, SERVER) {
         })
     }
 
-    function getTopReceivers() {
+    function getTopReceivers(requestData) {
         return $http({
             method: 'GET',
             withCredentials: true,
-            url: SERVER.ip + "/user/topreceivers"
+            url: SERVER.ip + "/user/topreceivers?" + requestData
         }).then(function (response) {
             return response.data;
         })
     }
 
-    function getTopSenders() {
+    function getTopSenders(requestData) {
         return $http({
             method: 'GET',
             withCredentials: true,
-            url: SERVER.ip + "/user/topsenders"
+            url: SERVER.ip + "/user/topsenders?" + requestData
         }).then(function (response) {
             return response.data;
         })

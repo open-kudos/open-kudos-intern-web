@@ -47,12 +47,12 @@
             return userBackend.update(updateInfo);
         }
 
-        function GetTopReceivers() {
-            return userBackend.getTopReceivers();
+        function GetTopReceivers(requestData) {
+            return userBackend.getTopReceivers(requestData);
         }
 
-        function GetTopSenders() {
-            return userBackend.getTopSenders();
+        function GetTopSenders(requestData) {
+            return userBackend.getTopSenders(requestData);
         }
 
         function RemainingKudos() {
