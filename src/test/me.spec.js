@@ -56,18 +56,17 @@ describe('Me (profile)', function() {
 
         it('should not be possible to give string longer than 20 for first name', function () {
             ctrl.firstNameEdit = '123456789012345678901';
-            expect(ctrl.checkInputs()).toBe('First name is too long');
+            expect(ctrl.lengthLimit(ctrl.firstNameEdit, 20)).toBe('12345678901234567890');
         });
 
         it('should not be possible to give string longer than 30 for last name', function () {
-            ctrl.firstNameEdit = 'a';
             ctrl.lastNameEdit = '1234567890123456789012345678901';
-            expect(ctrl.checkInputs()).toBe('Last name is too long');
+            expect(ctrl.lengthLimit(ctrl.lastNameEdit, 30)).toBe('123456789012345678901234567890');
         });
 
         it('should not be possible to give empty string for first name', function () {
-            ctrl.firstNameEdit = "First name can't be empty";
-            expect(ctrl.checkInputs()).toBe('First name is too long');
+            ctrl.firstNameEdit = "";
+            expect(ctrl.checkInputs()).toBe("First name can't be empty");
         });
 
         it('should not be possible to give empty string for last name', function () {
