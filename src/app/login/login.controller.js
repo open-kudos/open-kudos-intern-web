@@ -30,9 +30,9 @@
         }
         
         function loginAndRemember(loginData) {
-            rememberUser();
             LoginService.login(loginData).then(function (response) {
                 if (responseValidation(response)) {
+                    rememberUser();
                     $location.path("/profile");
                 }
             });
@@ -46,7 +46,6 @@
             });
         }
 
-        
         function checkIfUserLoggedIn() {
             LoginService.checkUser().then(function (val) {
                 $scope.loggedIn = val.data.logged;
@@ -59,16 +58,6 @@
             expireDate.setDate(expireDate.getDate() + 360); // Setting expiration date to 180 days
             $cookies.put('remember_user', 'true', {expires: expireDate});
             $cookies.put('user_credentials', $base64.encode($scope.email + '@swedbank' + $scope.domain +":" +$scope.password), {expires: expireDate});
-        }
-
-        function validateAndLogin(loginInfo) {
-            $scope.showLoader = true;
-            if (formFieldsValid($scope.email, $scope.password)) {
-                LoginService.login(loginInfo).then(function (response) {
-                    $scope.showLoader = false;
-                    responseValidation(response);
-                })
-            }
         }
 
         function loginFormValid(email, password) {
@@ -95,12 +84,6 @@
             }
         }
 
-        function showError(message) {
-            $scope.errorMessage = message;
-            $scope.showError = true;
-            return false;
-        }
-
         function validateEmail(email) {
             var reg = /[a-z]\W[a-z]/;
             if (reg.test(email)){
@@ -109,12 +92,25 @@
             } else return reg.test(email);
         }
 
+        function showError(message) {
+            $scope.errorMessage = message;
+            $scope.showError = true;
+            return false;
+        }
+
         function isRememberedUser() {
             if ($cookies.get('remember_user') != null && $cookies.get('remember_user') != undefined){
                 return $cookies.get('remember_user') === 'true';
             } else {
                 return false;
             }
+        }
+
+        function getLoginInfo() {
+            return {
+                email: $scope.email + '@swedbank' + $scope.domain,
+                password: $scope.password
+            };
         }
 
         function getRememberedLoginInfo() {
@@ -129,12 +125,6 @@
             }
         }
 
-        function getLoginInfo() {
-            return {
-                email: $scope.email + '@swedbank' + $scope.domain,
-                password: $scope.password
-            };
-        }
     }
 
     LoginController.$inject = ['$scope', '$cookies', '$base64', '$httpParamSerializer', 'LoginService', '$location'];
