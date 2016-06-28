@@ -1,6 +1,8 @@
 (function () {
     var AddNewIdeaController = function ($scope, $timeout, $httpParamSerializer, AddNewIdeaService){
 
+        $scope.lengthLimit = lengthLimit;
+        $scope.symbolsLeft = symbolsLeft;
         $scope.addIdeaFormCheck = addIdeaFormCheck;
         $scope.showAddIdeaFormErrorMessage = showAddIdeaFormErrorMessage;
         $scope.addIdea = addIdea;

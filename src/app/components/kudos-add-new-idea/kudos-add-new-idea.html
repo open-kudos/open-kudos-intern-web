@@ -20,11 +20,21 @@
             <div class="modal-body">
                 <form name="addIdeaForm">
                     <div class="form-group col-sm-6">
-                        <input ng-model="author" class="form-control" id="author" name="author" type="text" placeholder="Author of idea" required>
+                        <input ng-model="author" class="form-control" id="author" name="author" type="text" placeholder="Author of idea"
+                               ng-trim="false" value="{{author = lengthLimit(author, 30)}}"
+                               required>
+                    </div>
+                    <div class="col-sm-12 characters-left-wisdom">
+                        <label>Characters left: {{symbolsLeft(author, 30)}}</label>
                     </div>
 
                     <div class="form-group col-sm-12">
-                        <textarea ng-model="idea" class="form-control" id="idea" name="idea" placeholder="Idea" required></textarea>
+                        <textarea ng-model="idea" class="form-control" id="idea" name="idea" placeholder="Idea"
+                                  ng-trim="false" value="{{idea = lengthLimit(idea, 100)}}"
+                                  required></textarea>
+                    </div>
+                    <div class="col-sm-12 characters-left-wisdom">
+                        <label>Characters left: {{symbolsLeft(idea, 100)}}</label>
                     </div>
 
                     <div ng-class="{fade: startFade}" class="form-group col-sm-12 text-center">
