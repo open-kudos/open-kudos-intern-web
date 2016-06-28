@@ -19,6 +19,8 @@
         self.isFriendsActive = false;
         self.showLoader = true;
 
+        self.lengthLimit = lengthLimit;
+        self.symbolsLeft = symbolsLeft;
         self.edit = edit;
         self.splitDate = splitDate;
         self.checkIsCompleted = checkIsCompleted;
@@ -97,12 +99,10 @@
 
         function checkInputs() {
             if (self.firstNameEdit){
-                if (self.firstNameEdit.length > 20) return "First name is too long";
                 if (checkPattern(self.firstNameEdit)) return "In first name field only letters are allowed";
             } else return "First name can't be empty";
 
             if (self.lastNameEdit){
-                if (self.lastNameEdit.length > 30) return "Last name is too long";
                 if (checkPattern(self.lastNameEdit)) return "In last name field only letters are allowed";
             } else return "Last name can't be empty";
 

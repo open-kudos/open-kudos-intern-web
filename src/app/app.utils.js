@@ -26,3 +26,19 @@ function isValid(value) {
 function split(splitValue, splitMark) {
     return splitValue.split(splitMark);
 }
+
+function lengthLimit(input, length) {
+    if (input) {
+        while (input.charAt(0) == ' ')
+            input = input.slice(1);
+        while (input.length > length)
+            input = input.slice(0, -1);
+        return input;
+    }
+}
+
+function symbolsLeft(input, length) {
+    if (input)
+        return length - input.length;
+    else return length;
+}
