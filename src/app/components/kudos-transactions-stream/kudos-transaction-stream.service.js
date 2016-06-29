@@ -1,6 +1,3 @@
-/**
- * Created by vytautassugintas on 26/04/16.
- */
 (function () {
     "use strict";
     angular.module('myApp.components.transactions')

@@ -4,8 +4,7 @@
         $scope.showLoaderNew = true;
 
         $scope.challengeList = [];
-
-
+        
         $scope.getChallengeParticipatedList = getChallengeParticipatedList;
         $scope.acceptChallenge = acceptChallenge;
         $scope.declineChallenge = declineChallenge;

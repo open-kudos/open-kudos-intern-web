@@ -1,6 +1,3 @@
-/**
- * Created by vytautassugintas on 25/04/16.
- */
 (function () {
 
     var KudosTransactionController = function ($scope, $timeout, $httpParamSerializer, KudosTransactionService) {

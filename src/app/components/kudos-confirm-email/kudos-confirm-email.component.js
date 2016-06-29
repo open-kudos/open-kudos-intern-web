@@ -14,9 +14,7 @@
                 }
             })
         }
-
-        // HASH pbs7khol76tqudj2rpg6ulqd66
-
+        
         $scope.$on('$locationChangeStart', function (event, newUrl, oldUrl) {
             var $openModalSelector = $(".modal.fade.in");
             if (($openModalSelector.data('bs.modal') || {}).isShown == true) {

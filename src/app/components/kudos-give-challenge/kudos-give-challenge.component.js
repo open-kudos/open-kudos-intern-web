@@ -6,6 +6,7 @@
         $scope.showError = false;
         $scope.usersCollection = [];
 
+        $scope.lengthLimit = lengthLimit;
         $scope.clearChallengeFormValues = clearChallengeFormValues;
         $scope.challengeFormCheck = challengeFormCheck;
         $scope.giveChallenge = giveChallenge;

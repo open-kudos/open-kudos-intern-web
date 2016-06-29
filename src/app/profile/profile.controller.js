@@ -1,6 +1,3 @@
-/**
- * Created by vytautassugintas on 06/04/16.
- */
 (function () {
     'use strict';
     var ProfileController = function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, $filter, ProfileService, Challenges, Resources) {

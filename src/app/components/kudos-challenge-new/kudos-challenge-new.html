@@ -13,12 +13,12 @@
         </p>
 
         <p class="card-text" ng-if="challenge.creator == userEmail">
-            <span class="bold">{{challenge.name}}</span> given to
+            <span class="bold breakword">{{challenge.name}}</span> given to
             <span class="bold">{{challenge.participant}}</span> for
             <span class="badge acorn-bg">{{acornPlural(challenge.amount * 2)}}</span>
         </p>
 
-        <p ng-if="challenge.description">Description: {{challenge.description}}</p>
+        <p class="breakword" ng-if="challenge.description">Description: {{challenge.description}}</p>
         <p ng-if="challenge.finishDate">Finish date: {{convertDate(challenge.finishDate)}}</p>
 
         <div ng-if="challenge.participant == userEmail">

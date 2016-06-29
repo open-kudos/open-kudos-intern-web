@@ -8,21 +8,12 @@
             </div>
 
             <div class="modal-body">
-                <!-- <div class="margin-bot margin--top">
-                     <label ng-hide="selectOption">Select challenge type: </label>
-                     <ul class="nav nav-pills">
-                         <li role="presentation" ng-class="oneVersusOne ? 'active' : ''"><a href="" ng-click="team = false;oneVersusOne=true;selectOption=true">1 vs. 1</a></li>
-                        <li role="presentation" ng-class="team ? 'active' : ''"><a href="" ng-click="team = true;oneVersusOne=false;selectOption=true"> Team </a></li>
-                    </ul>
-                </div>
-                    -->
-
-                <div class=""> <!-- ng-show="oneVersusOne" -->
+                <div class="">
                     <form name="giveChallengeForm">
                         <div class="form-group col-sm-6">
                             <label for="giveChallengeName">{{ 'GIVE_CHALLENGE_NAME' | translate }}</label>
-                            <input ng-model="giveChallengeName" class="form-control"
-                                   id="giveChallengeName" name="giveChallengeName" type="text" required>
+                            <input ng-model="giveChallengeName" class="form-control" ng-trim="false"
+                                   id="giveChallengeName" value="{{giveChallengeName = lengthLimit(giveChallengeName, 50)}}" name="giveChallengeName" type="text" required>
                         </div>
 
                         <div class="form-group col-sm-6">
@@ -56,7 +47,8 @@
                                 translate }} (optional)</label>
                             <textarea ng-model="giveChallengeDescription" class="form-control"
                                       id="giveChallengeDescription"
-                                      name="giveChallengeDescription">
+                                      name="giveChallengeDescription" ng-trim="false"
+                                      value="{{giveChallengeDescription = lengthLimit(giveChallengeDescription, 300)}}">
                             </textarea>
                         </div>
 

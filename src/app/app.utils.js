@@ -1,7 +1,3 @@
-/**
- * Created by vytautassugintas on 15/06/16.
- */
-
 function isEmptyCollection(collection) {
     return collection.length == 0;
 }

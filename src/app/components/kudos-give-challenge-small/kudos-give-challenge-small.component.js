@@ -5,7 +5,7 @@
         $scope.autocompleteHide = true;
         $scope.showError = false;
         $scope.usersCollection = [];
-
+        
         $scope.clearChallengeFormValues = clearChallengeFormValues;
         $scope.challengeFormCheck = challengeFormCheck;
         $scope.giveChallenge = giveChallenge;

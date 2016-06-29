@@ -1,15 +1,6 @@
-/**
- * Created by vytautassugintas on 10/05/16.
- */
-/**
- * Created by vytautassugintas on 06/04/16.
- */
 (function () {
     'use strict';
     var NotificationController = function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, $filter, ProfileService, Challenges, Resources) {
-
-        $scope.greeting = "hello";
-
         $scope.userAvailableKudos = 0;
         $scope.usersCollection = [];
         $scope.buttonDisabled = true;

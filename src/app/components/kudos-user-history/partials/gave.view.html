@@ -17,7 +17,7 @@
                 <span class="badge acorn-bg ng-binding">{{history.acornPlural(item.amount)}}</span>
                 to
                 <label>{{item.receiverFullName}}</label>
-                <div ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
+                <div class="breakword" ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
                 <div ng-if="item.timestamp">{{history.split(item.timestamp, " ")[0]}}</div>
             </div>
         </div>

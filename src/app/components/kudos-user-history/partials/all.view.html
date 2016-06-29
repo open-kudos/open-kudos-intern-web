@@ -17,7 +17,7 @@
                 <span class="badge acorn-bg-victory ng-binding">{{history.acornPlural(item.amount)}}</span>
                 from
                 <label>{{item.senderFullName}}</label>
-                <div ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
+                <div class="breakword" ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
                 <div ng-if="item.timestamp">{{history.split(item.timestamp, " ")[0]}}</div>
             </div>
             <div ng-if="item.senderEmail == history.thisUsersEmail">
@@ -26,7 +26,7 @@
                 <span class="badge acorn-bg ng-binding">{{history.acornPlural(item.amount)}}</span>
                 to
                 <label>{{item.receiverFullName}}</label>
-                <div ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
+                <div class="breakword" ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
                 <div ng-if="item.timestamp">{{history.split(item.timestamp, " ")[0]}}</div>
             </div>
         </div>
@@ -37,7 +37,7 @@
                 <span class="badge acorn-bg-victory ng-binding">{{history.acornPlural(item.amount)}}</span>
                 against
                 <label>{{item.senderFullName}}</label>
-                <div ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
+                <div class="breakword" ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
                 <div ng-if="item.timestamp">{{history.split(item.timestamp, " ")[0]}}</div>
             </div>
             <div ng-if="item.senderEmail == history.thisUsersEmail">
@@ -46,7 +46,7 @@
                 <span class="badge acorn-bg-lost ng-binding">{{history.acornPlural(item.amount / 2)}}</span>
                 against
                 <label>{{item.receiverFullName}}</label>
-                <div ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
+                <div class="breakword" ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
                 <div ng-if="item.timestamp">{{history.split(item.timestamp, " ")[0]}}</div>
             </div>
         </div>
@@ -57,7 +57,7 @@
                 <span class="badge acorn-bg-lost ng-binding">{{history.acornPlural(item.amount / 2)}}</span>
                 against
                 <label>{{item.senderFullName}}</label>
-                <div ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
+                <div class="breakword" ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
                 <div ng-if="item.timestamp">{{history.split(item.timestamp, " ")[0]}}</div>
             </div>
             <div ng-if="item.senderEmail == history.thisUsersEmail">
@@ -66,7 +66,7 @@
                 <span class="badge acorn-bg-victory ng-binding">{{history.acornPlural(item.amount)}}</span>
                 against
                 <label>{{item.receiverFullName}}</label>
-                <div ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
+                <div class="breakword" ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
                 <div ng-if="item.timestamp">{{history.split(item.timestamp, " ")[0]}}</div>
             </div>
         </div>

@@ -1,9 +1,3 @@
-/**
- * Created by vytautassugintas on 08/06/16.
- */
-/**
- * Created by vytautassugintas on 07/06/16.
- */
 "use strict";
 describe('NotificationComponent', function() {
 

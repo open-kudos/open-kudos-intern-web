@@ -1,7 +1,3 @@
-/**
- * Created by vytautassugintas on 30/05/16.
- */
-
 "use strict";
 describe('RelationshipComponent', function () {
 

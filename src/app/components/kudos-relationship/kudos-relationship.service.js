@@ -1,6 +1,3 @@
-/**
- * Created by vytautassugintas on 25/05/16.
- */
 (function () {
     "use strict";
     angular.module("myApp.components.relationship")

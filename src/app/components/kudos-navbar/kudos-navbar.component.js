@@ -1,6 +1,3 @@
-/**
- * Created by vytautassugintas on 12/05/16.
- */
 (function () {
     function KudosNavbarController($scope, $location, $window, $cookies, Resources, ProfileService) {
 
