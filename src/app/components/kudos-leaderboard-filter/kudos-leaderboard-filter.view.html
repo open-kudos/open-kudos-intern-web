@@ -1,12 +1,12 @@
 <div class="dropdown leaderboard-filter">
     <button class="btn btn-default dropdown-toggle" type="button" id="filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-        {{self.criterion}}
+        {{filter.criterion}}
         <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" aria-labelledby="filter">
-        <li ng-click="self.setFilter('all')"><a href="">All over period</a></li>
+        <li ng-click="filter.setFilter('all')"><a href="">All over period</a></li>
         <li role="separator" class="divider"></li>
-        <li ng-click="self.setFilter('30')"><a href="">Past 30 days</a></li>
-        <li ng-click="self.setFilter('7')"><a href="">Past 7 days</a></li>
+        <li ng-click="filter.setFilter('30')"><a href="">Past 30 days</a></li>
+        <li ng-click="filter.setFilter('7')"><a href="">Past 7 days</a></li>
     </ul>
 </div>
