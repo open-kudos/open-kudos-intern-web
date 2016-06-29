@@ -1,17 +1,27 @@
 (function () {
-    var AddNewIdeaController = function ($scope, $timeout, $httpParamSerializer, AddNewIdeaService){
+    AddNewIdeaController.$inject = ['$httpParamSerializer', 'AddNewIdeaService'];
 
-        $scope.lengthLimit = lengthLimit;
-        $scope.symbolsLeft = symbolsLeft;
-        $scope.addIdeaFormCheck = addIdeaFormCheck;
-        $scope.showAddIdeaFormErrorMessage = showAddIdeaFormErrorMessage;
-        $scope.addIdea = addIdea;
-        $scope.clearAddIdeaFormValues = clearAddIdeaFormValues;
+    angular.module('myApp.components.addNewIdea', [])
+        .component('kudosAddNewIdea', {
+            templateUrl: 'app/components/kudos-add-new-idea/kudos-add-new-idea.html',
+            controller: ('AddNewIdeaController',  AddNewIdeaController),
+            controllerAs: 'newIdea'
+        });
+
+    function AddNewIdeaController($httpParamSerializer, AddNewIdeaService){
+        var self = this;
+
+        self.lengthLimit = lengthLimit;
+        self.symbolsLeft = symbolsLeft;
+        self.addIdeaFormCheck = addIdeaFormCheck;
+        self.showAddIdeaFormErrorMessage = showAddIdeaFormErrorMessage;
+        self.addIdea = addIdea;
+        self.clearAddIdeaFormValues = clearAddIdeaFormValues;
 
         function addIdea() {
             var newIdea = $httpParamSerializer({
-                authorName: $scope.author,
-                idea: $scope.idea
+                authorName: self.author,
+                idea: self.idea
             });
 
             var isValid = addIdeaFormCheck();
@@ -26,41 +36,27 @@
         }
 
         function clearAddIdeaFormValues() {
-            $scope.author = null;
-            $scope.idea = null;
+            self.author = null;
+            self.idea = null;
             showAddIdeaFormErrorMessage("");
         }
 
         function addIdeaFormCheck() {
-            if ($scope.author == null) {
+            if (self.author == null) {
                 showAddIdeaFormErrorMessage("Please enter author of the idea");
                 return false;
-            } else if ($scope.idea == null) {
+            } else if (self.idea == null) {
                 showAddIdeaFormErrorMessage("Please enter idea");
                 return false;
-            } else if ($scope.author.length > 30) {
-                showAddIdeaFormErrorMessage("Author name is too long (max 30 characters)");
-                return false;
-            } else if ($scope.idea.length > 100) {
-                showAddIdeaFormErrorMessage("Idea is too long (max 100 characters)");
-                return false;
             }
+
             showAddIdeaFormErrorMessage("");
             return true;
         }
 
         function showAddIdeaFormErrorMessage(message) {
-            $scope.errorClass = "error-message";
-            $scope.addIdeaFormErrorMessage = message;
+            self.errorClass = "error-message";
+            self.addIdeaFormErrorMessage = message;
         }
-    };
-
-    AddNewIdeaController.$inject = ['$scope', '$timeout', '$httpParamSerializer', 'AddNewIdeaService'];
-
-    angular.module('myApp.components.addNewIdea', [])
-        .component('kudosAddNewIdea', {
-            templateUrl: 'app/components/kudos-add-new-idea/kudos-add-new-idea.html',
-            controller: 'AddNewIdeaController'
-        })
-        .controller('AddNewIdeaController',  AddNewIdeaController)
+    }
 })();

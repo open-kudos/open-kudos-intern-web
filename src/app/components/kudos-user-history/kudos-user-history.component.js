@@ -4,13 +4,12 @@
     angular
         .module('myApp.components.userHistory', [])
         .component('kudosUserHistory', {
-            template: '<ng-include src="history.getTemplate()"/>' ,
+            template: '<ng-include src="$ctrl.getTemplate()"/>' ,
             bindings: {
                 user: '=',
                 page: '<'
             },
-            controller: ('UserHistoryController', UserHistoryController),
-            controllerAs: 'history'
+            controller: ('UserHistoryController', UserHistoryController)
         });
 
     function UserHistoryController(UserHistoryService, $timeout){

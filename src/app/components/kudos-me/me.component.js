@@ -1,6 +1,14 @@
 (function () {
+    MeController.$inject = ['$scope', '$filter', '$window', '$timeout', '$httpParamSerializer', 'MeService', 'Resources', 'ProfileService'];
 
-    var MeController = function ($scope, $filter, $window, $timeout, $httpParamSerializer, MeService, Resources, ProfileService) {
+    angular
+        .module('myApp.components.me', [])
+        .component('kudosMe', {
+            templateUrl: 'app/components/kudos-me/me.html'
+        })
+        .controller('MeController', MeController);
+
+    function MeController($scope, $filter, $window, $timeout, $httpParamSerializer, MeService, Resources, ProfileService) {
         var self = this;
         var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
         var currentDate = $filter('date')(new Date(), requestDateFormat);
@@ -168,15 +176,5 @@
         $scope.$watch(function () {
             userInformation();
         });
-    };
-
-    MeController.$inject = ['$scope', '$filter', '$window', '$timeout', '$httpParamSerializer', 'MeService', 'Resources', 'ProfileService'];
-
-    angular.module('myApp.components.me', [])
-        .component('kudosMe', {
-            templateUrl: 'app/components/kudos-me/me.html',
-            controller: 'MeController'
-        })
-        .controller('MeController', MeController)
-
+    }
 })();
