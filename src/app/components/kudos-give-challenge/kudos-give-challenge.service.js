@@ -9,13 +9,13 @@ GiveChallengeService.$inject = [
 
 function GiveChallengeService(Challenges, userBackend){
     var service = {
-        create: createChallenge,
+        createChallenge: createChallenge,
         listUsers: ListUsers
     };
     return service;
     
     function createChallenge(requestData) {
-        return Challenges.create(requestData).then(function (val) {
+        return Challenges.createChallenge(requestData).then(function (val) {
             return val;
         })
     }
