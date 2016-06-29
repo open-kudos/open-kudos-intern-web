@@ -58,11 +58,7 @@
         }
 
         function showMoreButton(val) {
-            if (val.length > $scope.completedChallengesLimit) {
-                $scope.showMoreButton = true;
-            } else {
-                $scope.showMoreButton = false;
-            }
+            $scope.showMoreButton = val.length > $scope.completedChallengesLimit
         }
 
         function showMore() {
