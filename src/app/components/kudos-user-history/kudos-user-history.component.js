@@ -4,12 +4,13 @@
     angular
         .module('myApp.components.userHistory', [])
         .component('kudosUserHistory', {
-            template: '<ng-include src="$ctrl.getTemplate()"/>' ,
+            template: '<ng-include src="history.getTemplate()"/>' ,
             bindings: {
                 user: '=',
                 page: '<'
             },
-            controller: ('UserHistoryController', UserHistoryController)
+            controller: ('UserHistoryController', UserHistoryController),
+            controllerAs: 'history'
         });
 
     function UserHistoryController(UserHistoryService, $timeout){
@@ -52,7 +53,7 @@
             self.showHistoryLoader = true;
             self.thisUsersEmail = email;
             var requestData = {
-                email: self.user.email,
+                email: self.thisUsersEmail,
                 start: self.transactionStartingIndex,
                 end: self.transactionEndingIndex
             };

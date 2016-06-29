@@ -1,24 +1,24 @@
 <div class="text-center row">
     <div class="text-right">
-        <p class="clickable" ng-click="$ctrl.updateListGave($ctrl.thisUsersEmail, false); $ctrl.spin=true">
-            <span ng-class="$ctrl.spin ? 'glyphicon glyphicon-refresh spin' : 'glyphicon glyphicon-refresh'"></span> Refresh
+        <p class="clickable" ng-click="history.updateListGave(history.thisUsersEmail, false); history.spin=true">
+            <span ng-class="history.spin ? 'glyphicon glyphicon-refresh spin' : 'glyphicon glyphicon-refresh'"></span> Refresh
         </p>
     </div>
-    <div ng-if="!$ctrl.transactionHistory[0]">
+    <div ng-if="!history.transactionHistory[0]">
         <div class="alert alert-info acorn-bg margin-top">
             <strong>Whoops!</strong> This user has not gave any acorns to anyone yet
         </div>
     </div>
-    <div ng-repeat="item in $ctrl.transactionHistory | limitTo:$ctrl.transactionEndingIndex-1">
+    <div ng-repeat="item in history.transactionHistory | limitTo:history.transactionEndingIndex-1">
         <div class="box4" ng-if="item.status == 'COMPLETED'">
-            <div ng-if="item.senderEmail == $ctrl.thisUsersEmail">
+            <div ng-if="item.senderEmail == history.thisUsersEmail">
                 <label>{{item.senderFullName}}</label>
                 gave
-                <span class="badge acorn-bg ng-binding">{{$ctrl.acornPlural(item.amount)}}</span>
+                <span class="badge acorn-bg ng-binding">{{history.acornPlural(item.amount)}}</span>
                 to
                 <label>{{item.receiverFullName}}</label>
                 <div ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
-                <div ng-if="item.timestamp">{{$ctrl.split(item.timestamp, " ")[0]}}</div>
+                <div ng-if="item.timestamp">{{history.split(item.timestamp, " ")[0]}}</div>
             </div>
         </div>
     </div>
