@@ -29,10 +29,11 @@ describe('User history', function() {
     }));
 
     describe('Controller', function() {
-
-        it('', function () {
-
-        });
+/*
+        it('should update list for "all" tab transactions', function () {
+            var email = 'test.test@swedbank.lt';
+            expect(ctrl.updateListAll(email, true)).toBe();
+        });*/
 
     });
 });
