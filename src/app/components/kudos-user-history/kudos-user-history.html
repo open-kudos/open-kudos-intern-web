@@ -1,17 +1,17 @@
 <li class="list-group-item"
-    data-toggle="modal" data-target="#history{{self.modalIndex}}" ng-click="self.showList(self.currentUser.email, true)">
-    <span class="badge acorn-bg">{{self.acornPlural(self.currentUser.amountOfKudos)}}</span>
-    <span class="bold">{{self.currentUser.firstName}} {{self.currentUser.lastName}}</span>
+    data-toggle="modal" data-target="#history{{history.modalIndex}}" ng-click="history.changeView('all'); history.showList(history.currentUser.email, true)">
+    <span class="badge acorn-bg">{{history.acornPlural(history.currentUser.amountOfKudos)}}</span>
+    <span class="bold">{{history.currentUser.firstName}} {{history.currentUser.lastName}}</span>
 </li>
 
-<div id="history{{self.modalIndex}}" class="modal fade" role="dialog">
+<div id="history{{history.modalIndex}}" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close"
                         data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Acorns history</h4>
-                <div ng-hide="!self.showHistoryLoader" class="loader"></div>
+                <div ng-hide="!history.showHistoryLoader" class="loader"></div>
             </div>
 
             <div class="modal-body">
@@ -19,32 +19,32 @@
                     <div class="container">
                         <div class="navbar-collapse">
                             <ul class="nav navbar-nav">
-                                <li ng-class="self.allOperations ? 'selected active' : ''"
-                                    ng-click="self.changeView('all'); self.updateListAll(self.currentUser.email, true)">
+                                <li ng-class="history.allOperations ? 'selected active' : ''"
+                                    ng-click="history.changeView('all'); history.updateListAll(history.currentUser.email, true)">
                                     <a>All</a></li>
-                                <li ng-class="self.receivedOperations ? 'selected active' : ''"
-                                    ng-click="self.changeView('received'); self.updateListReceived(self.currentUser.email, true)">
+                                <li ng-class="history.receivedOperations ? 'selected active' : ''"
+                                    ng-click="history.changeView('received'); history.updateListReceived(history.currentUser.email, true)">
                                     <a>Received</a></li>
-                                <li ng-class="self.gaveOperations ? 'selected active' : ''"
-                                    ng-click="self.changeView('gave'); self.updateListGave(self.currentUser.email, true)">
+                                <li ng-class="history.gaveOperations ? 'selected active' : ''"
+                                    ng-click="history.changeView('gave'); history.updateListGave(history.currentUser.email, true)">
                                     <a>Gave</a></li>
-                                <li ng-class="self.challengeOperations ? 'selected active' : ''"
-                                    ng-click="self.changeView('challenges'); self.updateListChallenges(self.currentUser.email, true)">
+                                <li ng-class="history.challengeOperations ? 'selected active' : ''"
+                                    ng-click="history.changeView('challenges'); history.updateListChallenges(history.currentUser.email, true)">
                                     <a>Challenges</a></li>
                             </ul>
                         </div>
                     </div>
                 </nav>
-                <ng-include ng-if="self.allOperations" src="'app/components/kudos-user-history/partials/all.view.html'"></ng-include>
-                <ng-include ng-if="self.receivedOperations" src="'app/components/kudos-user-history/partials/received.view.html'"></ng-include>
-                <ng-include ng-if="self.gaveOperations" src="'app/components/kudos-user-history/partials/gave.view.html'"></ng-include>
-                <ng-include ng-if="self.challengeOperations" src="'app/components/kudos-user-history/partials/challenges.view.html'"></ng-include>
+                <ng-include ng-if="history.allOperations" src="'app/components/kudos-user-history/partials/all.view.html'"></ng-include>
+                <ng-include ng-if="history.receivedOperations" src="'app/components/kudos-user-history/partials/received.view.html'"></ng-include>
+                <ng-include ng-if="history.gaveOperations" src="'app/components/kudos-user-history/partials/gave.view.html'"></ng-include>
+                <ng-include ng-if="history.challengeOperations" src="'app/components/kudos-user-history/partials/challenges.view.html'"></ng-include>
 
-                <div ng-if="self.transactionHistory[0]" class="text-right" style="margin-top: 10px">
-                    <button ng-if="self.showLessButton" class="btn btn-default" ng-click="self.showMoreLess('less')">
+                <div ng-if="history.transactionHistory[0]" class="text-right" style="margin-top: 10px">
+                    <button ng-if="history.showLessButton" class="btn btn-default" ng-click="history.showMoreLess('less')">
                         <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span> Show less
                     </button>
-                    <button ng-if="self.showMoreButton" class="btn acorn-bg-darker" ng-click="self.showMoreLess('more')">
+                    <button ng-if="history.showMoreButton" class="btn acorn-bg-darker" ng-click="history.showMoreLess('more')">
                         <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span> Show more
                     </button>
                 </div>

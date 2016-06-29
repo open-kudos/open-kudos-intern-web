@@ -1,5 +1,13 @@
 (function () {
     'use strict';
+    angular
+        .module('myApp.login', [
+            'ngRoute',
+            'ngCookies',
+            'base64'
+        ])
+        .controller('LoginController', LoginController);
+    
     function LoginController($scope, $cookies, $base64, $httpParamSerializer, LoginService, $location) {
 
         var email = document.getElementById('email');
@@ -128,13 +136,5 @@
     }
 
     LoginController.$inject = ['$scope', '$cookies', '$base64', '$httpParamSerializer', 'LoginService', '$location'];
-
-    angular
-        .module('myApp.login', [
-            'ngRoute',
-            'ngCookies',
-            'base64'
-        ])
-        .controller('LoginController', LoginController);
-
+    
 })();
