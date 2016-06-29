@@ -1,12 +1,12 @@
 (function () {
+    'use strict';
     angular
         .module('myApp.acorn', [
             'ngRoute',
             'ngCookies'
         ])
         .controller('AcornController', AcornController);
-        'use strict';
-
+    
         AcornController.$inject = ['$scope', '$window', 'ProfileService', 'Resources'];
 
         function AcornController($scope, $window, ProfileService, Resources) {
@@ -29,18 +29,11 @@
             }
             activate();
 
-            $scope.$watch(function () {
-                return Resources.getUserAvailableKudos()
-            }, function (newVal) {
-                if (!isValid(newVal)) $scope.userAvailableKudos = Resources.getUserAvailableKudos();
-            });
-
             function checkUser() {
                 ProfileService.checkUser().then(function (val) {
                     val.logged ? $window.location.href = "#/acorns" : $window.location.href = "#/login";
                 });
             }
         }
-
 
     })();
