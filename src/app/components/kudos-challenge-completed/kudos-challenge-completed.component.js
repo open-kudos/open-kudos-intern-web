@@ -1,6 +1,6 @@
 (function () {
 
-    var CompletedChallengesController = function ($scope, $httpParamSerializer, CompletedChallengesService, Challenges, Resources) {
+    var CompletedChallengesController = function ($scope, $httpParamSerializer, Challenges, Resources) {
 
         $scope.completedChallengesCollection = [];
         $scope.showList = false;
@@ -15,7 +15,7 @@
         var showMoreLimit = 5;
         $scope.completedChallengesLimit = 5;
 
-        CompletedChallengesService.completedChallenges().then(function (val) {
+        Challenges.getCompletedChallenges().then(function (val) {
             Resources.setCompletedChallenges(val);
             $scope.completedChallengesCollection = Resources.getCompletedChallenges();
             showMoreButton(val);
@@ -78,7 +78,7 @@
 
     };
 
-    CompletedChallengesController.$inject = ['$scope', '$httpParamSerializer', 'CompletedChallengesService', 'Challenges', 'Resources'];
+    CompletedChallengesController.$inject = ['$scope', '$httpParamSerializer', 'Challenges', 'Resources'];
 
     angular.module('myApp.components.completedChallenges', [])
         .component('kudosChallengeCompleted', {

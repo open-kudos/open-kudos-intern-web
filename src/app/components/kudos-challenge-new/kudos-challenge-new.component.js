@@ -1,5 +1,5 @@
 (function () {
-    var KudosChallengeNewController = function($httpParamSerializer, $scope, KudosChallengeNewService, Challenges, Resources){
+    var KudosChallengeNewController = function($httpParamSerializer, $scope, Challenges, Resources){
         var requestData;
         $scope.showLoaderNew = true;
 
@@ -29,7 +29,7 @@
         function getChallengeParticipatedList() {
             $scope.id = false;
 
-            KudosChallengeNewService.getNewChallenges().then(function (val) {
+            Challenges.getNewChallenges().then(function (val) {
                 Resources.setNewChallenges(val);
                 $scope.challengeList = Resources.getNewChallenges();
                 if ($scope.challengeList[0])
@@ -47,7 +47,7 @@
             });
 
             if (userAvailableKudos >=  kudos) {
-                KudosChallengeNewService.accept(requestData).then(function (val) {
+                Challenges.acceptChallenge(requestData).then(function (val) {
                     toastr.success('You accepted ' + val.data.creator + ' challenge');
                     removeElement(index);
                     Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
@@ -65,7 +65,7 @@
             });
             console.log(challengeId);
             console.log(index);
-            Challenges.cancel(challengeId).then(function (val) {
+            Challenges.cancelChallenge(challengeId).then(function (val) {
                 Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() + val.data.amount);
                 Resources.getNewChallenges().splice(index, 1);
                 Resources.getCompletedChallenges().push(val.data);
@@ -80,7 +80,7 @@
             requestData = $httpParamSerializer({
                 id: id
             });
-            KudosChallengeNewService.decline(requestData).then(function (val) {
+            Challenges.declineChallenge(requestData).then(function (val) {
                 toastr.info('You declined ' + val.data.creator + ' challenge');
                 removeElement(index);
                 getChallengeParticipatedList();
@@ -116,7 +116,7 @@
 
     };
 
-    KudosChallengeNewController.$inject = ['$httpParamSerializer', '$scope', 'KudosChallengeNewService', 'Challenges', 'Resources'];
+    KudosChallengeNewController.$inject = ['$httpParamSerializer', '$scope', 'Challenges', 'Resources'];
 
     angular.module('myApp.components.challengeNew', [])
 
