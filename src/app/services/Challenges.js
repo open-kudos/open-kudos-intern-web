@@ -10,7 +10,7 @@ Challenges.$inject = [
 
 function Challenges($http, SERVER) {
     var challenges = {
-        create: createChallenge,
+        createChallenge: createChallenge,
         cancelChallenge: cancelChallenge,
         getCompletedChallenges: getCompletedChallenges,
         receivedChallenges: getReceivedChallenges,
