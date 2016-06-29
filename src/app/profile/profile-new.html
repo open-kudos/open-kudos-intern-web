@@ -64,17 +64,17 @@
             <div class="panel panel-body">
                 <ul class="nav nav-pills">
                     <h3>Challenges</h3>
-                    <li role="presentation" ng-class="new ? 'active' : ''"><a href="" ng-click="ongoing = false;new=true;completed=false">New</a></li>
-                    <li role="presentation" ng-class="ongoing ? 'active' : ''"><a href="" ng-click="ongoing = true;new=false;completed=false">Ongoing</a></li>
-                    <li role="presentation" ng-class="completed ? 'active' : ''"><a href="" ng-click="ongoing = false;new=false;completed=true">Completed</a></li>
+                    <li role="presentation" ng-class="newChallengeTab ? 'active' : ''"><a href="" ng-click="ongoingChallengeTab = false;newChallengeTab=true;completedChallengeTab=false">New</a></li>
+                    <li role="presentation" ng-class="ongoingChallengeTab ? 'active' : ''"><a href="" ng-click="ongoingChallengeTab = true;newChallengeTab=false;completedChallengeTab=false">Ongoing</a></li>
+                    <li role="presentation" ng-class="completedChallengeTab ? 'active' : ''"><a href="" ng-click="ongoingChallengeTab = false;newChallengeTab=false;completedChallengeTab=true">Completed</a></li>
                 </ul>
-                <div class="" ng-show="ongoing">
+                <div class="" ng-show="ongoingChallengeTab">
                     <kudos-challenge-ongoing></kudos-challenge-ongoing>
                 </div>
-                <div class="" ng-show="new">
+                <div class="" ng-show="newChallengeTab">
                     <kudos-challenge-new></kudos-challenge-new>
                 </div>
-                <div class="" ng-show="completed">
+                <div class="" ng-show="completedChallengeTab">
                     <kudos-challenge-completed></kudos-challenge-completed>
                 </div>
             </div>

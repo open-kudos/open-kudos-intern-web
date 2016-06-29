@@ -1,8 +1,9 @@
 "use strict";
 describe('User history', function() {
-    var scope = null;
-    var ctrl = null;
-    var httpParamSerializer,
+    var scope = null,
+        $componentController,
+        component,
+        httpParamSerializer,
         $httpBackend;
 
     beforeEach(module('myApp'));
@@ -15,12 +16,11 @@ describe('User history', function() {
         });
     });
 
-    beforeEach(inject(function($rootScope, $controller, _$httpBackend_, $httpParamSerializer) {
+    beforeEach(inject(function($rootScope, _$componentController_, _$httpBackend_, $httpParamSerializer) {
         scope = $rootScope.$new();
 
-        ctrl = $controller('UserHistoryController', {
-            $scope: scope
-        });
+        $componentController = _$componentController_;
+        component = $componentController('UserHistoryController');
 
         httpParamSerializer = $httpParamSerializer;
         $httpBackend = _$httpBackend_;

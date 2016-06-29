@@ -18,7 +18,7 @@
         $scope.receivedAcorns = false;
         $scope.sentAcorns = true;
         $scope.giveAcorns = false;
-        $scope.new = true;
+        $scope.newChallengeTab = true;
 
         $scope.showDropDown = false;
 
