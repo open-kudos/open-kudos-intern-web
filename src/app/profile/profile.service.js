@@ -23,7 +23,7 @@
             getTopSenders: GetTopSenders,
             remainingKudos: RemainingKudos,
             receivedKudos: ReceivedKudos,
-            receivedChallenges: ReceivedChallenges,
+            getReceivedChallenges: ReceivedChallenges,
             feedKudos: StreamKudos,
             feedKudosChanged: StreamKudosChanged,
             checkUser: CheckUser,
@@ -72,7 +72,7 @@
         }
 
         function ReceivedChallenges() {
-            return challengesBackend.receivedChallenges();
+            return challengesBackend.getReceivedChallenges();
         }
 
         function Logout() {

@@ -1,6 +1,15 @@
 (function () {
+    LeaderboardFilterController.$inject = ['ProfileService', 'Resources', '$httpParamSerializer'];
 
-    var LeaderboardFilterController = function (ProfileService, Resources, $httpParamSerializer) {
+    angular
+        .module('myApp.components.leaderboardFilter', [])
+        .component('kudosLeaderboardFilter', {
+            templateUrl: 'app/components/kudos-leaderboard-filter/kudos-leaderboard-filter.view.html',
+            controller: ('LeaderboardFilterController', LeaderboardFilterController),
+            controllerAs: 'filter'
+        });
+
+    function LeaderboardFilterController(ProfileService, Resources, $httpParamSerializer) {
         var self = this;
 
         self.criterion = 'All over period';
@@ -40,15 +49,5 @@
                 period : param
             });
         }
-    };
-
-    LeaderboardFilterController.$inject = ['ProfileService', 'Resources', '$httpParamSerializer'];
-
-    angular.module('myApp.components.leaderboardFilter', [])
-        .component('kudosLeaderboardFilter', {
-            templateUrl: 'app/components/kudos-leaderboard-filter/kudos-leaderboard-filter.view.html',
-            controller: 'LeaderboardFilterController',
-            controllerAs: 'self'
-        })
-        .controller('LeaderboardFilterController', LeaderboardFilterController)
+    }
 })();

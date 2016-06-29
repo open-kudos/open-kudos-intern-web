@@ -3,18 +3,17 @@ angular.module("myApp.components.giveTeamChallenge")
     .factory("GiveTeamChallengeService", GiveTeamChallengeService);
 
 GiveTeamChallengeService.$inject = [
-    "Challenges",
-    "User"
+    "Challenges"
 ];
 
-function GiveTeamChallengeService(Challenges, userBackend){
+function GiveTeamChallengeService(Challenges){
     var service = {
-        create: createTeamChallenge
+        createTeamChallenge: createTeamChallenge
     };
     return service;
 
     function createTeamChallenge(requestData) {
-        return Challenges.createTeam(requestData).then(function (val) {
+        return Challenges.createTeamChallenge(requestData).then(function (val) {
             return val;
         })
     }
