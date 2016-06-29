@@ -1,5 +1,19 @@
 (function () {
-    var UserHistoryController = function(Resources, UserHistoryService, $timeout){
+    UserHistoryController.$inject = ['UserHistoryService', '$timeout'];
+
+    angular
+        .module('myApp.components.userHistory', [])
+        .component('kudosUserHistory', {
+            template: '<ng-include src="history.getTemplate()"/>' ,
+            bindings: {
+                user: '=',
+                page: '<'
+            },
+            controller: ('UserHistoryController', UserHistoryController),
+            controllerAs: 'history'
+        });
+
+    function UserHistoryController(UserHistoryService, $timeout){
         var self = this;
 
         self.showHistoryLoader = true;
@@ -26,12 +40,12 @@
         self.showList = showList;
         self.getTemplate = getTemplate;
 
-        this.$onInit = function() {
-            self.currentUser = this.user;
-            if (this.page == true){
+        self.$onInit = function() {
+            self.currentUser = self.user;
+            if (self.page == true){
                 updateListAll(self.currentUser.email, true);
             }
-            self.modalIndex = split(this.user.$$hashKey, ":")[1];
+            self.modalIndex = split(self.user.$$hashKey, ":")[1];
         };
 
         function updateListAll(email, trigger){
@@ -169,26 +183,24 @@
         }
 
         function changeView(value) {
-            if (value == 'all') {
-                self.receivedOperations = false;
-                self.allOperations = true;
-                self.gaveOperations = false;
-                self.challengeOperations = false;
-            } else if (value == 'received'){
-                self.receivedOperations=true;
-                self.allOperations=false;
-                self.gaveOperations=false;
-                self.challengeOperations=false;
-            } else if (value == 'gave'){
-                self.receivedOperations=false;
-                self.allOperations=false;
-                self.gaveOperations=true;
-                self.challengeOperations=false;
-            } else if (value == 'challenges'){
-                self.receivedOperations=false;
-                self.allOperations=false;
-                self.gaveOperations=false;
-                self.challengeOperations=true;
+            self.receivedOperations = false;
+            self.allOperations = false;
+            self.gaveOperations = false;
+            self.challengeOperations = false;
+
+            switch (value){
+                case 'all':
+                    self.allOperations = true;
+                    break;
+                case 'received':
+                    self.receivedOperations=true;
+                    break;
+                case 'gave':
+                    self.gaveOperations=true;
+                    break;
+                case 'challenges':
+                    self.challengeOperations=true;
+                    break;
             }
 
             self.showLessButton = false;
@@ -197,7 +209,7 @@
         }
 
         function getTemplate(page) {
-            if (this.page == true){
+            if (self.page == true){
                 return 'app/components/kudos-user-history/kudos-user-history-page.html';
             } else {
                 return 'app/components/kudos-user-history/kudos-user-history.html';
@@ -209,21 +221,5 @@
                 self.spin = false;
             }, 1000);
         }
-
-    };
-
-    UserHistoryController.$inject = ['Resources', 'UserHistoryService', '$timeout'];
-
-    angular.module('myApp.components.userHistory', [])
-        .component('kudosUserHistory', {
-            template: '<ng-include src="self.getTemplate()"/>' ,
-            bindings: {
-                user: '=',
-                page: '<'
-            },
-            controller: 'UserHistoryController',
-            controllerAs: 'self'
-        })
-        .controller('UserHistoryController', UserHistoryController)
-
+    }
 })();
