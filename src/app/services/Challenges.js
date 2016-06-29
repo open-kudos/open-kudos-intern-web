@@ -13,14 +13,14 @@ function Challenges($http, SERVER) {
         createChallenge: createChallenge,
         cancelChallenge: cancelChallenge,
         getCompletedChallenges: getCompletedChallenges,
-        receivedChallenges: getReceivedChallenges,
+        getReceivedChallenges: getReceivedChallenges,
         declineChallenge: declineChallenge,
         acceptChallenge: acceptChallenge,
         accomplishChallenge: accomplishChallenge,
         failChallenge: failChallenge,
-        allReceivedChallenges: allReceivedChallenges,
-        createTeam: createTeamChallenge,
-        teamReceivedChallenges: receiveTeamChallenges,
+        getAllReceivedChallenges: getAllReceivedChallenges,
+        createTeamChallenge: createTeamChallenge,
+        getReceivedTeamChallenges: getReceivedTeamChallenges,
         getOngoingChallenges: getOngoingChallenges,
         getNewChallenges: getNewChallenges
     }
@@ -106,7 +106,7 @@ function Challenges($http, SERVER) {
         });
     }
 
-    function allReceivedChallenges(requestData) {
+    function getAllReceivedChallenges(requestData) {
         return $http({
             method: 'GET',
             url: SERVER.ip + "/challenges/participatedByStatus?" + requestData,
@@ -126,7 +126,7 @@ function Challenges($http, SERVER) {
         });
     }
 
-    function receiveTeamChallenges(requestData) {
+    function getReceivedTeamChallenges(requestData) {
         return $http({
             method: 'GET',
             url: SERVER.ip + "/teamchallenges/participatedByStatus?" + requestData,
