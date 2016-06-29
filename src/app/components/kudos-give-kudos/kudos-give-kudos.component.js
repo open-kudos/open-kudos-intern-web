@@ -1,59 +1,92 @@
 (function () {
-    var GiveKudosController = function ($scope, $timeout, $httpParamSerializer, GiveKudosService, Resources) {
+    angular.module('myApp.components.giveKudos', [])
+        .component('kudosGiveKudos', {
+            template: '<ng-include src="vm.getTemplate(vm.template)"/>' ,
+            bindings: {
+                email: '<',
+                index: '<',
+                template: '='
+            },
+            controller: ("GiveKudosController", GiveKudosController),
+            controllerAs: "vm"
+        });
 
-        $scope.showError = false;
-        $scope.errorMessage = "";
-        $scope.userAvailableKudos = 0;
-        $scope.usersCollection = [];
+    GiveKudosController.$inject = ['$httpParamSerializer', 'GiveKudosService', 'Resources', 'Kudos'];
 
-        $scope.maxSendKudosLength = Resources.getUserAvailableKudos();
-        $scope.autocompleteHide = true;
-        
-        $scope.sendKudos = sendKudos;
-        $scope.clearSendKudosFormValues = clearSendKudosFormValues;
+    function GiveKudosController($httpParamSerializer, GiveKudosService, Resources, Kudos) {
+        var vm = this;
 
-        $scope.selectAutoText = function (text) {
-            $scope.sendKudosTo = text;
-            $scope.searchTermSelected = true;
-            $scope.autocompleteHide = true;
-            $scope.text = text;
-        };
+        vm.showError = false;
+        vm.errorMessage = "";
+        vm.userAvailableKudos = 0;
+        vm.usersCollection = [];
 
-        $scope.$watch('sendKudosTo', function (newVal, oldVal) {
-            if ($scope.searchTermSelected == false) {
-                if (newVal != undefined) {
-                    (newVal.length > 1) ? $scope.autocompleteHide = false : $scope.autocompleteHide = true;
+        vm.maxSendKudosLength = Resources.getUserAvailableKudos();
+        vm.autocompleteHide = true;
+
+        vm.sendKudos = sendKudos;
+        vm.clearSendKudosFormValues = clearSendKudosFormValues;
+        vm.sendToInputChanged = sendToInputChanged;
+        vm.selectAutoText = selectAutoText;
+        vm.getTemplate = getTemplate;
+        vm.sendKudosValidation = sendKudosValidation;
+        vm.showValidationErrorMessage = showValidationErrorMessage;
+
+        vm.$onInit = onInit();
+
+        function onInit() {
+            if (vm.email != undefined && vm.index != undefined){
+                vm.sendKudosTo = vm.email;
+                vm.id = vm.index;
+            }
+
+            if (Resources.getUserAvailableKudos() == undefined) {
+                Kudos.remaining().then(function (amount) {
+                    Resources.setUserAvailableKudos(amount);
+                    vm.userAvailableKudos = amount;
+                })
+            } else {
+                vm.userAvailableKudos = Resources.getUserAvailableKudos();
+            }
+
+            if (isEmptyCollection(Resources.getUsersCollection())) {
+                GiveKudosService.listUsers().then(function (val) {
+                    Resources.setUsersCollection(val.userList);
+                    vm.usersCollection = Resources.getUsersCollection();
+                })
+            } else {
+                vm.usersCollection = Resources.getUsersCollection();
+            }
+        }
+
+        function sendToInputChanged() {
+            if (vm.searchTermSelected == false) {
+                if (vm.sendKudosTo != undefined) {
+                    (vm.sendKudosTo.length > 1) ? vm.autocompleteHide = false : vm.autocompleteHide = true;
                 }
             } else {
-                $scope.searchTermSelected = false;
+                vm.searchTermSelected = false;
             }
-        });
+        }
 
-        $scope.$watch(function () {
-            return Resources.getUserAvailableKudos()
-        }, function (newVal) {
-            if (!isValid(newVal)) $scope.userAvailableKudos = Resources.getUserAvailableKudos();
-        });
-
-        if(isEmptyCollection(Resources.getUsersCollection())){
-            GiveKudosService.listUsers().then(function (val) {
-                Resources.setUsersCollection(val.userList);
-                $scope.usersCollection = Resources.getUsersCollection();
-            });
-        } else {
-            $scope.usersCollection = Resources.getUsersCollection();
+        function selectAutoText(text) {
+            vm.sendKudosTo = text;
+            vm.searchTermSelected = true;
+            vm.autocompleteHide = true;
+            vm.text = text;
         }
 
         function sendKudos() {
             if (sendKudosValidation()) {
                 GiveKudosService.sendKudos(getSendToRequestData()).then(function (val) {
-                    $scope.showSendKudosModal = false;
-                    $scope.showSuccess = true;
+                    vm.showSendKudosModal = false;
+                    vm.showSuccess = true;
                     Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
-                    $('#sendKudosModal').modal('hide');
+                    closeModal();
                     toastr.success('You successfully sent ' + acornPlural(val.data.amount) + ' to ' + val.data.receiver);
                     pushOutgoingTransferIntoCollection(val.data);
                     clearSendKudosFormValues();
+                    onInit();
                 }).catch(function () {
                     showValidationErrorMessage("Receiver doesn't exist");
                 });
@@ -66,25 +99,24 @@
                 message: val.message,
                 amount: val.amount,
                 timestamp: trimDate(val.timestamp)
-                };
+            };
             Resources.getOutgoingKudosCollection().push(itemToAdd);
             Resources.setSentKudosTable();
-            showMoreOutgoingKudosButton(Resources.getOutgoingKudosCollection());
         }
 
         function sendKudosValidation() {
             clearErrorMessages();
-            if ($scope.sendKudosTo == null) {
+            if (vm.sendKudosTo == null) {
                 showValidationErrorMessage("Please enter receiver");
-            } else if (!validateEmail($scope.sendKudosTo)) {
+            } else if (!validateEmail(vm.sendKudosTo)) {
                 showValidationErrorMessage("Please enter valid receiver email");
-            } else if ($scope.sendKudosTo === Resources.getCurrentUserEmail()) {
+            } else if (vm.sendKudosTo === Resources.getCurrentUserEmail()) {
                 showValidationErrorMessage("Can't send kudos to yourself");
-            } else if ($scope.sendKudosAmount > Resources.getUserAvailableKudos()) {
+            } else if (vm.sendKudosAmount > Resources.getUserAvailableKudos()) {
                 showValidationErrorMessage("You don't have enough Acorns");
-            } else if ($scope.sendKudosAmount == null) {
+            } else if (vm.sendKudosAmount == null) {
                 showValidationErrorMessage("Please enter amount");
-            } else if ($scope.sendKudosAmount <= 0) {
+            } else if (vm.sendKudosAmount <= 0) {
                 showValidationErrorMessage("Please enter more than zero");
             } else {
                 clearErrorMessages();
@@ -94,42 +126,42 @@
         }
 
         function showValidationErrorMessage(message) {
-            $scope.showError = true;
-            $scope.errorMessage = message;
+            vm.showError = true;
+            vm.errorMessage = message;
         }
 
         function clearErrorMessages() {
-            $scope.showError = false;
-            $scope.errorMessage = "";
+            vm.showError = false;
+            vm.errorMessage = "";
         }
 
         function clearSendKudosFormValues() {
-            $scope.sendKudosTo = "";
-            $scope.sendKudosAmount = null;
-            $scope.sendKudosMessage = "";
+            vm.sendKudosTo = "";
+            vm.sendKudosAmount = null;
+            vm.sendKudosMessage = "";
             clearErrorMessages();
         }
 
         function getSendToRequestData() {
             return $httpParamSerializer({
-                receiverEmail: $scope.sendKudosTo,
-                amount: $scope.sendKudosAmount,
-                message: $scope.sendKudosMessage
+                receiverEmail: vm.sendKudosTo,
+                amount: vm.sendKudosAmount,
+                message: vm.sendKudosMessage
             })
         }
 
-        function showMoreOutgoingKudosButton(val) {
-            if (val.length > 5) {
-                $scope.moreOutgoing = true;
+        function closeModal() {
+            vm.template != undefined ? $('#modal' + vm.id).modal('hide') : $('#sendKudosModal').modal('hide');
+        }
+
+        function getTemplate(template) {
+            if (template == "button"){
+                return 'app/components/kudos-give-kudos/kudos-give-kudos-small.html';
+            } else {
+                return 'app/components/kudos-give-kudos/kudos-give-kudos.html'
             }
         }
-    };
 
-    GiveKudosController.$inject = ['$scope', '$timeout', '$httpParamSerializer', 'GiveKudosService', 'Resources'];
+    }
 
-    angular.module('myApp.components.giveKudos', [])
-        .component('kudosGiveKudos', {
-            templateUrl: 'app/components/kudos-give-kudos/kudos-give-kudos.html',
-            controller: GiveKudosController
-        })
 })();
