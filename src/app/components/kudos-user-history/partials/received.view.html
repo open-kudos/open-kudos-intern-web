@@ -1,0 +1,25 @@
+<div class="text-center row">
+    <div class="text-right">
+        <p class="clickable" ng-click="history.updateListReceived(history.thisUsersEmail, false); history.spin=true">
+            <span ng-class="history.spin ? 'glyphicon glyphicon-refresh spin' : 'glyphicon glyphicon-refresh'"></span> Refresh
+        </p>
+    </div>
+    <div ng-if="!history.transactionHistory[0]">
+        <div class="alert alert-info acorn-bg margin-top">
+            <strong>Whoops!</strong> This user has not received any acorns yet
+        </div>
+    </div>
+    <div ng-repeat="item in history.transactionHistory | limitTo:history.transactionEndingIndex-1">
+        <div class="box4" ng-if="item.status == 'COMPLETED'">
+            <div ng-if="item.receiverEmail == history.thisUsersEmail">
+                <label>{{item.receiverFullName}}</label>
+                received
+                <span class="badge acorn-bg-victory ng-binding">{{history.acornPlural(item.amount)}}</span>
+                from
+                <label>{{item.senderFullName}}</label>
+                <div class="breakword" ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
+                <div ng-if="item.timestamp">{{history.split(item.timestamp, " ")[0]}}</div>
+            </div>
+        </div>
+    </div>
+</div>

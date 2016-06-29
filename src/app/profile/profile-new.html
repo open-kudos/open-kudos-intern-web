@@ -29,10 +29,14 @@
             <kudos-info></kudos-info>
 
             <div class="panel panel-body">
-                <div ng-hide="!showLoader" class="loader"></div>
                 <div class="row text-center">
                     <div class="col-lg-6 col-sm-6">
-                        <h1><b class="acorn-color">{{userAvailableKudos}}</b></h1>
+                        <div ng-hide="!showLoaderUserAvailableKudos" class="loader"></div>
+                        <h1>
+                            <b class="acorn-color">{{userAvailableKudos}}
+
+                            </b>
+                        </h1>
                         <h4>{{ 'ProfileMeCorns' | translate }}</h4>
                         <div class="col-md-12">
                             <button name="giveKudosButton" id="giveKudosButton"
@@ -43,6 +47,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 col-sm-6">
+                        <div ng-hide="!showLoaderUserReceivedKudos" class="loader"></div>
                         <h1><b class="acorn-color">{{userReceivedKudos}}</b></h1>
                         <h4>{{ 'ProfileMeTotalCorns' | translate }}</h4>
                         <div class="col-md-12">
@@ -59,18 +64,18 @@
             <div class="panel panel-body">
                 <ul class="nav nav-pills">
                     <h3>Challenges</h3>
-                    <li role="presentation" ng-class="received ? 'active' : ''"><a href="" ng-click="ongoing = false;received=true;given=false">Received</a></li>
-                    <li role="presentation" ng-class="ongoing ? 'active' : ''"><a href="" ng-click="ongoing = true;received=false;given=false">Ongoing</a></li>
-                    <li role="presentation" ng-class="given ? 'active' : ''"><a href="" ng-click="ongoing = false;received=false;given=true">Given</a></li>
+                    <li role="presentation" ng-class="newChallengeTab ? 'active' : ''"><a href="" ng-click="ongoingChallengeTab = false;newChallengeTab=true;completedChallengeTab=false">New</a></li>
+                    <li role="presentation" ng-class="ongoingChallengeTab ? 'active' : ''"><a href="" ng-click="ongoingChallengeTab = true;newChallengeTab=false;completedChallengeTab=false">Ongoing</a></li>
+                    <li role="presentation" ng-class="completedChallengeTab ? 'active' : ''"><a href="" ng-click="ongoingChallengeTab = false;newChallengeTab=false;completedChallengeTab=true">Completed</a></li>
                 </ul>
-                <div class="" ng-show="ongoing">
+                <div class="" ng-show="ongoingChallengeTab">
                     <kudos-challenge-ongoing></kudos-challenge-ongoing>
                 </div>
-                <div class="" ng-show="received">
-                    <kudos-challenge-participated></kudos-challenge-participated>
+                <div class="" ng-show="newChallengeTab">
+                    <kudos-challenge-new></kudos-challenge-new>
                 </div>
-                <div class="" ng-show="given">
-                    <kudos-given-challenges></kudos-given-challenges>
+                <div class="" ng-show="completedChallengeTab">
+                    <kudos-challenge-completed></kudos-challenge-completed>
                 </div>
             </div>
 
@@ -81,6 +86,7 @@
             <div class="panel">
                 <div class="panel-body">
                     <h3><span class="glyphicon glyphicon-star acorn-color"></span> Leaderboard</h3>
+                    <kudos-leaderboard-filter></kudos-leaderboard-filter>
                     <ul class="nav nav-pills">
                         <li role="presentation" ng-class="topReceivers ? 'active' : ''"><a href="" ng-click="topReceivers=true; topSenders=false;">Top receivers</a></li>
                         <li role="presentation" ng-class="topSenders ? 'active' : ''"><a href="" ng-click="topReceivers=false; topSenders=true;">Top senders</a></li>
@@ -102,18 +108,5 @@
             </div>
 
         </div>
-
-        <!--
-            <div class="box4">
-                <h4><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> {{ 'ProfileMeTodayBirthday' | translate }}</h4>
-                <p>Coming soon!</p>
-            </div>
-        -->
-        <div class="col-md-3 col-md-pull-9">
-        <!--    <div class="box4">
-                <h2>User</h2>
-            </div> -->
-        </div>
-
     </div>
 </div>

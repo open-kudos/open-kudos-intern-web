@@ -1,8 +1,7 @@
-<kudos-navbar></kudos-navbar>
-
+<div ng-hide="!showLoader" class="loader"></div>
 <blockquote>
-    <p>{{randomQuote.idea}}</p>
-    <small>{{randomQuote.authorName}}</small>
+    <p class="breakword">{{randomQuote.idea}}</p>
+    <small class="breakword">{{randomQuote.authorName}}</small>
 </blockquote>
 
 <kudos-add-new-idea></kudos-add-new-idea>

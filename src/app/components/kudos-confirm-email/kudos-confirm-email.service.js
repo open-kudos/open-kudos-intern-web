@@ -1,6 +1,3 @@
-/**
- * Created by vytautassugintas on 23/05/16.
- */
 "use strict";
 angular.module("myApp.components.confirm-email")
     .factory("ConfirmEmailService", ConfirmEmailService);

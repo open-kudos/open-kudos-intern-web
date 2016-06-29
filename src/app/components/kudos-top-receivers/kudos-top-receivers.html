@@ -1,8 +1,4 @@
-<ul class="list-group">
-    <li ng-repeat="receiver in topReceivers"
-        class="animate-repeat list-group-item">
-        <span class="badge acorn-bg">{{acornPlural(receiver.amountOfKudos)}}</span>
-        <span class="bold">{{receiver.firstName}} {{receiver.lastName}}</span>
-    </li>
+<div ng-hide="!showLoader" class="loader"></div>
+<ul class="list-group click-li">
+    <kudos-user-history ng-repeat="receiver in topReceivers" user="receiver"></kudos-user-history>
 </ul>
-

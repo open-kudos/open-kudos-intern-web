@@ -12,7 +12,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" ng-click="clearAddIdeaFormValues()" class="close"
+                <button type="button" ng-click="newIdea.clearAddIdeaFormValues()" class="close"
                         data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Add new idea to wisdom wall</h4>
             </div>
@@ -20,22 +20,32 @@
             <div class="modal-body">
                 <form name="addIdeaForm">
                     <div class="form-group col-sm-6">
-                        <input ng-model="author" class="form-control" id="author" name="author" type="text" placeholder="Author of idea" required>
+                        <input ng-model="newIdea.author" class="form-control" id="author" name="author" type="text" placeholder="Author of idea"
+                               ng-trim="false" value="{{newIdea.author = newIdea.lengthLimit(newIdea.author, 30)}}"
+                               required>
+                    </div>
+                    <div class="col-sm-12 characters-left-wisdom">
+                        <label>Characters left: {{newIdea.symbolsLeft(newIdea.author, 30)}}</label>
                     </div>
 
                     <div class="form-group col-sm-12">
-                        <textarea ng-model="idea" class="form-control" id="idea" name="idea" placeholder="Idea" required></textarea>
+                        <textarea ng-model="newIdea.idea" class="form-control" id="idea" name="idea" placeholder="Idea"
+                                  ng-trim="false" value="{{newIdea.idea = newIdea.lengthLimit(newIdea.idea, 100)}}"
+                                  required></textarea>
+                    </div>
+                    <div class="col-sm-12 characters-left-wisdom">
+                        <label>Characters left: {{newIdea.symbolsLeft(newIdea.idea, 100)}}</label>
                     </div>
 
                     <div ng-class="{fade: startFade}" class="form-group col-sm-12 text-center">
-                        <div ng-if="addIdeaFormErrorMessage" class="alert alert-danger" role="alert">
-                            <strong>Whoops!</strong> {{addIdeaFormErrorMessage}}
+                        <div ng-if="newIdea.addIdeaFormErrorMessage" class="alert alert-danger" role="alert">
+                            <strong>Whoops!</strong> {{newIdea.addIdeaFormErrorMessage}}
                         </div>
                     </div>
                 </form>
 
-                <button ng-click="addIdea()"
-                        ng-disabled="addNewIdea.$invalid"
+                <button ng-click="newIdea.addIdea()"
+                        ng-disabled="newIdea.addNewIdea.$invalid"
                         name="addNewIdeaButton"
                         id="addNewIdeaButton"
                         class="form-control btn btn-login">Add

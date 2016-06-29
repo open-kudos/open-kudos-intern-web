@@ -1,11 +1,9 @@
 (function () {
 
-    var KudosChallengeOngoingController = function ($httpParamSerializer, $scope, KudosChallengeOngoingService, Resources) {
+    var KudosChallengeOngoingController = function ($httpParamSerializer, $scope, Challenges, Resources) {
         var requestData;
 
         $scope.showList = false;
-        $scope.givenList = [];
-        $scope.receivedList = [];
         $scope.ongoingChallengeList = [];
 
         $scope.getChallengeOngoingList = getChallengeOngoingList;
@@ -14,22 +12,20 @@
         $scope.convertDate = convertDate;
         $scope.showButtons = showButtons;
         $scope.isSelected = isSelected;
+        $scope.userEmail = Resources.getCurrentUserEmail();
 
         getChallengeOngoingList();
 
-        function getChallengeOngoingList() {
-            var challengeStatus = "ACCEPTED";
-            requestData = $httpParamSerializer({
-                status: challengeStatus
-            });
+        $scope.$watch(function () {
+            return Resources.getCurrentUserEmail()
+        }, function (newVal) {
+            if (!isValid(newVal)) $scope.userEmail = Resources.getCurrentUserEmail();
+        });
 
-            KudosChallengeOngoingService.getReceivedList(requestData).then(function (val) {
-                $scope.receivedList = val;
-                KudosChallengeOngoingService.getGivenList(requestData).then(function (value) {
-                    $scope.givenList = value;
-                    $scope.ongoingChallengeList = $scope.receivedList.concat($scope.givenList);
-                    Resources.setOngoingChallenges($scope.ongoingChallengeList);
-                });
+        function getChallengeOngoingList() {
+            Challenges.getOngoingChallenges().then(function (val) {
+                Resources.setOngoingChallenges(val);
+                $scope.ongoingChallengeList = Resources.getOngoingChallenges();
             });
         }
 
@@ -41,7 +37,7 @@
                 status: status
             });
 
-            KudosChallengeOngoingService.accomplish(requestData).then(function (val) {
+            Challenges.accomplishChallenge(requestData).then(function (val) {
                 toastr.success('You think that you lost challenge. Well... maybe not!');
             })
         }
@@ -54,7 +50,7 @@
                 status: status
             });
 
-            KudosChallengeOngoingService.accomplish(requestData).then(function (val) {
+            Challenges.accomplishChallenge(requestData).then(function (val) {
                 toastr.success('You think that you won challenge. Well... maybe not!');
             })
         }
@@ -95,7 +91,7 @@
         }
     };
 
-    KudosChallengeOngoingController.$inject = ['$httpParamSerializer', '$scope', 'KudosChallengeOngoingService', 'Resources'];
+    KudosChallengeOngoingController.$inject = ['$httpParamSerializer', '$scope', 'Challenges', 'Resources'];
 
     angular.module('myApp.components.challengeOngoing', [])
         .directive('kudosChallengeOngoing', function () {

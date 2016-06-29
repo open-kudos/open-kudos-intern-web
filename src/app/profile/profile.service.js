@@ -1,6 +1,3 @@
-/**
- * Created by vytautassugintas on 09/04/16.
- */
 (function () {
     "use strict";
     angular.module("myApp")
@@ -23,7 +20,7 @@
             getTopSenders: GetTopSenders,
             remainingKudos: RemainingKudos,
             receivedKudos: ReceivedKudos,
-            receivedChallenges: ReceivedChallenges,
+            getReceivedChallenges: ReceivedChallenges,
             feedKudos: StreamKudos,
             feedKudosChanged: StreamKudosChanged,
             checkUser: CheckUser,
@@ -47,12 +44,12 @@
             return userBackend.update(updateInfo);
         }
 
-        function GetTopReceivers() {
-            return userBackend.getTopReceivers();
+        function GetTopReceivers(requestData) {
+            return userBackend.getTopReceivers(requestData);
         }
 
-        function GetTopSenders() {
-            return userBackend.getTopSenders();
+        function GetTopSenders(requestData) {
+            return userBackend.getTopSenders(requestData);
         }
 
         function RemainingKudos() {
@@ -72,7 +69,7 @@
         }
 
         function ReceivedChallenges() {
-            return challengesBackend.receivedChallenges();
+            return challengesBackend.getReceivedChallenges();
         }
 
         function Logout() {

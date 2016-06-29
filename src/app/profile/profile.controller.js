@@ -1,9 +1,8 @@
-/**
- * Created by vytautassugintas on 06/04/16.
- */
 (function () {
     'use strict';
     var ProfileController = function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, $filter, ProfileService, Challenges, Resources) {
+        $scope.showLoaderUserAvailableKudos = true;
+        $scope.showLoaderUserReceivedKudos = true;
         
         $scope.greeting = "hello";
 
@@ -12,12 +11,11 @@
 
         $scope.usersCollection = [];
         $scope.topReceivers = [];
-        $scope.showLoader = true;
         $scope.buttonDisabled = true;
         $scope.receivedAcorns = false;
         $scope.sentAcorns = true;
         $scope.giveAcorns = false;
-        $scope.received = true;
+        $scope.newChallengeTab = true;
 
         $scope.showDropDown = false;
 
@@ -42,7 +40,7 @@
 
             ProfileService.receivedKudos().then(function (val) {
                 $scope.userReceivedKudos = val;
-                $scope.showLoader = false;
+                $scope.showLoaderUserReceivedKudos = false;
             });
             
             if(isEmptyCollection(Resources.getUsersCollection())){
@@ -51,10 +49,6 @@
                     $scope.usersCollection = Resources.getUsersCollection();
                 });
             }
-
-            ProfileService.getTopReceivers().then(function(val) {
-                $scope.topReceivers = val;
-            })
         }
 
         activate();
@@ -62,7 +56,10 @@
         $scope.$watch(function () {
             return Resources.getUserAvailableKudos()
         }, function (newVal) {
-            if (!isValid(newVal)) $scope.userAvailableKudos = Resources.getUserAvailableKudos();
+            if (!isValid(newVal)) {
+                $scope.userAvailableKudos = Resources.getUserAvailableKudos();
+                $scope.showLoaderUserAvailableKudos = false;
+            }
         });
 
         function checkUser() {
@@ -72,7 +69,6 @@
         }
 
         function isValid(value) {
-            value == undefined;
             return typeof value === "undefined";
         }
     };

@@ -8,12 +8,15 @@
             var transactionsCollection = [];
             var notificationsTransactionCollection = [];
             var usersCollection = [];
-            var givenChallenges = [];
+            var completedChallenges = [];
+            var topReceivers = [];
+            var topSenders = [];
             var userAvailableKudos;
             var sentKudosTable;
             var receivedKudosTable;
             var currentUser;
             var ongoingChallenges;
+            var newChallenges;
 
 
             var lastTransactionTimestamp;
@@ -58,11 +61,11 @@
                 getUserAvailableKudos: function () {
                     return userAvailableKudos;
                 },
-                setGivenChallenges: function (val) {
-                    givenChallenges = val;
+                setCompletedChallenges: function (val) {
+                    completedChallenges = val;
                 },
-                getGivenChallenges: function () {
-                    return givenChallenges;
+                getCompletedChallenges: function () {
+                    return completedChallenges;
                 },
                 setCurrentUserEmail: function (userEmail) {
                     currentUserEmail = userEmail;
@@ -99,6 +102,24 @@
                 },
                 setUsersCollection: function (val) {
                     usersCollection = val;
+                },
+                setNewChallenges: function (val) {
+                    newChallenges = val;
+                },
+                getNewChallenges: function () {
+                    return newChallenges;
+                },
+                getTopReceivers: function () {
+                    return topReceivers;
+                },
+                setTopReceivers: function (val) {
+                    topReceivers = val;
+                },
+                getTopSenders: function () {
+                    return topSenders;
+                },
+                setTopSenders: function (val) {
+                    topSenders = val;
                 }
             };
         });

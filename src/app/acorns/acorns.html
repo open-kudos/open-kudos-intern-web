@@ -4,21 +4,6 @@
 
 <div class="container">
     <div class="panel panel-body">
-        <div ng-hide="!showLoader" class="loader"></div>
-        <ul class="nav nav-pills">
-            <li role="presentation" class="tab-item" ng-class="receivedAcorns ? '' : 'active'">
-                <a href="" ng-click="sentAcorns=true;receivedAcorns=false;giveAcorns=true;">Received</a>
-            </li>
-            <li role="presentation" class="tab-item" ng-class="sentAcorns ? '' : 'active'">
-                <a href="" ng-click="sentAcorns=false;receivedAcorns=true;giveAcorns=true">Sent</a>
-            </li>
-        </ul>
-        <div ng-hide="receivedAcorns">
-            <kudos-received-acorns></kudos-received-acorns>
-        </div>
-        <div ng-hide="sentAcorns">
-            <kudos-sent-acorns></kudos-sent-acorns>
-        </div>
-
+        <kudos-user-history ng-if="user != undefined" user="user" page="true"></kudos-user-history>
     </div>
 </div>

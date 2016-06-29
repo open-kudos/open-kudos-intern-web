@@ -15,11 +15,10 @@
             'myApp.components.notifications',
             'myApp.components.sentAcorns',
             'myApp.components.receivedAcorns',
-            'myApp.components.givenChallenges',
-            'myApp.components.challengeParticipated',
+            'myApp.components.completedChallenges',
+            'myApp.components.challengeNew',
             'myApp.components.transactions',
             'myApp.components.giveKudos',
-            'myApp.components.giveKudosSmall',
             'myApp.components.giveChallenge',
             'myApp.components.giveChallengeSmall',
             'myApp.components.giveTeamChallenge',
@@ -33,6 +32,8 @@
             'myApp.acorn.leaderboard',
             'myApp.components.relationship',
             'myApp.components.info',
-            'myApp.components.feed'
+            'myApp.components.feed',
+            'myApp.components.userHistory',
+            'myApp.components.leaderboardFilter'
         ]);
 })();

@@ -1,7 +1,3 @@
-/**
- * Created by vytautassugintas on 15/06/16.
- */
-
 function isEmptyCollection(collection) {
     return collection.length == 0;
 }
@@ -17,4 +13,28 @@ function acornPlural(amount) {
 
 function trimDate(dateString) {
     return dateString.substring(0, 16);
+}
+
+function isValid(value) {
+    return typeof value === "undefined";
+}
+
+function split(splitValue, splitMark) {
+    return splitValue.split(splitMark);
+}
+
+function lengthLimit(input, length) {
+    if (input) {
+        while (input.charAt(0) == ' ')
+            input = input.slice(1);
+        while (input.length > length)
+            input = input.slice(0, -1);
+        return input;
+    }
+}
+
+function symbolsLeft(input, length) {
+    if (input)
+        return length - input.length;
+    else return length;
 }

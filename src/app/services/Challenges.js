@@ -10,17 +10,19 @@ Challenges.$inject = [
 
 function Challenges($http, SERVER) {
     var challenges = {
-        create: createChallenge,
-        cancel: cancelChallenge,
-        givenChallenges: getGivenChallenges,
-        receivedChallenges: getReceivedChallenges,
+        createChallenge: createChallenge,
+        cancelChallenge: cancelChallenge,
+        getCompletedChallenges: getCompletedChallenges,
+        getReceivedChallenges: getReceivedChallenges,
         declineChallenge: declineChallenge,
         acceptChallenge: acceptChallenge,
         accomplishChallenge: accomplishChallenge,
         failChallenge: failChallenge,
-        allReceivedChallenges: allReceivedChallenges,
-        createTeam: createTeamChallenge,
-        teamReceivedChallenges: receiveTeamChallenges
+        getAllReceivedChallenges: getAllReceivedChallenges,
+        createTeamChallenge: createTeamChallenge,
+        getReceivedTeamChallenges: getReceivedTeamChallenges,
+        getOngoingChallenges: getOngoingChallenges,
+        getNewChallenges: getNewChallenges
     }
     return challenges;
 
@@ -44,10 +46,10 @@ function Challenges($http, SERVER) {
         })
     }
 
-    function getGivenChallenges(requestData) {
+    function getCompletedChallenges() {
         return $http({
             method: 'GET',
-            url: SERVER.ip + "/challenges/createdByStatus?" + requestData,
+            url: SERVER.ip + "/challenges/completedChallenges",
             withCredentials: true
         }).then(function(response) {
             return response.data;
@@ -104,7 +106,7 @@ function Challenges($http, SERVER) {
         });
     }
 
-    function allReceivedChallenges(requestData) {
+    function getAllReceivedChallenges(requestData) {
         return $http({
             method: 'GET',
             url: SERVER.ip + "/challenges/participatedByStatus?" + requestData,
@@ -124,10 +126,30 @@ function Challenges($http, SERVER) {
         });
     }
 
-    function receiveTeamChallenges(requestData) {
+    function getReceivedTeamChallenges(requestData) {
         return $http({
             method: 'GET',
             url: SERVER.ip + "/teamchallenges/participatedByStatus?" + requestData,
+            withCredentials: true
+        }).then(function(response) {
+            return response.data;
+        });
+    }
+
+    function getOngoingChallenges() {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/challenges/ongoing",
+            withCredentials: true
+        }).then(function(response) {
+            return response.data;
+        });
+    }
+
+    function getNewChallenges() {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/challenges/new",
             withCredentials: true
         }).then(function(response) {
             return response.data;

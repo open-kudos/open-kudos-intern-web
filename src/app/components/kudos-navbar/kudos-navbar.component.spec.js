@@ -1,6 +1,3 @@
-/**
- * Created by vytautassugintas on 07/06/16.
- */
 "use strict";
 describe('KudosNavbarComponent', function() {
 

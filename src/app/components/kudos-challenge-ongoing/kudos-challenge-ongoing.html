@@ -1,24 +1,30 @@
 <div class="text-center">
-    <div ng-if="showList" class="card box4 box-shadow-animation" ng-repeat="list in ongoingChallengeList | orderBy:'-createDateDate'">
-        <p class="card-text"><span class="bold">{{list.name}}</span>  by
-            <span class="bold" ng-if="list.creator != userEmail">{{list.creator}}</span>
-            <span class="bold" ng-if="list.participant != userEmail">{{list.participant}}</span>
-            for
-            <span class="badge acorn-bg">{{acornPlural(list.amount * 2)}}</span>
+    <div ng-if="showList" class="card box4 box-shadow-animation" ng-repeat="challenge in ongoingChallengeList">
+
+        <p class="card-text" ng-if="challenge.participant == userEmail">
+            <span class="bold">{{challenge.name}}</span> received from
+            <span class="bold">{{challenge.creator}}</span> for
+            <span class="badge acorn-bg">{{acornPlural(challenge.amount * 2)}}</span>
         </p>
 
-        <p ng-if="list.description">Description: {{list.description}}</p>
-        <p ng-if="list.finishDate">Finish date: {{convertDate(list.finishDate)}}</p>
+        <p class="card-text" ng-if="challenge.creator == userEmail">
+            <span class="bold">{{challenge.name}}</span> given to
+            <span class="bold">{{challenge.participant}}</span> for
+            <span class="badge acorn-bg">{{acornPlural(challenge.amount * 2)}}</span>
+        </p>
 
-        <div ng-if="isSelected(list)">
+        <p ng-if="challenge.description">Description: {{challenge.description}}</p>
+        <p ng-if="challenge.finishDate">Finish date: {{convertDate(challenge.finishDate)}}</p>
+
+        <div ng-if="isSelected(challenge)">
             <label>{{selectedMessage}}</label>
         </div>
 
-        <div ng-if="showButtons(list)">
-            <button ng-hide="buttons" class="btn btn-danger btn-challenge-participated" ng-click="lost(list.id, list.amount); buttons = true">I lost</button>
-            <button ng-hide="buttons" class="btn btn-success btn-challenge-participated" ng-click="won(list.id, list.amount); buttons = true">I won</button>
+        <div ng-if="showButtons(challenge)">
+            <button ng-hide="buttons" class="btn btn-danger btn-challenge-participated" ng-click="lost(challenge.id, challenge.amount); buttons = true">I lost</button>
+            <button ng-hide="buttons" class="btn btn-success btn-challenge-participated" ng-click="won(challenge.id, challenge.amount); buttons = true">I won</button>
         </div>
-        <div ng-if="!showButtons(list)">
+        <div ng-if="!showButtons(challenge)">
             <label>Waiting for other user to select</label>
         </div>
         <div ng-show="buttons">

@@ -6,6 +6,7 @@
         $scope.showError = false;
         $scope.usersCollection = [];
 
+        $scope.lengthLimit = lengthLimit;
         $scope.clearChallengeFormValues = clearChallengeFormValues;
         $scope.challengeFormCheck = challengeFormCheck;
         $scope.giveChallenge = giveChallenge;
@@ -33,6 +34,8 @@
                 Resources.setUsersCollection(val.userList);
                 $scope.usersCollection = Resources.getUsersCollection();
             });
+        } else {
+            $scope.usersCollection = Resources.getUsersCollection();
         }
 
         function giveChallenge() {
@@ -51,12 +54,12 @@
             var challengeCall = challengeFormCheck(expirationDate, currentDate);
 
             if (challengeCall)
-                GiveChallengeService.create(giveTo).then(function (val) {
+                GiveChallengeService.createChallenge(giveTo).then(function (val) {
                     clearChallengeFormValues();
                     $('#giveChallengeModal').modal('hide');
                     toastr.success('You successfully challenged ' + val.data.participant + " with " + val.data.amount + " " + acornPlural(val.data.amount) + '.');
                     Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
-                    Resources.getGivenChallenges().push(val.data);
+                    Resources.getNewChallenges().push(val.data);
                 }).catch(function () {
                     showChallengeFormErrorMessage("Challenge receiver does not exist");
                 })

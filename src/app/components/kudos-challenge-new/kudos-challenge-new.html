@@ -1,0 +1,41 @@
+<div class="loader" ng-hide="!showLoaderNew"></div>
+<div class="text-center">
+    <div ng-if="id" class="box4 box-shadow-animation" ng-repeat="challenge in challengeList">
+
+        <h4 ng-if="challenge.participant == userEmail" class="card-title text-center">You have been challenged!</h4>
+        <h4 ng-if="challenge.creator == userEmail" class="card-title text-center">You created challenge!</h4>
+
+
+        <p class="card-text" ng-if="challenge.participant == userEmail">
+            <span class="bold">{{challenge.name}}</span> received from
+            <span class="bold">{{challenge.creator}}</span> for
+            <span class="badge acorn-bg">{{acornPlural(challenge.amount * 2)}}</span>
+        </p>
+
+        <p class="card-text" ng-if="challenge.creator == userEmail">
+            <span class="bold breakword">{{challenge.name}}</span> given to
+            <span class="bold">{{challenge.participant}}</span> for
+            <span class="badge acorn-bg">{{acornPlural(challenge.amount * 2)}}</span>
+        </p>
+
+        <p class="breakword" ng-if="challenge.description">Description: {{challenge.description}}</p>
+        <p ng-if="challenge.finishDate">Finish date: {{convertDate(challenge.finishDate)}}</p>
+
+        <div ng-if="challenge.participant == userEmail">
+            <button class="btn btn-danger btn-challenge-participated" ng-click="declineChallenge(challenge.id, $index)">Decline</button>
+            <button class="btn btn-success btn-challenge-participated" ng-click="acceptChallenge(challenge.id, $index, challenge.amount)">Accept</button>
+        </div>
+
+        <div ng-show="doesDateExist($index)">
+            <button ng-if="challenge.creator == userEmail"  class="btn btn-danger btn-challenge-participated" ng-click="cancelChallenge($index); buttons = true">Cancel challenge</button>
+        </div>
+
+    </div>
+
+    <div ng-if="!id">
+        <div class="alert alert-info acorn-bg margin-top">
+            <span class="glyphicon glyphicon-info-sign"></span>
+            You don't have any new challenges!
+        </div>
+    </div>
+</div>

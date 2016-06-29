@@ -1,0 +1,20 @@
+<ul class="nav nav-pills">
+    <li role="presentation" ng-class="history.allOperations ? 'active' : ''"><a href="" ng-click="history.changeView('all'); history.updateListAll(history.currentUser.email, true)">All</a></li>
+    <li role="presentation" ng-class="history.receivedOperations ? 'active' : ''"><a href="" ng-click="history.changeView('received'); history.updateListReceived(history.currentUser.email, true)">Received</a></li>
+    <li role="presentation" ng-class="history.gaveOperations ? 'active' : ''"><a href="" ng-click="history.changeView('gave'); history.updateListGave(history.currentUser.email, true)">Gave</a></li>
+    <li role="presentation" ng-class="history.challengeOperations ? 'active' : ''"><a href="" ng-click="history.changeView('challenges'); history.updateListChallenges(history.currentUser.email, true)">Challenges</a></li>
+</ul>
+
+<ng-include ng-if="history.allOperations" src="'app/components/kudos-user-history/partials/all.view.html'"></ng-include>
+<ng-include ng-if="history.receivedOperations" src="'app/components/kudos-user-history/partials/received.view.html'"></ng-include>
+<ng-include ng-if="history.gaveOperations" src="'app/components/kudos-user-history/partials/gave.view.html'"></ng-include>
+<ng-include ng-if="history.challengeOperations" src="'app/components/kudos-user-history/partials/challenges.view.html'"></ng-include>
+
+<div ng-if="history.transactionHistory[0]" class="text-right" style="margin-top: 10px">
+    <button ng-if="history.showLessButton" class="btn btn-default" ng-click="history.showMoreLess('less')">
+        <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span> Show less
+    </button>
+    <button ng-if="history.showMoreButton" class="btn acorn-bg-darker" ng-click="history.showMoreLess('more')">
+        <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span> Show more
+    </button>
+</div>

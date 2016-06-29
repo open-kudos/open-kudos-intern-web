@@ -1,6 +1,3 @@
-/**
- * Created by vytautassugintas on 25/05/16.
- */
 (function () {
 
     var RelationshipController = function ($scope, $httpParamSerializer, RelationService, GiveKudosService, Resources) {

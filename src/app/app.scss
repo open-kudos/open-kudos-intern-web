@@ -563,6 +563,18 @@ body {
     }
 }
 
+.acorn-bg-victory {
+    color: #ffffff;
+    background: #1abc9c;
+    border-color: transparent;
+}
+
+.acorn-bg-lost {
+    color: #ffffff;
+    background: $color-pomegranate;
+    border-color: transparent;
+}
+
 .bg-transparent {
     background: transparent;
 }
@@ -906,4 +918,8 @@ div.box4 {
   -webkit-transition: opacity 1s; /* For Safari 3.1 to 6.0 */
   transition: opacity 1s;
   opacity: 0;
+}
+
+.breakword {
+    word-wrap: break-word;
 }

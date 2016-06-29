@@ -1,8 +1,10 @@
 (function () {
     var WisdomWallIdeasController = function ($scope, WisdomWallIdeasService){
+        $scope.showLoader = true;
 
         WisdomWallIdeasService.getRandomIdea().then(function(val) {
             $scope.randomQuote = val;
+            $scope.showLoader = false;
         });
 
     };

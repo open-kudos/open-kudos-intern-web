@@ -1,6 +1,3 @@
-/**
- * Created by vytautassugintas on 09/04/16.
- */
 (function() {
 "use strict";
 angular.module("myApp")
@@ -32,7 +29,7 @@ function Kudos($http, SERVER) {
         return $http({
             method: 'POST',
             url: SERVER.ip + "/kudos/send?" + requestData,
-            withCredentials: true,
+            withCredentials: true
         }).then(function (response) {
             return response;
         });

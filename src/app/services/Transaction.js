@@ -1,6 +1,3 @@
-/**
- * Created by vytautassugintas on 09/04/16.
- */
 (function() {
 "use strict";
 angular.module("myApp")
@@ -16,7 +13,11 @@ function Transaction($http, SERVER) {
         feedChanged: kudosTransactionListChanged,
         getCompletedKudosTransactions : getCompletedKudosTransactions,
         getNewTransactions : getNewKudosTransactions,
-        setLastSeenTransactionTimestamp : setLastSeenTransactionTimestamp
+        setLastSeenTransactionTimestamp : setLastSeenTransactionTimestamp,
+        getAllByEmail : getAllByEmail,
+        getReceivedByEmail : getReceivedByEmail,
+        getGaveByEmail : getGaveByEmail,
+        getChallengesByEmail : getChallengesByEmail
     }
     return transaction;
 
@@ -54,6 +55,46 @@ function Transaction($http, SERVER) {
         return $http({
             method: 'POST',
             url: SERVER.ip + "/transaction/timestamp?timestamp=" + requestData,
+            withCredentials: true
+        }).then(function (response) {
+            return response.data;
+        });
+    }
+
+    function getAllByEmail(requestData) {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/history/all?" + requestData,
+            withCredentials: true
+        }).then(function (response) {
+            return response.data;
+        });
+    }
+
+    function getReceivedByEmail(requestData) {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/history/received?" + requestData,
+            withCredentials: true
+        }).then(function (response) {
+            return response.data;
+        });
+    }
+
+    function getGaveByEmail(requestData) {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/history/gave?" + requestData,
+            withCredentials: true
+        }).then(function (response) {
+            return response.data;
+        });
+    }
+    
+    function getChallengesByEmail(requestData) {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/history/challenges?" + requestData,
             withCredentials: true
         }).then(function (response) {
             return response.data;

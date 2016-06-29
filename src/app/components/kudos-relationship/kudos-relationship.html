@@ -29,15 +29,11 @@
 <div class="row">
     <div ng-repeat="relation in followedCollection | orderBy:'followerName'"
          class="col-md-12">
-                <!-- <a class="thumbnail pull-left" href="#">
-                    <img class="media-object"
-                         src="http://images.brighthub.com/a3/d/a3d2a3f5888d96ddde78d526bf9448dddf2fb4aa_small.jpg">
-                </a> -->
             <div class="relation">
                     <h4 class="media-heading">{{ relation.userName }} {{ relation.userSurname }}</h4>
                     <p class="small">{{ relation.userEmail }}</p>
 
-                    <kudos-give-kudos-small email="relation.userEmail" index="relation.id"></kudos-give-kudos-small>
+                    <kudos-give-kudos email="relation.userEmail" index="relation.id" template="'button'"></kudos-give-kudos>
 
                     <kudos-give-challenge-small email="relation.userEmail" index="relation.id"></kudos-give-challenge-small>
 

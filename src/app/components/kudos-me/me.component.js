@@ -1,6 +1,14 @@
 (function () {
+    MeController.$inject = ['$scope', '$filter', '$window', '$timeout', '$httpParamSerializer', 'MeService', 'Resources', 'ProfileService'];
 
-    var MeController = function ($scope, $filter, $window, $timeout, $httpParamSerializer, MeService, Resources, ProfileService) {
+    angular
+        .module('myApp.components.me', [])
+        .component('kudosMe', {
+            templateUrl: 'app/components/kudos-me/me.html'
+        })
+        .controller('MeController', MeController);
+
+    function MeController($scope, $filter, $window, $timeout, $httpParamSerializer, MeService, Resources, ProfileService) {
         var self = this;
         var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
         var currentDate = $filter('date')(new Date(), requestDateFormat);
@@ -19,6 +27,8 @@
         self.isFriendsActive = false;
         self.showLoader = true;
 
+        self.lengthLimit = lengthLimit;
+        self.symbolsLeft = symbolsLeft;
         self.edit = edit;
         self.splitDate = splitDate;
         self.checkIsCompleted = checkIsCompleted;
@@ -97,12 +107,10 @@
 
         function checkInputs() {
             if (self.firstNameEdit){
-                if (self.firstNameEdit.length > 20) return "First name is too long";
                 if (checkPattern(self.firstNameEdit)) return "In first name field only letters are allowed";
             } else return "First name can't be empty";
 
             if (self.lastNameEdit){
-                if (self.lastNameEdit.length > 30) return "Last name is too long";
                 if (checkPattern(self.lastNameEdit)) return "In last name field only letters are allowed";
             } else return "Last name can't be empty";
 
@@ -168,15 +176,5 @@
         $scope.$watch(function () {
             userInformation();
         });
-    };
-
-    MeController.$inject = ['$scope', '$filter', '$window', '$timeout', '$httpParamSerializer', 'MeService', 'Resources', 'ProfileService'];
-
-    angular.module('myApp.components.me', [])
-        .component('kudosMe', {
-            templateUrl: 'app/components/kudos-me/me.html',
-            controller: 'MeController'
-        })
-        .controller('MeController', MeController)
-
+    }
 })();

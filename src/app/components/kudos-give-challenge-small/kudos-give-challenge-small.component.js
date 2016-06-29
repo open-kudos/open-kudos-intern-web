@@ -5,7 +5,7 @@
         $scope.autocompleteHide = true;
         $scope.showError = false;
         $scope.usersCollection = [];
-
+        
         $scope.clearChallengeFormValues = clearChallengeFormValues;
         $scope.challengeFormCheck = challengeFormCheck;
         $scope.giveChallenge = giveChallenge;
@@ -54,7 +54,7 @@
             var challengeCall = challengeFormCheck(expirationDate, currentDate);
 
             if (challengeCall)
-                GiveChallengeService.create(giveTo).then(function (val) {
+                GiveChallengeService.createChallenge(giveTo).then(function (val) {
                     clearChallengeFormValues();
                     $('#giveChallengeModal').modal('hide');
                     toastr.success('You successfully challenged ' + val.data.participant + " with " + val.data.amount + " " + acornPlural(val.data.amount) + '.');

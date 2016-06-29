@@ -1,0 +1,74 @@
+<div class="text-center row">
+    <div ng-if="!history.transactionHistory[0]">
+        <div class="alert alert-info acorn-bg margin-top">
+            <strong>Whoops!</strong> This user has no transaction history yet
+        </div>
+    </div>
+    <div class="text-right">
+        <p class="clickable" ng-click="history.updateListAll(history.thisUsersEmail, false); history.spin = true">
+            <span ng-class="history.spin ? 'glyphicon glyphicon-refresh spin' : 'glyphicon glyphicon-refresh'"></span> Refresh
+        </p>
+    </div>
+    <div class="box4" ng-repeat="item in history.transactionHistory | limitTo:history.transactionEndingIndex-1">
+        <div ng-if="item.status == 'COMPLETED'">
+            <div ng-if="item.receiverEmail == history.thisUsersEmail">
+                <label>{{item.receiverFullName}}</label>
+                <span>received</span>
+                <span class="badge acorn-bg-victory ng-binding">{{history.acornPlural(item.amount)}}</span>
+                from
+                <label>{{item.senderFullName}}</label>
+                <div class="breakword" ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
+                <div ng-if="item.timestamp">{{history.split(item.timestamp, " ")[0]}}</div>
+            </div>
+            <div ng-if="item.senderEmail == history.thisUsersEmail">
+                <label>{{item.senderFullName}}</label>
+                <span>gave</span>
+                <span class="badge acorn-bg ng-binding">{{history.acornPlural(item.amount)}}</span>
+                to
+                <label>{{item.receiverFullName}}</label>
+                <div class="breakword" ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
+                <div ng-if="item.timestamp">{{history.split(item.timestamp, " ")[0]}}</div>
+            </div>
+        </div>
+        <div ng-if="item.status == 'COMPLETED_CHALLENGE_PARTICIPANT'">
+            <div ng-if="item.receiverEmail == history.thisUsersEmail">
+                <label>{{item.receiverFullName}}</label>
+                <span>won</span>
+                <span class="badge acorn-bg-victory ng-binding">{{history.acornPlural(item.amount)}}</span>
+                against
+                <label>{{item.senderFullName}}</label>
+                <div class="breakword" ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
+                <div ng-if="item.timestamp">{{history.split(item.timestamp, " ")[0]}}</div>
+            </div>
+            <div ng-if="item.senderEmail == history.thisUsersEmail">
+                <label>{{item.senderFullName}}</label>
+                <span>lost</span>
+                <span class="badge acorn-bg-lost ng-binding">{{history.acornPlural(item.amount / 2)}}</span>
+                against
+                <label>{{item.receiverFullName}}</label>
+                <div class="breakword" ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
+                <div ng-if="item.timestamp">{{history.split(item.timestamp, " ")[0]}}</div>
+            </div>
+        </div>
+        <div ng-if="item.status == 'COMPLETED_CHALLENGE_CREATOR'">
+            <div ng-if="item.receiverEmail == history.thisUsersEmail">
+                <label>{{item.receiverFullName}}</label>
+                <span>lost</span>
+                <span class="badge acorn-bg-lost ng-binding">{{history.acornPlural(item.amount / 2)}}</span>
+                against
+                <label>{{item.senderFullName}}</label>
+                <div class="breakword" ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
+                <div ng-if="item.timestamp">{{history.split(item.timestamp, " ")[0]}}</div>
+            </div>
+            <div ng-if="item.senderEmail == history.thisUsersEmail">
+                <label>{{item.senderFullName}}</label>
+                <span>won</span>
+                <span class="badge acorn-bg-victory ng-binding">{{history.acornPlural(item.amount)}}</span>
+                against
+                <label>{{item.receiverFullName}}</label>
+                <div class="breakword" ng-if="item.comment"><label>Comment:</label> {{item.comment}}</div>
+                <div ng-if="item.timestamp">{{history.split(item.timestamp, " ")[0]}}</div>
+            </div>
+        </div>
+    </div>
+</div>

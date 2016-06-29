@@ -1,6 +1,3 @@
-/**
- * Created by vytautassugintas on 06/04/16.
- */
 (function () {
     "use strict";
     angular.module("myApp")
@@ -31,8 +28,10 @@
 
         function CheckUser() {
             return authBackend.check().then(function (val) {
-                userLoggedIn(val.data.logged) ? changeViewToProfile() : changeViewToLogin();
+                //userLoggedIn(val.data.logged) ? changeViewToProfile() : changeViewToLogin();
                 return val;
+            }).catch(function (error) {
+                return error;
             });
         }
 
