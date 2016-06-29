@@ -19,7 +19,6 @@
             'myApp.components.challengeNew',
             'myApp.components.transactions',
             'myApp.components.giveKudos',
-            'myApp.components.giveKudosSmall',
             'myApp.components.giveChallenge',
             'myApp.components.giveChallengeSmall',
             'myApp.components.giveTeamChallenge',

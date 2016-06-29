@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" ng-click="clearSendKudosFormValues()" class="close"
+                <button type="button" ng-click="vm.clearSendKudosFormValues()" class="close"
                         data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">{{ 'SEND_KUDOS_POPUP_TITLE' | translate }}</h4>
             </div>
@@ -12,16 +12,17 @@
                     <form name="sendKudosForm">
                         <div class="form-group col-sm-12">
                             <label for="sendKudosTo">Sending to</label>
-                            <input ng-model="sendKudosTo"
+                            <input ng-model="vm.sendKudosTo"
+                                   ng-change="vm.sendToInputChanged()"
                                    class="form-control"
                                    id="sendKudosTo"
                                    name="giveChallengeTo"
                                    type="text"
                                    autocomplete="off"
                                    required>
-                            <div class="autocomplete" ng-show="autocompleteHide==false">
-                                <div ng-repeat="autoText in usersCollection | filter:sendKudosTo"
-                                     ng-click="selectAutoText(autoText.email)">
+                            <div class="autocomplete" ng-show="vm.autocompleteHide==false">
+                                <div ng-repeat="autoText in vm.usersCollection | filter:vm.sendKudosTo"
+                                     ng-click="vm.selectAutoText(autoText.email)">
                                     <p>{{autoText.firstName}} {{autoText.lastName}}</p>
                                     <p class="small">{{autoText.email}}</p>
                                 </div>
@@ -29,19 +30,19 @@
                         </div>
 
                         <div class="form-group col-sm-12">
-                            <label for="sendKudosTo">Amount | Max: {{userAvailableKudos}}</label>
+                            <label for="sendKudosTo">Amount | Max: {{vm.userAvailableKudos}}</label>
                             <div class="input-group">
                             <span class="input-group-btn">
-                                <button ng-click="sendKudosAmount > 0 ? sendKudosAmount = sendKudosAmount - 1 : sendKudosAmount = 0"
+                                <button ng-click="vm.sendKudosAmount > 0 ? vm.sendKudosAmount = vm.sendKudosAmount - 1 : vm.sendKudosAmount = 0"
                                         type="button"
                                         class="btn btn-default btn-number"><span class="glyphicon glyphicon-minus"></span></button>
                             </span>
-                                <input ng-model="sendKudosAmount"
+                                <input ng-model="vm.sendKudosAmount"
                                        type="number"
                                        min="0"
                                        class="form-control" required>
                                 <div class="input-group-btn">
-                                    <button ng-click="sendKudosAmount = sendKudosAmount + 1" type="button"
+                                    <button ng-click="vm.sendKudosAmount = vm.sendKudosAmount + 1" type="button"
                                             class="btn btn-default btn-number"><span class="glyphicon glyphicon-plus"></span></button>
                                 </div>
                             </div>
@@ -49,7 +50,8 @@
 
                         <div class="form-group col-sm-12">
                             <label for="sendKudosMessage">Message (optional)</label>
-                            <textarea ng-model="sendKudosMessage"
+                            <textarea ng-model="vm.sendKudosMessage"
+                                      maxlength="140"
                                       id="sendKudosMessage"
                                       name="sendKudosMessage"
                                       class="form-control">
@@ -57,14 +59,14 @@
                         </div>
 
                         <div class="form-group col-sm-12 text-center">
-                            <div ng-hide="!showError" class="alert alert-danger" role="alert">
-                                <strong>Whoops!</strong> {{errorMessage}}
+                            <div ng-hide="!vm.showError" class="alert alert-danger" role="alert">
+                                <strong>Whoops!</strong> {{vm.errorMessage}}
                             </div>
                         </div>
 
                     </form>
 
-                    <button ng-click="sendKudos()"
+                    <button ng-click="vm.sendKudos()"
                             name="sendKudosButton"
                             id="sendKudosButton"
                             class="form-control btn btn-login">Give
