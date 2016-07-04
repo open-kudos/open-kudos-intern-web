@@ -86,7 +86,7 @@
                 return false;
             }
             showChallengeFormErrorMessage("");
-            showError = false;
+            $scope.showError = false;
             return true;
         }
 
