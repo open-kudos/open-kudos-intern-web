@@ -93,7 +93,7 @@
         }
 
         function validateEmail(email) {
-            var reg = /[a-z]\W[a-z]/;
+            var reg = /[a-zA-Z]\W[a-zA-Z]/;
             if (reg.test(email)){
                 reg = /@/;
                 return !reg.test(email);
