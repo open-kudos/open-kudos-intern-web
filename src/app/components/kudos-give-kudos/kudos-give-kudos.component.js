@@ -35,6 +35,7 @@
         vm.$onInit = onInit();
 
         function onInit() {
+
             if (vm.email != undefined && vm.index != undefined){
                 vm.sendKudosTo = vm.email;
                 vm.id = vm.index;
@@ -138,6 +139,7 @@
         function clearSendKudosFormValues() {
             vm.sendKudosTo = "";
             vm.sendKudosAmount = null;
+            vm.autocompleteHide = true;
             vm.sendKudosMessage = "";
             clearErrorMessages();
         }
@@ -161,6 +163,8 @@
                 return 'app/components/kudos-give-kudos/kudos-give-kudos.html'
             }
         }
+
+
 
     }
 

@@ -100,8 +100,6 @@
         .directive('kudosTransactionsStream', function () {
             return {
                 controller: 'KudosTransactionController',
-                restrict: 'E',
-                scope: false,
                 templateUrl: 'app/components/kudos-transactions-stream/kudos-transactions-stream.html'
             }
         })
