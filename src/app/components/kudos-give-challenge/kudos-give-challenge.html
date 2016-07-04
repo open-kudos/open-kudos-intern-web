@@ -1,5 +1,11 @@
+<button ng-click="clearChallengeFormValues()" name="giveChallengeButton" id="challengeButton"
+        data-toggle="modal" data-target="#giveChallengeModal"
+        class="btn profile-buttons hvr-underline-from-center" data-placement="top">
+    {{ 'ProfileMeChallenge' | translate }}
+</button>
+
 <div id="giveChallengeModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog text-left">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" ng-click="clearChallengeFormValues()" class="close"

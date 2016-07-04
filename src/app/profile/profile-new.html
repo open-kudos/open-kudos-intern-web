@@ -7,14 +7,6 @@
     <!-- Profile Edit Modal -->
     <ng-include src="'app/profile/partials/user-detail-popup.html'"></ng-include>
 
-    <!-- Give Challenges Modal -->
-
-    <div>
-        <kudos-give-challenge></kudos-give-challenge>
-    </div>
-
-    <!-- Give Challenges Modal content end -->
-
     <div class="row">
 
         <!-- use later col-sm-push-3 -->
@@ -40,11 +32,7 @@
                         <h1><b class="acorn-color">{{userReceivedKudos}}</b></h1>
                         <h4>{{ 'ProfileMeTotalCorns' | translate }}</h4>
                         <div class="col-md-12">
-                            <button name="giveChallengeButton" id="challengeButton"
-                                    data-toggle="modal" data-target="#giveChallengeModal"
-                                    class="btn profile-buttons hvr-underline-from-center" data-placement="top">
-                                {{ 'ProfileMeChallenge' | translate }}
-                            </button>
+                            <kudos-give-challenge></kudos-give-challenge>
                         </div>
                     </div>
                 </div>
