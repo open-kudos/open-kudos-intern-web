@@ -10,19 +10,19 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li ng-class="selectedHome ? 'selected active' : ''"><a href="#/profile">Home</a></li>
-                <li ng-class="selectedAcorns ? 'selected active' : ''" ng-controller="NotificationsController"><a ng-click="clearNotifications()" href="#/acorns"><kudos-notifications-transactions></kudos-notifications-transactions></a></li>
-                <li ng-class="selectedProfile ? 'selected active' : ''"><a href="#/me">Profile</a></li>
+                <li ng-class="nav.selectedHome ? 'selected active' : ''"><a href="#/profile">Home</a></li>
+                <li ng-class="nav.selectedAcorns ? 'selected active' : ''" ng-controller="NotificationsController"><a ng-click="nav.clearNotifications()" href="#/acorns"><kudos-notifications-transactions></kudos-notifications-transactions></a></li>
+                <li ng-class="nav.selectedProfile ? 'selected active' : ''"><a href="#/me">Profile</a></li>
                 <!--<li ng-class="selectedLeaderboard ? 'selected active' : ''"><a href="#/leaderboard" class="no-hover">Leaderboard</a></li>-->
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="" class="dropdown-toggle" type="button" class="dropdown-toggle" data-toggle="dropdown" href=""
-                       ng-click="showDropDown == true ? showDropDown = false : showDropDown = true">
-                        <span class="glyphicon glyphicon-user"></span> {{user.firstName}} {{user.lastName}}</span>
+                    <a href="" class="dropdown-toggle" type="button" data-toggle="dropdown"
+                       ng-click="nav.showDropDown == true ? nav.showDropDown = false : nav.showDropDown = true">
+                        <span class="glyphicon glyphicon-user"></span> {{nav.user.firstName}} {{nav.user.lastName}}</span>
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a ng-click="logout()" class="" href="#">
+                        <li><a ng-click="nav.logout()" class="" href="#">
                             <span class="glyphicon glyphicon-log-in"></span> {{ 'ProfileMeLogout' | translate }}
                         </a></li>
                     </ul>
