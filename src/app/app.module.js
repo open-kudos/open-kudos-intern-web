@@ -13,7 +13,6 @@
             'myApp.notification',
             'myApp.components.navbar',
             'myApp.components.notifications',
-            'myApp.components.sentAcorns',
             'myApp.components.completedChallenges',
             'myApp.components.challengeNew',
             'myApp.components.transactions',
