@@ -5,7 +5,8 @@
             templateUrl: 'app/components/kudos-give-challenge/kudos-give-challenge.html',
             controllerAs: "giveChallenge",
             controller: ("GiveChallengeController", GiveChallengeController)
-        });
+        })  //TODO NEED TO REFACTOR controller IN THE FUTURE
+        .controller("GiveChallengeController", GiveChallengeController);
 
     GiveChallengeController.$inject = ['$httpParamSerializer', 'Resources', 'GiveChallengeService', '$filter'];
 
@@ -25,14 +26,18 @@
         vm.showChallengeFormErrorMessage = showChallengeFormErrorMessage;
         vm.giveToInputChanged = giveToInputChanged;
         vm.selectAutoText = selectAutoText;
-        
-        if(isEmptyCollection(Resources.getUsersCollection())){
-            GiveChallengeService.listUsers().then(function (val) {
-                Resources.setUsersCollection(val.userList);
+
+        vm.$onInit = onInit();
+
+        function onInit() {
+            if(isEmptyCollection(Resources.getUsersCollection())){
+                GiveChallengeService.listUsers().then(function (val) {
+                    Resources.setUsersCollection(val.userList);
+                    vm.usersCollection = Resources.getUsersCollection();
+                });
+            } else {
                 vm.usersCollection = Resources.getUsersCollection();
-            });
-        } else {
-            vm.usersCollection = Resources.getUsersCollection();
+            }
         }
 
         function giveChallenge() {
