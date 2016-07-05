@@ -1,48 +1,60 @@
 (function () {
 
-    var RelationshipController = function ($scope, $httpParamSerializer, RelationService, GiveKudosService, Resources) {
-        
-        $scope.followedCollection = [];
-        $scope.followersCollection = [];
-        $scope.selectedEmail = "namas";
-        $scope.acornsAmount = 1;
-        $scope.showGiveBox = false;
+    RelationshipController.$inject = ['$httpParamSerializer', 'RelationService', 'GiveKudosService', 'Resources'];
 
-        $scope.addFollower = addFollower;
-        $scope.removeFollowing = removeFollowing;
-        $scope.addFollowingToCollection = addFollowingToCollection;
-        $scope.removeFollowingFromCollection = removeFollowingFromCollection;
-        $scope.transferDataToParam = transferDataToParam;
-        $scope.selectRelationEmail = selectRelationEmail;
-        $scope.onModalHideEvent = onModalHideEvent;
-
-        $scope.selectAutoText = function (text) {
-            $scope.followerEmail = text;
-            $scope.searchTermSelected = true;
-            $scope.autocompleteHide = true;
-        };
-
-        $scope.$watch('followerEmail', function (newVal, oldVal) {
-            if ($scope.searchTermSelected == false) {
-                if (newVal != undefined) {
-                    (newVal.length > 1) ? $scope.autocompleteHide = false : $scope.autocompleteHide = true;
-                }
-            } else {
-                $scope.searchTermSelected = false;
-            }
+    angular
+        .module('myApp.components.relationship', [])
+        .component('kudosRelationship', {
+            templateUrl: 'app/components/kudos-relationship/kudos-relationship.html',
+            controller: ('RelationshipController', RelationshipController),
+            controllerAs: 'relation'
         });
 
-        GiveKudosService.listUsers().then(function (val) {
-            $scope.usersCollection = val.userList;
-        });
+    function RelationshipController($httpParamSerializer, RelationService, GiveKudosService, Resources) {
+        var vm = this;
 
-        RelationService.getFollowing().then(function () {
-            $scope.followedCollection = RelationService.getFollowingCollection();
-        });
+        vm.followedCollection = [];
+        vm.followersCollection = [];
+        vm.selectedEmail = "namas";
+        vm.acornsAmount = 1;
+        vm.showGiveBox = false;
 
-        RelationService.getFollowers().then(function () {
-            $scope.followersCollection = RelationService.getFollowers();
-        });
+        vm.addFollower = addFollower;
+        vm.removeFollowing = removeFollowing;
+        vm.addFollowingToCollection = addFollowingToCollection;
+        vm.removeFollowingFromCollection = removeFollowingFromCollection;
+        vm.transferDataToParam = transferDataToParam;
+        vm.selectRelationEmail = selectRelationEmail;
+        vm.onModalHideEvent = onModalHideEvent;
+        vm.selectAutoText = selectAutoText;
+        vm.onInputChange = onInputChange;
+
+        vm.$onInit = onInit();
+
+        function onInit() {
+            GiveKudosService.listUsers().then(function (val) {
+                vm.usersCollection = val.userList;
+            });
+
+            RelationService.getFollowing().then(function () {
+                vm.followedCollection = RelationService.getFollowingCollection();
+            });
+
+            RelationService.getFollowers().then(function () {
+                vm.followersCollection = RelationService.getFollowers();
+            });
+        }
+
+        function selectAutoText(text) {
+            vm.followerEmail = text;
+            vm.autocompleteHide = true;
+            vm.text = text;
+        }
+
+        function onInputChange() {
+            if (vm.followerEmail != undefined)
+                (vm.followerEmail.length > 1) ? vm.autocompleteHide = false : vm.autocompleteHide = true;
+        }
 
         function onModalHideEvent(whichBox) {
             whichBox == true ? whichBox = false : whichBox = true;
@@ -55,10 +67,17 @@
         }
 
         function addFollower(email) {
-            RelationService.addFollower(transferDataToParam(email)).then(function (response) {
-                addFollowingToCollection(response.data);
-                toastr.success("Started to follow " + response.data.userName);
-            })
+            if (email)
+                if (email == Resources.getCurrentUser().email){
+                    toastr.error("You can't follow yourself");
+                    vm.followerEmail = '';
+                } else {
+                    RelationService.addFollower(transferDataToParam(email)).then(function (response) {
+                        addFollowingToCollection(response.data);
+                        vm.followerEmail = '';
+                        toastr.success("Started to follow " + response.data.userName, 'Following');
+                    })
+                }
         }
 
         function removeFollowing(email, name, index) {
@@ -69,11 +88,11 @@
         }
         
         function addFollowingToCollection(follower) {
-            $scope.followedCollection.push(follower);
+            vm.followedCollection.push(follower);
         }
 
         function removeFollowingFromCollection(followerIndex) {
-            $scope.followedCollection.splice(followerIndex, 1);
+            vm.followedCollection.splice(followerIndex, 1);
         }
         
         function transferDataToParam(email) {
@@ -83,19 +102,9 @@
         }
 
         function selectRelationEmail(email) {
-            $scope.selectedEmail = email;
+            vm.selectedEmail = email;
             console.log(email);
         }
 
-    };
-
-    RelationshipController.$inject = ['$scope', '$httpParamSerializer', 'RelationService', 'GiveKudosService', 'Resources'];
-
-    angular.module('myApp.components.relationship', [])
-        .component('kudosRelationship', {
-            templateUrl: 'app/components/kudos-relationship/kudos-relationship.html',
-            controller: 'RelationshipController'
-        })
-        .controller('RelationshipController', RelationshipController)
-
+    }
 })();
