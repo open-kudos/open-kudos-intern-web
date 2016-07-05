@@ -1,33 +1,33 @@
 <div class="text-center">
-    <div ng-if="showList" class="card box4 box-shadow-animation" ng-repeat="challenge in completedChallengesCollection | limitTo: completedChallengesLimit">
-        <p class="card-text" ng-if="challenge.participant == userEmail">
+    <div ng-if="chCompleted.showList" class="card box4 box-shadow-animation" ng-repeat="challenge in chCompleted.completedChallengesCollection | limitTo: chCompleted.completedChallengesLimit">
+        <p class="card-text" ng-if="challenge.participant == chCompleted.userEmail">
             <span class="bold">{{challenge.name}}</span> received from
             <span class="bold">{{challenge.creator}}</span> for
-            <span class="badge acorn-bg">{{acornPlural(challenge.amount * 2)}}</span>
+            <span class="badge acorn-bg">{{chCompleted.acornPlural(challenge.amount * 2)}}</span>
         </p>
 
-        <p class="card-text" ng-if="challenge.creator == userEmail">
+        <p class="card-text" ng-if="challenge.creator == chCompleted.userEmail">
             <span class="bold">{{challenge.name}}</span> given to
             <span class="bold">{{challenge.participant}}</span> for
-            <span class="badge acorn-bg">{{acornPlural(challenge.amount * 2)}}</span>
+            <span class="badge acorn-bg">{{chCompleted.acornPlural(challenge.amount * 2)}}</span>
         </p>
 
         <p>Status:<span class="bold">{{challenge.status}}</span></p>
-        <span class="bold" ng-if="challenge.status == 'ACCOMPLISHED' ">{{getWinner($index)}}</span>
+        <span class="bold" ng-if="challenge.status == 'ACCOMPLISHED' ">{{chCompleted.getWinner($index)}}</span>
     </div>
 
     <div class="showMore">
-        <button ng-show="lessChallenges" ng-click="showLess(); lessChallenges = false" type="button"
+        <button ng-show="chCompleted.lessChallenges" ng-click="chCompleted.showLess(); chCompleted.lessChallenges = false" type="button"
                 class="btn btn-default btn-sm">
             {{'ProfileShowLess' | translate}}
         </button>
-        <button ng-click="showMore(); lessChallenges = true" ng-show="showMoreButton" type="button"
+        <button ng-click="chCompleted.showMore(); chCompleted.lessChallenges = true" ng-show="chCompleted.showMoreButton" type="button"
                 class="btn btn-default btn-sm">
             {{'ProfileShowMore' | translate}}
         </button>
     </div>
 
-    <div ng-if="!showList">
+    <div ng-if="!chCompleted.showList">
         <div class="alert alert-info acorn-bg margin-top">
             <span class="glyphicon glyphicon-info-sign"></span>
             You don't have any completed challenges

@@ -1,43 +1,52 @@
 (function () {
+    CompletedChallengesController.$inject = ['Challenges', 'Resources', 'ProfileService'];
 
-    var CompletedChallengesController = function ($scope, $httpParamSerializer, Challenges, Resources) {
-
-        $scope.completedChallengesCollection = [];
-        $scope.showList = false;
-
-        $scope.checkList = checkList;
-        $scope.acornPlural = acornPlural;
-        $scope.getWinner = getWinner;
-        $scope.userEmail = Resources.getCurrentUserEmail();
-        $scope.showMore = showMore;
-        $scope.showLess = showLess;
-        $scope.showMoreButton = showMoreButton;
-        var showMoreLimit = 5;
-        $scope.completedChallengesLimit = 5;
-
-        Challenges.getCompletedChallenges().then(function (val) {
-            Resources.setCompletedChallenges(val);
-            $scope.completedChallengesCollection = Resources.getCompletedChallenges();
-            showMoreButton(val);
+    angular
+        .module('myApp.components.completedChallenges', [])
+        .component('kudosChallengeCompleted', {
+            templateUrl: 'app/components/kudos-challenge-completed/kudos-challenge-completed.html',
+            controller: ('CompletedChallengesController',CompletedChallengesController),
+            controllerAs: 'chCompleted'
         });
 
-        $scope.$watch(function () {
-            return Resources.getCurrentUserEmail()
-        }, function (newVal) {
-            if (!isValid(newVal)) $scope.userEmail = Resources.getCurrentUserEmail();
-        });
+    function CompletedChallengesController(Challenges, Resources, ProfileService) {
+        var vm = this,
+            showMoreLimit = 5;
+
+        vm.completedChallengesLimit = 5;
+        vm.completedChallengesCollection = [];
+        vm.showList = false;
+
+        vm.checkList = checkList;
+        vm.acornPlural = acornPlural;
+        vm.getWinner = getWinner;
+        vm.showMore = showMore;
+        vm.showLess = showLess;
+        vm.showMoreButton = showMoreButton;
+
+        vm.$onInit = onInit();
+
+        function onInit() {
+            Challenges.getCompletedChallenges().then(function (val) {
+                Resources.setCompletedChallenges(val);
+                vm.completedChallengesCollection = Resources.getCompletedChallenges();
+                showMoreButton(val);
+                checkList();
+            });
+
+            if(!Resources.getCurrentUserEmail()){
+                ProfileService.userHome().then(function (val) {
+                    Resources.setCurrentUserEmail(val.email);
+                    vm.userEmail = Resources.getCurrentUserEmail();
+                });
+            } else {
+                vm.userEmail = Resources.getCurrentUserEmail();
+            }
+        }
 
         function checkList() {
-            $scope.showList = $scope.completedChallengesCollection.length > 0;
+            vm.showList = vm.completedChallengesCollection.length > 0;
         }
-
-        function acornPlural(amount) {
-            return amount > 1 ? amount + " Acorns" : amount + " Acorn"
-        }
-
-        $scope.$watch(function () {
-            checkList();
-        });
 
         function getWinner(index) {
             if (Resources.getCompletedChallenges()[index].creatorStatus) {
@@ -58,29 +67,18 @@
         }
 
         function showMoreButton(val) {
-            $scope.showMoreButton = val.length > $scope.completedChallengesLimit
+            vm.showMoreButton = val.length > vm.completedChallengesLimit
         }
 
         function showMore() {
-            $scope.completedChallengesLimit += showMoreLimit;
+            vm.completedChallengesLimit += showMoreLimit;
             showMoreButton(Resources.getCompletedChallenges());
         }
 
         function showLess() {
-            $scope.completedChallengesLimit = showMoreLimit;
+            vm.completedChallengesLimit = showMoreLimit;
             showMoreButton(Resources.getCompletedChallenges());
-            $scope.showLessButton = false;
+            vm.showLessButton = false;
         }
-
-    };
-
-    CompletedChallengesController.$inject = ['$scope', '$httpParamSerializer', 'Challenges', 'Resources'];
-
-    angular.module('myApp.components.completedChallenges', [])
-        .component('kudosChallengeCompleted', {
-            templateUrl: 'app/components/kudos-challenge-completed/kudos-challenge-completed.html',
-            controller: 'CompletedChallengesController'
-        })
-        .controller('CompletedChallengesController', CompletedChallengesController)
-
+    }
 })();
