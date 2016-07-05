@@ -1,14 +1,14 @@
 <button name="challengeButton" id="challengeButton"
-        data-toggle="modal" data-target="#modal{{id}}challenge"
+        data-toggle="modal" data-target="#modal{{chSmall.id}}challenge"
         class="btn btn-sm btn-default">
     <span class="glyphicon glyphicon-tree-deciduous"></span> Challenge
 </button>
 
-<div id="modal{{id}}challenge" class="modal fade" role="dialog">
+<div id="modal{{chSmall.id}}challenge" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" ng-click="clearChallengeFormValues()" class="close"
+                <button type="button" ng-click="chSmall.clearChallengeFormValues()" class="close"
                         data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">{{ 'GIVE_CHALLENGE_POPUP_TITLE' | translate }}</h4>
             </div>
@@ -18,41 +18,34 @@
                     <form name="giveChallengeForm">
                         <div class="form-group col-sm-6">
                             <label for="giveChallengeName">{{ 'GIVE_CHALLENGE_NAME' | translate }}</label>
-                            <input ng-model="giveChallengeName" class="form-control"
+                            <input ng-model="chSmall.giveChallengeName" class="form-control"
                                    id="giveChallengeName" name="giveChallengeName" type="text" required>
                         </div>
 
                         <div class="form-group col-sm-6">
                             <label for="giveChallengeAmountOfKudos">{{'GIVE_CHALLENGE_AMOUNT' | translate }} | Max:
-                                {{userAvailableKudos}}</label>
-                            <input ng-model="giveChallengeAmountOfKudos"
+                                {{chSmall.userAvailableKudos}}</label>
+                            <input ng-model="chSmall.giveChallengeAmountOfKudos"
                                    id="giveChallengeAmountOfKudos"
                                    name="giveChallengeAmountOfKudos" type="number" ng-pattern="/^[0-9]+$/"
-                                   class="form-control" min="1" max="{userAvailableKudos}" required>
+                                   class="form-control" min="1" max="{chSmall.userAvailableKudos}" required>
                         </div>
 
                         <div class="form-group col-sm-12">
                             <label for="giveChallengeTo">{{'GIVE_CHALLENGE_TO' | translate }}</label>
-                            <input ng-model="giveChallengeTo"
+                            <input ng-model="chSmall.giveChallengeTo"
                                    class="form-control"
                                    id="giveChallengeTo"
                                    name="giveChallengeTo"
                                    type="text"
                                    autocomplete="off"
                                    disabled>
-                            <div class="autocomplete" ng-show="autocompleteHide==false">
-                                <div ng-repeat="autoText in usersCollection | filter:giveChallengeTo"
-                                     ng-click="selectAutoText(autoText.email)">
-                                    <p>{{autoText.firstName}} {{autoText.lastName}}</p>
-                                    <p class="small">{{autoText.email}}</p>
-                                </div>
-                            </div>
                         </div>
 
                         <div class="form-group col-sm-12">
                             <label for="giveChallengeDescription">{{'GIVE_CHALLENGE_OPTIONAL_FIELD_DESCRIPTION' |
                                 translate }} (optional)</label>
-                            <textarea ng-model="giveChallengeDescription" class="form-control"
+                            <textarea ng-model="chSmall.giveChallengeDescription" class="form-control"
                                       id="giveChallengeDescription"
                                       name="giveChallengeDescription">
                             </textarea>
@@ -61,24 +54,24 @@
                         <div class="form-group col-sm-12">
                             <label for="giveChallengeExpirationDate">{{'GIVE_CHALLENGE_OPTIONAL_FIELD_EXPIRATION' |
                                 translate }} (optional)</label>
-                            <input ng-model="giveChallengeExpirationDate" class="form-control"
+                            <input ng-model="chSmall.giveChallengeExpirationDate" class="form-control"
                                    id="giveChallengeExpirationDate"
                                    name="giveChallengeExpirationDate" type="datetime-local" value="2000-01-01T00:00">
                         </div>
 
                         <div class="form-group col-sm-12 text-center">
-                            <div ng-hide="!showError" class="alert alert-danger" role="alert">
-                                <strong>Whoops!</strong> {{challengeFormErrorMessage}}
+                            <div ng-hide="!chSmall.showError" class="alert alert-danger" role="alert">
+                                <strong>Whoops!</strong> {{chSmall.challengeFormErrorMessage}}
                             </div>
                         </div>
 
                     </form>
 
-                    <button ng-click="giveChallenge()" name="giveChallengeButton" id="giveChallengeButton"
+                    <button ng-click="chSmall.giveChallenge()" name="giveChallengeButton" id="giveChallengeButton"
                             class="form-control btn btn-login">{{'GIVE_CHALLENGE_GIVE_BUTTON' | translate}}
                     </button>
                 </div>
-                <div class="" ng-show="team">
+                <div class="" ng-show="chSmall.team">
                     <kudos-give-team-challenge></kudos-give-team-challenge>
                 </div>
 

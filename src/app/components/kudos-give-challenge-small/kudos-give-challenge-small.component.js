@@ -1,54 +1,66 @@
 (function () {
-    var GiveChallengeSmallController = function($scope, $httpParamSerializer, Resources, Challenges, GiveChallengeService, $filter){
-        var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
-        $scope.userAvailableKudos = 0;
-        $scope.autocompleteHide = true;
-        $scope.showError = false;
-        $scope.usersCollection = [];
-        
-        $scope.clearChallengeFormValues = clearChallengeFormValues;
-        $scope.challengeFormCheck = challengeFormCheck;
-        $scope.giveChallenge = giveChallenge;
-        $scope.showChallengeFormErrorMessage = showChallengeFormErrorMessage;
 
-        this.$onInit = function() {
-            $scope.giveChallengeTo = this.email;
-            $scope.id = this.index;
-        };
+    GiveChallengeSmallController.$inject = ['$httpParamSerializer', 'Resources', 'GiveChallengeService', '$filter', 'ProfileService'];
 
-        $scope.selectAutoText = function (text) {
-            $scope.giveChallengeTo = text;
-            $scope.searchTermSelected = true;
-            $scope.autocompleteHide = true;
-        };
-
-        $scope.$watch('giveChallengeTo', function (newVal, oldVal) {
-            if ($scope.searchTermSelected == false) {
-                if (newVal != undefined) {
-                    (newVal.length > 1) ? $scope.autocompleteHide = false : $scope.autocompleteHide = true;
-                }
-            } else {
-                $scope.searchTermSelected = false;
-            }
+    angular.module('myApp.components.giveChallengeSmall', [])
+        .component('kudosGiveChallengeSmall', {
+            templateUrl: 'app/components/kudos-give-challenge-small/kudos-give-challenge-small.html',
+            bindings: {
+                email: '<',
+                index: '<'
+            },
+            controller: ('GiveChallengeSmallController', GiveChallengeSmallController),
+            controllerAs: 'chSmall'
         });
 
-        if($scope.usersCollection.length == 0){
-            GiveChallengeService.listUsers().then(function (val) {
-                $scope.usersCollection = val.userList;
-            });
+    function GiveChallengeSmallController($httpParamSerializer, Resources, GiveChallengeService, $filter, ProfileService){
+        var vm = this,
+            requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
+
+        vm.userAvailableKudos = 0;
+        vm.autocompleteHide = true;
+        vm.showError = false;
+        vm.usersCollection = [];
+        
+        vm.clearChallengeFormValues = clearChallengeFormValues;
+        vm.challengeFormCheck = challengeFormCheck;
+        vm.giveChallenge = giveChallenge;
+        vm.showChallengeFormErrorMessage = showChallengeFormErrorMessage;
+
+        vm.$onInit = onInit();
+
+        function onInit(){
+            vm.giveChallengeTo = vm.email;
+            vm.id = vm.index;
+
+            if(!Resources.getUsersCollection()){
+                GiveChallengeService.listUsers().then(function (val) {
+                    Resources.setUsersCollection(val.userList);
+                    vm.usersCollection = Resources.getUsersCollection();
+                });
+            } else vm.usersCollection = Resources.getUsersCollection();
+
+            if (!Resources.getUserAvailableKudos()){
+                ProfileService.remainingKudos().then(function (val) {
+                    Resources.setUserAvailableKudos(val);
+                    vm.userAvailableKudos = Resources.getUserAvailableKudos();
+                });
+            } else {
+                vm.userAvailableKudos = Resources.getUserAvailableKudos();
+            }
         }
 
         function giveChallenge() {
-            var expirationDate = $filter('date')($scope.giveChallengeExpirationDate, requestDateFormat);
+            var expirationDate = $filter('date')(vm.giveChallengeExpirationDate, requestDateFormat);
             var currentDate = $filter('date')(new Date(), requestDateFormat);
-            $scope.userEmail = Resources.getCurrentUserEmail();
+            vm.userEmail = Resources.getCurrentUserEmail();
 
             var giveTo = $httpParamSerializer({
-                participant: $scope.giveChallengeTo,
-                name: $scope.giveChallengeName,
-                description: $scope.giveChallengeDescription,
+                participant: vm.giveChallengeTo,
+                name: vm.giveChallengeName,
+                description: vm.giveChallengeDescription,
                 finishDate: expirationDate,
-                amount: $scope.giveChallengeAmountOfKudos
+                amount: vm.giveChallengeAmountOfKudos
             });
 
             var challengeCall = challengeFormCheck(expirationDate, currentDate);
@@ -57,29 +69,30 @@
                 GiveChallengeService.createChallenge(giveTo).then(function (val) {
                     clearChallengeFormValues();
                     $('#giveChallengeModal').modal('hide');
-                    toastr.success('You successfully challenged ' + val.data.participant + " with " + val.data.amount + " " + acornPlural(val.data.amount) + '.');
-                    $('#modal'+$scope.id+'challenge').modal('hide');
+                    toastr.success('You successfully challenged ' + val.data.participant + " with " + acornPlural(val.data.amount) + '.');
+                    $('#modal'+vm.id+'challenge').modal('hide');
                     Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
-                    Resources.getGivenChallenges().push(val.data);
+                    vm.userAvailableKudos = Resources.getUserAvailableKudos();
+                    Resources.getNewChallenges().unshift(val.data);
                 }).catch(function () {
                     showChallengeFormErrorMessage("Challenge receiver does not exist");
                 })
         }
 
         function challengeFormCheck(expirationDate, currentDate) {
-            if ($scope.giveChallengeName == null) {
+            if (vm.giveChallengeName == null) {
                 showChallengeFormErrorMessage("Please enter Challenge name");
                 return false;
-            } else if ($scope.giveChallengeAmountOfKudos == null) {
+            } else if (vm.giveChallengeAmountOfKudos == null) {
                 showChallengeFormErrorMessage("Please enter valid challenge Acorns");
                 return false;
-            } else if ($scope.giveChallengeAmountOfKudos > $scope.userAvailableKudos) {
+            } else if (vm.giveChallengeAmountOfKudos > vm.userAvailableKudos) {
                 showChallengeFormErrorMessage("You don't have enough of Acorns");
                 return false;
-            } else if ($scope.giveChallengeTo == null) {
+            } else if (vm.giveChallengeTo == null) {
                 showChallengeFormErrorMessage("Please enter challenge receiver");
                 return false;
-            } else if ($scope.giveChallengeTo == $scope.userEmail) {
+            } else if (vm.giveChallengeTo == vm.userEmail) {
                 showChallengeFormErrorMessage("You can't challenge yourself");
                 return false;
             } else if (expirationDate <= currentDate){
@@ -87,55 +100,24 @@
                 return false;
             }
             showChallengeFormErrorMessage("");
-            showError = false;
+            vm.showError = false;
             return true;
         }
 
         function clearChallengeFormValues() {
-            $scope.giveChallengeReferee = null;
-            $scope.giveChallengeName = null;
-            $scope.giveChallengeDescription = null;
-            $scope.giveChallengeExpirationDate = null;
-            $scope.giveChallengeAmountOfKudos = null;
-            $scope.autocompleteHide = true;
-            $scope.showError = false;
-            $scope.challengeFormErrorMessage = "";
+            vm.giveChallengeReferee = null;
+            vm.giveChallengeName = null;
+            vm.giveChallengeDescription = null;
+            vm.giveChallengeExpirationDate = null;
+            vm.giveChallengeAmountOfKudos = null;
+            vm.autocompleteHide = true;
+            vm.showError = false;
+            vm.challengeFormErrorMessage = "";
         }
 
         function showChallengeFormErrorMessage(message) {
-            $scope.showError = true;
-            $scope.challengeFormErrorMessage = message;
+            vm.showError = true;
+            vm.challengeFormErrorMessage = message;
         }
-
-        $scope.$watch(function () {
-            return Resources.getUserAvailableKudos()
-        }, function (newVal) {
-            if (!isValid(newVal)) $scope.userAvailableKudos = Resources.getUserAvailableKudos();
-        });
-
-        function isValid(value) {
-            return typeof value === "undefined";
-        }
-
-        function acornPlural(val){
-            if (val > 1)
-                return 'Acorns';
-            else
-                return 'Acorn';
-        }
-    };
-
-    GiveChallengeSmallController.$inject = ['$scope', '$httpParamSerializer', 'Resources', 'Challenges', 'GiveChallengeService', '$filter'];
-
-    angular.module('myApp.components.giveChallengeSmall', [])
-    .component('kudosGiveChallengeSmall', {
-        templateUrl: 'app/components/kudos-give-challenge-small/kudos-give-challenge-small.html',
-        bindings: {
-            email: '<',
-            index: '<'
-        },
-        controller: 'GiveChallengeSmallController'
-    })
-    .controller('GiveChallengeSmallController', GiveChallengeSmallController)
-
+    }
 })();
