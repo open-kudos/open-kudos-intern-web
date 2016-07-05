@@ -17,7 +17,6 @@
         vm.completedChallengesCollection = [];
         vm.showList = false;
 
-        vm.checkList = checkList;
         vm.acornPlural = acornPlural;
         vm.getWinner = getWinner;
         vm.showMore = showMore;
@@ -31,7 +30,6 @@
                 Resources.setCompletedChallenges(val);
                 vm.completedChallengesCollection = Resources.getCompletedChallenges();
                 showMoreButton(val);
-                checkList();
             });
 
             if(!Resources.getCurrentUserEmail()){
@@ -42,10 +40,6 @@
             } else {
                 vm.userEmail = Resources.getCurrentUserEmail();
             }
-        }
-
-        function checkList() {
-            vm.showList = vm.completedChallengesCollection.length > 0;
         }
 
         function getWinner(index) {
