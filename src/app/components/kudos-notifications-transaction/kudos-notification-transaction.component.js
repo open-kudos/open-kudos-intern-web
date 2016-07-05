@@ -1,14 +1,25 @@
 (function () {
 
-    var NotificationsController = function ($scope, $cookies, $httpParamSerializer, $location, Resources, KudosNotificationService) {
-        $scope.newTransactionCollection = [];
-        $scope.notificationBadgeAmount = 0;
-        $scope.receivedNewTransaction = false;
-        $scope.notificationsToggle = false;
+    NotificationsController.$inject = ['$location', 'Resources', 'KudosNotificationService'];
 
-        $scope.acornPlural = acornPlural;
-        $scope.clearNotifications = clearNotifications;
-        $scope.checkNotifications = checkNotifications;
+    angular.module('myApp.components.notifications', [])
+        .component('kudosNotificationsTransactions', {
+            templateUrl: 'app/components/kudos-notifications-transaction/kudos-notifications-transaction.html',
+            controller: ('NotificationsController', NotificationsController),
+            controllerAs: 'notification'
+        }) // TODO REFACTOR controller IN THE FUTURE
+        .controller('NotificationsController', NotificationsController);
+
+    function NotificationsController($location, Resources, KudosNotificationService) {
+        var vm = this;
+
+        vm.newTransactionCollection = [];
+        vm.notificationBadgeAmount = 0;
+        vm.receivedNewTransaction = false;
+        vm.notificationsToggle = false;
+
+        vm.clearNotifications = clearNotifications;
+        vm.checkNotifications = checkNotifications;
 
         var lastTransactionTimestamp;
 
@@ -18,39 +29,26 @@
             KudosNotificationService.getNewTransactions().then(function (val) {
                 if (val.length != 0) {
                     Resources.setNotificationsTransactionCollection(val);
-                    $scope.newTransactionCollection = val;
-                    $scope.notificationBadgeAmount = val.length;
-                    $scope.receivedNewTransaction = true;
+                    vm.newTransactionCollection = val;
+                    vm.notificationBadgeAmount = val.length;
+                    vm.receivedNewTransaction = true;
                     lastTransactionTimestamp = val[0].timestamp;
                 }
             });
         }
 
         function clearNotifications() {
-            $scope.notificationsToggle == true ? $scope.notificationsToggle = false : $scope.notificationsToggle = true;
+            vm.notificationsToggle == true ? vm.notificationsToggle = false : vm.notificationsToggle = true;
             $location.path("/notifications");
-            if ($scope.newTransactionCollection.length != 0) {
-                overwriteLastTransactionTimestamp($scope.newTransactionCollection[0].timestamp);
-                $scope.notificationBadgeAmount = 0;
-                $scope.receivedNewTransaction = false;
+            if (vm.newTransactionCollection.length != 0) {
+                overwriteLastTransactionTimestamp(vm.newTransactionCollection[0].timestamp);
+                vm.notificationBadgeAmount = 0;
+                vm.receivedNewTransaction = false;
             }
         }
 
         function overwriteLastTransactionTimestamp(timestamp) {
             KudosNotificationService.setLastTransaction(timestamp);
         }
-
-        function acornPlural(amount) {
-            return amount > 1 ? amount + " Acorns" : amount + " Acorn"
-        }
-    };
-
-    NotificationsController.$inject = ['$scope', '$cookies', '$httpParamSerializer', '$location', 'Resources', 'KudosNotificationService'];
-
-    angular.module('myApp.components.notifications', [])
-        .component('kudosNotificationsTransactions', {
-            templateUrl: 'app/components/kudos-notifications-transaction/kudos-notifications-transaction.html',
-            controller: 'NotificationsController'
-        })
-        .controller('NotificationsController', NotificationsController);
+    }
 })();
