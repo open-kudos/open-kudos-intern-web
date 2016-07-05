@@ -1,18 +1,18 @@
 <div>
     <ul class="list-group">
-        <li ng-repeat="transaction in transactionCollection | orderBy:'-timestamp'"
+        <li ng-repeat="item in transaction.transactionCollection | orderBy:'-timestamp'"
             class="animate-repeat list-group-item">
-            <span class="badge acorn-bg">{{acornPlural(transaction.amount)}}</span>
-            <span class="bold">{{transaction.senderName}}</span> sent to
-            <span class="bold">{{transaction.receiverName}}</span>
+            <span class="badge acorn-bg">{{transaction.acornPlural(item.amount)}}</span>
+            <span class="bold">{{item.senderName}}</span> sent to
+            <span class="bold">{{item.receiverName}}</span>
         </li>
     </ul>
 
-    <button ng-click="showMoreTransactions(); lessIncomingTransactions = true" ng-show="moreIncoming" type="button"
+    <button ng-click="transaction.showMoreTransactions(); transaction.lessIncomingTransactions = true" ng-show="transaction.moreIncoming" type="button"
             class="btn btn-default btn-sm">
         {{'ProfileShowMore' | translate}}
     </button>
-    <button ng-show="lessIncomingTransactions" ng-click="showLessTransactions(); lessIncomingTransactions = false"
+    <button ng-show="transaction.lessIncomingTransactions" ng-click="transaction.showLessTransactions(); transaction.lessIncomingTransactions = false"
             type="button"
             class="btn btn-default btn-sm">
         {{'ProfileShowLess' | translate}}

@@ -1,58 +1,71 @@
 (function () {
 
-    var KudosTransactionController = function ($scope, $timeout, $httpParamSerializer, KudosTransactionService) {
+    KudosTransactionController.$inject = ['$scope', '$timeout', '$httpParamSerializer', 'KudosTransactionService'];
+
+    angular.module('myApp.components.transactions', [])
+        .directive('kudosTransactionsStream', function () {
+            return {
+                controller: ('KudosTransactionController', KudosTransactionController),
+                controllerAs: 'transaction',
+                templateUrl: 'app/components/kudos-transactions-stream/kudos-transactions-stream.html'
+            }
+        });
+
+    function KudosTransactionController($scope, $timeout, $httpParamSerializer, KudosTransactionService) {
+        var vm = this;
 
         var status = "COMPLETED";
         var page = 0;
         var pageSize = 10;
-
         var requestData = $httpParamSerializer({
             status: status,
             page: page,
             pageSize: pageSize
         });
+        vm.transactionCollection = [];
 
-        $scope.transactionCollection = [];
+        vm.activate = activate();
+        vm.showMoreTransactions = showMoreTransactions;
+        vm.showLessTransactions = showLessTransactions;
+        vm.acornPlural = acornPlural;
+        vm.getKudosTransactionsFeed = getKudosTransactionsFeed;
+        vm.changeTransactionsList = changeTransactionsList;
+        vm.startPooling = startPooling;
 
-        $scope.showMoreTransactions = showMoreTransactions;
-        $scope.showLessTransactions = showLessTransactions;
-        $scope.acornPlural = acornPlural;
-        $scope.getKudosTransactionsFeed = getKudosTransactionsFeed;
-        $scope.changeTransactionsList = changeTransactionsList;
+        function activate() {
+            getKudosTransactionsFeed();
+            startPooling();
+        }
 
-        getKudosTransactionsFeed();
-
-        $scope.startPooling = function () {
+        function startPooling() {
             KudosTransactionService.poll().then(function (transactionChanged) {
                 if (transactionChanged === true) changeTransactionsList();
             });
-            pooling = $timeout($scope.startPooling, 5000);
-        };
+            pooling = $timeout(vm.startPooling, 5000);
+        }
 
         $scope.$on("$destroy", function (event) {
             $timeout.cancel(pooling);
         });
 
-        $scope.startPooling();
-
         function getKudosTransactionsFeed() {
             KudosTransactionService.getCompletedKudosTransactions(requestData).then(function (transactions) {
-                $scope.transactionCollection = transactions;
+                vm.transactionCollection = transactions;
             });
         }
 
         function loadMoreKudosTransactionsFeed() {
             KudosTransactionService.getCompletedKudosTransactions().then(function (transactions) {
-                $scope.transactionCollection = $scope.transactionCollection.concat(transactions);
+                vm.transactionCollection = vm.transactionCollection.concat(transactions);
             });
         }
 
         function changeTransactionsList() {
             KudosTransactionService.getCompletedKudosTransactions(requestData).then(function (transactions) {
                 transactions.forEach(function (transaction) {
-                    if (arrayMismatchIndex($scope.transactionCollection, transaction) != true) {
-                        $scope.transactionCollection.unshift(transaction);
-                        $scope.transactionCollection.pop();
+                    if (arrayMismatchIndex(vm.transactionCollection, transaction) != true) {
+                        vm.transactionCollection.unshift(transaction);
+                        vm.transactionCollection.pop();
                     }
                 });
             });
@@ -88,21 +101,6 @@
         function compareTransactions(transaction, otherTransaction) {
             return transaction.timestamp === otherTransaction.timestamp && transaction.senderEmail === otherTransaction.senderEmail;
         }
-
-        function acornPlural(amount) {
-            return amount > 1 ? amount + " Acorns" : amount + " Acorn"
-        }
-    };
-
-    KudosTransactionController.$inject = ['$scope', '$timeout', '$httpParamSerializer', 'KudosTransactionService'];
-
-    angular.module('myApp.components.transactions', [])
-        .directive('kudosTransactionsStream', function () {
-            return {
-                controller: 'KudosTransactionController',
-                templateUrl: 'app/components/kudos-transactions-stream/kudos-transactions-stream.html'
-            }
-        })
-        .controller('KudosTransactionController', KudosTransactionController)
+    }
 })();
 
