@@ -14,7 +14,7 @@
 
         vm.selectedHome = false;
         vm.selectedAcorns = false;
-        vm.selectedProfile = false;
+        vm.selectedFollowing = false;
         vm.selectedLeaderboard = false;
         vm.selectedChallenges = false;
         vm.logout = logout;
@@ -29,8 +29,8 @@
             } else if ($location.path() == '/leaderboard'){
 
                 vm.selectedLeaderboard = true;
-            } else if ($location.path() == '/me'){
-                vm.selectedProfile = true;
+            } else if ($location.path() == '/following'){
+                vm.selectedFollowing = true;
             }
 
             if (vm.user == undefined){

@@ -1,6 +1,3 @@
-/**
- * Created by vytautassugintas on 20/04/16.
- */
 (function () {
     angular
         .module('myApp', [
@@ -31,6 +28,7 @@
             'myApp.components.info',
             'myApp.components.feed',
             'myApp.components.userHistory',
-            'myApp.components.leaderboardFilter'
+            'myApp.components.leaderboardFilter',
+            'myApp.components.following'
         ]);
 })();
