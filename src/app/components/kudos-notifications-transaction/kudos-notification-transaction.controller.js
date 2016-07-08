@@ -2,12 +2,8 @@
 
     NotificationsController.$inject = ['$location', 'Resources', 'KudosNotificationService'];
 
-    angular.module('myApp.components.notifications', [])
-        .component('kudosNotificationsTransactions', {
-            templateUrl: 'app/components/kudos-notifications-transaction/kudos-notifications-transaction.html',
-            controller: ('NotificationsController', NotificationsController),
-            controllerAs: 'notification'
-        }) // TODO REFACTOR controller IN THE FUTURE
+    angular
+        .module('myApp.components.notifications', [])
         .controller('NotificationsController', NotificationsController);
 
     function NotificationsController($location, Resources, KudosNotificationService) {
