@@ -22,6 +22,7 @@ module.exports = function (config) {
             'app/*.utils.js',
             'app/kudos-feed/kudos-feed.controller.js',
             'app/components/**/*.component.js',
+            'app/components/**/*.controller.js',
             'app/components/**/*.directive.js',
             'app/components/**/*.service.js',
             'app/services/*.js',
