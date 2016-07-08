@@ -1,6 +1,5 @@
 module.exports = function (config) {
-    config.set({
-
+    var configuration = {
         basePath: 'src',
 
         files: [
@@ -52,7 +51,20 @@ module.exports = function (config) {
         junitReporter: {
             outputFile: 'test_out/unit.xml',
             suite: 'unit'
+        },
+
+        customLaunchers: {
+            Chrome_travis_ci: {
+                base: 'Chrome',
+                flags: ['--no-sandbox']
+            }
         }
 
-    });
+    };
+
+    if (process.env.TRAVIS) {
+        configuration.browsers = ['Chrome_travis_ci'];
+    }
+
+    config.set(configuration);
 };
