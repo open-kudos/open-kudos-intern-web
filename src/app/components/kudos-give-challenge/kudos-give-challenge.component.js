@@ -5,8 +5,7 @@
             templateUrl: 'app/components/kudos-give-challenge/kudos-give-challenge.html',
             controllerAs: "giveChallenge",
             controller: ("GiveChallengeController", GiveChallengeController)
-        })  //TODO NEED TO REFACTOR controller IN THE FUTURE
-        .controller("GiveChallengeController", GiveChallengeController);
+        });
 
     GiveChallengeController.$inject = ['$httpParamSerializer', 'Resources', 'GiveChallengeService', '$filter'];
 
