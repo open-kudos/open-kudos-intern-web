@@ -1,6 +1,5 @@
 module.exports = function (config) {
-    config.set({
-
+    var configuration = {
         basePath: 'src',
 
         files: [
@@ -23,6 +22,7 @@ module.exports = function (config) {
             'app/*.utils.js',
             'app/kudos-feed/kudos-feed.controller.js',
             'app/components/**/*.component.js',
+            'app/components/**/*.controller.js',
             'app/components/**/*.directive.js',
             'app/components/**/*.service.js',
             'app/services/*.js',
@@ -52,7 +52,20 @@ module.exports = function (config) {
         junitReporter: {
             outputFile: 'test_out/unit.xml',
             suite: 'unit'
+        },
+
+        customLaunchers: {
+            Chrome_travis_ci: {
+                base: 'Chrome',
+                flags: ['--no-sandbox']
+            }
         }
 
-    });
+    };
+
+    if (process.env.TRAVIS) {
+        configuration.browsers = ['Chrome_travis_ci'];
+    }
+
+    config.set(configuration);
 };
