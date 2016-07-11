@@ -32,8 +32,7 @@ module.exports = function (config) {
             'app/acorns/*.js',
             'app/notifications/*.js',
             'app/leaderboard/*.js',
-            'test/*.spec.js',
-            'app/components/**/*.spec.js'
+            '../test/**/*.spec.js'
         ],
 
         autoWatch: true,

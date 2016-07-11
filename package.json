@@ -28,7 +28,6 @@
     "protractor": "^2.1.0",
     "pump": "^1.0.1",
     "shelljs": "^0.2.6",
-    "gulp-install": "^0.6.0",
     "uglify-js": "^2.7.0"
   },
   "scripts": {
