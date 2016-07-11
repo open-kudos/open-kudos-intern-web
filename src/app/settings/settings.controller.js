@@ -9,7 +9,7 @@
     function SettingsController(Resources, $timeout, User) {
         var vm = this;
 
-        vm.subscribed = true;
+        vm.subscribed = false;
         vm.showLoader = true;
 
         vm.subscription = subscription;
