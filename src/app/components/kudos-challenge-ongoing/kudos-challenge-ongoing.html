@@ -14,20 +14,20 @@
         </p>
 
         <p ng-if="challenge.description">Description: {{challenge.description}}</p>
-        <p ng-if="challenge.finishDate">Finish date: {{convertDate(challenge.finishDate)}}</p>
+        <p ng-if="challenge.finishDate">Finish date: {{chOngoing.convertDate(challenge.finishDate)}}</p>
 
         <div ng-if="chOngoing.isSelected(challenge)">
             <label>{{chOngoing.selectedMessage}}</label>
         </div>
 
         <div ng-if="chOngoing.showButtons(challenge)">
-            <button ng-hide="chOngoing.buttons" class="btn btn-danger btn-challenge-participated" ng-click="chOngoing.lost(challenge.id, challenge.amount); chOngoing.buttons = true">I lost</button>
-            <button ng-hide="chOngoing.buttons" class="btn btn-success btn-challenge-participated" ng-click="chOngoing.won(challenge.id, challenge.amount); chOngoing.buttons = true">I won</button>
+            <button ng-hide="chOngoing.buttons[$index]" class="btn btn-danger btn-challenge-participated" ng-click="chOngoing.lost(challenge.id, challenge.amount); chOngoing.buttons[$index] = true">I lost</button>
+            <button ng-hide="chOngoing.buttons[$index]" class="btn btn-success btn-challenge-participated" ng-click="chOngoing.won(challenge.id, challenge.amount); chOngoing.buttons[$index] = true">I won</button>
         </div>
         <div ng-if="!chOngoing.showButtons(challenge)">
             <label>Waiting for other user to select</label>
         </div>
-        <div ng-show="chOngoing.buttons">
+        <div ng-show="chOngoing.buttons[$index]">
             <label>Waiting for other user to select</label>
         </div>
     </div>

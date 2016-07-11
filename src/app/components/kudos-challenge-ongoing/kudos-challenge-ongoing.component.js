@@ -22,6 +22,7 @@
         vm.showButtons = showButtons;
         vm.isSelected = isSelected;
         vm.acornPlural = acornPlural;
+        vm.convertDate = convertDate;
 
         vm.$onInit = onInit();
 
@@ -82,13 +83,13 @@
         }
 
         function isSelected(list) {
-            if (list.creator == vm.userEmail) {
-                if (list.participantStatus == false) return vm.selectedMessage = list.participant + " thinks he lost";
-                else if (list.participantStatus == true) return vm.selectedMessage = list.participant + " thinks he won";
+            if (list.creatorEmail == vm.userEmail) {
+                if (list.participantStatus == false) return vm.selectedMessage = list.participantEmail + " thinks he lost";
+                else if (list.participantStatus == true) return vm.selectedMessage = list.participantEmail + " thinks he won";
                 else return false;
-            } else if (list.participant == vm.userEmail) {
-                if (list.creatorStatus == false) return vm.selectedMessage = list.creator + " thinks he lost";
-                else if (list.creatorStatus == true) return vm.selectedMessage = list.creator + " thinks he won";
+            } else if (list.participantEmail == vm.userEmail) {
+                if (list.creatorStatus == false) return vm.selectedMessage = list.creatorEmail + " thinks he lost";
+                else if (list.creatorStatus == true) return vm.selectedMessage = list.creatorEmail + " thinks he won";
                 else return false;
             }
         }
