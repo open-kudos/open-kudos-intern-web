@@ -27,9 +27,6 @@
     "merge-stream": "^1.0.0",
     "protractor": "^2.1.0",
     "pump": "^1.0.1",
-    "scripts": {
-      "test": "karma start karma.conf.js"
-    },
     "shelljs": "^0.2.6"
   },
   "scripts": {
