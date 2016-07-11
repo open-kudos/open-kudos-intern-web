@@ -31,7 +31,7 @@
         function onInit() {
             if(isEmptyCollection(Resources.getUsersCollection())){
                 GiveChallengeService.listUsers().then(function (val) {
-                    Resources.setUsersCollection(val.userList);
+                    Resources.setUsersCollection(val);
                     vm.usersCollection = Resources.getUsersCollection();
                 });
             } else {

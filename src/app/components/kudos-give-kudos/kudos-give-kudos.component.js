@@ -52,7 +52,7 @@
 
             if (isEmptyCollection(Resources.getUsersCollection())) {
                 GiveKudosService.listUsers().then(function (val) {
-                    Resources.setUsersCollection(val.userList);
+                    Resources.setUsersCollection(val);
                     vm.usersCollection = Resources.getUsersCollection();
                 })
             } else {

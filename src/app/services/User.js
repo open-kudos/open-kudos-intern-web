@@ -62,9 +62,9 @@ function User($http, SERVER) {
 
     function listUsers() {
         return $http({
-            method: 'POST',
+            method: 'GET',
             withCredentials: true,
-            url: SERVER.ip + "/user/list"
+            url: SERVER.ip + "/user/confirmedUsers"
         }).then(function (response) {
             return response.data;
         })
