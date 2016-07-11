@@ -30,9 +30,16 @@
                         <span class="glyphicon glyphicon-user"></span> {{nav.user.firstName}} {{nav.user.lastName}}</span>
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#/me" class="">
-                            <span class="glyphicon glyphicon-list-alt"></span> Profile
-                            </a></li>
+                        <li>
+                            <a href="#/me" class="">
+                                <span class="glyphicon glyphicon-list-alt"></span> Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/settings" class="">
+                                <span class="glyphicon glyphicon-cog"></span> Settings
+                            </a>
+                        </li>
                         <li><a ng-click="nav.logout()" class="" href="#">
                             <span class="glyphicon glyphicon-log-out"></span> {{ 'ProfileMeLogout' | translate }}
                         </a></li>

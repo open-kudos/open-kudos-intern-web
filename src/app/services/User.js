@@ -16,7 +16,9 @@ function User($http, SERVER) {
         update: updateUserInfo,
         list: listUsers,
         getTopReceivers: getTopReceivers,
-        getTopSenders: getTopSenders
+        getTopSenders: getTopSenders,
+        subscribe: subscribe,
+        unsubscribe: unsubscribe
     }
     return user;
 
@@ -85,6 +87,26 @@ function User($http, SERVER) {
             method: 'GET',
             withCredentials: true,
             url: SERVER.ip + "/user/topsenders?" + requestData
+        }).then(function (response) {
+            return response.data;
+        })
+    }
+    
+    function unsubscribe() {
+        return $http({
+            method: 'POST',
+            withCredentials: true,
+            url: SERVER.ip + "/user/unsubscribe"
+        }).then(function (response) {
+            return response.data;
+        })
+    }
+    
+    function subscribe() {
+        return $http({
+            method: 'POST',
+            withCredentials: true,
+            url: SERVER.ip + "/user/subscribe"
         }).then(function (response) {
             return response.data;
         })

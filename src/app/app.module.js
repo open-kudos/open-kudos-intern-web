@@ -29,6 +29,7 @@
             'myApp.components.feed',
             'myApp.components.userHistory',
             'myApp.components.leaderboardFilter',
-            'myApp.components.following'
+            'myApp.components.following',
+            'myApp.components.settings'
         ]);
 })();

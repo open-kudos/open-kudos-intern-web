@@ -46,6 +46,11 @@
                 templateUrl: 'app/components/kudos-following/kudos-following.html',
                 controller: 'FollowingController',
                 controllerAs: 'follow'
+            })
+            .when('/settings', {
+                templateUrl: 'app/settings/settings.view.html',
+                controller: 'SettingsController',
+                controllerAs: 'setting'
         });
 
         $translateProvider.useStaticFilesLoader({
