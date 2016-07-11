@@ -26,7 +26,7 @@ function User($http, SERVER) {
             withCredentials: true,
             url: SERVER.ip + "/user/home"
         }).then(function successCallback(response) {
-            return response.data.user;
+            return response.data.userResponse;
         });
     }
 
