@@ -84,7 +84,7 @@
                     vm.showSuccess = true;
                     Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
                     closeModal();
-                    toastr.success('You successfully sent ' + acornPlural(val.data.amount) + ' to ' + val.data.receiver);
+                    toastr.success('You successfully sent ' + acornPlural(val.data.amount) + ' to ' + val.data.receiverFullName);
                     pushOutgoingTransferIntoCollection(val.data);
                     clearSendKudosFormValues();
                     onInit();
