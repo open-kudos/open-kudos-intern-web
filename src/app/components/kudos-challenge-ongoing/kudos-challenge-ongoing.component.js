@@ -21,6 +21,7 @@
         vm.convertDate = convertDate;
         vm.showButtons = showButtons;
         vm.isSelected = isSelected;
+        vm.acornPlural = acornPlural;
 
         vm.$onInit = onInit();
 
@@ -73,10 +74,10 @@
         function showButtons (list) {
             vm.userEmail = Resources.getCurrentUserEmail();
 
-            if (list.creator == vm.userEmail)
+            if (list.creatorEmail == vm.userEmail)
                 return list.creatorStatus == null;
 
-            if (list.participant == vm.userEmail)
+            if (list.participantEmail == vm.userEmail)
                 return list.participantStatus == null;
         }
 

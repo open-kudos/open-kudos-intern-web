@@ -1,15 +1,15 @@
 <div class="text-center">
     <div ng-if="chOngoing.ongoingChallengeList[0]" class="card box4 box-shadow-animation" ng-repeat="challenge in chOngoing.ongoingChallengeList">
 
-        <p class="card-text" ng-if="challenge.participant == chOngoing.userEmail">
+        <p class="card-text" ng-if="challenge.participantEmail == chOngoing.userEmail">
             <span class="bold">{{challenge.name}}</span> received from
-            <span class="bold">{{challenge.creator}}</span> for
+            <span class="bold">{{challenge.creatorEmail}}</span> for
             <span class="badge acorn-bg">{{chOngoing.acornPlural(challenge.amount * 2)}}</span>
         </p>
 
-        <p class="card-text" ng-if="challenge.creator == chOngoing.userEmail">
+        <p class="card-text" ng-if="challenge.creatorEmail == chOngoing.userEmail">
             <span class="bold">{{challenge.name}}</span> given to
-            <span class="bold">{{challenge.participant}}</span> for
+            <span class="bold">{{challenge.participantEmail}}</span> for
             <span class="badge acorn-bg">{{chOngoing.acornPlural(challenge.amount * 2)}}</span>
         </p>
 
