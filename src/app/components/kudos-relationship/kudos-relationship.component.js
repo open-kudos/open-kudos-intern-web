@@ -33,7 +33,7 @@
 
         function onInit() {
             GiveKudosService.listUsers().then(function (val) {
-                vm.usersCollection = val.userList;
+                vm.usersCollection = val;
             });
 
             RelationService.getFollowing().then(function () {
