@@ -68,7 +68,6 @@ function User($http, SERVER) {
             withCredentials: true,
             url: SERVER.ip + "/user/confirmedUsers"
         }).then(function (response) {
-            console.log(response);
             return response.data;
         })
     }
