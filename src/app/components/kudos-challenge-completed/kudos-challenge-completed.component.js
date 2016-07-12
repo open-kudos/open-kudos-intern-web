@@ -44,19 +44,17 @@
 
         function getWinner(index) {
             if (Resources.getCompletedChallenges()[index].creatorStatus) {
-                if (Resources.getCompletedChallenges()[index].creatorEmail == Resources.getCurrentUserEmail) return "You won the challenge!"
+                if (Resources.getCompletedChallenges()[index].creatorEmail == Resources.getCurrentUserEmail()) return "You won the challenge!";
                 else return Resources.getCompletedChallenges()[index].creatorEmail + " won the challenge";
-            } else if (Resources.getCompletedChallenges()[index].creatorStatus == false){
-                if (Resources.getCompletedChallenges()[index].creatorEmail == Resources.getCurrentUserEmail) return Resources.getCompletedChallenges()[index].participantEmail + " won the challenge";
+            } else if (!Resources.getCompletedChallenges()[index].creatorStatus){
+                if (Resources.getCompletedChallenges()[index].creatorEmail == Resources.getCurrentUserEmail()) return Resources.getCompletedChallenges()[index].participantEmail + " won the challenge";
                 else return "You won the challenge!"
-            }
-
-            if (Resources.getCompletedChallenges()[index].participantStatus) {
-                if (Resources.getCompletedChallenges()[index].participantEmail == Resources.getCurrentUserEmail()) return "You won the challenge!"
+            } else if (Resources.getCompletedChallenges()[index].participantStatus) {
+                if (Resources.getCompletedChallenges()[index].participantEmail == Resources.getCurrentUserEmail()) return "You won the challenge!";
                 else return Resources.getCompletedChallenges()[index].participantEmail + " won the challenge";
-            } else if (Resources.getCompletedChallenges()[index].participantStatus == false){
+            } else if (!Resources.getCompletedChallenges()[index].participantStatus){
                 if (Resources.getCompletedChallenges()[index].participantEmail == Resources.getCurrentUserEmail()) return Resources.getCompletedChallenges()[index].creatorEmail + " won the challenge";
-                else return "You won the challenge!"
+                else return "You won the challenge!";
             }
         }
 
