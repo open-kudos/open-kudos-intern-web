@@ -1,6 +1,6 @@
 (function () {
 
-    KudosTransactionController.$inject = ['$scope', '$timeout', '$httpParamSerializer', 'KudosTransactionService'];
+    KudosTransactionController.$inject = ['$scope', '$timeout', '$httpParamSerializer', 'KudosTransactionService', 'Utils'];
 
     angular.module('myApp.components.transactions', [])
         .directive('kudosTransactionsStream', function () {
@@ -11,7 +11,7 @@
             }
         });
 
-    function KudosTransactionController($scope, $timeout, $httpParamSerializer, KudosTransactionService) {
+    function KudosTransactionController($scope, $timeout, $httpParamSerializer, KudosTransactionService, Utils) {
         var vm = this;
 
         var status = "COMPLETED";
@@ -27,7 +27,7 @@
         vm.activate = activate();
         vm.showMoreTransactions = showMoreTransactions;
         vm.showLessTransactions = showLessTransactions;
-        vm.acornPlural = acornPlural;
+        vm.acornPlural = Utils.acornPlural;
         vm.getKudosTransactionsFeed = getKudosTransactionsFeed;
         vm.changeTransactionsList = changeTransactionsList;
         vm.startPooling = startPooling;

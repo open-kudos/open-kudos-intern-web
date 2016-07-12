@@ -1,5 +1,5 @@
 (function () {
-    MeController.$inject = ['$scope', '$filter', '$window', '$timeout', '$httpParamSerializer', 'MeService', 'Resources', 'ProfileService'];
+    MeController.$inject = ['$scope', '$filter', '$window', '$timeout', '$httpParamSerializer', 'MeService', 'Resources', 'ProfileService', 'Utils'];
 
     angular
         .module('myApp.components.me', [])
@@ -8,7 +8,7 @@
         })
         .controller('MeController', MeController);
 
-    function MeController($scope, $filter, $window, $timeout, $httpParamSerializer, MeService, Resources, ProfileService) {
+    function MeController($scope, $filter, $window, $timeout, $httpParamSerializer, MeService, Resources, ProfileService, Utils) {
         var self = this;
         var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
         var currentDate = $filter('date')(new Date(), requestDateFormat);
@@ -27,8 +27,8 @@
         self.isFriendsActive = false;
         self.showLoader = true;
 
-        self.lengthLimit = lengthLimit;
-        self.symbolsLeft = symbolsLeft;
+        self.lengthLimit = Utils.lengthLimit;
+        self.symbolsLeft = Utils.symbolsLeft;
         self.edit = edit;
         self.splitDate = splitDate;
         self.checkIsCompleted = checkIsCompleted;

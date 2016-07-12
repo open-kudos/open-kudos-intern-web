@@ -1,5 +1,5 @@
 (function () {
-    UserHistoryController.$inject = ['UserHistoryService', '$timeout'];
+    UserHistoryController.$inject = ['UserHistoryService', '$timeout', 'Utils'];
 
     angular
         .module('myApp.components.userHistory', [])
@@ -13,7 +13,7 @@
             controllerAs: 'history'
         });
 
-    function UserHistoryController(UserHistoryService, $timeout){
+    function UserHistoryController(UserHistoryService, $timeout, Utils){
         var self = this;
 
         self.showHistoryLoader = true;
@@ -27,8 +27,8 @@
         self.showMoreButton = false;
         self.showLessButton = false;
 
-        self.split = split;
-        self.acornPlural = acornPlural;
+        self.split = Utils.split;
+        self.acornPlural = Utils.acornPlural;
         self.changeRadioValue = changeRadioValue;
         self.changeView = changeView;
         self.checkButtons = checkButtons;
@@ -45,7 +45,7 @@
             if (self.page == true){
                 updateListAll(self.currentUser.email, true);
             }
-            self.modalIndex = split(self.user.$$hashKey, ":")[1];
+            self.modalIndex = self.split(self.user.$$hashKey, ":")[1];
         };
 
         function updateListAll(email, trigger){

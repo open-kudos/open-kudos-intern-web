@@ -11,9 +11,9 @@
             controllerAs: "vm"
         });
 
-    GiveKudosController.$inject = ['$httpParamSerializer', 'GiveKudosService', 'Resources', 'Kudos'];
+    GiveKudosController.$inject = ['$httpParamSerializer', 'GiveKudosService', 'Resources', 'Kudos', 'Utils'];
 
-    function GiveKudosController($httpParamSerializer, GiveKudosService, Resources, Kudos) {
+    function GiveKudosController($httpParamSerializer, GiveKudosService, Resources, Kudos, Utils) {
         var vm = this;
 
         vm.showError = false;
@@ -50,7 +50,7 @@
                 vm.userAvailableKudos = Resources.getUserAvailableKudos();
             }
 
-            if (isEmptyCollection(Resources.getUsersCollection())) {
+            if (Utils.isEmptyCollection(Resources.getUsersCollection())) {
                 GiveKudosService.listUsers().then(function (val) {
                     Resources.setUsersCollection(val);
                     vm.usersCollection = Resources.getUsersCollection();

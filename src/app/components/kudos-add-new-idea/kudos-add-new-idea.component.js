@@ -1,5 +1,5 @@
 (function () {
-    AddNewIdeaController.$inject = ['$httpParamSerializer', 'AddNewIdeaService'];
+    AddNewIdeaController.$inject = ['$httpParamSerializer', 'AddNewIdeaService', 'Utils'];
 
     angular.module('myApp.components.addNewIdea', [])
         .component('kudosAddNewIdea', {
@@ -8,11 +8,11 @@
             controllerAs: 'newIdea'
         });
 
-    function AddNewIdeaController($httpParamSerializer, AddNewIdeaService){
+    function AddNewIdeaController($httpParamSerializer, AddNewIdeaService, Utils){
         var self = this;
 
-        self.lengthLimit = lengthLimit;
-        self.symbolsLeft = symbolsLeft;
+        self.lengthLimit = Utils.lengthLimit;
+        self.symbolsLeft = Utils.symbolsLeft;
         self.addIdeaFormCheck = addIdeaFormCheck;
         self.showAddIdeaFormErrorMessage = showAddIdeaFormErrorMessage;
         self.addIdea = addIdea;

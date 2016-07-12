@@ -1,6 +1,6 @@
 (function () {
 
-    ProfileController.$inject = ['$scope', '$window', 'ProfileService', 'Resources'];
+    ProfileController.$inject = ['$scope', '$window', 'ProfileService', 'Resources', 'Utils'];
 
     angular
         .module('myApp.profile', [
@@ -9,7 +9,7 @@
         ])
         .controller('ProfileController', ProfileController);
 
-    function ProfileController($scope, $window, ProfileService, Resources) {
+    function ProfileController($scope, $window, ProfileService, Resources, Utils) {
         var vm = this;
 
         vm.showLoaderUserAvailableKudos = true;
@@ -54,7 +54,7 @@
                 vm.showLoaderUserReceivedKudos = false;
             });
             
-            if(isEmptyCollection(Resources.getUsersCollection())){
+            if(Utils.isEmptyCollection(Resources.getUsersCollection())){
                 ProfileService.listUsers().then(function (val) {
                     Resources.setUsersCollection(val.userList);
                     vm.usersCollection = Resources.getUsersCollection();

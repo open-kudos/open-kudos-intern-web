@@ -7,9 +7,9 @@
             controller: ("GiveChallengeController", GiveChallengeController)
         });
 
-    GiveChallengeController.$inject = ['$httpParamSerializer', 'Resources', 'GiveChallengeService', '$filter'];
+    GiveChallengeController.$inject = ['$httpParamSerializer', 'Resources', 'GiveChallengeService', '$filter', 'Utils'];
 
-    function GiveChallengeController($httpParamSerializer, Resources, GiveChallengeService, $filter){
+    function GiveChallengeController($httpParamSerializer, Resources, GiveChallengeService, $filter, Utils){
         var vm = this;
         var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
 
@@ -18,7 +18,7 @@
         vm.showError = false;
         vm.usersCollection = [];
 
-        vm.lengthLimit = lengthLimit;
+        vm.lengthLimit = Utils.lengthLimit;
         vm.clearChallengeFormValues = clearChallengeFormValues;
         vm.challengeFormCheck = challengeFormCheck;
         vm.giveChallenge = giveChallenge;
@@ -29,7 +29,7 @@
         vm.$onInit = onInit();
 
         function onInit() {
-            if(isEmptyCollection(Resources.getUsersCollection())){
+            if(Utils.isEmptyCollection(Resources.getUsersCollection())){
                 GiveChallengeService.listUsers().then(function (val) {
                     Resources.setUsersCollection(val);
                     vm.usersCollection = Resources.getUsersCollection();
