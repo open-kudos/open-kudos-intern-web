@@ -32,6 +32,7 @@ module.exports = function (config) {
             'app/acorns/*.js',
             'app/notifications/*.js',
             'app/leaderboard/*.js',
+            'app/settings/*.js',
             '../test/**/*.spec.js'
         ],
 
