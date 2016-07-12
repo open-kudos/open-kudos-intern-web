@@ -41,7 +41,7 @@
             KudosTransactionService.poll().then(function (transactionChanged) {
                 if (transactionChanged === true) changeTransactionsList();
             });
-            pooling = $timeout(vm.startPooling, 5000);
+            var pooling = $timeout(vm.startPooling, 5000);
         }
 
         $scope.$on("$destroy", function (event) {
