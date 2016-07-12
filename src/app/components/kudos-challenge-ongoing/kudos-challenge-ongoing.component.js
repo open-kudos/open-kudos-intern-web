@@ -1,6 +1,6 @@
 (function () {
 
-    KudosChallengeOngoingController.$inject = ['$httpParamSerializer', 'Challenges', 'Resources', 'ProfileService'];
+    KudosChallengeOngoingController.$inject = ['$httpParamSerializer', 'Challenges', 'Resources', 'ProfileService', 'Utils'];
 
     angular.module('myApp.components.challengeOngoing', [])
         .component('kudosChallengeOngoing', {
@@ -9,7 +9,7 @@
             controllerAs: 'chOngoing'
         });
 
-    function KudosChallengeOngoingController($httpParamSerializer, Challenges, Resources, ProfileService) {
+    function KudosChallengeOngoingController($httpParamSerializer, Challenges, Resources, ProfileService, Utils) {
         var vm = this,
             requestData;
 
@@ -21,7 +21,7 @@
         vm.convertDate = convertDate;
         vm.showButtons = showButtons;
         vm.isSelected = isSelected;
-        vm.acornPlural = acornPlural;
+        vm.acornPlural = Utils.acornPlural;
         vm.convertDate = convertDate;
 
         vm.$onInit = onInit();

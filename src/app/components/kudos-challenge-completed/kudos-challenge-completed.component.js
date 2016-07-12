@@ -1,5 +1,5 @@
 (function () {
-    CompletedChallengesController.$inject = ['Challenges', 'Resources', 'ProfileService'];
+    CompletedChallengesController.$inject = ['Challenges', 'Resources', 'ProfileService', 'Utils'];
 
     angular
         .module('myApp.components.completedChallenges', [])
@@ -9,7 +9,7 @@
             controllerAs: 'chCompleted'
         });
 
-    function CompletedChallengesController(Challenges, Resources, ProfileService) {
+    function CompletedChallengesController(Challenges, Resources, ProfileService, Utils) {
         var vm = this,
             showMoreLimit = 5;
 
@@ -17,7 +17,7 @@
         vm.completedChallengesCollection = [];
         vm.showList = false;
 
-        vm.acornPlural = acornPlural;
+        vm.acornPlural = Utils.acornPlural;
         vm.getWinner = getWinner;
         vm.showMore = showMore;
         vm.showLess = showLess;

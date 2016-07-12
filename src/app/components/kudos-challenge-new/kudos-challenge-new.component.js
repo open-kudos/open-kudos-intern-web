@@ -1,5 +1,5 @@
 (function () {
-    KudosChallengeNewController.$inject = ['$httpParamSerializer', 'Challenges', 'Resources', 'ProfileService'];
+    KudosChallengeNewController.$inject = ['$httpParamSerializer', 'Challenges', 'Resources', 'ProfileService', 'Utils'];
 
     angular
         .module('myApp.components.challengeNew', [])
@@ -9,7 +9,7 @@
             controllerAs: 'chNew'
         });
 
-    function KudosChallengeNewController($httpParamSerializer, Challenges, Resources, ProfileService){
+    function KudosChallengeNewController($httpParamSerializer, Challenges, Resources, ProfileService, Utils){
         var vm = this,
             requestData;
 
@@ -21,7 +21,7 @@
         vm.declineChallenge = declineChallenge;
         vm.cancelChallenge = cancelChallenge;
         vm.removeElement = removeElement;
-        vm.acornPlural = acornPlural;
+        vm.acornPlural = Utils.acornPlural;
         vm.userEmail = Resources.getCurrentUserEmail();
         vm.doesDateExist = doesDateExist;
 

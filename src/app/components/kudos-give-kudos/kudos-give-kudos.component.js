@@ -11,9 +11,9 @@
             controllerAs: "vm"
         });
 
-    GiveKudosController.$inject = ['$httpParamSerializer', 'GiveKudosService', 'Resources', 'Kudos'];
+    GiveKudosController.$inject = ['$httpParamSerializer', 'GiveKudosService', 'Resources', 'Kudos', 'Utils'];
 
-    function GiveKudosController($httpParamSerializer, GiveKudosService, Resources, Kudos) {
+    function GiveKudosController($httpParamSerializer, GiveKudosService, Resources, Kudos, Utils) {
         var vm = this;
 
         vm.showError = false;
@@ -50,7 +50,7 @@
                 vm.userAvailableKudos = Resources.getUserAvailableKudos();
             }
 
-            if (isEmptyCollection(Resources.getUsersCollection())) {
+            if (Utils.isEmptyCollection(Resources.getUsersCollection())) {
                 GiveKudosService.listUsers().then(function (val) {
                     Resources.setUsersCollection(val);
                     vm.usersCollection = Resources.getUsersCollection();
@@ -84,7 +84,7 @@
                     vm.showSuccess = true;
                     Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
                     closeModal();
-                    toastr.success('You successfully sent ' + acornPlural(val.data.amount) + ' to ' + val.data.receiverFullName);
+                    toastr.success('You successfully sent ' + Utils.acornPlural(val.data.amount) + ' to ' + val.data.receiverFullName);
                     pushOutgoingTransferIntoCollection(val.data);
                     clearSendKudosFormValues();
                     onInit();
@@ -99,7 +99,7 @@
                 receiver: val.receiver,
                 message: val.message,
                 amount: val.amount,
-                timestamp: trimDate(val.timestamp)
+                timestamp: Utils.trimDate(val.timestamp)
             };
             Resources.getOutgoingKudosCollection().push(itemToAdd);
             Resources.setSentKudosTable();
@@ -109,7 +109,7 @@
             clearErrorMessages();
             if (vm.sendKudosTo == null) {
                 showValidationErrorMessage("Please enter receiver");
-            } else if (!validateEmail(vm.sendKudosTo)) {
+            } else if (!Utils.validateEmail(vm.sendKudosTo)) {
                 showValidationErrorMessage("Please enter valid receiver email");
             } else if (vm.sendKudosTo === Resources.getCurrentUserEmail()) {
                 showValidationErrorMessage("Can't send kudos to yourself");

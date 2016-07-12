@@ -3,8 +3,8 @@
         <li ng-repeat="item in transaction.transactionCollection | orderBy:'-timestamp'"
             class="animate-repeat list-group-item">
             <span class="badge acorn-bg">{{transaction.acornPlural(item.amount)}}</span>
-            <span class="bold">{{item.senderName}}</span> sent to
-            <span class="bold">{{item.receiverName}}</span>
+            <span class="bold">{{item.senderFullName}}</span> sent to
+            <span class="bold">{{item.receiverFullName}}</span>
         </li>
     </ul>
 

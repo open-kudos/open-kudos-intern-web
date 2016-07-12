@@ -1,6 +1,6 @@
 (function () {
 
-    GiveChallengeSmallController.$inject = ['$httpParamSerializer', 'Resources', 'GiveChallengeService', '$filter', 'ProfileService'];
+    GiveChallengeSmallController.$inject = ['$httpParamSerializer', 'Resources', 'GiveChallengeService', '$filter', 'ProfileService', 'Utils'];
 
     angular.module('myApp.components.giveChallengeSmall', [])
         .component('kudosGiveChallengeSmall', {
@@ -13,7 +13,7 @@
             controllerAs: 'chSmall'
         });
 
-    function GiveChallengeSmallController($httpParamSerializer, Resources, GiveChallengeService, $filter, ProfileService){
+    function GiveChallengeSmallController($httpParamSerializer, Resources, GiveChallengeService, $filter, ProfileService, Utils){
         var vm = this,
             requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
 
@@ -69,7 +69,7 @@
                 GiveChallengeService.createChallenge(giveTo).then(function (val) {
                     clearChallengeFormValues();
                     $('#giveChallengeModal').modal('hide');
-                    toastr.success('You successfully challenged ' + val.data.participantName + " with " + acornPlural(val.data.amount) + '.');
+                    toastr.success('You successfully challenged ' + val.data.participantName + " with " + Utils.acornPlural(val.data.amount) + '.');
                     $('#modal'+vm.id+'challenge').modal('hide');
                     Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
                     vm.userAvailableKudos = Resources.getUserAvailableKudos();
