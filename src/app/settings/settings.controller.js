@@ -1,9 +1,9 @@
 (function () {
-    
+
     SettingsController.$inject = ['Resources', '$timeout', 'User'];
     
     angular
-        .module('myApp.components.settings', [])
+        .module('myApp.settings', [])
         .controller('SettingsController', SettingsController);
     
     function SettingsController(Resources, $timeout, User) {

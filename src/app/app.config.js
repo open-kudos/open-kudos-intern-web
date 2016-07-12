@@ -1,6 +1,3 @@
-/**
- * Created by vytautassugintas on 20/04/16.
- */
 (function () {
     angular
         .module("myApp").config(function ($routeProvider, $translateProvider, $locationProvider, $logProvider) {

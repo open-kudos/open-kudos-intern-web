@@ -8,6 +8,7 @@
             'myApp.profile',
             'myApp.acorn',
             'myApp.notification',
+            'myApp.settings',
             'myApp.components.navbar',
             'myApp.components.notifications',
             'myApp.components.completedChallenges',
@@ -29,7 +30,6 @@
             'myApp.components.feed',
             'myApp.components.userHistory',
             'myApp.components.leaderboardFilter',
-            'myApp.components.following',
-            'myApp.components.settings'
+            'myApp.components.following'
         ]);
 })();
