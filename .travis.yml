@@ -6,9 +6,11 @@ before_script:
   - export CHROME_BIN=chromium-browser
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
+  - npm install -g gulp
   - npm start > /dev/null &
   - npm run update-webdriver
   - sleep 1 # give server time to start
 
 script:
+  - gulp eslint
   - node_modules/.bin/karma start karma.conf.js --no-auto-watch --single-run --reporters=dots
