@@ -31,7 +31,7 @@ describe('KudosNavbarComponent', function() {
 
     describe('KudosNavbarController', function() {
         it('it should check #/profile location path', function() {
-            expect(location.path).toHaveBeenCalled();
+            setLocationSpyPathAndActivateComponent("/profile");
             expect(component.selectedHome).toBe(true);
         });
 
@@ -40,14 +40,9 @@ describe('KudosNavbarComponent', function() {
             expect(component.selectedAcorns).toBe(true);
         });
 
-        it('it should check #/leaderboard location path', function() {
-            setLocationSpyPathAndActivateComponent("/leaderboard");
-            expect(component.selectedLeaderboard).toBe(true);
-        });
-
-        it('it should check #/me location path', function() {
-            setLocationSpyPathAndActivateComponent("/me");
-            expect(component.selectedProfile).toBe(true);
+        it('it should check #/following location path', function() {
+            setLocationSpyPathAndActivateComponent("/following");
+            expect(component.selectedFollowing).toBe(true);
         });
 
     });

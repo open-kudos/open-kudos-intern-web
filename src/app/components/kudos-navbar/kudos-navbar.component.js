@@ -15,9 +15,10 @@
         vm.selectedHome = false;
         vm.selectedAcorns = false;
         vm.selectedFollowing = false;
-        vm.selectedLeaderboard = false;
         vm.selectedChallenges = false;
         vm.logout = logout;
+
+        vm.activate = activate;
 
         activate();
 
@@ -26,9 +27,6 @@
                 vm.selectedHome = true;
             } else if ($location.path() == '/acorns'){
                 vm.selectedAcorns = true;
-            } else if ($location.path() == '/leaderboard'){
-
-                vm.selectedLeaderboard = true;
             } else if ($location.path() == '/following'){
                 vm.selectedFollowing = true;
             }
