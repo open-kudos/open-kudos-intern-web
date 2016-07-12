@@ -1,9 +1,7 @@
 "use strict";
 describe('KudosNavbarComponent', function() {
 
-    var scope;
     var location;
-    var rootScope;
     var locationSpy;
     var someServiceMock;
 
@@ -12,54 +10,51 @@ describe('KudosNavbarComponent', function() {
         module('myApp');
     });
 
-    module("myApp", function($provide) {
-        $provide.provider("$translate", function() {
-            this.$get = function(MockTranslate) {
-                return MockTranslate.create(translations);
-            }
-        });
-    });
+    var component, scope, $componentController;
 
-    beforeEach(inject(function ($controller, $rootScope, $location) {
+    beforeEach(module('myApp'));
+    beforeEach(module('myApp.components.navbar'));
+
+    beforeEach(inject(function ($rootScope, _$componentController_, $location) {
         scope = $rootScope.$new();
+
+        $componentController = _$componentController_;
+
+        component = $componentController('kudosNavbar',
+            null,
+            {controller: 'KudosNavbarController'}
+        );
+
         location = $location;
         locationSpy = spyOn(location, 'path', false).and.returnValue("/profile");
-        createController($controller);
     }));
 
     describe('KudosNavbarController', function() {
         it('it should check #/profile location path', function() {
             expect(location.path).toHaveBeenCalled();
-            expect(scope.selectedHome).toBe(true);
+            expect(component.selectedHome).toBe(true);
         });
 
         it('it should check #/acorns location path', function() {
             setLocationSpyPathAndActivateComponent("/acorns");
-            expect(scope.selectedAcorns).toBe(true);
+            expect(component.selectedAcorns).toBe(true);
         });
 
         it('it should check #/leaderboard location path', function() {
             setLocationSpyPathAndActivateComponent("/leaderboard");
-            expect(scope.selectedLeaderboard).toBe(true);
+            expect(component.selectedLeaderboard).toBe(true);
         });
 
         it('it should check #/me location path', function() {
             setLocationSpyPathAndActivateComponent("/me");
-            expect(scope.selectedProfile).toBe(true);
+            expect(component.selectedProfile).toBe(true);
         });
 
     });
 
-    function createController($controller) {
-        $controller('KudosNavbarController', {
-            $scope: scope,
-            $location: location
-        });
-    }
-    
     function setLocationSpyPathAndActivateComponent(path) {
         location.path.and.returnValue(path);
-        scope.activate();
+        component.activate();
     }
 
 });

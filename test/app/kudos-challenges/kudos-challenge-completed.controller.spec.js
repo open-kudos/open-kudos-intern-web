@@ -1,57 +1,46 @@
 "use strict";
 describe('CompletedChallengesController', function() {
 
-    var $scope;
-    var $controller;
-    var someServiceMock;
-    var controller;
+    var component, scope, hero, $componentController;
 
-    beforeEach(function (){
-        someServiceMock = jasmine.createSpyObj('someService', ['someAsyncCall']); // Example how to mock services
-        module('myApp');
-    });
+    beforeEach(module('myApp'));
+    beforeEach(module('myApp.components.completedChallenges'));
 
-    module("myApp", function($provide) {
-        $provide.provider("$translate", function() {
-            this.$get = function(MockTranslate) {
-                return MockTranslate.create(translations);
-            }
-        });
-    });
+    beforeEach(inject(function($rootScope, _$componentController_) {
+        scope = $rootScope.$new();
 
-    beforeEach(inject(function(_$controller_){
-        $controller = _$controller_;
+        $componentController = _$componentController_;
+
+        component = $componentController('kudosChallengeCompleted',
+            null,
+            {controller: 'kudosChallengeCompleted'}
+        );
+
+
     }));
-
+    
     describe('Completed challenges controller', function() {
-        beforeEach(inject(function($rootScope) {
-            $scope = $rootScope.$new();
-            controller = $controller('CompletedChallengesController', { $scope: $scope });
-        }));
-
         it('should check if show more button is being displayed', function() {
             var collectionOfMoreThanFiveElements = [1,2,3,4,5,6];
-            $scope.showMoreButton(collectionOfMoreThanFiveElements);
-            expect($scope.showMoreButton).toBeTruthy();
+            component.showMoreButton(collectionOfMoreThanFiveElements);
+            expect(component.showMoreButton).toBeTruthy();
         });
 
         it('should check if show more button is being hidden', function() {
             var collectionOfLessThanFiveElements = [1];
-            $scope.showMoreButton(collectionOfLessThanFiveElements);
-            expect($scope.showMoreButton).toBeFalsy();
+            component.showMoreButton(collectionOfLessThanFiveElements);
+            expect(component.showMoreButton).toBeFalsy();
         });
 
         it('should check if amount of sent acorns equals to 1', function() {
-            $scope.amountSingular = 1;
-            expect($scope.acornPlural($scope.amountSingular)).toEqual($scope.amountSingular + " Acorn");
+            component.amountSingular = 1;
+            expect(component.acornPlural(component.amountSingular)).toEqual(component.amountSingular + " Acorn");
         });
 
         it('should check if amount of sent acorns is more than 1', function () {
-            $scope.amountPlural = 2;
-            expect($scope.acornPlural($scope.amountPlural)).toEqual($scope.amountPlural + " Acorns");
+            component.amountPlural = 2;
+            expect(component.acornPlural(component.amountPlural)).toEqual(component.amountPlural + " Acorns");
         });
-
-
-
+        
     });
 });
