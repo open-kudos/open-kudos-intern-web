@@ -15,7 +15,6 @@
 
         $scope.showLoader = false;
         $scope.showError = false;
-        $scope.loggedIn = true;
         $scope.domain = '.lt';
 
         $scope.login = login;
@@ -56,7 +55,6 @@
 
         function checkIfUserLoggedIn() {
             LoginService.checkUser().then(function (val) {
-                $scope.loggedIn = val.data.logged;
                 return val.data.logged;
             })
         }
