@@ -15,8 +15,8 @@
             var sentKudosTable;
             var receivedKudosTable;
             var currentUser;
-            var ongoingChallenges;
-            var newChallenges;
+            var ongoingChallenges = [];
+            var newChallenges = [];
 
 
             var lastTransactionTimestamp;

@@ -1,38 +1,38 @@
 <div class="text-center">
-    <div ng-if="showList" class="card box4 box-shadow-animation" ng-repeat="challenge in ongoingChallengeList">
+    <div ng-if="chOngoing.ongoingChallengeList[0]" class="card box4 box-shadow-animation" ng-repeat="challenge in chOngoing.ongoingChallengeList">
 
-        <p class="card-text" ng-if="challenge.participant == userEmail">
+        <p class="card-text" ng-if="challenge.participantEmail == chOngoing.userEmail">
             <span class="bold">{{challenge.name}}</span> received from
-            <span class="bold">{{challenge.creator}}</span> for
-            <span class="badge acorn-bg">{{acornPlural(challenge.amount * 2)}}</span>
+            <span class="bold">{{challenge.creatorEmail}}</span> for
+            <span class="badge acorn-bg">{{chOngoing.acornPlural(challenge.amount * 2)}}</span>
         </p>
 
-        <p class="card-text" ng-if="challenge.creator == userEmail">
+        <p class="card-text" ng-if="challenge.creatorEmail == chOngoing.userEmail">
             <span class="bold">{{challenge.name}}</span> given to
-            <span class="bold">{{challenge.participant}}</span> for
-            <span class="badge acorn-bg">{{acornPlural(challenge.amount * 2)}}</span>
+            <span class="bold">{{challenge.participantEmail}}</span> for
+            <span class="badge acorn-bg">{{chOngoing.acornPlural(challenge.amount * 2)}}</span>
         </p>
 
         <p ng-if="challenge.description">Description: {{challenge.description}}</p>
-        <p ng-if="challenge.finishDate">Finish date: {{convertDate(challenge.finishDate)}}</p>
+        <p ng-if="challenge.finishDate">Finish date: {{chOngoing.convertDate(challenge.finishDate)}}</p>
 
-        <div ng-if="isSelected(challenge)">
-            <label>{{selectedMessage}}</label>
+        <div ng-if="chOngoing.isSelected(challenge)">
+            <label>{{chOngoing.selectedMessage}}</label>
         </div>
 
-        <div ng-if="showButtons(challenge)">
-            <button ng-hide="buttons" class="btn btn-danger btn-challenge-participated" ng-click="lost(challenge.id, challenge.amount); buttons = true">I lost</button>
-            <button ng-hide="buttons" class="btn btn-success btn-challenge-participated" ng-click="won(challenge.id, challenge.amount); buttons = true">I won</button>
+        <div ng-if="chOngoing.showButtons(challenge)">
+            <button ng-hide="chOngoing.buttons[$index]" class="btn btn-danger btn-challenge-participated" ng-click="chOngoing.lost(challenge.id, challenge.amount); chOngoing.buttons[$index] = true">I lost</button>
+            <button ng-hide="chOngoing.buttons[$index]" class="btn btn-success btn-challenge-participated" ng-click="chOngoing.won(challenge.id, challenge.amount); chOngoing.buttons[$index] = true">I won</button>
         </div>
-        <div ng-if="!showButtons(challenge)">
+        <div ng-if="!chOngoing.showButtons(challenge)">
             <label>Waiting for other user to select</label>
         </div>
-        <div ng-show="buttons">
+        <div ng-show="chOngoing.buttons[$index]">
             <label>Waiting for other user to select</label>
         </div>
     </div>
 
-    <div ng-if="!showList">
+    <div ng-if="!chOngoing.ongoingChallengeList[0]">
         <div class="alert alert-info acorn-bg margin-top">
             <span class="glyphicon glyphicon-info-sign"></span>
             You do not have any ongoing Challenge

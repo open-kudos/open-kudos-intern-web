@@ -1,9 +1,19 @@
 (function () {
 
-    var TopSendersController = function ($scope, ProfileService, $httpParamSerializer, Resources) {
-        $scope.topSenders = [];
-        $scope.acornPlural = acornPlural;
-        $scope.setTopSenders = setTopSenders;
+    TopSendersController.$inject = ['ProfileService', '$httpParamSerializer', 'Resources'];
+
+    angular.module('myApp.components.topSenders', [])
+        .component('kudosTopSenders', {
+            templateUrl: 'app/components/kudos-top-senders/kudos-top-senders.html',
+            controller: ('TopSendersController', TopSendersController),
+            controllerAs: 'sender'
+        });
+
+    function TopSendersController(ProfileService, $httpParamSerializer, Resources) {
+        var vm = this;
+
+        vm.topSenders = [];
+        vm.setTopSenders = setTopSenders;
 
         activate();
 
@@ -16,27 +26,9 @@
                 period : criterion
             });
             ProfileService.getTopSenders(requestData).then(function(val) {
-                $scope.topSenders = val;
+                Resources.setTopSenders(val);
+                vm.topSenders = Resources.getTopSenders();
             });
         }
-
-        $scope.$watch(function () {
-            return Resources.getTopSenders();
-        }, function (newVal) {
-            $scope.topSenders = newVal;
-        });
-
-        function acornPlural(amount) {
-            return amount > 1 ? amount + " Acorns" : amount + " Acorn"
-        }
-    };
-
-    TopSendersController.$inject = ['$scope', 'ProfileService', '$httpParamSerializer', 'Resources'];
-
-    angular.module('myApp.components.topSenders', [])
-        .component('kudosTopSenders', {
-            templateUrl: 'app/components/kudos-top-senders/kudos-top-senders.html',
-            controller: 'TopSendersController'
-        })
-        .controller('TopSendersController', TopSendersController)
+    }
 })();

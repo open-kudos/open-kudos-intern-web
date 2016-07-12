@@ -1,6 +1,5 @@
 module.exports = function (config) {
-    config.set({
-
+    var configuration = {
         basePath: 'src',
 
         files: [
@@ -20,9 +19,9 @@ module.exports = function (config) {
             'app/*.module.js',
             'app/*.controller.js',
             'app/*.config.js',
-            'app/*.utils.js',
             'app/kudos-feed/kudos-feed.controller.js',
             'app/components/**/*.component.js',
+            'app/components/**/*.controller.js',
             'app/components/**/*.directive.js',
             'app/components/**/*.service.js',
             'app/services/*.js',
@@ -32,8 +31,8 @@ module.exports = function (config) {
             'app/acorns/*.js',
             'app/notifications/*.js',
             'app/leaderboard/*.js',
-            'test/*.spec.js',
-            'app/components/**/*.spec.js'
+            'app/settings/*.js',
+            '../test/**/*.spec.js'
         ],
 
         autoWatch: true,
@@ -52,7 +51,20 @@ module.exports = function (config) {
         junitReporter: {
             outputFile: 'test_out/unit.xml',
             suite: 'unit'
+        },
+
+        customLaunchers: {
+            Chrome_travis_ci: {
+                base: 'Chrome',
+                flags: ['--no-sandbox']
+            }
         }
 
-    });
+    };
+
+    if (process.env.TRAVIS) {
+        configuration.browsers = ['Chrome_travis_ci'];
+    }
+
+    config.set(configuration);
 };

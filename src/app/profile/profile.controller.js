@@ -1,30 +1,40 @@
 (function () {
-    'use strict';
-    var ProfileController = function ($http, $scope, $window, $cookies, $timeout, $httpParamSerializer, $filter, ProfileService, Challenges, Resources) {
-        $scope.showLoaderUserAvailableKudos = true;
-        $scope.showLoaderUserReceivedKudos = true;
-        
-        $scope.greeting = "hello";
 
-        $scope.userAvailableKudos = 0;
-        $scope.userReceivedKudos = 0;
+    ProfileController.$inject = ['$scope', '$window', 'ProfileService', 'Resources', 'Utils'];
 
-        $scope.usersCollection = [];
-        $scope.topReceivers = [];
-        $scope.buttonDisabled = true;
-        $scope.receivedAcorns = false;
-        $scope.sentAcorns = true;
-        $scope.giveAcorns = false;
-        $scope.newChallengeTab = true;
+    angular
+        .module('myApp.profile', [
+            'ngRoute',
+            'ngCookies'
+        ])
+        .controller('ProfileController', ProfileController);
 
-        $scope.showDropDown = false;
+    function ProfileController($scope, $window, ProfileService, Resources, Utils) {
+        var vm = this;
 
-        $scope.receiverErrorClass = "";
-        $scope.receiverErrorMessage = "";
-        $scope.amountErrorClass = "";
-        $scope.amountErrorMessage = "";
+        vm.showLoaderUserAvailableKudos = true;
+        vm.showLoaderUserReceivedKudos = true;
 
-        $scope.isValid = isValid;
+        vm.userAvailableKudos = 0;
+        vm.userReceivedKudos = 0;
+
+        vm.usersCollection = [];
+        vm.topReceivers = [];
+        vm.buttonDisabled = true;
+        vm.receivedAcorns = false;
+        vm.sentAcorns = true;
+        vm.giveAcorns = false;
+        vm.newChallengeTab = true;
+        vm.showDropDown = false;
+
+        vm.receiverErrorClass = "";
+        vm.receiverErrorMessage = "";
+        vm.amountErrorClass = "";
+        vm.amountErrorMessage = "";
+
+        vm.isValid = isValid;
+
+        activate();
 
         function activate() {
             checkUser();
@@ -36,29 +46,27 @@
 
             ProfileService.remainingKudos().then(function (val) {
                 Resources.setUserAvailableKudos(val);
+                vm.showLoaderUserAvailableKudos = false;
             });
 
             ProfileService.receivedKudos().then(function (val) {
-                $scope.userReceivedKudos = val;
-                $scope.showLoaderUserReceivedKudos = false;
+                vm.userReceivedKudos = val;
+                vm.showLoaderUserReceivedKudos = false;
             });
             
-            if(isEmptyCollection(Resources.getUsersCollection())){
+            if(Utils.isEmptyCollection(Resources.getUsersCollection())){
                 ProfileService.listUsers().then(function (val) {
                     Resources.setUsersCollection(val.userList);
-                    $scope.usersCollection = Resources.getUsersCollection();
+                    vm.usersCollection = Resources.getUsersCollection();
                 });
             }
         }
 
-        activate();
-        
         $scope.$watch(function () {
             return Resources.getUserAvailableKudos()
         }, function (newVal) {
             if (!isValid(newVal)) {
-                $scope.userAvailableKudos = Resources.getUserAvailableKudos();
-                $scope.showLoaderUserAvailableKudos = false;
+                vm.userAvailableKudos = Resources.getUserAvailableKudos();
             }
         });
 
@@ -71,14 +79,5 @@
         function isValid(value) {
             return typeof value === "undefined";
         }
-    };
-
-    ProfileController.$inject = ['$http', '$scope', '$window', '$cookies', '$timeout', '$httpParamSerializer', '$filter', 'ProfileService', 'Challenges', 'Resources'];
-
-    angular
-        .module('myApp.profile', [
-            'ngRoute',
-            'ngCookies'
-        ])
-        .controller('ProfileController', ProfileController);
+    }
 })();

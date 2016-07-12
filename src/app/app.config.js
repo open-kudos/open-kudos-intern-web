@@ -1,6 +1,3 @@
-/**
- * Created by vytautassugintas on 20/04/16.
- */
 (function () {
     angular
         .module("myApp").config(function ($routeProvider, $translateProvider, $locationProvider, $logProvider) {
@@ -14,7 +11,8 @@
             })
             .when('/profile', {
                 templateUrl: 'app/profile/profile-new.html',
-                controller: 'ProfileController'
+                controller: 'ProfileController',
+                controllerAs: 'profile'
             })
             .when('/registration', {
                 templateUrl: 'app/registration/registration.html',
@@ -40,6 +38,16 @@
                 templateUrl: 'app/components/kudos-me/me.html',
                 controller: 'MeController',
                 controllerAs: 'me'
+            })
+            .when('/following', {
+                templateUrl: 'app/components/kudos-following/kudos-following.html',
+                controller: 'FollowingController',
+                controllerAs: 'follow'
+            })
+            .when('/settings', {
+                templateUrl: 'app/settings/settings.view.html',
+                controller: 'SettingsController',
+                controllerAs: 'setting'
         });
 
         $translateProvider.useStaticFilesLoader({

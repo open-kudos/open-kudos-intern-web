@@ -1,31 +1,48 @@
 (function () {
 
-    var KudosChallengeOngoingController = function ($httpParamSerializer, $scope, Challenges, Resources) {
-        var requestData;
+    KudosChallengeOngoingController.$inject = ['$httpParamSerializer', 'Challenges', 'Resources', 'ProfileService', 'Utils'];
 
-        $scope.showList = false;
-        $scope.ongoingChallengeList = [];
-
-        $scope.getChallengeOngoingList = getChallengeOngoingList;
-        $scope.won = won;
-        $scope.lost = lost;
-        $scope.convertDate = convertDate;
-        $scope.showButtons = showButtons;
-        $scope.isSelected = isSelected;
-        $scope.userEmail = Resources.getCurrentUserEmail();
-
-        getChallengeOngoingList();
-
-        $scope.$watch(function () {
-            return Resources.getCurrentUserEmail()
-        }, function (newVal) {
-            if (!isValid(newVal)) $scope.userEmail = Resources.getCurrentUserEmail();
+    angular.module('myApp.components.challengeOngoing', [])
+        .component('kudosChallengeOngoing', {
+            templateUrl: 'app/components/kudos-challenge-ongoing/kudos-challenge-ongoing.html',
+            controller: ('KudosChallengeOngoingController', KudosChallengeOngoingController),
+            controllerAs: 'chOngoing'
         });
+
+    function KudosChallengeOngoingController($httpParamSerializer, Challenges, Resources, ProfileService, Utils) {
+        var vm = this,
+            requestData;
+
+        vm.ongoingChallengeList = [];
+
+        vm.getChallengeOngoingList = getChallengeOngoingList;
+        vm.won = won;
+        vm.lost = lost;
+        vm.convertDate = convertDate;
+        vm.showButtons = showButtons;
+        vm.isSelected = isSelected;
+        vm.acornPlural = Utils.acornPlural;
+        vm.convertDate = convertDate;
+
+        vm.$onInit = onInit();
+
+        function onInit() {
+            getChallengeOngoingList();
+
+            if(!Resources.getCurrentUserEmail()){
+                ProfileService.userHome().then(function (val) {
+                    Resources.setCurrentUserEmail(val.email);
+                    vm.userEmail = Resources.getCurrentUserEmail();
+                });
+            } else {
+                vm.userEmail = Resources.getCurrentUserEmail();
+            }
+        }
 
         function getChallengeOngoingList() {
             Challenges.getOngoingChallenges().then(function (val) {
                 Resources.setOngoingChallenges(val);
-                $scope.ongoingChallengeList = Resources.getOngoingChallenges();
+                vm.ongoingChallengeList = Resources.getOngoingChallenges();
             });
         }
 
@@ -56,51 +73,31 @@
         }
 
         function showButtons (list) {
-            $scope.userEmail = Resources.getCurrentUserEmail();
+            vm.userEmail = Resources.getCurrentUserEmail();
 
-            if (list.creator == $scope.userEmail)
+            if (list.creatorEmail == vm.userEmail)
                 return list.creatorStatus == null;
 
-            if (list.participant == $scope.userEmail)
+            if (list.participantEmail == vm.userEmail)
                 return list.participantStatus == null;
         }
 
         function isSelected(list) {
-            $scope.userEmail = Resources.getCurrentUserEmail();
-            if (list.creator == $scope.userEmail) {
-                if (list.participantStatus == false) return $scope.selectedMessage = list.participant + " thinks he lost";
-                else if (list.participantStatus == true) return $scope.selectedMessage = list.participant + " thinks he won";
+            if (list.creatorEmail == vm.userEmail) {
+                if (list.participantStatus == false) return vm.selectedMessage = list.participantEmail + " thinks he lost";
+                else if (list.participantStatus == true) return vm.selectedMessage = list.participantEmail + " thinks he won";
                 else return false;
-            } else if (list.participant == $scope.userEmail) {
-                if (list.creatorStatus == false) return $scope.selectedMessage = list.creator + " thinks he lost";
-                else if (list.creatorStatus == true) return $scope.selectedMessage = list.creator + " thinks he won";
+            } else if (list.participantEmail == vm.userEmail) {
+                if (list.creatorStatus == false) return vm.selectedMessage = list.creatorEmail + " thinks he lost";
+                else if (list.creatorStatus == true) return vm.selectedMessage = list.creatorEmail + " thinks he won";
                 else return false;
             }
         }
-
-        $scope.$watch(function () {
-            $scope.showList = $scope.ongoingChallengeList.length > 0;
-            return Resources.getOngoingChallenges()
-        }, function () {
-        });
 
         function convertDate(val){
             val = val.split(":");
             val = val[0] + ":" + val[1];
             return val;
         }
-    };
-
-    KudosChallengeOngoingController.$inject = ['$httpParamSerializer', '$scope', 'Challenges', 'Resources'];
-
-    angular.module('myApp.components.challengeOngoing', [])
-        .directive('kudosChallengeOngoing', function () {
-            return {
-                controller: 'KudosChallengeOngoingController',
-                restrict: 'E',
-                scope: false,
-                templateUrl: 'app/components/kudos-challenge-ongoing/kudos-challenge-ongoing.html'
-            }
-        })
-        .controller('KudosChallengeOngoingController', KudosChallengeOngoingController)
+    }
 })();

@@ -1,40 +1,54 @@
 (function () {
-    var KudosChallengeNewController = function($httpParamSerializer, $scope, Challenges, Resources){
-        var requestData;
-        $scope.showLoaderNew = true;
+    KudosChallengeNewController.$inject = ['$httpParamSerializer', 'Challenges', 'Resources', 'ProfileService', 'Utils'];
 
-        $scope.challengeList = [];
-        
-        $scope.getChallengeParticipatedList = getChallengeParticipatedList;
-        $scope.acceptChallenge = acceptChallenge;
-        $scope.declineChallenge = declineChallenge;
-        $scope.cancelChallenge = cancelChallenge;
-        $scope.removeElement = removeElement;
-        $scope.refreshList = refreshList;
-        $scope.acornPlural = acornPlural;
-        $scope.userEmail = Resources.getCurrentUserEmail();
-        $scope.doesDateExist = doesDateExist;
-
-        $scope.convertDate = convertDate;
-
-        getChallengeParticipatedList();
-
-        $scope.$watch(function () {
-            return Resources.getCurrentUserEmail()
-        }, function (newVal) {
-            if (!isValid(newVal)) $scope.userEmail = Resources.getCurrentUserEmail();
+    angular
+        .module('myApp.components.challengeNew', [])
+        .component('kudosChallengeNew', {
+            templateUrl: 'app/components/kudos-challenge-new/kudos-challenge-new.html',
+            controller: ('KudosChallengeNewController', KudosChallengeNewController),
+            controllerAs: 'chNew'
         });
 
+    function KudosChallengeNewController($httpParamSerializer, Challenges, Resources, ProfileService, Utils){
+        var vm = this,
+            requestData;
+
+        vm.showLoaderNew = true;
+        vm.challengeList = [];
+        
+        vm.getChallengeParticipatedList = getChallengeParticipatedList;
+        vm.acceptChallenge = acceptChallenge;
+        vm.declineChallenge = declineChallenge;
+        vm.cancelChallenge = cancelChallenge;
+        vm.removeElement = removeElement;
+        vm.acornPlural = Utils.acornPlural;
+        vm.userEmail = Resources.getCurrentUserEmail();
+        vm.doesDateExist = doesDateExist;
+
+        vm.convertDate = convertDate;
+
+        vm.$onInit = onInit();
+
+        function onInit() {
+            getChallengeParticipatedList();
+
+            if(!Resources.getCurrentUserEmail()){
+                ProfileService.userHome().then(function (val) {
+                    Resources.setCurrentUserEmail(val.email);
+                    vm.userEmail = Resources.getCurrentUserEmail();
+                });
+            } else {
+                vm.userEmail = Resources.getCurrentUserEmail();
+            }
+        }
+
         function getChallengeParticipatedList() {
-            $scope.id = false;
+            vm.id = false;
 
             Challenges.getNewChallenges().then(function (val) {
                 Resources.setNewChallenges(val);
-                $scope.challengeList = Resources.getNewChallenges();
-                if ($scope.challengeList[0])
-                    $scope.id = true;
-
-                $scope.showLoaderNew = false;
+                vm.challengeList = Resources.getNewChallenges();
+                vm.showLoaderNew = false;
             });
         }
 
@@ -52,7 +66,7 @@
                     Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
                     Resources.getOngoingChallenges().push(val.data);
                     getChallengeParticipatedList();
-                    refreshList();
+                    vm.challengeList = Resources.getNewChallenges();
                 })
             } else toastr.error('You only have ' + ' ' + acornPlural(userAvailableKudos) +
                 '. To accept challenge, you must have at least ' + kudos);
@@ -60,17 +74,13 @@
 
         function cancelChallenge(index) {
             var challengeId = $httpParamSerializer({
-                id: $scope.challengeList[index].id
+                id: vm.challengeList[index].id
             });
-            console.log(challengeId);
-            console.log(index);
             Challenges.cancelChallenge(challengeId).then(function (val) {
                 Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() + val.data.amount);
                 Resources.getNewChallenges().splice(index, 1);
-                Resources.getCompletedChallenges().push(val.data);
-                console.log(Resources.getNewChallenges());
-                $scope.challengeList = Resources.getNewChallenges();
-
+                Resources.getCompletedChallenges().unshift(val.data);
+                vm.challengeList = Resources.getNewChallenges();
                 toastr.success("Challenge canceled");
             });
         }
@@ -88,16 +98,8 @@
         }
 
         function removeElement(index){
-            if ($scope.challengeList[0]){
-                $scope.challengeList.splice(index, 1);
-            }
-        }
-
-        function refreshList(){
-            $scope.id = false;
-            $scope.challengeList = Resources.getNewChallenges();
-            if ($scope.challengeList[0]) {
-                $scope.id = true;
+            if (vm.challengeList[0]){
+                vm.challengeList.splice(index, 1);
             }
         }
         
@@ -112,20 +114,5 @@
         function doesDateExist(index) {
             return Resources.getNewChallenges()[index].finishDate == null;
         }
-
-    };
-
-    KudosChallengeNewController.$inject = ['$httpParamSerializer', '$scope', 'Challenges', 'Resources'];
-
-    angular.module('myApp.components.challengeNew', [])
-
-        .directive('kudosChallengeNew', function () {
-            return {
-                controller: 'KudosChallengeNewController',
-                restrict: 'E',
-                scope: false,
-                templateUrl: 'app/components/kudos-challenge-new/kudos-challenge-new.html'
-            }
-        })
-        .controller('KudosChallengeNewController', KudosChallengeNewController)
+    }
 })();

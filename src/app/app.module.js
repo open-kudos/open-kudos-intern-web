@@ -1,6 +1,3 @@
-/**
- * Created by vytautassugintas on 20/04/16.
- */
 (function () {
     angular
         .module('myApp', [
@@ -11,17 +8,15 @@
             'myApp.profile',
             'myApp.acorn',
             'myApp.notification',
+            'myApp.settings',
             'myApp.components.navbar',
             'myApp.components.notifications',
-            'myApp.components.sentAcorns',
-            'myApp.components.receivedAcorns',
             'myApp.components.completedChallenges',
             'myApp.components.challengeNew',
             'myApp.components.transactions',
             'myApp.components.giveKudos',
             'myApp.components.giveChallenge',
             'myApp.components.giveChallengeSmall',
-            'myApp.components.giveTeamChallenge',
             'myApp.components.challengeOngoing',
             'myApp.components.topReceivers',
             'myApp.components.topSenders',
@@ -34,6 +29,7 @@
             'myApp.components.info',
             'myApp.components.feed',
             'myApp.components.userHistory',
-            'myApp.components.leaderboardFilter'
+            'myApp.components.leaderboardFilter',
+            'myApp.components.following'
         ]);
 })();

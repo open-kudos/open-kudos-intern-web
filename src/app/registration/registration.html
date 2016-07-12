@@ -36,7 +36,7 @@
                             <div ng-show="registrationValidation" class="errorMessage" ng-message="pattern">Enter valid name.surname</div>
                         </div>
                         <div class="input-group">
-                            <input ng-model="email" type="text" ng-pattern="/[a-z]\W[a-z]/" name="email" id="email" tabindex="2" class="form-control" placeholder="Email" required>
+                            <input ng-model="email" type="text" ng-pattern="/[a-zA-Z]\W[a-zA-Z]/" name="email" id="email" tabindex="2" class="form-control" placeholder="Email" required>
                             <span class="input-group-addon" id="basic-addon2">@swedbank</span>
                             <div class="input-group-btn">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{domain}} <span class="caret"></span></button>

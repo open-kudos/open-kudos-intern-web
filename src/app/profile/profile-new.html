@@ -7,21 +7,6 @@
     <!-- Profile Edit Modal -->
     <ng-include src="'app/profile/partials/user-detail-popup.html'"></ng-include>
 
-    <!-- Send Kudos Modal -->
-    <div>
-        <kudos-give-kudos></kudos-give-kudos>
-    </div>
-
-    <!-- Send Kudos Modal content end -->
-
-    <!-- Give Challenges Modal -->
-
-    <div>
-        <kudos-give-challenge></kudos-give-challenge>
-    </div>
-
-    <!-- Give Challenges Modal content end -->
-
     <div class="row">
 
         <!-- use later col-sm-push-3 -->
@@ -31,31 +16,23 @@
             <div class="panel panel-body">
                 <div class="row text-center">
                     <div class="col-lg-6 col-sm-6">
-                        <div ng-hide="!showLoaderUserAvailableKudos" class="loader"></div>
+                        <div ng-hide="!profile.showLoaderUserAvailableKudos" class="loader"></div>
                         <h1>
-                            <b class="acorn-color">{{userAvailableKudos}}
+                            <b class="acorn-color">{{profile.userAvailableKudos}}
 
                             </b>
                         </h1>
                         <h4>{{ 'ProfileMeCorns' | translate }}</h4>
                         <div class="col-md-12">
-                            <button name="giveKudosButton" id="giveKudosButton"
-                                    data-toggle="modal" data-target="#sendKudosModal"
-                                    class="btn profile-buttons hvr-underline-from-center">
-                                {{ 'ProfileMeGiveACorn' | translate }}
-                            </button>
+                            <kudos-give-kudos></kudos-give-kudos>
                         </div>
                     </div>
                     <div class="col-lg-6 col-sm-6">
-                        <div ng-hide="!showLoaderUserReceivedKudos" class="loader"></div>
-                        <h1><b class="acorn-color">{{userReceivedKudos}}</b></h1>
+                        <div ng-hide="!profile.showLoaderUserReceivedKudos" class="loader"></div>
+                        <h1><b class="acorn-color">{{profile.userReceivedKudos}}</b></h1>
                         <h4>{{ 'ProfileMeTotalCorns' | translate }}</h4>
                         <div class="col-md-12">
-                            <button name="giveChallengeButton" id="challengeButton"
-                                    data-toggle="modal" data-target="#giveChallengeModal"
-                                    class="btn profile-buttons hvr-underline-from-center" data-placement="top">
-                                {{ 'ProfileMeChallenge' | translate }}
-                            </button>
+                            <kudos-give-challenge></kudos-give-challenge>
                         </div>
                     </div>
                 </div>
@@ -64,17 +41,26 @@
             <div class="panel panel-body">
                 <ul class="nav nav-pills">
                     <h3>Challenges</h3>
-                    <li role="presentation" ng-class="newChallengeTab ? 'active' : ''"><a href="" ng-click="ongoingChallengeTab = false;newChallengeTab=true;completedChallengeTab=false">New</a></li>
-                    <li role="presentation" ng-class="ongoingChallengeTab ? 'active' : ''"><a href="" ng-click="ongoingChallengeTab = true;newChallengeTab=false;completedChallengeTab=false">Ongoing</a></li>
-                    <li role="presentation" ng-class="completedChallengeTab ? 'active' : ''"><a href="" ng-click="ongoingChallengeTab = false;newChallengeTab=false;completedChallengeTab=true">Completed</a></li>
+                    <li role="presentation" ng-class="profile.newChallengeTab ? 'active' : ''">
+                        <a href=""
+                           ng-click="profile.ongoingChallengeTab = false;profile.newChallengeTab=true;profile.completedChallengeTab=false">
+                            New</a></li>
+                    <li role="presentation" ng-class="profile.ongoingChallengeTab ? 'active' : ''">
+                        <a href=""
+                           ng-click="profile.ongoingChallengeTab = true;profile.newChallengeTab=false;profile.completedChallengeTab=false">
+                            Ongoing</a></li>
+                    <li role="presentation" ng-class="profile.completedChallengeTab ? 'active' : ''">
+                        <a href=""
+                           ng-click="profile.ongoingChallengeTab = false;profile.newChallengeTab=false;profile.completedChallengeTab=true">
+                            Completed</a></li>
                 </ul>
-                <div class="" ng-show="ongoingChallengeTab">
+                <div class="" ng-show="profile.ongoingChallengeTab">
                     <kudos-challenge-ongoing></kudos-challenge-ongoing>
                 </div>
-                <div class="" ng-show="newChallengeTab">
+                <div class="" ng-show="profile.newChallengeTab">
                     <kudos-challenge-new></kudos-challenge-new>
                 </div>
-                <div class="" ng-show="completedChallengeTab">
+                <div class="" ng-show="profile.completedChallengeTab">
                     <kudos-challenge-completed></kudos-challenge-completed>
                 </div>
             </div>
@@ -88,13 +74,15 @@
                     <h3><span class="glyphicon glyphicon-star acorn-color"></span> Leaderboard</h3>
                     <kudos-leaderboard-filter></kudos-leaderboard-filter>
                     <ul class="nav nav-pills">
-                        <li role="presentation" ng-class="topReceivers ? 'active' : ''"><a href="" ng-click="topReceivers=true; topSenders=false;">Top receivers</a></li>
-                        <li role="presentation" ng-class="topSenders ? 'active' : ''"><a href="" ng-click="topReceivers=false; topSenders=true;">Top senders</a></li>
+                        <li role="presentation" ng-class="profile.topReceivers ? 'active' : ''">
+                            <a href="" ng-click="profile.topReceivers=true; profile.topSenders=false;">Top receivers</a></li>
+                        <li role="presentation" ng-class="profile.topSenders ? 'active' : ''">
+                            <a href="" ng-click="profile.topReceivers=false; profile.topSenders=true;">Top senders</a></li>
                     </ul>
-                    <div ng-show="topReceivers">
+                    <div ng-show="profile.topReceivers">
                         <kudos-top-receivers></kudos-top-receivers>
                     </div>
-                    <div ng-show="topSenders">
+                    <div ng-show="profile.topSenders">
                         <kudos-top-senders></kudos-top-senders>
                     </div>
                 </div>

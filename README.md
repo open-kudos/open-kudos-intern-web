@@ -1,3 +1,4 @@
+Build status: [![Build Status](https://travis-ci.org/open-kudos/open-kudos-intern-web.svg?branch=integration)](https://travis-ci.org/open-kudos/open-kudos-intern-web)
 # open-kudos-intern-web
 Open Kudos Angular web app
 

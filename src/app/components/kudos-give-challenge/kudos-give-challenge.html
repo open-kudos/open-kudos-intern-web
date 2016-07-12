@@ -1,8 +1,14 @@
+<button ng-click="giveChallenge.clearChallengeFormValues()" name="giveChallengeButton" id="challengeButton"
+        data-toggle="modal" data-target="#giveChallengeModal"
+        class="btn profile-buttons hvr-underline-from-center" data-placement="top">
+    {{ 'ProfileMeChallenge' | translate }}
+</button>
+
 <div id="giveChallengeModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog text-left">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" ng-click="clearChallengeFormValues()" class="close"
+                <button type="button" ng-click="giveChallenge.clearChallengeFormValues()" class="close"
                         data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">{{ 'GIVE_CHALLENGE_POPUP_TITLE' | translate }}</h4>
             </div>
@@ -12,30 +18,31 @@
                     <form name="giveChallengeForm">
                         <div class="form-group col-sm-6">
                             <label for="giveChallengeName">{{ 'GIVE_CHALLENGE_NAME' | translate }}</label>
-                            <input ng-model="giveChallengeName" class="form-control" ng-trim="false"
-                                   id="giveChallengeName" value="{{giveChallengeName = lengthLimit(giveChallengeName, 50)}}" name="giveChallengeName" type="text" required>
+                            <input ng-model="giveChallenge.giveChallengeName" class="form-control" ng-trim="false"
+                                   id="giveChallengeName" value="{{giveChallenge.giveChallengeName = giveChallenge.lengthLimit(giveChallenge.giveChallengeName, 50)}}" name="giveChallengeName" type="text" required>
                         </div>
 
                         <div class="form-group col-sm-6">
-                            <label for="giveChallengeAmountOfKudos">{{'GIVE_CHALLENGE_AMOUNT' | translate }} | Max: {{userAvailableKudos}}</label>
-                            <input ng-model="giveChallengeAmountOfKudos"
+                            <label for="giveChallengeAmountOfKudos">{{'GIVE_CHALLENGE_AMOUNT' | translate }} | Max: {{giveChallenge.userAvailableKudos}}</label>
+                            <input ng-model="giveChallenge.giveChallengeAmountOfKudos"
                                    id="giveChallengeAmountOfKudos"
                                    name="giveChallengeAmountOfKudos" type="number" ng-pattern="/^[0-9]+$/"
-                                   class="form-control" min="1" max="{userAvailableKudos}" required>
+                                   class="form-control" min="1" max="{giveChallenge.userAvailableKudos}" required>
                         </div>
 
                         <div class="form-group col-sm-12">
                             <label for="giveChallengeTo">{{'GIVE_CHALLENGE_TO' | translate }}</label>
-                            <input ng-model="giveChallengeTo"
+                            <input ng-model="giveChallenge.giveChallengeTo"
+                                   ng-change="giveChallenge.giveToInputChanged()"
                                    class="form-control"
                                    id="giveChallengeTo"
                                    name="giveChallengeTo"
                                    type="text"
                                    autocomplete="off"
                                    required>
-                            <div class="autocomplete" ng-show="autocompleteHide==false">
-                                <div ng-repeat="autoText in usersCollection | filter:giveChallengeTo"
-                                     ng-click="selectAutoText(autoText.email)">
+                            <div class="autocomplete" ng-show="giveChallenge.autocompleteHide==false">
+                                <div ng-repeat="autoText in giveChallenge.usersCollection | filter:giveChallenge.giveChallengeTo"
+                                     ng-click="giveChallenge.selectAutoText(autoText.email)">
                                     <p>{{autoText.firstName}} {{autoText.lastName}}</p>
                                     <p class="small">{{autoText.email}}</p>
                                 </div>
@@ -45,30 +52,30 @@
                         <div class="form-group col-sm-12">
                             <label for="giveChallengeDescription">{{'GIVE_CHALLENGE_OPTIONAL_FIELD_DESCRIPTION' |
                                 translate }} (optional)</label>
-                            <textarea ng-model="giveChallengeDescription" class="form-control"
+                            <textarea ng-model="giveChallenge.giveChallengeDescription" class="form-control"
                                       id="giveChallengeDescription"
                                       name="giveChallengeDescription" ng-trim="false"
-                                      value="{{giveChallengeDescription = lengthLimit(giveChallengeDescription, 300)}}">
+                                      value="{{giveChallenge.giveChallengeDescription = giveChallenge.lengthLimit(giveChallenge.giveChallengeDescription, 300)}}">
                             </textarea>
                         </div>
 
                         <div class="form-group col-sm-12">
                             <label for="giveChallengeExpirationDate">{{'GIVE_CHALLENGE_OPTIONAL_FIELD_EXPIRATION' |
                                 translate }} (optional)</label>
-                            <input ng-model="giveChallengeExpirationDate" class="form-control"
+                            <input ng-model="giveChallenge.giveChallengeExpirationDate" class="form-control"
                                    id="giveChallengeExpirationDate"
                                    name="giveChallengeExpirationDate" type="datetime-local" value="2000-01-01T00:00">
                         </div>
 
                         <div class="form-group col-sm-12 text-center">
-                            <div ng-hide="!showError" class="alert alert-danger" role="alert">
-                                <strong>Whoops!</strong> {{challengeFormErrorMessage}}
+                            <div ng-hide="!giveChallenge.showError" class="alert alert-danger" role="alert">
+                                <strong>Whoops!</strong> {{giveChallenge.challengeFormErrorMessage}}
                             </div>
                         </div>
 
                     </form>
 
-                    <button ng-click="giveChallenge()" name="giveChallengeButton" id="giveChallengeButton"
+                    <button ng-click="giveChallenge.giveChallenge()" name="giveChallengeButton" id="giveChallengeButton"
                             class="form-control btn btn-login">{{'GIVE_CHALLENGE_GIVE_BUTTON' | translate}}
                     </button>
                 </div>
