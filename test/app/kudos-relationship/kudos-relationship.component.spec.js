@@ -1,10 +1,9 @@
 "use strict";
 describe('RelationshipComponent', function () {
 
-    var $scope;
-    var $controller;
-    var $httpBackend, serviceMock;
-    var authRequestHandler;
+    var scope;
+    var $componentController;
+    var comp, serviceMock;
 
     var testFollower = {
         followerEmail: "test.test@test.lt",
@@ -29,25 +28,14 @@ describe('RelationshipComponent', function () {
         });
     });
 
-    beforeEach(inject(function($rootScope, _$controller_) {
-        $scope = $rootScope.$new();
+    beforeEach(inject(function($rootScope, _$componentController_, _$httpBackend_, _UserHistoryService_) {
+        scope = $rootScope.$new();
 
-        $controller = _$controller_('RelationshipController', {
-            $scope: $scope
-        });
-    }));
-
-    beforeEach(inject(function ($rootScope, _$controller_, $injector) {
-        $httpBackend = $injector.get('$httpBackend');
-        $scope = $rootScope.$new();
-
-        $controller = _$controller_('RelationshipController', {
-            $scope: $scope
-        });
-
-
-        authRequestHandler = $httpBackend.when('POST', '/relations/add?test@test.test')
-            .respond(testFollower);
+        $componentController = _$componentController_;
+        comp = $componentController('kudosRelationship',
+            null,
+            {controller: 'RelationshipController'}
+        );
     }));
 
 
@@ -55,17 +43,17 @@ describe('RelationshipComponent', function () {
     describe("RelationshipController", function () {
 
         it('should ensure that followed can be added to collection', function () {
-            $scope.addFollowingToCollection(testFollower);
-            expect($scope.followedCollection.length).toEqual(1);
+            comp.addFollowingToCollection(testFollower);
+            expect(comp.followedCollection.length).toEqual(1);
         });
 
         it('should ensure that followed can be removed from collection', function () {
-            $scope.removeFollowingFromCollection(1);
-            expect($scope.followedCollection.length).toEqual(0);
+            comp.removeFollowingFromCollection(1);
+            expect(comp.followedCollection.length).toEqual(0);
         });
 
         it('should ensure that email can be transformed to data params', function () {
-            expect($scope.transferDataToParam("test@test.lt")).toEqual("email=test@test.lt");
+            expect(comp.transferDataToParam("test@test.lt")).toEqual("email=test@test.lt");
         });
         
     });
@@ -73,8 +61,8 @@ describe('RelationshipComponent', function () {
     describe("RelationService", function () {
 
         it('should fetch followers', function () {
-            $scope.addFollowingToCollection(testFollower);
-            expect($scope.followedCollection.length).toEqual(1);
+            comp.addFollowingToCollection(testFollower);
+            expect(comp.followedCollection.length).toEqual(1);
         });
 
     })
