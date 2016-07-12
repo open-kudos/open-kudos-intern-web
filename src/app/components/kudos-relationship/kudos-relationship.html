@@ -30,7 +30,7 @@
     <div ng-repeat="item in relation.followedCollection | orderBy:'followerName'"
          class="col-md-12">
             <div class="relation">
-                    <h4 class="media-heading">{{ item.userName }} {{ item.userSurname }}</h4>
+                    <h4 class="media-heading">{{ item.userName }}</h4>
                     <p class="small">{{ item.userEmail }}</p>
 
                     <kudos-give-kudos email="item.userEmail" index="item.id" template="'button'"></kudos-give-kudos>

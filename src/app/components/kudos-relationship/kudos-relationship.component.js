@@ -15,7 +15,7 @@
 
         vm.followedCollection = [];
         vm.followersCollection = [];
-        vm.selectedEmail = "namas";
+        vm.selectedEmail = "";
         vm.acornsAmount = 1;
         vm.showGiveBox = false;
 
