@@ -1,9 +1,3 @@
-/**
- * Created by vytautassugintas on 17/05/16.
- */
-/**
- * Created by Chris on 2016-05-17.
- */
 "use strict";
 describe('LoginController', function() {
 

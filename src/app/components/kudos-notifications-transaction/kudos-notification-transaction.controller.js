@@ -1,12 +1,12 @@
 (function () {
 
-    NotificationsController.$inject = ['$location', 'Resources', 'KudosNotificationService'];
+    NotificationsController.$inject = ['$location', 'Resources', 'KudosNotificationService', 'Utils'];
 
     angular
         .module('myApp.components.notifications', [])
         .controller('NotificationsController', NotificationsController);
 
-    function NotificationsController($location, Resources, KudosNotificationService) {
+    function NotificationsController($location, Resources, KudosNotificationService, Utils) {
         var vm = this;
 
         vm.newTransactionCollection = [];
@@ -16,6 +16,7 @@
 
         vm.clearNotifications = clearNotifications;
         vm.checkNotifications = checkNotifications;
+        vm.acornPlural = Utils.acornPlural;
 
         var lastTransactionTimestamp;
 

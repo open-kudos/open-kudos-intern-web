@@ -1,9 +1,10 @@
 "use strict";
-describe('NotificationComponent', function() {
+describe('Notifications Controller', function() {
 
     var scope;
     var $httpBackend;
     var rootScope;
+    var ctrl;
     var locationSpy;
     var someServiceMock;
     var serverService;
@@ -21,42 +22,32 @@ describe('NotificationComponent', function() {
         });
     });
 
-    beforeEach(inject(function ($controller, $rootScope, _$httpBackend_) {
-        scope = $rootScope.$new();
-        createController($controller);
-
-        $httpBackend = _$httpBackend_;
-        $httpBackend.when('POST', 'http://localhost:8080/user/list').respond();
+    beforeEach(inject(function (_$controller_) {
+        scope = {};
+        ctrl = _$controller_('NotificationsController', { $scope: scope });
     }));
 
     describe('NotificationsController', function() {
 
         it('it should clear notifications', function() {
-            scope.newTransactionCollection = ['test', 'test'];
-            scope.notificationBadgeAmount = 1;
-            scope.clearNotifications();
-            expect(scope.notificationBadgeAmount).toBe(0);
+            ctrl.newTransactionCollection = ['test', 'test'];
+            ctrl.notificationBadgeAmount = 1;
+            ctrl.clearNotifications();
+            expect(ctrl.notificationBadgeAmount).toBe(0);
         });
 
         it('should return word acorn in plural', function () {
-            expect('2 Acorns').toBe(scope.acornPlural(2));
+            expect('2 Acorns').toBe(ctrl.acornPlural(2));
         });
 
         it('should return word acorn not in plural', function () {
-            expect('1 Acorn').toBe(scope.acornPlural(1));
+            expect('1 Acorn').toBe(ctrl.acornPlural(1));
         });
         
         it('should check for notifications', function () {
-            scope.checkNotifications();
-            expect(0).toBe(scope.newTransactionCollection.length);
+            ctrl.checkNotifications();
+            expect(0).toBe(ctrl.newTransactionCollection.length);
         });
 
     });
-
-    function createController($controller) {
-        $controller('NotificationsController', {
-            $scope: scope
-        });
-    }
-
 });
