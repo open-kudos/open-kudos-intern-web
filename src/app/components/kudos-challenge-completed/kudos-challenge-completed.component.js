@@ -60,12 +60,14 @@
         }
 
         function sort(list) {
-            for (var i = 0; i < list.length; i++) {
-                for (var ii = i; ii < list.length; ii++) {
-                    if (list[i].createDate < list[ii].createDate) {
-                        var temp = list[i];
-                        list[i] = list[ii];
-                        list[ii] = temp;
+            if (list) {
+                for (var i = 0; i < list.length; i++) {
+                    for (var ii = i; ii < list.length; ii++) {
+                        if (list[i].createDate < list[ii].createDate) {
+                            var temp = list[i];
+                            list[i] = list[ii];
+                            list[ii] = temp;
+                        }
                     }
                 }
             }
