@@ -7,10 +7,13 @@ before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - npm install -g gulp
-  - npm install -g codeclimate-test-reporter
   - npm start > /dev/null &
   - npm run update-webdriver
   - sleep 1 # give server time to start
 
 script:
   - node_modules/.bin/karma start karma.conf.js --no-auto-watch --single-run
+
+addons:
+      code_climate:
+                repo_token: 37282e126efedf884a0359c5e66b5c9ee3e81e445f05e6242934ef1489246523
