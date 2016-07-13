@@ -12,7 +12,7 @@ before_script:
   - sleep 1 # give server time to start
 
 script:
-  -bin/karma start karma.conf.js --no-auto-watch --single-run
+  -node_modules/karma/bin/karma start karma.conf.js --no-auto-watch --single-run
 
 after_success:
   - codeclimate < ./src/app/coverage/lcov.info
