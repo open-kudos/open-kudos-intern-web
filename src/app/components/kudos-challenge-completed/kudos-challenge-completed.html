@@ -1,5 +1,6 @@
 <div class="text-center">
-    <div ng-if="chCompleted.completedChallengesCollection[0]" class="card box4 box-shadow-animation" ng-repeat="challenge in chCompleted.completedChallengesCollection | limitTo: chCompleted.completedChallengesLimit">
+    <div ng-if="chCompleted.completedChallengesCollection[0]" class="card box4 box-shadow-animation"
+         ng-repeat="challenge in chCompleted.completedChallengesCollection | limitTo: chCompleted.completedChallengesLimit">
         <p class="card-text" ng-if="challenge.participantEmail == chCompleted.userEmail">
             <span class="bold">{{challenge.name}}</span> received from
             <span class="bold">{{challenge.creatorEmail}}</span> for

@@ -29,6 +29,7 @@
             Challenges.getCompletedChallenges().then(function (val) {
                 Resources.setCompletedChallenges(val);
                 vm.completedChallengesCollection = Resources.getCompletedChallenges();
+                vm.completedChallengesCollection = sort(vm.completedChallengesCollection);
                 showMoreButton(val);
             });
 
@@ -56,6 +57,19 @@
                 if (Resources.getCompletedChallenges()[index].participantEmail == Resources.getCurrentUserEmail()) return Resources.getCompletedChallenges()[index].creatorEmail + " won the challenge";
                 else return "You won the challenge!";
             }
+        }
+
+        function sort(list) {
+            for (var i = 0; i < list.length; i++) {
+                for (var ii = i; ii < list.length; ii++) {
+                    if (list[i].createDate < list[ii].createDate) {
+                        var temp = list[i];
+                        list[i] = list[ii];
+                        list[ii] = temp;
+                    }
+                }
+            }
+            return list;
         }
 
         function showMoreButton(val) {
