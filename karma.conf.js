@@ -16,36 +16,33 @@ module.exports = function (config) {
             "app/bower_components/angular-messages/angular-messages.min.js",
             "app/bower_components/angular-sanitize/angular-sanitize.min.js",
             "app/bower_components/toastr/toastr.min.js",
-            'app/!(bower_components)/**/*.js',
             'app/*.module.js',
-            'app/*.js',
-            'app/**/*.js',
+            'app/!(bower_components)/**/*.component.js',
+            'app/!(bower_components)/**/*.controller.js',
+            'app/!(bower_components)/**/*.directive.js',
+            'app/!(bower_components)/**/*.service.js',
+            'app/!(bower_components)/**/*.js',
             '../test/**/*.spec.js'
         ],
 
         autoWatch: true,
 
+        preprocessors: {'app/!(bower_components)/**/*.js': 'coverage'},
+        reporters: ['spec', 'coverage'],
+
         frameworks: ['jasmine'],
 
         browsers: ['Chrome'],
-
-        plugins: [
-            'karma-chrome-launcher',
-            'karma-firefox-launcher',
-            'karma-jasmine',
-            'karma-junit-reporter'
-        ],
-
-        junitReporter: {
-            outputFile: 'test_out/unit.xml',
-            suite: 'unit'
-        },
 
         customLaunchers: {
             Chrome_travis_ci: {
                 base: 'Chrome',
                 flags: ['--no-sandbox']
             }
+        },
+
+        coverageReporter: {
+            type: "lcov"
         }
 
     };
