@@ -12,8 +12,13 @@ before_script:
   - sleep 1 # give server time to start
 
 script:
-  - node_modules/.bin/karma start karma.conf.js --no-auto-watch --single-run
+  -bin/karma start karma.conf.js --no-auto-watch --single-run
+
+after_success:
+  - codeclimate < ./src/app/coverage/lcov.info
+
 
 addons:
       code_climate:
-                repo_token: 37282e126efedf884a0359c5e66b5c9ee3e81e445f05e6242934ef1489246523
+                repo_token:
+                    secure: 37282e126efedf884a0359c5e66b5c9ee3e81e445f05e6242934ef1489246523
