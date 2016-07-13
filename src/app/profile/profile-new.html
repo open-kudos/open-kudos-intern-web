@@ -71,20 +71,7 @@
 
             <div class="panel">
                 <div class="panel-body">
-                    <h3><span class="glyphicon glyphicon-star acorn-color"></span> Leaderboard</h3>
-                    <kudos-leaderboard-filter></kudos-leaderboard-filter>
-                    <ul class="nav nav-pills">
-                        <li role="presentation" ng-class="profile.topReceivers ? 'active' : ''">
-                            <a href="" ng-click="profile.topReceivers=true; profile.topSenders=false;">Top receivers</a></li>
-                        <li role="presentation" ng-class="profile.topSenders ? 'active' : ''">
-                            <a href="" ng-click="profile.topReceivers=false; profile.topSenders=true;">Top senders</a></li>
-                    </ul>
-                    <div ng-show="profile.topReceivers">
-                        <kudos-top-receivers></kudos-top-receivers>
-                    </div>
-                    <div ng-show="profile.topSenders">
-                        <kudos-top-senders></kudos-top-senders>
-                    </div>
+                    <kudos-leaderboard></kudos-leaderboard>
                 </div>
             </div>
 

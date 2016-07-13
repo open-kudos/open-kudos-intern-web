@@ -1,0 +1,35 @@
+
+<h3><span class="glyphicon glyphicon-star acorn-color"></span> Leaderboard</h3>
+
+<div class="dropdown leaderboard-filter">
+    <button class="btn btn-default dropdown-toggle" type="button" id="filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        {{leader.criterion}}
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="filter">
+        <li ng-click="leader.setFilter('all')"><a href="">All over period</a></li>
+        <li role="separator" class="divider"></li>
+        <li ng-click="leader.setFilter('30')"><a href="">Past 30 days</a></li>
+        <li ng-click="leader.setFilter('7')"><a href="">Past 7 days</a></li>
+    </ul>
+</div>
+
+<ul class="nav nav-pills">
+    <li role="presentation" ng-class="leader.receivers ? 'active' : ''">
+        <a href="" ng-click="leader.receivers=true; leader.senders=false;">Top receivers</a></li>
+    <li role="presentation" ng-class="leader.senders ? 'active' : ''">
+        <a href="" ng-click="leader.receivers=false; leader.senders=true;">Top senders</a></li>
+</ul>
+
+<div ng-show="leader.receivers">
+    <div ng-hide="!leader.showLoader" class="loader"></div>
+    <ul class="list-group click-li">
+        <kudos-user-history ng-repeat="receiver in leader.topReceivers" user="receiver"></kudos-user-history>
+    </ul>
+</div>
+
+<div ng-show="leader.senders">
+    <ul class="list-group click-li">
+        <kudos-user-history ng-repeat="sender in leader.topSenders" user="sender"></kudos-user-history>
+    </ul>
+</div>

@@ -18,18 +18,15 @@
             'myApp.components.giveChallenge',
             'myApp.components.giveChallengeSmall',
             'myApp.components.challengeOngoing',
-            'myApp.components.topReceivers',
-            'myApp.components.topSenders',
             'myApp.components.confirm-email',
             'myApp.components.me',
             'myApp.components.wisdomWallIdeas',
             'myApp.components.addNewIdea',
-            'myApp.acorn.leaderboard',
             'myApp.components.relationship',
             'myApp.components.info',
             'myApp.components.feed',
             'myApp.components.userHistory',
-            'myApp.components.leaderboardFilter',
+            'myApp.components.leaderboard',
             'myApp.components.following'
         ]);
 })();

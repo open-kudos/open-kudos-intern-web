@@ -74,7 +74,7 @@ gulp.task('jsIntoOne', function() {
     });
 
     //return mergedControllers;
-    fs.writeFileSync('src/app/dist/1.0.1.controllers.min.js', serviceResult.code);
+    fs.writeFileSync('src/app/dist/1.0.2.controllers.min.js', serviceResult.code);
 
     var serviceResult = uglify.minify('src/app/dist/services.js', {
         mangle: true,
@@ -91,7 +91,7 @@ gulp.task('jsIntoOne', function() {
     });
 
     //return mergedControllers;
-    fs.writeFileSync('src/app/dist/1.0.1.services.min.js', serviceResult.code);
+    fs.writeFileSync('src/app/dist/1.0.2.services.min.js', serviceResult.code);
 
     var serviceResult = uglify.minify('src/app/dist/components.js', {
         mangle: true,
@@ -108,7 +108,7 @@ gulp.task('jsIntoOne', function() {
     });
 
     //return mergedControllers;
-    fs.writeFileSync('src/app/dist/1.0.1.components.min.js', serviceResult.code);
+    fs.writeFileSync('src/app/dist/1.0.2.components.min.js', serviceResult.code);
 
     var serviceResult = uglify.minify('src/app/dist/directives.js', {
         mangle: true,
@@ -125,5 +125,5 @@ gulp.task('jsIntoOne', function() {
     });
 
     //return mergedControllers;
-    fs.writeFileSync('src/app/dist/1.0.1.directives.min.js', serviceResult.code);
+    fs.writeFileSync('src/app/dist/1.0.2.directives.min.js', serviceResult.code);
 });
