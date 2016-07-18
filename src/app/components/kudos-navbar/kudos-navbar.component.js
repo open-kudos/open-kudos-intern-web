@@ -16,8 +16,8 @@
         vm.selectedAcorns = false;
         vm.selectedFollowing = false;
         vm.selectedChallenges = false;
-        vm.logout = logout;
 
+        vm.logout = logout;
         vm.activate = activate;
 
         activate();
