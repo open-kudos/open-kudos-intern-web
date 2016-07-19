@@ -15,14 +15,15 @@
 
         vm.showLoaderNew = true;
         vm.challengeList = [];
-        
+
+        vm.userEmail = Resources.getCurrentUserEmail();
+
         vm.getChallengeParticipatedList = getChallengeParticipatedList;
         vm.acceptChallenge = acceptChallenge;
         vm.declineChallenge = declineChallenge;
         vm.cancelChallenge = cancelChallenge;
         vm.removeElement = removeElement;
         vm.acornPlural = Utils.acornPlural;
-        vm.userEmail = Resources.getCurrentUserEmail();
         vm.doesDateExist = doesDateExist;
         vm.convertDate = convertDate;
 

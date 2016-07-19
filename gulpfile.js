@@ -81,7 +81,7 @@ gulp.task('build-prod', ['update-version'], function (callback) {
     callback();
 });
 
-gulp.task('build-test', function (callback) {
+gulp.task('build-test', ['update-version'], function (callback) {
     buildServerFile(packageOptions.testAPI);
     callback();
 });

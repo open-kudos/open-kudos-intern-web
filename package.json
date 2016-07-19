@@ -1,9 +1,9 @@
 {
   "name": "open-kudos",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.9",
   "description": "Open Kudos app",
-  "repository": "https://github.com/angular/angular-seed",
+  "repository": "https://github.com/open-kudos/open-kudos-api",
   "license": "MIT",
   "prodAPI": "https://openkudos.com/api",
   "localAPI": "http://localhost:8080",
