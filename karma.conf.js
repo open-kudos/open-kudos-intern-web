@@ -29,6 +29,7 @@ module.exports = function (config) {
             'app/registration/*.js',
             'app/profile/*.js',
             'app/acorns/*.js',
+            'app/shop/*.js',
             'app/notifications/*.js',
             'app/leaderboard/*.js',
             'app/settings/*.js',
