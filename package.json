@@ -7,7 +7,7 @@
   "license": "MIT",
   "prodAPI": "https://openkudos.com/api",
   "localAPI": "http://localhost:8080",
-  "testAPI": "",
+  "testAPI": "http://test.openkudos.com/api",
   "devDependencies": {
     "bower": "^1.3.1",
     "browser-sync": "^2.12.5",

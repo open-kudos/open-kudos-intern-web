@@ -12,12 +12,11 @@ var fs = require('fs');
 var del = require('del');
 var packageOptions = require('./package.json');
 
-gulp.task('serve', ['browserSync', 'sass'], function () {
+gulp.task('serve', ['browserSync', 'sass', 'minify-files'], function () {
     gulp.watch('src/app/**/*.scss', ['sass']);
     gulp.watch('src/app/**/*.js', ['minify-files']);
     gulp.watch('src/app/**/*.html').on('change', browserSync.reload);
     gulp.watch('src/app/**/*.js').on('change', browserSync.reload);
-    // Other watchers
 });
 
 gulp.task('browserSync', function () {
@@ -68,7 +67,6 @@ gulp.task('minify-files', ['merge-files'], function (callback) {
         minifyAndSave('src/temp/bundle.js', 'src/dist', 'src/dist/bundle.min.'+packageOptions.version+'.js');
         callback();
     }, 500);
-
 });
 
 gulp.task('build-local', function (callback) {
