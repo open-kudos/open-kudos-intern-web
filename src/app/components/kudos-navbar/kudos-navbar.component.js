@@ -16,8 +16,9 @@
         vm.selectedAcorns = false;
         vm.selectedFollowing = false;
         vm.selectedChallenges = false;
-        vm.logout = logout;
+        vm.selectedShop = false;
 
+        vm.logout = logout;
         vm.activate = activate;
 
         activate();
@@ -29,6 +30,8 @@
                 vm.selectedAcorns = true;
             } else if ($location.path() == '/following'){
                 vm.selectedFollowing = true;
+            } else if ($location.path() == '/shop'){
+                vm.selectedShop = true;
             }
 
             if (vm.user == undefined){

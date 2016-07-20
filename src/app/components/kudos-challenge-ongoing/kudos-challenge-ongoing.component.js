@@ -18,6 +18,7 @@
         vm.getChallengeOngoingList = getChallengeOngoingList;
         vm.won = won;
         vm.lost = lost;
+        vm.buttons = [];
         vm.convertDate = convertDate;
         vm.showButtons = showButtons;
         vm.isSelected = isSelected;
@@ -46,50 +47,58 @@
             });
         }
 
-        function lost(id) {
+        function lost(challenge) {
             var status = false;
-
+            var index = vm.ongoingChallengeList.indexOf(challenge);
             requestData = $httpParamSerializer({
-                id: id,
+                id: challenge.id,
                 status: status
             });
 
             Challenges.accomplishChallenge(requestData).then(function (val) {
-                toastr.success('You think that you lost challenge. Well... maybe not!');
+                if(val.data.status === "ACCOMPLISHED"){
+                    vm.ongoingChallengeList.splice(index, 1);
+                }else {
+                    toastr.success('You think that you won challenge. Well... maybe not!');
+                    vm.buttons[index] = true;
+                }
             })
         }
 
-        function won(id) {
+        function won(challenge) {
             var status = true;
-
+            var index = vm.ongoingChallengeList.indexOf(challenge);
             requestData = $httpParamSerializer({
-                id: id,
+                id: challenge.id,
                 status: status
             });
 
             Challenges.accomplishChallenge(requestData).then(function (val) {
-                toastr.success('You think that you won challenge. Well... maybe not!');
+                if(val.data.status === "ACCOMPLISHED"){
+                    vm.ongoingChallengeList.splice(index, 1);
+                }else {
+                    toastr.success('You think that you won challenge. Well... maybe not!');
+                    vm.buttons[index] = true;
+                }
             })
         }
 
-        function showButtons (list) {
+        function showButtons (challenge) {
             vm.userEmail = Resources.getCurrentUserEmail();
-
-            if (list.creatorEmail == vm.userEmail)
-                return list.creatorStatus == null;
-
-            if (list.participantEmail == vm.userEmail)
-                return list.participantStatus == null;
+            if (challenge.creatorEmail == vm.userEmail)
+                return challenge.creatorStatus == null;
+            if (challenge.participantEmail == vm.userEmail)
+                return challenge.participantStatus == null;
         }
 
-        function isSelected(list) {
-            if (list.creatorEmail == vm.userEmail) {
-                if (list.participantStatus == false) return vm.selectedMessage = list.participantEmail + " thinks he lost";
-                else if (list.participantStatus == true) return vm.selectedMessage = list.participantEmail + " thinks he won";
+        function isSelected(challenge) {
+            if (challenge.creatorEmail == vm.userEmail) {
+                if (challenge.participantStatus == false) return vm.selectedMessage = challenge.participantEmail + " thinks he lost";
+                else if (challenge.participantStatus == true) return vm.selectedMessage = challenge.participantEmail + " thinks he won";
                 else return false;
-            } else if (list.participantEmail == vm.userEmail) {
-                if (list.creatorStatus == false) return vm.selectedMessage = list.creatorEmail + " thinks he lost";
-                else if (list.creatorStatus == true) return vm.selectedMessage = list.creatorEmail + " thinks he won";
+            } else if (challenge.participantEmail == vm.userEmail) {
+                if (challenge.creatorStatus == false) return vm.selectedMessage = challenge.creatorEmail + " thinks he lost";
+                else if (challenge.creatorStatus == true) return vm.selectedMessage = challenge.creatorEmail + " thinks he won";
                 else return false;
             }
         }

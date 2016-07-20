@@ -44,6 +44,11 @@
                 controller: 'FollowingController',
                 controllerAs: 'follow'
             })
+            .when('/shop', {
+                templateUrl: 'app/shop/shop.html',
+                controller: 'ShopController',
+                controllerAs: 'shop'
+            })
             .when('/settings', {
                 templateUrl: 'app/settings/settings.view.html',
                 controller: 'SettingsController',

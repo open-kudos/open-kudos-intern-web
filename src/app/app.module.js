@@ -9,6 +9,7 @@
             'myApp.acorn',
             'myApp.notification',
             'myApp.settings',
+            'myApp.shop',
             'myApp.components.navbar',
             'myApp.components.notifications',
             'myApp.components.completedChallenges',

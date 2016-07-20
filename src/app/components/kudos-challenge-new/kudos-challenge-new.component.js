@@ -15,16 +15,16 @@
 
         vm.showLoaderNew = true;
         vm.challengeList = [];
-        
+
+        vm.userEmail = Resources.getCurrentUserEmail();
+
         vm.getChallengeParticipatedList = getChallengeParticipatedList;
         vm.acceptChallenge = acceptChallenge;
         vm.declineChallenge = declineChallenge;
         vm.cancelChallenge = cancelChallenge;
         vm.removeElement = removeElement;
         vm.acornPlural = Utils.acornPlural;
-        vm.userEmail = Resources.getCurrentUserEmail();
         vm.doesDateExist = doesDateExist;
-
         vm.convertDate = convertDate;
 
         vm.$onInit = onInit();
@@ -61,7 +61,7 @@
 
             if (userAvailableKudos >=  kudos) {
                 Challenges.acceptChallenge(requestData).then(function (val) {
-                    toastr.success('You accepted ' + val.data.creator + ' challenge');
+                    toastr.success('You accepted ' + val.data.creatorName + ' challenge');
                     removeElement(index);
                     Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
                     Resources.getOngoingChallenges().push(val.data);
