@@ -24,6 +24,7 @@
             'myApp.components.wisdomWallIdeas',
             'myApp.components.addNewIdea',
             'myApp.components.relationship',
+            'myApp.components.relationship.feed',
             'myApp.components.info',
             'myApp.components.feed',
             'myApp.components.userHistory',

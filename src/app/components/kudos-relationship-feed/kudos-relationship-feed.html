@@ -1,0 +1,14 @@
+<h3>Feed {{feedCtrl.currentUser.email}}</h3>
+
+<div ng-repeat="feed in feedCtrl.FollowedUsersFeed.data">
+    <div class="">
+
+    <p>
+        <a class="bold">{{feedCtrl.generateReceiverName(feed)}}</a> {{feedCtrl.generateReceivedWonLostText(feed)}}
+        <span class="badge acorn-bg">{{feedCtrl.acornPlural(feed.amount)}}</span> {{feedCtrl.generateFromAgainstText(feed)}}
+        <a class="bold">{{feedCtrl.generateSenderName(feed)}}</a>
+        <span class="small">{{feedCtrl.splitDate(feed.timestamp)}}</span>
+    </p>
+
+    </div>
+</div>

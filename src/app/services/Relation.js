@@ -13,7 +13,8 @@
             followers: followers,
             followed: followed,
             add: add,
-            remove: remove
+            remove: remove,
+            feed: feed
         }
         return relations;
 
@@ -51,6 +52,16 @@
             return $http({
                 method: 'GET',
                 url: SERVER.ip + "/relations/remove?" + requestData,
+                withCredentials: true
+            }).then(function (response) {
+                return response;
+            });
+        }
+
+        function feed(requestData) {
+            return $http({
+                method: 'GET',
+                url: SERVER.ip + "/relations/feed?" + requestData,
                 withCredentials: true
             }).then(function (response) {
                 return response;

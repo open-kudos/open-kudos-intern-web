@@ -15,8 +15,7 @@ describe('CompletedChallengesController', function() {
             null,
             {controller: 'kudosChallengeCompleted'}
         );
-
-
+        
     }));
     
     describe('Completed challenges controller', function() {
