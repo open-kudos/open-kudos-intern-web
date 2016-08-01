@@ -64,8 +64,8 @@
         function Confirm(confirmationCode) {
             return $http({
                 withCredentials: true,
-                method: 'GET',
-                url: SERVER.ip + "/confirm?id=" + confirmationCode
+                method: 'POST',
+                url: SERVER.ip + "/authentication/confirm/" + confirmationCode
             }).then(function (response) {
                 return response.data;
             });
