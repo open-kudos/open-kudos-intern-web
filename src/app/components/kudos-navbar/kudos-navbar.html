@@ -13,7 +13,7 @@
                 <li ng-class="nav.selectedHome ? 'selected active' : ''"><a href="#/profile">Home</a></li>
 
                 <li ng-class="nav.selectedAcorns ? 'selected active' : ''" ng-controller="NotificationsController as notification">
-                    <a ng-click="notification.clearNotifications()" href="#/acorns">Acorns
+                    <a ng-click="notification.clearNotifications()" href="#/acorns">History
                         <span ng-if="notification.receivedNewTransaction" class="badge acorn-bg text-center arm">
                             {{ notification.notificationBadgeAmount }}
                         </span>

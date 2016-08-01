@@ -17,7 +17,8 @@ function Kudos($http, SERVER) {
         getCompletedKudosTransactions : getCompletedKudosTransactions,
 
         getReceivedKudosHistory: getReceivedKudosHistory,
-        getSentKudosHistory: getSentKudosHistory
+        getSentKudosHistory: getSentKudosHistory,
+        getKudosHistory: getKudosHistory
     }
     
     kudos.outgoingKudosCollection = [];
@@ -36,6 +37,17 @@ function Kudos($http, SERVER) {
             withCredentials: true
         }).then(function (response) {
             return response;
+        });
+    }
+
+    function getKudosHistory(requestParams) {
+        return $http({
+            method: 'GET',
+            params: requestParams,
+            url: SERVER.ip + "/kudos/history",
+            withCredentials: true
+        }).then(function (response) {
+            return response.data;
         });
     }
 

@@ -120,9 +120,10 @@ function Challenges($http, SERVER) {
         });
     }
 
-    function getAccomplishedChallenges() {
+    function getAccomplishedChallenges(requestParams) {
         return $http({
             method: 'GET',
+            params: requestParams,
             url: SERVER.ip + "/challenge/history/accomplished",
             withCredentials: true
         }).then(function (response) {
@@ -130,9 +131,10 @@ function Challenges($http, SERVER) {
         });
     }
 
-    function getFailedChallenges() {
+    function getFailedChallenges(requestParams) {
         return $http({
             method: 'GET',
+            params: requestParams,
             url: SERVER.ip + "/challenge/history/failed",
             withCredentials: true
         }).then(function (response) {

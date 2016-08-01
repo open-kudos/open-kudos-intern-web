@@ -15,7 +15,7 @@
         <div ng-if="acorn.isAcornSelected" class="history-switch-box">
             <div class="text-left">
                 <input value="wonLost"
-                       ng-click="acorn.getReceivedKudosHistory(acorn.defaultPageParams)"
+                       ng-click="acorn.getKudosHistory(acorn.defaultPageParams)"
                        type="radio"
                        id="historyWonLost"
                        name="userHistoryChallenges" checked/>
@@ -35,18 +35,13 @@
                        name="userHistoryChallenges" />
                 <label for="historyLost"><span></span>Received</label>
 
-                <div class="checkbox">
-                    <label class="checkbox-inline"><input ng-change="acorn.getSentKudosHistory(acorn.defaultPageParams)" type="checkbox" value="" checked>Sent</label>
-                    <label class="checkbox-inline"><input ng-change="acorn.getReceivedKudosHistory(acorn.defaultPageParams)" type="checkbox" value="">Received</label>
-                </div>
-
             </div>
         </div>
 
         <div ng-if="acorn.isChallengeSelected" class="history-switch-box">
             <div class="text-left">
                 <input value="wonLost"
-                       ng-click="acorn.getReceivedKudosHistory(acorn.defaultPageParams)"
+                       ng-click="acorn.getChallengesHistory(acorn.defaultPageParams)"
                        type="radio"
                        id="accomplishedFailed"
                        name="userHistoryChallenges"/>
@@ -66,11 +61,6 @@
                        name="userHistoryChallenges" />
                 <label for="failed"><span></span>Failed</label>
 
-                <div class="checkbox">
-                    <label class="checkbox-inline"><input ng-click="acorn.getAccomplishedChallenges(acorn.defaultPageParams)" type="checkbox" value="" checked>Accomplished</label>
-                    <label class="checkbox-inline"><input ng-click="acorn.getFailedChallenges(acorn.defaultPageParams)" type="checkbox" value="">Failed</label>
-                </div>
-
             </div>
         </div>
 
@@ -81,9 +71,14 @@
         <div ng-if="acorn.isAcornSelected" class="text-center">
             <div ng-repeat="item in acorn.givenKudosCollection">
                 <div class="box4">
-                    <p>
-                        <span class="bold breakword">{{item.senderFullName}}</span> {{acorn.historyString}}
+                    <p ng-if="item.type == 'GIVEN' || item.type == 'UNKNOWN'">
+                        <span class="bold breakword">{{item.senderFullName}}</span> {{acorn.changeHistoryString(item.type)}}
                         <span class="bold">{{item.receiverFullName}}</span>
+                        <span class="badge acorn-bg">{{acorn.acornPlural(item.amount)}}</span>
+                    </p>
+                    <p ng-if="item.type == 'RECEIVED'">
+                        <span class="bold breakword">{{item.receiverFullName}}</span> {{acorn.changeHistoryString(item.type)}}
+                        <span class="bold">{{item.senderFullName}}</span>
                         <span class="badge acorn-bg">{{acorn.acornPlural(item.amount)}}</span>
                     </p>
                     <p>{{item.message}}</p>
@@ -95,7 +90,7 @@
             <div ng-repeat="item in acorn.givenKudosCollection">
                 <div class="box4">
                     <p>
-                        <span class="bold breakword">{{item.participantFullName}}</span> {{acorn.historyString}}
+                        <span class="bold breakword">{{item.participantFullName}}</span> {{acorn.changeHistoryString(item.status)}}
                         <span class="bold">{{item.creatorFullName}}</span> for
                         <span class="badge acorn-bg">{{acorn.acornPlural(item.amount)}}</span> with title
                         <span class="bold">{{item.name}}</span>

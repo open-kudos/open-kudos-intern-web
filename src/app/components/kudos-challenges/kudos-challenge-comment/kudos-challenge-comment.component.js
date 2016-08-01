@@ -71,19 +71,7 @@
             if (!pageResponse.last) pageParams.page++;
             getComments(pageParams);
         }
-
-        /*function loadChallengesHistory(pageParams) {
-            vm.loading = true;
-            Challenges.getChallengesHistory(pageParams).then(function (response) {
-                ChallengesPanelService.setCompletedChallengesAmount(response.totalElements);
-                pageResponse = response;
-                vm.completedChallengesCollection = response.content;
-                Resources.setCompletedChallenges(response.content);
-                checkPaginationButtons(response);
-                vm.loading = false;
-            });
-        }*/
-
+        
         function checkPaginationButtons(pageResponse) {
             vm.showMoreButton = !pageResponse.last;
             vm.showLessButton = !pageResponse.first;
