@@ -12,6 +12,8 @@
         <p>Status:<span class="bold">{{challenge.status}}</span></p>
         <span class="bold" ng-if="challenge.status == 'ACCOMPLISHED' "></span>
 
+        <kudos-challenge-comment challenge="challenge"></kudos-challenge-comment>
+
     </div>
 
     <div class="showMore">
