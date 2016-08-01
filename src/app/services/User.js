@@ -10,7 +10,10 @@ User.$inject = [
 
 function User($http, SERVER) {
     var user = {
-        home: getHomeInfo,
+        getCurrentUserProfile: getCurrentUserProfile,
+        updateUserProfile: updateUserProfile,
+        getUserProfile: getUserProfile,
+
         check: checkUser,
         disable: disableUser,
         update: updateUserInfo,
@@ -22,15 +25,44 @@ function User($http, SERVER) {
     }
     return user;
 
-    function getHomeInfo() {
+    /**
+     * V2
+     */
+
+    function getCurrentUserProfile() {
         return $http({
             method: 'GET',
             withCredentials: true,
-            url: SERVER.ip + "/user/home"
+            url: SERVER.ip + "/user/profile"
         }).then(function successCallback(response) {
-            return response.data.userResponse;
+            return response.data;
         });
     }
+
+    function updateUserProfile(requestData) {
+        return $http({
+            method: 'POST',
+            data: requestData,
+            withCredentials: true,
+            url: SERVER.ip + "/user/update"
+        }).then(function successCallback(response) {
+            return response;
+        });
+    }
+
+    function getUserProfile(userId) {
+        return $http({
+            method: 'GET',
+            withCredentials: true,
+            url: SERVER.ip + "/user/profile?" + userId
+        }).then(function successCallback(response) {
+            return response.data;
+        });
+    }
+
+    /**
+     * V2
+     */
 
     function checkUser() {
         return $http({
@@ -38,7 +70,7 @@ function User($http, SERVER) {
             withCredentials: true,
             url: SERVER.ip + "/"
         }).then(function successCallback(response) {
-            return response.data;
+            return response.data.logged;
         });
     }
 

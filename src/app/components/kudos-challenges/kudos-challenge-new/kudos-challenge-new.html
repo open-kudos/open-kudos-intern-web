@@ -1,0 +1,67 @@
+<div class="loader" ng-if="chNew.loading"></div>
+<div class="text-center">
+    <div ng-if="chNew.challengeList[0]" class="card box4 box-shadow-animation" ng-repeat="challenge in chNew.challengeList | limitTo: 5">
+
+        <h4 ng-if="challenge.actions.acceptAllowed" class="card-title text-center">You have been challenged!</h4>
+        <h4 ng-if="challenge.actions.cancelAllowed" class="card-title text-center">You created challenge!</h4>
+
+        <p class="card-text" ng-if="challenge.actions.acceptAllowed">
+            <span class="bold">{{challenge.name}}</span> received from
+            <span class="bold">{{challenge.creatorFullName}}</span> for
+            <span class="badge acorn-bg">{{chNew.acornPlural(challenge.amount)}}</span>
+        </p>
+
+        <p class="card-text" ng-if="challenge.actions.cancelAllowed">
+            <span class="bold breakword">{{challenge.name}}</span> given to
+            <span class="bold">{{challenge.participantFullName}}</span> for
+            <span class="badge acorn-bg">{{chNew.acornPlural(challenge.amount)}}</span>
+        </p>
+
+        <p class="breakword" ng-if="challenge.description">Description: {{challenge.description}}</p>
+        <p ng-if="challenge.finishDate">Finish date: {{chNew.convertDate(challenge.finishDate)}}</p>
+
+            <div ng-if="challenge.actions.acceptAllowed">
+                <button ng-click="chNew.declineChallenge(challenge.id)"
+                        class="btn btn-danger btn-challenge-participated">Decline</button>
+                <button ng-click="chNew.acceptChallenge(challenge.id, challenge.amount)"
+                        class="btn btn-success btn-challenge-participated">Accept</button>
+            </div>
+
+            <div ng-show="chNew.isChallengeExpirationDateExists(challenge)">
+                <button ng-if="challenge.actions.cancelAllowed"
+                        class="btn btn-danger btn-challenge-participated"
+                        ng-click="chNew.cancelChallenge(challenge.id);">
+                    Cancel challenge</button>
+            </div>
+
+            <kudos-challenge-comment challenge="challenge"></kudos-challenge-comment>
+
+        </div>
+
+    </div>
+
+    <div class="showMore">
+        <button ng-click="chNew.loadPreviousPage();"
+                ng-show="chNew.showLessButton"
+                ng-disabled="chNew.loading"
+                type="button"
+                class="btn btn-default btn-sm pull-left">
+            Previous
+        </button>
+
+        <button ng-click="chNew.loadNextPage();"
+                ng-show="chNew.showMoreButton"
+                ng-disabled="chNew.loading"
+                type="button"
+                class="btn btn-default btn-sm pull-right">
+            Next
+        </button>
+    </div>
+
+    <div ng-if="!chNew.challengeList[0]">
+        <div class="alert alert-info acorn-bg margin-top">
+            <span class="glyphicon glyphicon-info-sign"></span>
+            You don't have any new challenges. Go and create one!
+        </div>
+    </div>
+</div>

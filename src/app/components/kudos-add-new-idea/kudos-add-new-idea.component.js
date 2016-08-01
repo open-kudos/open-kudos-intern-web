@@ -1,12 +1,12 @@
 (function () {
-    AddNewIdeaController.$inject = ['$httpParamSerializer', 'AddNewIdeaService', 'Utils'];
-
     angular.module('myApp.components.addNewIdea', [])
         .component('kudosAddNewIdea', {
             templateUrl: 'app/components/kudos-add-new-idea/kudos-add-new-idea.html',
             controller: ('AddNewIdeaController',  AddNewIdeaController),
             controllerAs: 'newIdea'
         });
+
+    AddNewIdeaController.$inject = ['$httpParamSerializer', 'AddNewIdeaService', 'Utils'];
 
     function AddNewIdeaController($httpParamSerializer, AddNewIdeaService, Utils){
         var self = this;

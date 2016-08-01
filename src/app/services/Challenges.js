@@ -10,148 +10,154 @@ Challenges.$inject = [
 
 function Challenges($http, SERVER) {
     var challenges = {
-        createChallenge: createChallenge,
+        giveChallenge: giveChallenge,
         cancelChallenge: cancelChallenge,
-        getCompletedChallenges: getCompletedChallenges,
-        getReceivedChallenges: getReceivedChallenges,
         declineChallenge: declineChallenge,
         acceptChallenge: acceptChallenge,
-        accomplishChallenge: accomplishChallenge,
-        failChallenge: failChallenge,
-        getAllReceivedChallenges: getAllReceivedChallenges,
-        createTeamChallenge: createTeamChallenge,
-        getReceivedTeamChallenges: getReceivedTeamChallenges,
         getOngoingChallenges: getOngoingChallenges,
-        getNewChallenges: getNewChallenges
+        markChallengeAsCompleted: markChallengeAsCompleted,
+        markChallengeAsFailed: markChallengeAsFailed,
+        getSentAndReceived: getSentAndReceived,
+        getChallengesHistory: getChallengesHistory,
+        getAccomplishedChallenges: getAccomplishedChallenges,
+        getFailedChallenges: getFailedChallenges,
+        addComment: addComment,
+        getComments: getComments
     }
     return challenges;
 
-    function createChallenge(requestData) {
+    function giveChallenge(requestData) {
         return $http({
             method: 'POST',
-            url: SERVER.ip + "/challenges/create?" + requestData,
+            data: requestData,
+            url: SERVER.ip + "/challenge/give",
             withCredentials: true
         }).then(function (response) {
             return response;
         });
     }
 
-    function cancelChallenge(requestData) {
+    function acceptChallenge(challengeId) {
         return $http({
             method: 'POST',
-            url: SERVER.ip + "/challenges/cancel?" + requestData,
+            url: SERVER.ip + "/challenge/" + challengeId + "/accept",
+            withCredentials: true
+        }).then(function (response) {
+            return response;
+        });
+    }
+
+    function declineChallenge(challengeId) {
+        return $http({
+            method: 'POST',
+            url: SERVER.ip + "/challenge/" + challengeId + "/decline",
             withCredentials: true
         }).then(function(response) {
             return response;
         })
     }
 
-    function getCompletedChallenges() {
-        return $http({
-            method: 'GET',
-            url: SERVER.ip + "/challenges/completedChallenges",
-            withCredentials: true
-        }).then(function(response) {
-            return response.data;
-        });
-    }
-
-    function getReceivedChallenges(requestData) {
-        return $http({
-            method: 'GET',
-            url: SERVER.ip + "/challenges/participatedByStatusPageable?" + requestData,
-            withCredentials: true
-        }).then(function(response) {
-            return response.data;
-        });
-    }
-
-    function declineChallenge(requestData) {
+    function cancelChallenge(challengeId) {
         return $http({
             method: 'POST',
-            url: SERVER.ip + "/challenges/decline?" + requestData,
+            url: SERVER.ip + "/challenge/" + challengeId + "/cancel",
             withCredentials: true
         }).then(function(response) {
             return response;
         })
     }
 
-    function acceptChallenge(requestData) {
+    function markChallengeAsCompleted(challengeId) {
         return $http({
             method: 'POST',
-            url: SERVER.ip + "/challenges/accept?" + requestData,
+            url: SERVER.ip + "/challenge/" + challengeId + "/markAsCompleted",
+            withCredentials: true
+        }).then(function(response) {
+            return response;
+        })
+    }
+
+    function markChallengeAsFailed(challengeId) {
+        return $http({
+            method: 'POST',
+            url: SERVER.ip + "/challenge/" + challengeId + "/markAsFailed",
+            withCredentials: true
+        }).then(function(response) {
+            return response;
+        })
+    }
+
+    function getSentAndReceived(requestParams) {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/challenge/sentAndReceived",
+            params: requestParams,
+            withCredentials: true
+        }).then(function (response) {
+            return response.data;
+        });
+    }
+    
+    function getOngoingChallenges(requestParams) {
+        return $http({
+            method: 'GET',
+            params: requestParams,
+            url: SERVER.ip + "/challenge/ongoing",
+            withCredentials: true
+        }).then(function (response) {
+            return response.data;
+        });
+    }
+
+    function getChallengesHistory(requestParams) {
+        return $http({
+            method: 'GET',
+            params: requestParams,
+            url: SERVER.ip + "/challenge/history",
+            withCredentials: true
+        }).then(function (response) {
+            return response.data;
+        });
+    }
+
+    function getAccomplishedChallenges() {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/challenge/history/accomplished",
+            withCredentials: true
+        }).then(function (response) {
+            return response.data;
+        });
+    }
+
+    function getFailedChallenges() {
+        return $http({
+            method: 'GET',
+            url: SERVER.ip + "/challenge/history/failed",
+            withCredentials: true
+        }).then(function (response) {
+            return response.data;
+        });
+    }
+
+    function addComment(challengeId, requestBody) {
+        return $http({
+            method: 'POST',
+            data: requestBody,
+            url: SERVER.ip + "/challenge/" + challengeId + "/addComment",
             withCredentials: true
         }).then(function (response) {
             return response;
         });
     }
 
-    function accomplishChallenge(requestData) {
+    function getComments(challengeId, requestParams) {
         return $http({
-            method: 'POST',
-            url: SERVER.ip + "/challenges/accomplish?" + requestData,
+            method: 'GET',
+            params: requestParams,
+            url: SERVER.ip + "/challenge/" + challengeId + "/comments",
             withCredentials: true
         }).then(function (response) {
-            return response;
-        });
-    }
-
-    function failChallenge(requestData) {
-        return $http({
-            method: 'POST',
-            url: SERVER.ip + "/challenges/fail?" + requestData,
-            withCredentials: true
-        }).then(function (response) {
-            return response;
-        });
-    }
-
-    function getAllReceivedChallenges(requestData) {
-        return $http({
-            method: 'GET',
-            url: SERVER.ip + "/challenges/participatedByStatus?" + requestData,
-            withCredentials: true
-        }).then(function(response) {
-            return response.data;
-        });
-    }
-
-    function createTeamChallenge(requestData) {
-        return $http({
-            method: 'POST',
-            url: SERVER.ip + "/teamchallenges/create?" + requestData,
-            withCredentials: true
-        }).then(function (response) {
-            return response.data;
-        });
-    }
-
-    function getReceivedTeamChallenges(requestData) {
-        return $http({
-            method: 'GET',
-            url: SERVER.ip + "/teamchallenges/participatedByStatus?" + requestData,
-            withCredentials: true
-        }).then(function(response) {
-            return response.data;
-        });
-    }
-
-    function getOngoingChallenges() {
-        return $http({
-            method: 'GET',
-            url: SERVER.ip + "/challenges/ongoing",
-            withCredentials: true
-        }).then(function(response) {
-            return response.data;
-        });
-    }
-
-    function getNewChallenges() {
-        return $http({
-            method: 'GET',
-            url: SERVER.ip + "/challenges/new",
-            withCredentials: true
-        }).then(function(response) {
             return response.data;
         });
     }

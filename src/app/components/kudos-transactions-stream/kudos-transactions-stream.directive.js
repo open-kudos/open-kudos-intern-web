@@ -1,7 +1,4 @@
 (function () {
-
-    KudosTransactionController.$inject = ['$scope', '$timeout', '$httpParamSerializer', 'KudosTransactionService', 'Utils'];
-
     angular.module('myApp.components.transactions', [])
         .directive('kudosTransactionsStream', function () {
             return {
@@ -10,6 +7,8 @@
                 templateUrl: 'app/components/kudos-transactions-stream/kudos-transactions-stream.html'
             }
         });
+
+    KudosTransactionController.$inject = ['$scope', '$timeout', '$httpParamSerializer', 'KudosTransactionService', 'Utils'];
 
     function KudosTransactionController($scope, $timeout, $httpParamSerializer, KudosTransactionService, Utils) {
         var vm = this;

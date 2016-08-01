@@ -1,0 +1,42 @@
+<div class="text-center">
+    <div ng-if="chCompleted.loading" class="loader"></div>
+    <div class="card box4 box-shadow-animation"
+         ng-repeat="challenge in chCompleted.completedChallengesCollection">
+        <p class="card-text">
+            <span class="bold">{{challenge.participantFullName}}</span> received challenge with name
+            <span class="bold">{{challenge.name}}</span> from
+            <span class="bold">{{challenge.creatorFullName}}</span> for
+            <span class="badge acorn-bg">{{chCompleted.acornPlural(challenge.amount)}}</span>
+        </p>
+
+        <p>Status:<span class="bold">{{challenge.status}}</span></p>
+        <span class="bold" ng-if="challenge.status == 'ACCOMPLISHED' "></span>
+
+    </div>
+
+    <div class="showMore">
+        <button ng-show="chCompleted.showLessButton"
+                ng-click="chCompleted.resetHistoryItems();"
+                ng-disabled="chCompleted.loading"
+                type="button"
+                class="btn btn-default btn-sm pull-left">
+            Previous
+        </button>
+
+        <button ng-click="chCompleted.loadMoreHistoryItems();"
+                ng-show="chCompleted.showMoreButton"
+                ng-disabled="chCompleted.loading"
+                type="button"
+                class="btn btn-default btn-sm pull-right">
+            Next
+        </button>
+    </div>
+
+    <div ng-if="chCompleted.completedChallengesCollection.length === 0">
+        <div class="alert alert-info acorn-bg margin-top">
+            <span class="glyphicon glyphicon-info-sign"></span>
+            You don't have any completed challenges
+        </div>
+    </div>
+
+</div>

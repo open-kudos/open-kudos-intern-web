@@ -1,7 +1,7 @@
 <li class="list-group-item"
     data-toggle="modal" data-target="#history{{history.modalIndex}}" ng-click="history.changeView('all'); history.showList(history.currentUser.email, true)">
-    <span class="badge acorn-bg">{{history.acornPlural(history.currentUser.amountOfKudos)}}</span>
-    <span class="bold">{{history.currentUser.firstName}} {{history.currentUser.lastName}}</span>
+    <span class="badge acorn-bg">{{history.acornPlural(history.amount)}}</span>
+    <span class="bold">{{history.name}}</span>
 </li>
 
 <div id="history{{history.modalIndex}}" class="modal fade" role="dialog">

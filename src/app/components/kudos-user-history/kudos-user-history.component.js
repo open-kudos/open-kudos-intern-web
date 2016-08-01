@@ -1,19 +1,21 @@
 (function () {
-    UserHistoryController.$inject = ['UserHistoryService', '$timeout', 'Utils'];
-
     angular
         .module('myApp.components.userHistory', [])
         .component('kudosUserHistory', {
             template: '<ng-include src="history.getTemplate()"/>' ,
             bindings: {
-                user: '=',
+                name: '=',
+                amount: '=',
+                id: '=',
                 page: '<'
             },
             controller: ('UserHistoryController', UserHistoryController),
             controllerAs: 'history'
         });
 
-    function UserHistoryController(UserHistoryService, $timeout, Utils){
+    UserHistoryController.$inject = ['UserHistoryService', 'Kudos', '$timeout', 'Utils'];
+
+    function UserHistoryController(UserHistoryService, Kudos, $timeout, Utils){
         var self = this;
 
         self.showHistoryLoader = true;
@@ -41,6 +43,11 @@
         self.getTemplate = getTemplate;
 
         self.$onInit = function() {
+
+            Kudos.getReceivedKudosHistory({page: 0, size: 10}).then(function (response) {
+                console.log(response);
+            });
+
             self.currentUser = self.user;
             if (self.page == true){
                 updateListAll(self.currentUser.email, true);

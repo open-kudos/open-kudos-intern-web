@@ -12,68 +12,58 @@ function Kudos($http, SERVER) {
 
     var kudos = {
         send: sendKudos,
-        incoming: getIncomingKudos,
-        outgoing: getOutgoingKudos,
-        remaining: getRemainingKudos,
-        received: getReceivedKudos,
         feed: getKudosTransactionStream,
         feedChanged: kudosTransactionListChanged,
-        getCompletedKudosTransactions : getCompletedKudosTransactions
+        getCompletedKudosTransactions : getCompletedKudosTransactions,
+
+        getReceivedKudosHistory: getReceivedKudosHistory,
+        getSentKudosHistory: getSentKudosHistory
     }
     
     kudos.outgoingKudosCollection = [];
 
     return kudos;
 
+    /**
+     * V2
+     */
+
     function sendKudos(requestData) {
         return $http({
             method: 'POST',
-            url: SERVER.ip + "/kudos/send?" + requestData,
+            data: requestData,
+            url: SERVER.ip + "/kudos/give",
             withCredentials: true
         }).then(function (response) {
             return response;
         });
     }
 
-    function getIncomingKudos() {
+    function getReceivedKudosHistory(requestParams) {
         return $http({
             method: 'GET',
-            url: SERVER.ip + "/kudos/incoming",
-            withCredentials: true
-        }).then(function successCallback(response) {
-            return response.data;
-        });
-    }
-
-    function getOutgoingKudos() {
-        return $http({
-            method: 'GET',
-            url: SERVER.ip + "/kudos/outgoing",
+            params: requestParams,
+            url: SERVER.ip + "/kudos/history/received",
             withCredentials: true
         }).then(function (response) {
             return response.data;
         });
     }
 
-    function getRemainingKudos() {
+    function getSentKudosHistory(requestParams) {
         return $http({
             method: 'GET',
-            url: SERVER.ip + "/kudos/remaining",
-            withCredentials: true
-        }).then(function successCallback(response) {
-            return response.data;
-        });
-    }
-
-    function getReceivedKudos() {
-        return $http({
-            method: 'GET',
-            url: SERVER.ip + "/kudos/received",
+            params: requestParams,
+            url: SERVER.ip + "/kudos/history/given",
             withCredentials: true
         }).then(function (response) {
             return response.data;
         });
     }
+
+    /**
+     * V2
+     */
 
      function getKudosTransactionStream(requestData) {
         return $http({

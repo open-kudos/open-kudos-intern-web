@@ -23,13 +23,13 @@
 
             if (checkSplited && email && passwordMatch) {
                 $scope.showLoader = true;
-                var requestData = $httpParamSerializer({
+                var requestData = {
                     email: email + '@swedbank' + $scope.domain,
                     firstName: splited[0],
                     lastName: splited[1],
                     password: $scope.password,
                     confirmPassword: $scope.confirmPassword
-                });
+                };
 
                 RegistrationService.register(requestData).then(function (val) {
                     $scope.showLoader = false;

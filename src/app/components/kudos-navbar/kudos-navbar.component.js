@@ -1,7 +1,4 @@
 (function () {
-
-    KudosNavbarController.$inject = ['$scope', '$location', '$window', '$cookies', 'Resources', 'ProfileService'];
-
     angular.module('myApp.components.navbar', [])
         .component('kudosNavbar', {
             templateUrl: 'app/components/kudos-navbar/kudos-navbar.html',
@@ -9,7 +6,9 @@
             controllerAs: 'nav'
         });
 
-    function KudosNavbarController($scope, $location, $window, $cookies, Resources, ProfileService) {
+    KudosNavbarController.$inject = ['$scope', '$location', '$window', '$cookies', 'Resources', 'User', 'Auth'];
+
+    function KudosNavbarController($scope, $location, $window, $cookies, Resources, User, Auth) {
         var vm = this;
 
         vm.selectedHome = false;
@@ -35,7 +34,7 @@
             }
 
             if (vm.user == undefined){
-                ProfileService.userHome().then(function (user) {
+                User.getCurrentUserProfile().then(function (user) {
                     Resources.setCurrentUser(user);
                     vm.user = Resources.getCurrentUser();
                 });
@@ -56,7 +55,7 @@
             clearCookies();
             Resources.setCurrentUser(null);
             Resources.setCurrentUserEmail(null);
-            ProfileService.logout().catch(function () {
+            Auth.logout().catch(function () {
                 $window.location.href = "#/login";
             });
         }

@@ -3,7 +3,7 @@
 <div class="container">
 
     <!-- Profile Edit Modal -->
-    <ng-include src="'app/profile/partials/user-detail-popup.html'"></ng-include>
+    <ng-include src="'app/views/profile/partials/user-detail-popup.html'"></ng-include>
 
     <div class="row">
 
@@ -36,13 +36,17 @@
                 </div>
             </div>
 
-            <div class="panel panel-body">
+
+
+            <kudos-challenges-panel></kudos-challenges-panel>
+
+            <!--<div class="panel panel-body">
                 <ul class="nav nav-pills">
                     <h3>Challenges</h3>
                     <li role="presentation" ng-class="profile.newChallengeTab ? 'active' : ''">
                         <a href=""
                            ng-click="profile.ongoingChallengeTab = false;profile.newChallengeTab=true;profile.completedChallengeTab=false">
-                            New</a></li>
+                            New (6)</a></li>
                     <li role="presentation" ng-class="profile.ongoingChallengeTab ? 'active' : ''">
                         <a href=""
                            ng-click="profile.ongoingChallengeTab = true;profile.newChallengeTab=false;profile.completedChallengeTab=false">
@@ -61,7 +65,7 @@
                 <div class="" ng-show="profile.completedChallengeTab">
                     <kudos-challenge-completed></kudos-challenge-completed>
                 </div>
-            </div>
+            </div>-->
 
         </div>
 

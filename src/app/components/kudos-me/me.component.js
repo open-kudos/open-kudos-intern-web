@@ -1,12 +1,12 @@
 (function () {
-    MeController.$inject = ['$scope', '$filter', '$window', '$timeout', '$httpParamSerializer', 'MeService', 'Resources', 'ProfileService', 'Utils'];
-
     angular
         .module('myApp.components.me', [])
         .component('kudosMe', {
             templateUrl: 'app/components/kudos-me/me.html'
         })
         .controller('MeController', MeController);
+
+    MeController.$inject = ['$scope', '$filter', '$window', '$timeout', '$httpParamSerializer', 'MeService', 'Resources', 'ProfileService', 'Utils'];
 
     function MeController($scope, $filter, $window, $timeout, $httpParamSerializer, MeService, Resources, ProfileService, Utils) {
         var self = this;

@@ -1,0 +1,29 @@
+<div>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collape{{comment.challenge.id}}" aria-expanded="false" aria-controls="collapseExample">
+        Comment
+    </button>
+</div>
+
+<div class="collapse" id="collape{{comment.challenge.id}}">
+    <div class="well top-margin">
+
+        <div class="box4 text-left" ng-repeat="item in comment.commentsCollection">
+            <a href="">{{item.creatorFullName}}</a>
+            <p>{{item.text}}</p>
+            <p class="small">{{comment.formatDate(item.date)}}</p>
+        </div>
+
+        <div class="form-group text-left">
+            <label for="sendKudosMessage">Add comment</label>
+                <textarea ng-model="comment.message"
+                          maxlength="140"
+                          id="sendKudosMessage"
+                          name="sendKudosMessage"
+                          class="form-control">
+                </textarea>
+            <p class=""> {{comment.message.length}} / 140 </p>
+            <button class="btn btn-primary" ng-click="comment.addComment()">Comment</button>
+        </div>
+    </div>
+
+</div>

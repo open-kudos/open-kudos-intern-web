@@ -7,11 +7,11 @@
             controller: ("GiveChallengeController", GiveChallengeController)
         });
 
-    GiveChallengeController.$inject = ['$httpParamSerializer', 'Resources', 'GiveChallengeService', '$filter', 'Utils'];
+    GiveChallengeController.$inject = ['Resources', 'GiveChallengeService', '$filter', 'Utils', 'Challenges'];
 
-    function GiveChallengeController($httpParamSerializer, Resources, GiveChallengeService, $filter, Utils){
+    function GiveChallengeController(Resources, GiveChallengeService, $filter, Utils, ChallengeService){
         var vm = this;
-        var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
+        var requestDateFormat = 'yyyy-MM-dd';
 
         vm.userAvailableKudos = 0;
         vm.autocompleteHide = true;
@@ -42,25 +42,27 @@
         function giveChallenge() {
             var expirationDate = $filter('date')(vm.giveChallengeExpirationDate, requestDateFormat);
             var currentDate = $filter('date')(new Date(), requestDateFormat);
+            console.log(expirationDate);
             vm.userEmail = Resources.getCurrentUserEmail();
 
-            var giveTo = $httpParamSerializer({
-                participant: vm.giveChallengeTo,
+            var giveTo = {
+                receiverEmail: vm.giveChallengeTo,
                 name: vm.giveChallengeName,
                 description: vm.giveChallengeDescription,
-                finishDate: expirationDate,
+                expirationDate: expirationDate,
                 amount: vm.giveChallengeAmountOfKudos
-            });
+            };
 
             var challengeCall = challengeFormCheck(expirationDate, currentDate);
 
             if (challengeCall)
-                GiveChallengeService.createChallenge(giveTo).then(function (val) {
+                ChallengeService.giveChallenge(giveTo).then(function (val) {
+                    console.log(val);
                     clearChallengeFormValues();
                     $('#giveChallengeModal').modal('hide');
-                    toastr.success('You successfully challenged ' + val.data.participantName + " with " + Utils.acornPlural(val.data.amount) + '.');
+                    toastr.success('You successfully challenged ' + val.data.participantFullName + " with " + Utils.acornPlural(val.data.amount) + '.');
                     Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
-                    Resources.getNewChallenges().push(val.data);
+                    Resources.getNewChallenges().unshift(val.data);
                 }).catch(function () {
                     showChallengeFormErrorMessage("Challenge receiver does not exist");
                 })

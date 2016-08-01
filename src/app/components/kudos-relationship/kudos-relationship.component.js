@@ -1,7 +1,4 @@
 (function () {
-
-    RelationshipController.$inject = ['$httpParamSerializer', 'RelationService', 'GiveKudosService', 'Resources'];
-
     angular
         .module('myApp.components.relationship', [])
         .component('kudosRelationship', {
@@ -9,6 +6,8 @@
             controller: ('RelationshipController', RelationshipController),
             controllerAs: 'relation'
         });
+
+    RelationshipController.$inject = ['$httpParamSerializer', 'RelationService', 'GiveKudosService', 'Resources'];
 
     function RelationshipController($httpParamSerializer, RelationService, GiveKudosService, Resources) {
         var vm = this;

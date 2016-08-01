@@ -1,7 +1,5 @@
 (function () {
 
-    GiveChallengeSmallController.$inject = ['$httpParamSerializer', 'Resources', 'GiveChallengeService', '$filter', 'ProfileService', 'Utils'];
-
     angular.module('myApp.components.giveChallengeSmall', [])
         .component('kudosGiveChallengeSmall', {
             templateUrl: 'app/components/kudos-give-challenge-small/kudos-give-challenge-small.html',
@@ -12,6 +10,8 @@
             controller: ('GiveChallengeSmallController', GiveChallengeSmallController),
             controllerAs: 'chSmall'
         });
+
+    GiveChallengeSmallController.$inject = ['$httpParamSerializer', 'Resources', 'GiveChallengeService', '$filter', 'ProfileService', 'Utils'];
 
     function GiveChallengeSmallController($httpParamSerializer, Resources, GiveChallengeService, $filter, ProfileService, Utils){
         var vm = this,

@@ -24,12 +24,12 @@
 <div ng-show="leader.receivers">
     <div ng-hide="!leader.showLoader" class="loader"></div>
     <ul class="list-group click-li">
-        <kudos-user-history ng-repeat="receiver in leader.topReceivers" user="receiver"></kudos-user-history>
+        <kudos-user-history ng-repeat="receiver in leader.topReceivers" name="receiver.fullName" amount="receiver.kudosAmount" id="receiver.userId"></kudos-user-history>
     </ul>
 </div>
 
 <div ng-show="leader.senders">
     <ul class="list-group click-li">
-        <kudos-user-history ng-repeat="sender in leader.topSenders" user="sender"></kudos-user-history>
+        <kudos-user-history ng-repeat="sender in leader.topSenders" name="sender.fullName" amount="sender.kudosAmount" id="sender.userId"></kudos-user-history>
     </ul>
 </div>

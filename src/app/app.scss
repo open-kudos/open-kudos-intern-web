@@ -9,8 +9,10 @@ $color-clouds:              #ECF0F1;
 $bg-image:                  url(../treebg.png);
 
 $padding-small:             10px;
+$padding-medium:            15px;
 
 $margin-small:              10px;
+$margin-medium:             15px;
 
 body {
     padding-top: 60px;
@@ -580,7 +582,6 @@ body {
 }
 
 .showMore {
-    float: right;
     margin-top: 10px;
 }
 
@@ -922,4 +923,13 @@ div.box4 {
 
 .breakword {
     word-wrap: break-word;
+}
+
+.history-switch-box{
+    padding-top: $padding-medium;
+    margin-bottom: -$padding-small;
+}
+
+.top-margin{
+    margin-top: $margin-small * 2;
 }

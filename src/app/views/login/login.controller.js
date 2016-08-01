@@ -7,8 +7,10 @@
             'base64'
         ])
         .controller('LoginController', LoginController);
+
+    LoginController.$inject = ['$scope', '$cookies', '$base64', 'LoginService', '$location'];
     
-    function LoginController($scope, $cookies, $base64, $httpParamSerializer, LoginService, $location) {
+    function LoginController($scope, $cookies, $base64, LoginService, $location) {
 
         var email = document.getElementById('email');
         var password = document.getElementById('password');
@@ -133,6 +135,4 @@
 
     }
 
-    LoginController.$inject = ['$scope', '$cookies', '$base64', '$httpParamSerializer', 'LoginService', '$location'];
-    
 })();

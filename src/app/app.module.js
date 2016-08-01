@@ -29,6 +29,8 @@
             'myApp.components.feed',
             'myApp.components.userHistory',
             'myApp.components.leaderboard',
-            'myApp.components.following'
+            'myApp.components.following',
+            'myApp.components.challenges-panel',
+            'myApp.components.challenges-comment'
         ]);
 })();

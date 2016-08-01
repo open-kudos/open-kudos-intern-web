@@ -1,13 +1,12 @@
 (function () {
-
-    InfoController.$inject = ['$scope', 'Resources'];
-
     angular.module('myApp.components.info', [])
         .component('kudosInfo', {
             templateUrl: 'app/components/kudos-infobar/kudos-infobar.html',
             controller: ('InfoController', InfoController),
             controllerAs: 'info'
         });
+
+    InfoController.$inject = ['$scope', 'Resources'];
 
     function InfoController($scope, Resources) {
         var vm = this,

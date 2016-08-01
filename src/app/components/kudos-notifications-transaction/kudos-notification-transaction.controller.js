@@ -1,10 +1,9 @@
 (function () {
-
-    NotificationsController.$inject = ['$location', 'Resources', 'KudosNotificationService', 'Utils'];
-
     angular
         .module('myApp.components.notifications', [])
         .controller('NotificationsController', NotificationsController);
+
+    NotificationsController.$inject = ['$location', 'Resources', 'KudosNotificationService', 'Utils'];
 
     function NotificationsController($location, Resources, KudosNotificationService, Utils) {
         var vm = this;

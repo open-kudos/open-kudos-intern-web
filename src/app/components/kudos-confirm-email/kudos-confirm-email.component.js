@@ -1,5 +1,14 @@
 (function () {
-    var ConfirmEmailController = function ($scope, $location, ConfirmEmailService) {
+    angular.module('myApp.components.confirm-email', [])
+        .component('kudosConfirmEmail', {
+            templateUrl: 'app/components/kudos-confirm-email/kudos-confirm-email.html',
+            controller: 'ConfirmEmailController'
+        })
+        .controller('ConfirmEmailController', ConfirmEmailController)
+
+    ConfirmEmailController.$inject = ['$scope', '$location', 'ConfirmEmailService'];
+
+    function ConfirmEmailController($scope, $location, ConfirmEmailService) {
 
         $scope.confirm = confirm;
 
@@ -24,13 +33,4 @@
         });
 
     };
-
-    ConfirmEmailController.$inject = ['$scope', '$location', 'ConfirmEmailService'];
-
-    angular.module('myApp.components.confirm-email', [])
-        .component('kudosConfirmEmail', {
-            templateUrl: 'app/components/kudos-confirm-email/kudos-confirm-email.html',
-            controller: 'ConfirmEmailController'
-        })
-        .controller('ConfirmEmailController', ConfirmEmailController)
 })();

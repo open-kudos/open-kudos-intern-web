@@ -13,7 +13,6 @@
 
     function ProfileService(userBackend, kudosBackend, challengesBackend, authBackend, $q) {
         var service = {
-            userHome: UserHome,
             updateUser: UpdateUser,
             listUsers: ListUsers,
             getTopReceivers: GetTopReceivers,
@@ -27,10 +26,6 @@
             logout: Logout
         };
         return service;
-
-        function UserHome() {
-            return userBackend.home();
-        }
 
         function CheckUser() {
             return userBackend.check();

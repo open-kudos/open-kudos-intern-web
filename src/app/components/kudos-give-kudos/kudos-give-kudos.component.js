@@ -41,14 +41,14 @@
                 vm.id = vm.index;
             }
 
-            if (Resources.getUserAvailableKudos() == undefined) {
+            /*if (Resources.getUserAvailableKudos() == undefined) {
                 Kudos.remaining().then(function (amount) {
                     Resources.setUserAvailableKudos(amount);
                     vm.userAvailableKudos = amount;
                 })
             } else {
                 vm.userAvailableKudos = Resources.getUserAvailableKudos();
-            }
+            }*/
 
             if (Utils.isEmptyCollection(Resources.getUsersCollection())) {
                 GiveKudosService.listUsers().then(function (val) {
@@ -145,11 +145,11 @@
         }
 
         function getSendToRequestData() {
-            return $httpParamSerializer({
+            return {
                 receiverEmail: vm.sendKudosTo,
                 amount: vm.sendKudosAmount,
                 message: vm.sendKudosMessage
-            })
+            }
         }
 
         function closeModal() {

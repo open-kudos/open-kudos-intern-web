@@ -1,7 +1,4 @@
 (function () {
-
-    ProfileController.$inject = ['$scope', '$window', 'ProfileService', 'Resources', 'Utils'];
-
     angular
         .module('myApp.profile', [
             'ngRoute',
@@ -9,7 +6,9 @@
         ])
         .controller('ProfileController', ProfileController);
 
-    function ProfileController($scope, $window, ProfileService, Resources, Utils) {
+    ProfileController.$inject = ['$scope', '$window', 'ProfileService', 'Resources', 'Utils', 'User'];
+
+    function ProfileController($scope, $window, ProfileService, Resources, Utils, UserService) {
         var vm = this;
 
         vm.showLoaderUserAvailableKudos = true;
@@ -37,23 +36,20 @@
         activate();
 
         function activate() {
-            checkUser();
+            /*checkUser();*/
 
-            ProfileService.userHome().then(function (val) {
-                Resources.setCurrentUser(val);
-                Resources.setCurrentUserEmail(val.email);
-            });
+            UserService.getCurrentUserProfile().then(function (profileResponse){
+                Resources.setCurrentUser(profileResponse);
+                Resources.setCurrentUserEmail(profileResponse.email);
+                Resources.setUserAvailableKudos(profileResponse.weeklyKudos);
 
-            ProfileService.remainingKudos().then(function (val) {
-                Resources.setUserAvailableKudos(val);
+                vm.userReceivedKudos = profileResponse.totalKudos;
+                vm.userAvailableKudos = profileResponse.weeklyKudos;
+
                 vm.showLoaderUserAvailableKudos = false;
-            });
-
-            ProfileService.receivedKudos().then(function (val) {
-                vm.userReceivedKudos = val;
                 vm.showLoaderUserReceivedKudos = false;
             });
-            
+
             if(Utils.isEmptyCollection(Resources.getUsersCollection())){
                 ProfileService.listUsers().then(function (val) {
                     Resources.setUsersCollection(val.userList);
@@ -61,14 +57,6 @@
                 });
             }
         }
-
-        $scope.$watch(function () {
-            return Resources.getUserAvailableKudos()
-        }, function (newVal) {
-            if (!isValid(newVal)) {
-                vm.userAvailableKudos = Resources.getUserAvailableKudos();
-            }
-        });
 
         function checkUser() {
             ProfileService.checkUser().then(function (val) {

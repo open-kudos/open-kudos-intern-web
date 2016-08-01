@@ -1,4 +1,4 @@
-(function() {
+(function () {
 
     angular
         .module("myApp")
@@ -6,14 +6,15 @@
 
     function Utils() {
         var utils = {
-            isEmptyCollection:isEmptyCollection,
-            validateEmail:validateEmail,
-            acornPlural:acornPlural,
-            trimDate:trimDate,
-            isValid:isValid,
-            split:split,
-            lengthLimit:lengthLimit,
-            symbolsLeft:symbolsLeft
+            isEmptyCollection: isEmptyCollection,
+            validateEmail: validateEmail,
+            acornPlural: acornPlural,
+            trimDate: trimDate,
+            isValid: isValid,
+            split: split,
+            lengthLimit: lengthLimit,
+            symbolsLeft: symbolsLeft,
+            convertDate: convertDate
         };
         return utils;
 
@@ -56,6 +57,14 @@
             if (input)
                 return length - input.length;
             else return length;
+        }
+
+        function convertDate(val) {
+            if (val) {
+                val = val.split(":");
+                val = val[0] + ":" + val[1];
+                return val;
+            }
         }
 
     }

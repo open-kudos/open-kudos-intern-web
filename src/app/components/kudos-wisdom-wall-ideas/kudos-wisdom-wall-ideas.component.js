@@ -1,13 +1,12 @@
 (function () {
-
-    WisdomWallIdeasController.$inject = ['WisdomWallIdeasService'];
-
     angular.module('myApp.components.wisdomWallIdeas', [])
         .component('wisdomWallIdeas', {
             templateUrl: 'app/components/kudos-wisdom-wall-ideas/kudos-wisdom-wall-ideas.html',
             controller: ('WisdomWallIdeasController',  WisdomWallIdeasController),
             controllerAs: 'wisdom'
         });
+
+    WisdomWallIdeasController.$inject = ['WisdomWallIdeasService'];
 
     function WisdomWallIdeasController(WisdomWallIdeasService){
         var vm = this;
