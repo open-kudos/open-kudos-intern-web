@@ -21,6 +21,9 @@ function Challenges($http, SERVER) {
         getChallengesHistory: getChallengesHistory,
         getAccomplishedChallenges: getAccomplishedChallenges,
         getFailedChallenges: getFailedChallenges,
+        getUserChallengesHistory: getUserChallengesHistory,
+        getUserAccomplishedChallenges: getUserAccomplishedChallenges,
+        getUserFailedChallenges: getUserFailedChallenges,
         addComment: addComment,
         getComments: getComments
     }
@@ -136,6 +139,39 @@ function Challenges($http, SERVER) {
             method: 'GET',
             params: requestParams,
             url: SERVER.ip + "/challenge/history/failed",
+            withCredentials: true
+        }).then(function (response) {
+            return response.data;
+        });
+    }
+
+    function getUserChallengesHistory(userId, requestParams) {
+        return $http({
+            method: 'GET',
+            params: requestParams,
+            url: SERVER.ip + "/challenge/history/" + userId,
+            withCredentials: true
+        }).then(function (response) {
+            return response.data;
+        });
+    }
+
+    function getUserAccomplishedChallenges(userId, requestParams) {
+        return $http({
+            method: 'GET',
+            params: requestParams,
+            url: SERVER.ip + "/challenge/history/accomplished/" + userId,
+            withCredentials: true
+        }).then(function (response) {
+            return response.data;
+        });
+    }
+
+    function getUserFailedChallenges(userId, requestParams) {
+        return $http({
+            method: 'GET',
+            params: requestParams,
+            url: SERVER.ip + "/challenge/history/failed/" + userId,
             withCredentials: true
         }).then(function (response) {
             return response.data;

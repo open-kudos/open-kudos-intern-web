@@ -10,6 +10,7 @@
             'myApp.notification',
             'myApp.settings',
             'myApp.shop',
+            'myApp.history',
             'myApp.components.navbar',
             'myApp.components.notifications',
             'myApp.components.completedChallenges',
@@ -31,6 +32,7 @@
             'myApp.components.leaderboard',
             'myApp.components.following',
             'myApp.components.challenges-panel',
-            'myApp.components.challenges-comment'
+            'myApp.components.challenges-comment',
+            'myApp.components.history'
         ]);
 })();

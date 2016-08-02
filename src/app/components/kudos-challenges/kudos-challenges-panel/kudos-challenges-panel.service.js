@@ -20,10 +20,6 @@
         };
         return service;
 
-        function observeNewChallenges() {
-            return defer.promise();
-        }
-
         function getNewChallengesAmount() {
             return newChallengesAmount;
         }

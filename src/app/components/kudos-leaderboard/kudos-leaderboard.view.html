@@ -24,12 +24,18 @@
 <div ng-show="leader.receivers">
     <div ng-hide="!leader.showLoader" class="loader"></div>
     <ul class="list-group click-li">
-        <kudos-user-history ng-repeat="receiver in leader.topReceivers" name="receiver.fullName" amount="receiver.kudosAmount" id="receiver.userId"></kudos-user-history>
+        <li ng-repeat="receiver in leader.topReceivers" class="list-group-item" ng-click="leader.changeLocationToHistory(receiver.userId)">
+            <span class="badge acorn-bg">{{leader.acornPlural(receiver.kudosAmount)}}</span>
+            <span class="bold">{{receiver.fullName}}</span>
+        </li>
     </ul>
 </div>
 
 <div ng-show="leader.senders">
     <ul class="list-group click-li">
-        <kudos-user-history ng-repeat="sender in leader.topSenders" name="sender.fullName" amount="sender.kudosAmount" id="sender.userId"></kudos-user-history>
+        <li ng-repeat="receiver in leader.topSenders" class="list-group-item" ng-click="leader.changeLocationToHistory(receiver.userId)">
+            <span class="badge acorn-bg">{{leader.acornPlural(receiver.kudosAmount)}}</span>
+            <span class="bold">{{receiver.fullName}}</span>
+        </li>
     </ul>
 </div>

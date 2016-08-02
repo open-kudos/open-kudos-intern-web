@@ -7,9 +7,9 @@
             controllerAs: 'leader'
         });
 
-    LeaderboardController.$inject = ['ProfileService', 'Resources', '$httpParamSerializer', 'Leaderboard'];
+    LeaderboardController.$inject = ['ProfileService', 'Resources', '$httpParamSerializer', 'Leaderboard', 'Utils', '$location'];
 
-    function LeaderboardController(ProfileService, Resources, $httpParamSerializer, Leaderboard) {
+    function LeaderboardController(ProfileService, Resources, $httpParamSerializer, Leaderboard, Utils, $location) {
         var vm = this;
 
         vm.receivers = true;
@@ -18,7 +18,9 @@
         vm.userReceivedKudos = 0;
         vm.topReceivers = [];
         vm.topSenders = [];
-        
+
+        vm.acornPlural = Utils.acornPlural;
+        vm.changeLocationToHistory = changeLocationToHistory;
         vm.setAndUpdateTopSenders = setAndUpdateTopSenders;
         vm.setFilter = setFilter;
         vm.setAndUpdateTopReceivers = setAndUpdateTopReceivers;
@@ -28,6 +30,10 @@
         function activate(){
             setAndUpdateTopReceivers(999);
             setAndUpdateTopSenders(999);
+        }
+
+        function changeLocationToHistory(userId) {
+            $location.path('/history/' + userId)
         }
         
         function setFilter(value) {

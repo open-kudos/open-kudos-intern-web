@@ -56,6 +56,14 @@
                     auth: function (Auth) {return Auth.check();}
                 }
             })
+            .when('/history/:userId', {
+                templateUrl: 'app/views/history/history.html',
+                controller: 'HistoryViewController',
+                controllerAs: 'history',
+                resolve: {
+                    auth: function (Auth) {return Auth.check();}
+                }
+            })
             .when('/shop', {
                 templateUrl: 'app/views/shop/shop.html',
                 controller: 'ShopController',

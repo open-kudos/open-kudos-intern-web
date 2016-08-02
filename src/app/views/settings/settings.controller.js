@@ -1,10 +1,9 @@
 (function () {
-
-    SettingsController.$inject = ['Resources', '$timeout', 'User'];
-    
     angular
         .module('myApp.settings', [])
         .controller('SettingsController', SettingsController);
+
+    SettingsController.$inject = ['Resources', '$timeout', 'User'];
     
     function SettingsController(Resources, $timeout, User) {
         var vm = this;
