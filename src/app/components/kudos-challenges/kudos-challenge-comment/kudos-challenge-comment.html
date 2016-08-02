@@ -10,7 +10,7 @@
         <div ng-if="comment.loading" class="loader"></div>
 
         <div class="box4 text-left" ng-repeat="item in comment.commentsCollection">
-            <a href="">{{item.creatorFullName}}</a>
+            <a href="#/history/{{item.creatorId}}">{{item.creatorFullName}}</a>
             <p>{{item.text}}</p>
             <p class="small">{{comment.formatDate(item.date)}}</p>
         </div>
