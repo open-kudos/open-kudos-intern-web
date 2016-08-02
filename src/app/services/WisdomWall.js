@@ -19,7 +19,8 @@
         function addIdea(requestData) {
             return $http({
                 method: 'POST',
-                url: SERVER.ip + "/wisdomwall/addidea?" + requestData,
+                data: requestData,
+                url: SERVER.ip + "/wisdomwall/add",
                 withCredentials: true
             }).then(function (response) {
                 return response.data;

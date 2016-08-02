@@ -1,7 +1,59 @@
 <div ng-hide="!wisdom.showLoader" class="loader"></div>
 <blockquote>
-    <p class="breakword">{{wisdom.randomQuote.idea}}</p>
-    <small class="breakword">{{wisdom.randomQuote.authorName}}</small>
+    <p class="breakword">{{wisdom.randomQuote.phrase}}</p>
+    <small class="breakword">{{wisdom.randomQuote.author}}</small>
 </blockquote>
 
-<kudos-add-new-idea></kudos-add-new-idea>
+<button name="addIdeaButton" id="addIdeaButton"
+        data-toggle="modal" data-target="#addIdeaModal"
+        class="btn profile-buttons hvr-underline-from-center">
+    Add new idea
+</button>
+
+<div id="addIdeaModal" class="modal fade" role="dialog" data-keyboard="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" ng-click="wisdom.clearAddIdeaFormValues()" class="close"
+                        data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add new idea to wisdom wall</h4>
+            </div>
+
+            <div class="modal-body">
+                <form name="addIdeaForm">
+                    <div class="form-group col-sm-6">
+                        <input ng-model="wisdom.author" class="form-control" id="author" name="author" type="text" placeholder="Author of idea"
+                               ng-trim="false" value="{{wisdom.author = wisdom.lengthLimit(wisdom.author, 30)}}"
+                               required>
+                    </div>
+                    <div class="col-sm-12 characters-left-wisdom">
+                        <label>Characters left: {{wisdom.symbolsLeft(wisdom.author, 30)}}</label>
+                    </div>
+
+                    <div class="form-group col-sm-12">
+                        <textarea ng-model="wisdom.idea" class="form-control" id="idea" name="idea" placeholder="Idea"
+                                  ng-trim="false" value="{{wisdom.idea = wisdom.lengthLimit(wisdom.idea, 100)}}"
+                                  required></textarea>
+                    </div>
+                    <div class="col-sm-12 characters-left-wisdom">
+                        <label>Characters left: {{wisdom.symbolsLeft(wisdom.idea, 100)}}</label>
+                    </div>
+
+                    <div ng-class="{fade: startFade}" class="form-group col-sm-12 text-center">
+                        <div ng-if="wisdom.addIdeaFormErrorMessage" class="alert alert-danger" role="alert">
+                            <strong>Whoops!</strong> {{wisdom.addIdeaFormErrorMessage}}
+                        </div>
+                    </div>
+                </form>
+
+                <button ng-click="wisdom.addIdea()"
+                        ng-disabled="wisdom.addwisdom.$invalid"
+                        name="addwisdom.utton"
+                        id="addwisdom.utton"
+                        class="form-control btn btn-login">Add
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
