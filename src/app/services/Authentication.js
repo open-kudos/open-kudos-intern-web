@@ -51,7 +51,6 @@
         }
 
         function Logout() {
-            console.log("LOGOUT!!!");
             return $http({
                 method: 'POST',
                 withCredentials: true,

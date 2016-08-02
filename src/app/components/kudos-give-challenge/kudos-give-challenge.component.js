@@ -29,14 +29,7 @@
         vm.$onInit = onInit();
 
         function onInit() {
-            if(Utils.isEmptyCollection(Resources.getUsersCollection())){
-                GiveChallengeService.listUsers().then(function (val) {
-                    Resources.setUsersCollection(val);
-                    vm.usersCollection = Resources.getUsersCollection();
-                });
-            } else {
-                vm.usersCollection = Resources.getUsersCollection();
-            }
+            
         }
 
         function giveChallenge() {

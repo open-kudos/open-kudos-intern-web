@@ -11,14 +11,7 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li ng-class="nav.selectedHome ? 'selected active' : ''"><a href="#/profile">Home</a></li>
-
-                <li ng-class="nav.selectedAcorns ? 'selected active' : ''" ng-controller="NotificationsController as notification">
-                    <a ng-click="notification.clearNotifications()" href="#/acorns">History
-                        <span ng-if="notification.receivedNewTransaction" class="badge acorn-bg text-center arm">
-                            {{ notification.notificationBadgeAmount }}
-                        </span>
-                    </a>
-                </li>
+                <li ng-class="nav.selectedAcorns ? 'selected active' : ''"><a href="#/acorns">History</a></li>
                 <li ng-class="nav.selectedFollowing ? 'selected active' : ''"><a href="#/following">Following</a></li>
                 <!--<li ng-class="nav.selectedShop ? 'selected active' : ''"><a href="#/shop" class="no-hover">Shop</a></li>-->
             </ul>

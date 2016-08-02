@@ -18,11 +18,12 @@
                 controller: 'FeedController'
             })
             .when('/profile', {
-                templateUrl: 'app/views/profile/profile-new.html',
-                controller: 'ProfileController',
-                controllerAs: 'profile',
+                templateUrl: 'app/views/home/home.html',
+                controller: 'HomeController',
+                controllerAs: 'home',
                 resolve: {
-                    auth: function (Auth) {return Auth.check();}
+                    auth: ['Auth', function (Auth) {return Auth.check();}],
+                    user: ['User', function (User) {return User.getCurrentUserProfile();}]
                 }
             })
             .when('/acorns', {
@@ -30,14 +31,16 @@
                 controller: 'AcornController',
                 controllerAs: 'acorn',
                 resolve: {
-                    auth: function (Auth) {return Auth.check();}
+                    auth: ['Auth', function (Auth) {return Auth.check();}],
+                    user: ['User', function (User) {return User.getCurrentUserProfile();}]
                 }
             })
             .when('/notifications', {
                 templateUrl: 'app/views/notifications/notification.html',
                 controller: 'NotificationController',
                 resolve: {
-                    auth: function (Auth) {return Auth.check();}
+                    auth: ['Auth', function (Auth) {return Auth.check();}],
+                    user: ['User', function (User) {return User.getCurrentUserProfile();}]
                 }
             })
             .when('/me', {
@@ -45,7 +48,8 @@
                 controller: 'MeController',
                 controllerAs: 'me',
                 resolve: {
-                    auth: function (Auth) {return Auth.check();}
+                    auth: ['Auth', function (Auth) {return Auth.check();}],
+                    user: ['User', function (User) {return User.getCurrentUserProfile();}]
                 }
             })
             .when('/following', {
@@ -53,7 +57,8 @@
                 controller: 'FollowingController',
                 controllerAs: 'follow',
                 resolve: {
-                    auth: function (Auth) {return Auth.check();}
+                    auth: ['Auth', function (Auth) {return Auth.check();}],
+                    user: ['User', function (User) {return User.getCurrentUserProfile();}]
                 }
             })
             .when('/history/:userId', {
@@ -61,7 +66,8 @@
                 controller: 'HistoryViewController',
                 controllerAs: 'history',
                 resolve: {
-                    auth: function (Auth) {return Auth.check();}
+                    auth: ['Auth', function (Auth) {return Auth.check();}],
+                    user: ['User', function (User) {return User.getCurrentUserProfile();}]
                 }
             })
             .when('/shop', {
@@ -69,7 +75,8 @@
                 controller: 'ShopController',
                 controllerAs: 'shop',
                 resolve: {
-                    auth: function (Auth) {return Auth.check();}
+                    auth: ['Auth', function (Auth) {return Auth.check();}],
+                    user: ['User', function (User) {return User.getCurrentUserProfile();}]
                 }
             })
             .when('/settings', {
@@ -77,7 +84,8 @@
                 controller: 'SettingsController',
                 controllerAs: 'setting',
                 resolve: {
-                    auth: function (Auth) {return Auth.check();}
+                    auth: ['Auth', function (Auth) {return Auth.check();}],
+                    user: ['User', function (User) {return User.getCurrentUserProfile();}]
                 }
         });
 

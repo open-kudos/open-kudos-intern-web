@@ -5,14 +5,12 @@
 <div ng-hide="!me.showLoader" class="loader"></div>
 <div class="container">
     <div class="row">
-        <div class="col-lg-6 col-sm-6 col-sm-push-3">
-            <div class="well">
-                    <div class="col-lg-12 form-group">
-                        <h3>My Profile</h3>
-                    </div>
-
-                    <ng-include ng-if="me.editMode" src="'app/components/kudos-me/me-edit-mode.html'"></ng-include>
-                    <ng-include ng-if="!me.editMode" src="'app/components/kudos-me/me-view-mode.html'"></ng-include>
+        <div class="col-lg-6 col-sm-6 col-sm-push-3 panel">
+            <div class="col-lg-12 form-group">
+                <h3>{{me.user.firstName}} {{me.user.lastName}}</h3>
+                <p>{{me.user.email}}</p>
+                <p>Total Acorns <span class="badge acorn-bg">{{me.user.totalKudos}}</span>
+                    Weekly Acorns <span class="badge acorn-bg">{{me.user.weeklyKudos}}</span></p>
             </div>
         </div>
     </div>

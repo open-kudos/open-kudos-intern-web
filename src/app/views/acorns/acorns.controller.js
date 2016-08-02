@@ -33,7 +33,6 @@
             function activate() {
                 getReceivedKudosHistory(vm.defaultPageParams);
                 vm.showLoader = false;
-                console.log("qq");
             }
             activate();
 

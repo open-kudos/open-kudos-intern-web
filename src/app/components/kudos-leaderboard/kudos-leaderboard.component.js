@@ -7,9 +7,9 @@
             controllerAs: 'leader'
         });
 
-    LeaderboardController.$inject = ['ProfileService', 'Resources', '$httpParamSerializer', 'Leaderboard', 'Utils', '$location'];
+    LeaderboardController.$inject = ['Resources', '$httpParamSerializer', 'Leaderboard', 'Utils', '$location'];
 
-    function LeaderboardController(ProfileService, Resources, $httpParamSerializer, Leaderboard, Utils, $location) {
+    function LeaderboardController(Resources, $httpParamSerializer, Leaderboard, Utils, $location) {
         var vm = this;
 
         vm.receivers = true;

@@ -28,10 +28,6 @@ function Kudos($http, SERVER) {
 
     return kudos;
 
-    /**
-     * V2
-     */
-
     function sendKudos(requestData) {
         return $http({
             method: 'POST',
@@ -108,10 +104,6 @@ function Kudos($http, SERVER) {
             return response.data;
         });
     }
-
-    /**
-     * V2
-     */
 
      function getKudosTransactionStream(requestData) {
         return $http({

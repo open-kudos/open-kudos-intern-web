@@ -9,62 +9,67 @@
     ];
 
     function Relation($http, SERVER) {
-        var relations = {
-            followers: followers,
-            followed: followed,
-            add: add,
-            remove: remove,
-            feed: feed
+        var relation = {
+            followByEmail: followByEmail,
+            followById: followById,
+            unfollow: unfollow,
+            getFollowers: getFollowers,
+            getFollowing: getFollowing
         }
-        return relations;
+        return relation;
 
-        function followers() {
-            return $http({
-                method: 'GET',
-                url: SERVER.ip + "/relations/followers",
-                withCredentials: true
-            }).then(function (response) {
-                return response;
-            });
-        }
-        
-        function followed() {
-            return $http({
-                method: 'GET',
-                url: SERVER.ip + "/relations/followed",
-                withCredentials: true
-            }).then(function (response) {
-                return response;
-            });
-        }
-        
-        function add(requestData) {
+        function followByEmail(requestParams) {
             return $http({
                 method: 'POST',
-                url: SERVER.ip + "/relations/add?" + requestData,
+                params: requestParams,
+                url: SERVER.ip + "/relation/follow",
                 withCredentials: true
             }).then(function (response) {
                 return response;
             });
         }
 
-        function remove(requestData) {
+        function followById(requestData) {
             return $http({
-                method: 'GET',
-                url: SERVER.ip + "/relations/remove?" + requestData,
+                method: 'POST',
+                data: requestData,
+                url: SERVER.ip + "/relation/follow",
                 withCredentials: true
             }).then(function (response) {
                 return response;
             });
         }
 
-        function feed(requestData) {
+        function unfollow(requestData) {
             return $http({
-                method: 'GET',
-                url: SERVER.ip + "/relations/feed?" + requestData,
+                method: 'POST',
+                params: requestData,
+                url: SERVER.ip + "/relation/unfollow/",
                 withCredentials: true
             }).then(function (response) {
                 return response;
+            });
+        }
+
+        function getFollowers(pageParams) {
+            return $http({
+                method: 'GET',
+                params: pageParams,
+                url: SERVER.ip + "/relation/followers",
+                withCredentials: true
+            }).then(function (response) {
+                return response.data;
+            });
+        }
+
+        function getFollowing(pageParams) {
+            return $http({
+                method: 'GET',
+                params: pageParams,
+                url: SERVER.ip + "/relation/following",
+                withCredentials: true
+            }).then(function (response) {
+                return response.data;
             });
         }
 
