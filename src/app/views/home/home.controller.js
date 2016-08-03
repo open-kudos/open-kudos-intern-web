@@ -34,7 +34,7 @@
         vm.isValid = isValid;
 
         activate();
-
+        
         function activate() {
             getCurrentUserData(UserService.getCurrentUser());
         }

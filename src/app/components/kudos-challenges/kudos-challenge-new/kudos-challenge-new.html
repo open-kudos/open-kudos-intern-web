@@ -1,6 +1,6 @@
 <div class="loader" ng-if="chNew.loading"></div>
 <div class="text-center">
-    <div ng-if="chNew.challengeList[0]" class="card box4 box-shadow-animation" ng-repeat="challenge in chNew.challengeList | limitTo: 5">
+    <div ng-if="chNew.challengeList[0]" class="card box4" ng-repeat="challenge in chNew.challengeList | limitTo: 5">
 
         <h4 ng-if="challenge.actions.acceptAllowed" class="card-title text-center">You have been challenged!</h4>
         <h4 ng-if="challenge.actions.cancelAllowed" class="card-title text-center">You created challenge!</h4>

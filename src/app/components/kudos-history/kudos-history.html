@@ -1,11 +1,13 @@
 <div class="container panel">
-    <nav>
-        <ul class="nav nav-pills">
+    <nav class="panel-heading">
+        <ul class="nav nav-tabs nav-justified">
             <li ng-class="history.isAcornSelected ? 'active' : ''">
-                <a ng-click="history.toggleNavPills('acorn')" href="" >Acorn</a>
+                <a ng-click="history.toggleNavPills('acorn')" href=""
+                   class="text-uppercase">Acorn</a>
             </li>
             <li ng-class="history.isChallengeSelected? 'active' : ''">
-                <a ng-click="history.toggleNavPills('challenge')" href="">Challenges</a>
+                <a ng-click="history.toggleNavPills('challenge')" href=""
+                   class="text-uppercase">Challenges</a>
             </li>
         </ul>
 
@@ -99,7 +101,7 @@
                         <br>
                         <span ng-if="item.description"> and description <span class="bold">{{item.description}}</span></span>
                     </p>
-                    <kudos-challenge-comment challenge="item"></kudos-challenge-comment>
+                    <kudos-challenge-comment ng-if="item.id != undefined" challenge="item"></kudos-challenge-comment>
                 </div>
             </div>
         </div>

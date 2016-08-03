@@ -1,36 +1,51 @@
 <div>
     <a type="button" href="" data-toggle="collapse" data-target="#collape{{comment.challenge.id}}" aria-expanded="false" aria-controls="collapseExample">
-        Comments ({{comment.totalElements}})
+        Comments ({{comment.totalElements || 0}})
     </a>
 </div>
 
 <div class="collapse" id="collape{{comment.challenge.id}}">
-    <div class="well top-margin">
+    <div class="top-margin">
 
-        <div ng-if="comment.loading" class="loader"></div>
+        <div class="divider"></div>
 
-        <div class="box4 text-left" ng-repeat="item in comment.commentsCollection">
+        <div ng-if="comment.loading" class="loader center-loader"></div>
+
+        <div class="form-group text-left">
+                <textarea   ng-model="comment.message"
+                            maxlength="140"
+                            placeholder="Add public comment..."
+                            type="text"
+                            id="sendKudosMessage"
+                            name="sendKudosMessage"
+                            rowspan="2"
+                            ng-focus="comment.commentFocused = true"
+                            class="form-control">
+                </textarea>
+
+            <div ng-if="comment.commentFocused" style="height: 35px; margin: 10px">
+                <div class="leftAlignment">
+                <p class="text-left"> {{comment.message.length}} / 140 </p>
+                </div>
+                <div class="rightAlignment">
+                    <button class="btn btn-sm btn-default right" ng-click="comment.commentFocused = false; comment.message = ''">Cancel</button>
+                    <button ng-disabled="comment.message.length <= 0" class="btn btn-sm btn-give right" ng-click="comment.addComment()">Comment</button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="comment text-left" ng-repeat="item in comment.commentsCollection">
             <a href="#/history/{{item.creatorId}}">{{item.creatorFullName}}</a>
-            <p>{{item.text}}</p>
+            <p class="breakword">{{item.text}}</p>
             <p class="small">{{comment.formatDate(item.date)}}</p>
         </div>
 
         <div class="row">
-            <a class="col-sm-6 text-left" href="" ng-click="comment.loadPreviousPage()"><span ng-if="comment.showLessButton">Previous</span></a>
-            <a class="col-sm-6 text-right" href=""><span ng-click="comment.loadNextPage()" ng-if="comment.showMoreButton">More</span></a>
+            <a class="leftAlignment less" href="" ng-click="comment.loadFirstPage()"><span ng-if="comment.showLessButton">Less</span></a>
+            <a class="rightAlignment more" href=""><span ng-click="comment.loadNextPage()" ng-if="comment.showMoreButton">More</span></a>
         </div>
 
-        <div class="form-group text-left">
-            <label for="sendKudosMessage">Add comment</label>
-                <textarea ng-model="comment.message"
-                          maxlength="140"
-                          id="sendKudosMessage"
-                          name="sendKudosMessage"
-                          class="form-control">
-                </textarea>
-            <p class=""> {{comment.message.length}} / 140 </p>
-            <button class="btn btn-primary" ng-click="comment.addComment()">Comment</button>
-        </div>
     </div>
 
 </div>

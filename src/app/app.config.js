@@ -46,7 +46,6 @@
             .when('/me', {
                 templateUrl: 'app/components/kudos-me/me.html',
                 controller: 'MeController',
-                controllerAs: 'me',
                 resolve: {
                     auth: ['Auth', function (Auth) {return Auth.check();}],
                     user: ['User', function (User) {return User.getCurrentUserProfile();}]

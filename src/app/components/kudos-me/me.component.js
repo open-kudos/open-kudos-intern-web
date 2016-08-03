@@ -2,9 +2,10 @@
     angular
         .module('myApp.components.me', [])
         .component('kudosMe', {
-            templateUrl: 'app/components/kudos-me/me.html'
-        })
-        .controller('MeController', MeController);
+            templateUrl: 'app/components/kudos-me/me.html',
+            controller: ('MeController', MeController),
+            controllerAs: 'me'
+        });
 
     MeController.$inject = ['User'];
 
@@ -15,10 +16,14 @@
 
         vm.$onInit = onInit();
 
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
         function onInit() {
             vm.user = UserService.getCurrentUser();
         }
 
     }
-    
+
 })();

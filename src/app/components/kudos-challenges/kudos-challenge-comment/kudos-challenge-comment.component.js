@@ -24,7 +24,7 @@
         vm.addComment = addComment;
         vm.formatDate = formatDate;
         vm.loadNextPage = loadNextPage;
-        vm.loadPreviousPage = loadPreviousPage;
+        vm.loadFirstPage = loadFirstPage;
 
         vm.$onInit = onInit();
 
@@ -35,7 +35,6 @@
         function addComment() {
             vm.loading = true;
             var comment = {comment : vm.message};
-
             if ( vm.message.length > 0 ) {
                 Challenges.addComment(vm.challenge.id, comment).then(function (response) {
                     if (response.status === 200) {
@@ -56,15 +55,27 @@
             Challenges.getComments(vm.challenge.id, pageParams).then(function (response) {
                 pageResponse = response;
                 vm.totalElements = response.totalElements;
+                addNewCommentsToCollection(response.content);
+                checkPaginationButtons(response);
+                vm.loading = false;
+            })
+        }
+
+        function getFirstPageComments() {
+            vm.loading = true;
+            Challenges.getComments(vm.challenge.id, pageParams).then(function (response) {
+                pageResponse = response;
+                vm.totalElements = response.totalElements;
                 vm.commentsCollection = response.content;
                 checkPaginationButtons(response);
                 vm.loading = false;
             })
         }
 
-        function loadPreviousPage() {
-            if (!pageResponse.first) pageParams.page--;
-            getComments(pageParams);
+        function loadFirstPage() {
+            pageParams.page = 0;
+            getFirstPageComments();
+            $(window).scrollTop($('#collape'+ vm.challenge.id).offset().top);
         }
 
         function loadNextPage() {
@@ -75,6 +86,14 @@
         function checkPaginationButtons(pageResponse) {
             vm.showMoreButton = !pageResponse.last;
             vm.showLessButton = !pageResponse.first;
+        }
+
+        function addNewCommentsToCollection(comments){
+            if (vm.commentsCollection.length <= 0){
+                vm.commentsCollection = comments;
+            }else{
+                vm.commentsCollection = vm.commentsCollection.concat(comments);
+            }
         }
 
         function formatDate(commentDate) {
