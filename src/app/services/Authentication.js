@@ -89,22 +89,5 @@
             return deferred.promise;
         }
 
-        var getTranslationTable = function (langKey) {
-
-            if (Object.prototype.hasOwnProperty.call($translationTable, langKey)) {
-                deferred.resolve($translationTable[langKey]);
-            } else if (langPromises[langKey]) {
-                var onResolve = function (data) {
-                    translations(data.key, data.table);
-                    deferred.resolve(data.table);
-                };
-                onResolve.displayName = 'translationTableResolver';
-                langPromises[langKey].then(onResolve, deferred.reject);
-            } else {
-                deferred.reject();
-            }
-            return deferred.promise;
-        };
-        
     }
 })();

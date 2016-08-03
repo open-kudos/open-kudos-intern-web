@@ -11,8 +11,8 @@
     function Leaderboard($http, SERVER) {
         var leader = {
             getTopReceivers: getTopReceivers,
-            getTopSenders: getTopSenders,
-        }
+            getTopSenders: getTopSenders
+        };
         return leader;
 
         function getTopReceivers(requestData) {

@@ -1,4 +1,4 @@
-(function() {
+(function () {
     "use strict";
     angular.module("myApp")
         .factory("Relation", Relation);
@@ -10,18 +10,18 @@
 
     function Relation($http, SERVER) {
         var relation = {
-            followByEmail: followByEmail,
             followById: followById,
+            followByEmail: followByEmail,
             unfollow: unfollow,
             getFollowers: getFollowers,
             getFollowing: getFollowing
-        }
+        };
         return relation;
 
-        function followByEmail(requestParams) {
+        function followById(requestData) {
             return $http({
                 method: 'POST',
-                params: requestParams,
+                data: requestData,
                 url: SERVER.ip + "/relation/follow",
                 withCredentials: true
             }).then(function (response) {
@@ -29,10 +29,10 @@
             });
         }
 
-        function followById(requestData) {
+        function followByEmail(requestParams) {
             return $http({
                 method: 'POST',
-                data: requestData,
+                params: requestParams,
                 url: SERVER.ip + "/relation/follow",
                 withCredentials: true
             }).then(function (response) {

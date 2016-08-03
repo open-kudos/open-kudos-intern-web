@@ -42,7 +42,7 @@
         function split(splitValue, splitMark) {
             return splitValue.split(splitMark);
         }
-
+        
         function lengthLimit(input, length) {
             if (input) {
                 while (input.charAt(0) == ' ')
