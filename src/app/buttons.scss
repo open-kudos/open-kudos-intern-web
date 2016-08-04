@@ -12,6 +12,43 @@ $color-swed-orange:         #FF6100;
 $color-orange:              #f1c40f;
 $color-orange-dark:         #f39c12;
 
+.btn{
+
+}
+
+.btn-action{
+  border-radius: 5px;
+  height: 100px;
+  padding-top: 20px;
+  background: $color-orange-dark;
+  color: $color-white;
+  margin: -9px 0 20px;
+  box-shadow: 1px 1px 2px grey;
+  &:hover{
+    cursor: pointer;
+    background: $color-swed-orange;
+  }
+
+  span{
+    padding-top: 5px;
+    padding-bottom: 10px;
+    font-size: 24px;
+  }
+
+}
+
+@media (max-width: 991px) {
+  .btn-action {
+    margin-top: 0;
+  }
+}
+
+.profile-actions{
+  a:nth-child(2) {
+    padding-left: 10px;
+  }
+}
+
 .btn-danger {
   background: $color-pomegranate;
   border-color: $color-pomegranate;

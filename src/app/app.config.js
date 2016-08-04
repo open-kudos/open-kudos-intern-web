@@ -52,7 +52,7 @@
                 }
             })
             .when('/following', {
-                templateUrl: 'app/components/kudos-following/kudos-following.html',
+                templateUrl: 'app/views/following/following.html',
                 controller: 'FollowingController',
                 controllerAs: 'follow',
                 resolve: {
@@ -86,7 +86,16 @@
                     auth: ['Auth', function (Auth) {return Auth.check();}],
                     user: ['User', function (User) {return User.getCurrentUserProfile();}]
                 }
-        });
+            })
+            .when('/edit', {
+                templateUrl: 'app/views/edit-user/edit-user.html',
+                controller: 'EditController',
+                controllerAs: 'editCtrl',
+                resolve: {
+                    auth: ['Auth', function (Auth) {return Auth.check();}],
+                    user: ['User', function (User) {return User.getCurrentUserProfile();}]
+                }
+            });
 
         $translateProvider.useStaticFilesLoader({
             prefix: 'app/translations/locale-',

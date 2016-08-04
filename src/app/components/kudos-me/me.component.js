@@ -16,13 +16,13 @@
 
         vm.$onInit = onInit();
 
-        $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-
         function onInit() {
             vm.user = UserService.getCurrentUser();
         }
+
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
 
     }
 

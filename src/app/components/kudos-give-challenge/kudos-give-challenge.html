@@ -1,8 +1,18 @@
-<button ng-click="giveChallenge.clearChallengeFormValues()" name="giveChallengeButton" id="challengeButton"
-        data-toggle="modal" data-target="#giveChallengeModal"
+
+<div class="btn-action text-center"
+     ng-click="giveChallenge.clearChallengeFormValues()"
+     name="giveChallengeButton"
+     id="challengeButton"
+     data-toggle="modal"
+     data-target="#giveChallengeModal">
+    <span class="glyphicon glyphicon-tower"></span>
+    <p>CHALLENGE</p>
+</div>
+
+<!--<button
         class="btn profile-buttons hvr-underline-from-center" data-placement="top">
     {{ 'ProfileMeChallenge' | translate }}
-</button>
+</button>-->
 
 <div id="giveChallengeModal" class="modal fade" role="dialog">
     <div class="modal-dialog text-left">
@@ -23,7 +33,7 @@
                         </div>
 
                         <div class="form-group col-sm-6">
-                            <label for="giveChallengeAmountOfKudos">{{'GIVE_CHALLENGE_AMOUNT' | translate }} | Max: {{giveChallenge.userAvailableKudos}}</label>
+                            <label for="giveChallengeAmountOfKudos">{{'GIVE_CHALLENGE_AMOUNT' | translate }} | Max: {{giveChallenge.userWeeklyKudos}}</label>
                             <input ng-model="giveChallenge.giveChallengeAmountOfKudos"
                                    id="giveChallengeAmountOfKudos"
                                    name="giveChallengeAmountOfKudos" type="number" ng-pattern="/^[0-9]+$/"

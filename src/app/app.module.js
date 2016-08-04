@@ -9,6 +9,7 @@
             'myApp.acorn',
             'myApp.notification',
             'myApp.settings',
+            'myApp.edit-user',
             'myApp.shop',
             'myApp.history',
             'myApp.components.navbar',

@@ -24,12 +24,6 @@ $border-radius-small:       4px;
 
 $transition-duration-short: 0.2s;
 
-.navbar-brand, .navbar-nav li a {
-  line-height: 65px;
-  height: 65px;
-  padding-top: 0;
-}
-
 .navbar-toggle {
   margin-top: 15px;
   border-radius: 2px;
@@ -71,6 +65,12 @@ $transition-duration-short: 0.2s;
 
 .kudos-navbar {
   background-color: $color-nav-bg;
+
+  .navbar-brand, .navbar-nav li a {
+    line-height: 65px;
+    height: 65px;
+    padding-top: 0;
+  }
 
   .uppercase {
     text-transform: uppercase;

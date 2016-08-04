@@ -39,7 +39,7 @@
                 Challenges.addComment(vm.challenge.id, comment).then(function (response) {
                     if (response.status === 200) {
                         vm.message = "";
-                        getComments(pageParams);
+                        getFirstPageComments();
                         vm.loading = false;
                     }
                 })
@@ -63,6 +63,7 @@
 
         function getFirstPageComments() {
             vm.loading = true;
+            pageParams.page = 0;
             Challenges.getComments(vm.challenge.id, pageParams).then(function (response) {
                 pageResponse = response;
                 vm.totalElements = response.totalElements;
@@ -73,7 +74,6 @@
         }
 
         function loadFirstPage() {
-            pageParams.page = 0;
             getFirstPageComments();
             $(window).scrollTop($('#collape'+ vm.challenge.id).offset().top);
         }

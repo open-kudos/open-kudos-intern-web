@@ -45,7 +45,7 @@ function User($http, $q, SERVER) {
             data: requestData,
             withCredentials: true,
             url: SERVER.ip + "/user/update"
-        }).then(function successCallback(response) {
+        }).then(function (response) {
             return response;
         });
     }

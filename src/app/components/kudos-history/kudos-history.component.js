@@ -134,11 +134,13 @@
         function toggleNavPills(which) {
             switch (which){
                 case 'acorn':
+                    setDefaultPageParams();
                     getReceivedKudosHistory(vm.defaultPageParams);
                     vm.isChallengeSelected = false;
                     vm.isAcornSelected = true;
                     break;
                 case 'challenge':
+                    setDefaultPageParams();
                     getChallengesHistory(vm.defaultPageParams);
                     vm.isChallengeSelected = true;
                     vm.isAcornSelected = false;

@@ -1035,3 +1035,17 @@ div.box4 {
 .top-margin {
   margin-top: $margin-small * 2;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.badge-bigger{
+  font-size: 14px; margin: 1px
+}
+
+.shop-item{
+  img {
+    min-height: 210px;
+  }
+}

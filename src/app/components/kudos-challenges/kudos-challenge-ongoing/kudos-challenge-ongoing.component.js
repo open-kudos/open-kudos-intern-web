@@ -10,8 +10,7 @@
 
     function KudosChallengeOngoingController(Challenges, Utils, ChallengesPanelService) {
         var vm = this;
-        var pageResponse;
-
+        var pageResponse = {first: false, last: false};
         vm.ongoingChallengeList = [];
         vm.pageParams = {page: 0, size: 5};
 
@@ -19,7 +18,7 @@
         vm.convertDate = Utils.convertDate;
         vm.markChallengeAsCompleted = markChallengeAsCompleted;
         vm.markChallengeAsFailed = markChallengeAsFailed;
-        vm.loadPreviousPage = loadPreviousPage;
+        vm.loadPrevousPage = loadPreviousPage;
         vm.loadNextPage = loadNextPage;
 
         vm.$onInit = onInit();

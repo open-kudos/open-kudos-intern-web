@@ -7,13 +7,13 @@
             controller: ("GiveChallengeController", GiveChallengeController)
         });
 
-    GiveChallengeController.$inject = ['Resources', 'GiveChallengeService', '$filter', 'Utils', 'Challenges'];
+    GiveChallengeController.$inject = ['Resources', 'User', '$filter', 'Utils', 'Challenges'];
 
-    function GiveChallengeController(Resources, GiveChallengeService, $filter, Utils, ChallengeService){
+    function GiveChallengeController(Resources, UserService, $filter, Utils, ChallengeService){
         var vm = this;
         var requestDateFormat = 'yyyy-MM-dd';
 
-        vm.userAvailableKudos = 0;
+        vm.userWeeklyKudos = 0;
         vm.autocompleteHide = true;
         vm.showError = false;
         vm.usersCollection = [];
@@ -29,7 +29,8 @@
         vm.$onInit = onInit();
 
         function onInit() {
-            
+            vm.userWeeklyKudos = UserService.getCurrentUser().weeklyKudos;
+            console.log(vm.userAvailableKudos);
         }
 
         function giveChallenge() {
@@ -54,7 +55,7 @@
                     clearChallengeFormValues();
                     $('#giveChallengeModal').modal('hide');
                     toastr.success('You successfully challenged ' + val.data.participantFullName + " with " + Utils.acornPlural(val.data.amount) + '.');
-                    Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
+                    UserService.getCurrentUser().weeklyKudos = UserService.getCurrentUser().weeklyKudos - val.data.amount;
                     Resources.getNewChallenges().unshift(val.data);
                 }).catch(function () {
                     showChallengeFormErrorMessage("Challenge receiver does not exist");

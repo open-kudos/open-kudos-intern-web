@@ -24,28 +24,25 @@
     </div>
 </div>-->
 
-<div class="row">
-    <div ng-repeat="item in relation.followedCollection"
-         class="col-md-12">
-            <div class="relation">
-                    <h4 class="media-heading">{{ item.userFullName }}</h4>
-                    <p class="small">{{ item.userEmail }}</p>
+<div ng-repeat="item in relation.followedCollection" class="box4">
+        <div>
+            <h4>{{ item.userFullName }}</h4>
+            <p class="small">{{ item.userEmail }}</p>
 
-                    <kudos-give-kudos email="item.userEmail" index="item.userId" template="'button'"></kudos-give-kudos>
+            <kudos-give-kudos email="item.userEmail" index="item.userId" template="'button'"></kudos-give-kudos>
 
-                    <div class="btn-group pull-right" >
-                        <button type="button"
-                                class="btn btn-sm btn-default dropdown-toggle"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">
-                            <span class="glyphicon glyphicon-option-vertical"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href=""><span class="glyphicon glyphicon-remove"></span> Unfollow</a>
-                            </li>
-                        </ul>
-                    </div>
+            <div class="btn-group pull-right" >
+                <button type="button"
+                        class="btn btn-sm btn-default dropdown-toggle"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                    <span class="glyphicon glyphicon-option-vertical"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href=""><span class="glyphicon glyphicon-remove"></span> Unfollow</a>
+                    </li>
+                </ul>
             </div>
-    </div>
+        </div>
 </div>

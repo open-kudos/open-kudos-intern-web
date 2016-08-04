@@ -2,20 +2,26 @@
 
 <div class="panel">
     <div class="panel-body">
-        <h3>{{me.user.firstName}} {{me.user.lastName}}</h3>
+        <h3><span class="glyphicon glyphicon-user"></span> {{me.user.firstName}} {{me.user.lastName}}</h3>
         <p class="small">{{me.user.email}}</p>
         <p href="#">
             <strong>Total Acorns</strong>
             <span data-toggle="tooltip" title="These are the points you have received"
-                class="badge acorn-bg">{{me.user.totalKudos}}</span>
+                class="badge badge-bigger acorn-bg cursor-pointer">{{me.user.totalKudos}}</span>
         </p>
         <p><strong>Weekly Acorns</strong>
             <span data-toggle="tooltip" title="You can give these points to others during this week"
-                  class="badge acorn-bg">{{me.user.weeklyKudos}}</span></p>
-        <a href="#/settings" class="">
-            <span class="glyphicon glyphicon-cog"></span> Settings
-        </a>
+                  class="badge badge-bigger acorn-bg cursor-pointer">{{me.user.weeklyKudos}}</span></p>
+
+        <div class="profile-actions">
+            <a href="#/settings" class="">
+                <span class="glyphicon glyphicon-cog"></span> Settings
+            </a>
+
+            <a href="#/edit" class="">
+                <span class="glyphicon glyphicon-edit"></span> Edit
+            </a>
+        </div>
 
     </div>
 </div>
-
