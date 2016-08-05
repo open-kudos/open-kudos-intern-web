@@ -6,14 +6,14 @@
             controllerAs: 'info'
         });
 
-    InfoController.$inject = ['$scope', 'Resources'];
+    InfoController.$inject = ['$scope', 'User'];
 
-    function InfoController($scope, Resources) {
+    function InfoController($scope, User) {
         var vm = this,
             checkUser;
         
         function checkUserCompleted(){
-            var user = Resources.getCurrentUser();
+            var user = User.getCurrentUser();
             if (user && !checkUser){
                 checkUser = true;
                 vm.isCompleted = user.completed;

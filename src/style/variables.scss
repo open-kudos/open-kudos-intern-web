@@ -1,0 +1,40 @@
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i&subset=latin-ext';
+
+$color-primary:             #FF6100;
+$color-primary-light:       #f39c12;
+$color-primary-lighter:     #FF7740;
+
+$color-nav-bg:              #FFFFFF;
+$color-btn-disabled:        #f39c12;
+
+$color-success:             #1abc9c;
+$color-success-dark:        #16a085;
+$color-warning:             #e74c3c;
+$color-warning-dark:        #c0392b;
+
+$color-grey-borders:        #c0c0c0;
+$color-grey-borders-light:  #ddd;
+$color-grey:                #777;
+$color-grey-dark:           #222;
+$color-white:               #ffffff;
+$color-clouds:              #ECF0F1;
+
+$quiet-color:               #c0c0c0;
+$loud-color:                #222;
+
+$heading-font-family:      'Open Sans', sans-serif;
+$heading-font-weight:       700;
+$regular-font-weight:       400;
+$light-font-weight:         300;
+
+$bg-image:                  url(../treebg.png);
+
+$padding-small:             10px;
+$padding-medium:            15px;
+
+$margin-small:              10px;
+$margin-medium:             15px;
+
+$border-radius-small:       4px;
+
+$transition-duration-short: 0.2s;

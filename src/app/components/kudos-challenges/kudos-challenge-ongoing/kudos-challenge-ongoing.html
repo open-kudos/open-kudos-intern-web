@@ -2,7 +2,7 @@
 
     <div class="loader" ng-if="ongoingChallengesCtrl.loading"></div>
 
-    <div class="card box4 box-shadow-animation" ng-repeat="challenge in ongoingChallengesCtrl.ongoingChallengeList">
+    <div class="card box4" ng-repeat="challenge in ongoingChallengesCtrl.ongoingChallengeList">
 
         <p class="card-text" ng-if="!challenge.actions.markAsCompletedAllowed">
             <span class="bold">{{challenge.name}}</span> received from
@@ -25,6 +25,9 @@
             <button class="btn btn-danger"
                     ng-click="ongoingChallengesCtrl.markChallengeAsFailed(challenge.id)">Mark as Failed</button>
         </p>
+
+        <kudos-challenge-comment challenge="challenge"></kudos-challenge-comment>
+
     </div>
 
     <div class="showMore">

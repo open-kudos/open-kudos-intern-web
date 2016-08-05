@@ -10,8 +10,7 @@
 
     function KudosChallengeOngoingController(Challenges, Utils, ChallengesPanelService) {
         var vm = this;
-        var pageResponse;
-
+        var pageResponse = {first: false, last: false};
         vm.ongoingChallengeList = [];
         vm.pageParams = {page: 0, size: 5};
 

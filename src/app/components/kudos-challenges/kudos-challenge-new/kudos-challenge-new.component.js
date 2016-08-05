@@ -73,7 +73,7 @@
                     Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
                     loadSentAndReceivedChallenges(vm.pageParams);
                 })
-            } else {toastr.error('You only have ' + ' ' + acornPlural(userAvailableKudos) +
+            } else {toastr.error('You only have ' + ' ' + vm.acornPlural(userAvailableKudos) +
                 '. To accept challenge, you must have at least ' + kudos);
                 vm.loading = true;
             }

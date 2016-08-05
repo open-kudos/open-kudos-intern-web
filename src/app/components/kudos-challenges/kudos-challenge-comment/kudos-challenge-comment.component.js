@@ -14,42 +14,90 @@
 
     function ChallengeCommentController(Challenges) {
         var vm = this;
-        var requestParams = {page: 0, size: 5};
+        
+        var pageParams = {page: 0, size: 5};
+        var pageResponse;
 
         vm.message = "";
         vm.commentsCollection = [];
 
         vm.addComment = addComment;
         vm.formatDate = formatDate;
+        vm.loadNextPage = loadNextPage;
+        vm.loadFirstPage = loadFirstPage;
 
         vm.$onInit = onInit();
 
         function onInit() {
-            console.log(vm.challenge);
-            getComments();
+            getComments(pageParams);
         }
 
         function addComment() {
+            vm.loading = true;
             var comment = {comment : vm.message};
+            if ( vm.message.length > 0 ) {
+                Challenges.addComment(vm.challenge.id, comment).then(function (response) {
+                    if (response.status === 200) {
+                        vm.message = "";
+                        getFirstPageComments();
+                        vm.loading = false;
+                    }
+                })
+            } else {
+                vm.loading = false;
+                toastr.error("Your comment is empty");
+            }
 
-            Challenges.addComment(vm.challenge.id, comment).then(function (response) {
-                if (response.status === 200){
-                    vm.message = null;
-                    getComments();
-                }
+        }
+
+        function getComments(pageParams) {
+            vm.loading = true;
+            Challenges.getComments(vm.challenge.id, pageParams).then(function (response) {
+                pageResponse = response;
+                vm.totalElements = response.totalElements;
+                addNewCommentsToCollection(response.content);
+                checkPaginationButtons(response);
+                vm.loading = false;
             })
         }
 
-        function getComments() {
-            Challenges.getComments(vm.challenge.id, requestParams).then(function (pageResponse) {
-                console.log(pageResponse);
-                vm.commentsCollection = pageResponse.content;
+        function getFirstPageComments() {
+            vm.loading = true;
+            pageParams.page = 0;
+            Challenges.getComments(vm.challenge.id, pageParams).then(function (response) {
+                pageResponse = response;
+                vm.totalElements = response.totalElements;
+                vm.commentsCollection = response.content;
+                checkPaginationButtons(response);
+                vm.loading = false;
             })
+        }
+
+        function loadFirstPage() {
+            getFirstPageComments();
+            $(window).scrollTop($('#collape'+ vm.challenge.id).offset().top);
+        }
+
+        function loadNextPage() {
+            if (!pageResponse.last) pageParams.page++;
+            getComments(pageParams);
+        }
+        
+        function checkPaginationButtons(pageResponse) {
+            vm.showMoreButton = !pageResponse.last;
+            vm.showLessButton = !pageResponse.first;
+        }
+
+        function addNewCommentsToCollection(comments){
+            if (vm.commentsCollection.length <= 0){
+                vm.commentsCollection = comments;
+            }else{
+                vm.commentsCollection = vm.commentsCollection.concat(comments);
+            }
         }
 
         function formatDate(commentDate) {
             var date = new Date(commentDate);
-            console.log(date);
             return date.getFullYear() + "-" + formatDateNumber(date.getMonth()) + "-" + formatDateNumber(date.getDay())+ "-" + date.getHours() + ":" + date.getMinutes();
         }
 

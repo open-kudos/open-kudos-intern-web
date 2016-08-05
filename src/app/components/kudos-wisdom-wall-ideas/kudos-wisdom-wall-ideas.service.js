@@ -10,7 +10,8 @@
     function WisdomWallIdeasService(wisdomWallBackend) {
         var service = {
             getAllIdeas: GetAllIdeas,
-            getRandomIdea: GetRandomIdea
+            getRandomIdea: GetRandomIdea,
+            addNewIdea: AddNewIdea
         };
         return service;
 
@@ -20,6 +21,10 @@
 
         function GetRandomIdea() {
             return wisdomWallBackend.getRandomIdea();
+        }
+
+        function AddNewIdea(idea) {
+            return wisdomWallBackend.addIdea(idea);
         }
 
     }

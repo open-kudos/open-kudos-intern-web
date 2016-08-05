@@ -1,0 +1,134 @@
+<div class="container panel">
+    <nav class="panel-heading">
+        <ul class="nav nav-tabs nav-justified">
+            <li ng-class="history.isAcornSelected ? 'active' : ''">
+                <a ng-click="history.toggleNavPills('acorn')" href=""
+                   class="text-uppercase">Acorn</a>
+            </li>
+            <li ng-class="history.isChallengeSelected? 'active' : ''">
+                <a ng-click="history.toggleNavPills('challenge')" href=""
+                   class="text-uppercase">Challenges</a>
+            </li>
+        </ul>
+
+        <div ng-if="history.isAcornSelected" class="history-switch-box">
+            <div class="text-left">
+                <input value="wonLost"
+                       ng-click="history.setDefaultPageParams();
+                                 history.getKudosHistory(history.defaultPageParams);"
+                       type="radio"
+                       id="historyWonLost"
+                       name="userHistoryChallenges" checked/>
+                <label for="historyWonLost"><span></span>Sent and Received</label>
+
+                <input value="sent"
+                       ng-click="history.setDefaultPageParams();
+                                 history.getSentKudosHistory(history.defaultPageParams)"
+                       type="radio"
+                       id="historyWon"
+                       name="userHistoryChallenges" />
+                <label for="historyWon"><span></span>Sent</label>
+
+                <input value="received"
+                       ng-click="history.setDefaultPageParams();
+                                 history.getReceivedKudosHistory(history.defaultPageParams)"
+                       type="radio"
+                       id="historyLost"
+                       name="userHistoryChallenges" />
+                <label for="historyLost"><span></span>Received</label>
+
+            </div>
+        </div>
+
+        <div ng-if="history.isChallengeSelected" class="history-switch-box">
+            <div class="text-left">
+                <input value="wonLost"
+                       ng-click="history.setDefaultPageParams();
+                                 history.getChallengesHistory(history.defaultPageParams)"
+                       type="radio"
+                       id="accomplishedFailed"
+                       name="userHistoryChallenges"/>
+                <label for="accomplishedFailed"><span></span>Accomplished and Failed</label>
+
+                <input value="sent"
+                       ng-click="history.setDefaultPageParams();
+                                 history.getAccomplishedChallenges(history.defaultPageParams)"
+                       type="radio"
+                       id="Acomplished"
+                       name="userHistoryChallenges" />
+                <label for="Acomplished"><span></span>Accomplished</label>
+
+                <input value="received"
+                       ng-click="history.setDefaultPageParams();
+                                 history.getFailedChallenges(history.defaultPageParams)"
+                       type="radio"
+                       id="failed"
+                       name="userHistoryChallenges" />
+                <label for="failed"><span></span>Failed</label>
+
+            </div>
+        </div>
+
+    </nav>
+
+    <div class="panel-body">
+        <div ng-if="history.isAcornSelected" class="text-center">
+            <div ng-repeat="item in history.givenKudosCollection">
+                <div class="box4">
+                    <p ng-if="item.type == 'GIVEN' || item.type == 'UNKNOWN'">
+                        <span class="bold breakword">{{item.senderFullName}}</span> {{history.changeHistoryString(item.type)}}
+                        <span class="bold">{{item.receiverFullName}}</span>
+                        <span class="badge acorn-bg">{{history.acornPlural(item.amount)}}</span>
+                    </p>
+                    <p ng-if="item.type == 'RECEIVED'">
+                        <span class="bold breakword">{{item.receiverFullName}}</span> {{history.changeHistoryString(item.type)}}
+                        <span class="bold">{{item.senderFullName}}</span>
+                        <span class="badge acorn-bg">{{history.acornPlural(item.amount)}}</span>
+                    </p>
+                    <p>{{item.message}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="history.isChallengeSelected" class="text-center">
+            <div ng-repeat="item in history.givenKudosCollection">
+                <div class="box4">
+                    <p>
+                        <span class="bold breakword">{{item.participantFullName}}</span> {{history.changeHistoryString(item.status)}}
+                        <span class="bold">{{item.creatorFullName}}</span> for
+                        <span class="badge acorn-bg">{{history.acornPlural(item.amount)}}</span> with title
+                        <span class="bold">{{item.name}}</span>
+                        <br>
+                        <span ng-if="item.description"> and description <span class="bold">{{item.description}}</span></span>
+                    </p>
+                    <kudos-challenge-comment ng-if="item.id != undefined" challenge="item"></kudos-challenge-comment>
+                </div>
+            </div>
+        </div>
+
+        <div class="showMore">
+            <button ng-show="history.showLessButton"
+                    ng-click="history.loadPreviousPage();"
+                    ng-disabled="history.loading"
+                    type="button"
+                    class="btn btn-default btn-sm pull-left top-margin">
+                Previous
+            </button>
+
+            <button ng-click="history.loadNextPage();"
+                    ng-show="history.showMoreButton"
+                    ng-disabled="history.loading"
+                    type="button"
+                    class="btn btn-default btn-sm pull-right top-margin">
+                Next
+            </button>
+        </div>
+
+        <div ng-if="givenKudosCollection.length === 0">
+            <div class="alert alert-info history.bg text-center">
+                <strong>Whoops!</strong> You have not gave any history. to anyone yet
+            </div>
+        </div>
+
+    </div>
+</div>

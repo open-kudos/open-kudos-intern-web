@@ -1,0 +1,144 @@
+@import "variables";
+
+
+.btn:focus{
+  outline: none;
+}
+
+.btn-action{
+  border-radius: 5px;
+  height: 100px;
+  padding-top: 20px;
+  background: $color-primary;
+  color: $color-white;
+  margin: -9px 0 20px;
+  box-shadow: 1px 1px 2px grey;
+  &:hover{
+    cursor: pointer;
+    background: $color-primary-light;
+  }
+
+  span{
+    padding-top: 5px;
+    padding-bottom: 10px;
+    font-size: 24px;
+  }
+
+}
+
+@media (max-width: 991px) {
+  .btn-action {
+    margin-top: 0;
+  }
+}
+
+.profile-actions{
+  a:nth-child(2) {
+    padding-left: 10px;
+  }
+}
+
+.btn-danger {
+  background: $color-warning;
+  border-color: $color-warning;
+  &:hover {
+    background: $color-warning-dark;
+    border-color: $color-warning-dark;
+  }
+  &:focus {
+    background: $color-warning-dark;
+    border-color: $color-warning-dark;
+  }
+}
+
+.btn-success {
+  background: $color-success;
+  border-color: $color-success;
+  &:hover {
+    background: $color-success-dark;
+    border-color: $color-success-dark;
+  }
+  &:focus {
+    background: $color-success-dark;
+    border-color: $color-success-dark;
+  }
+}
+
+.btn-give {
+  background: $color-primary-light;
+  border-color: $color-primary-light;
+  color: $color-white;
+  &:hover {
+    background: $color-primary;
+    border-color: $color-primary;
+    color: $color-white;
+  }
+  &:focus {
+    background: $color-primary;
+    border-color: $color-primary;
+    color: $color-white;
+  }
+}
+
+.btn-login {
+  background-color: $color-primary;
+  outline: none;
+  color: #fff;
+  font-size: 14px;
+  height: auto;
+  font-weight: normal;
+  padding: 14px 0;
+  text-transform: uppercase;
+  &:hover, &:focus{
+    color: #fff;
+    background-color: $color-primary-light;
+    outline: none;
+  }
+  &:disabled{
+    color: $color-white;
+    background-color: $color-btn-disabled;
+  }
+}
+
+.btn-more {
+  background: $color-clouds;
+}
+
+.profile-buttons {
+  background-color: $color-primary;
+  color: $color-white;
+  width: 90%;
+  height: auto;
+  font-weight: normal;
+  padding: 10px 0;
+  margin: 5px;
+  text-transform: uppercase;
+  &:hover{
+    color: $color-white;
+    background-color: $color-primary-light
+  }
+  &:focus{
+    outline: none;
+    color: #fff;
+  }
+}
+
+.sidebar-buttons {
+  background-color: #ffffff;
+  border: solid 1px #222222;
+  color: #727272;
+  width: 90%;
+  height: auto;
+  font-weight: normal;
+  padding: 10px 0;
+  margin: 5px;
+  text-transform: uppercase;
+  &:hover{
+    color: #fff;
+    background-color: $color-primary-light
+  }
+  &:focus{
+    color: #fff;
+    background-color: $color-primary-light
+  }
+}

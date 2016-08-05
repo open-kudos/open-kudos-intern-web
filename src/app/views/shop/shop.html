@@ -1,24 +1,22 @@
 <kudos-navbar></kudos-navbar>
 
 <div class="container">
-
-    <div class="well">
-        <h1>Shop coming soon</h1>
-    </div>
-    <!--<div class="shop-items panel">
+    <div class="shop-items panel">
         <div class="panel-body">
             <div ng-if="!showLoader" ng-repeat="item in shop.shopItemsCollection" class="col-sm-6 col-lg-4 grow animate">
-                <div class="thumbnail box-shadow-animation">
-                    <img src="{{item.imageURL}}" class="img-responsive" style="background-image: url('{{item.imageURL}}')">
+                <div class="thumbnail shop-item">
+                    <img src="{{item.pictureUrl}}" class="img-responsive" style="background-image: url('{{item.pictureUrl}}')">
                     <div class="caption">
-                        <h4 maxlength="26">{{item.title}}</h4>
+                        <h4 maxlength="26">{{item.name}}</h4>
                         <p>{{""}}</p>
-                        <h4>{{item.cost}}</h4>
-                        <p><a href="" class="btn btn-sm acorn-bg" role="button"><span class="glyphicon glyphicon-shopping-cart"></span>   Į krepšelį</a></p>
+                        <p><span class="badge acorn-bg">{{shop.acornPlural(item.price)}}</span></p>
+                        <p>{{item.description}}</p>
+                        <p>Left: {{item.amount}}</p>
+                        <p><a href="" class="btn btn-sm acorn-bg" role="button"><span class="glyphicon glyphicon-shopping-cart"></span> Buy</a></p>
                     </div>
                 </div>
             </div>
         </div>
-     </div>-->
+     </div>
 
     </div>

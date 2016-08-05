@@ -9,11 +9,11 @@
     ];
 
     function Leaderboard($http, SERVER) {
-        var user = {
+        var leader = {
             getTopReceivers: getTopReceivers,
-            getTopSenders: getTopSenders,
-        }
-        return user;
+            getTopSenders: getTopSenders
+        };
+        return leader;
 
         function getTopReceivers(requestData) {
             return $http({

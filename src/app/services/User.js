@@ -5,38 +5,38 @@ angular.module("myApp")
 
 User.$inject = [
     "$http",
+    '$q',
     "SERVER"
 ];
 
-function User($http, SERVER) {
+function User($http, $q, SERVER) {
+
+    var currentUser = null;
+
     var user = {
         getCurrentUserProfile: getCurrentUserProfile,
         updateUserProfile: updateUserProfile,
         getUserProfile: getUserProfile,
-
-        check: checkUser,
-        disable: disableUser,
-        update: updateUserInfo,
-        list: listUsers,
-        getTopReceivers: getTopReceivers,
-        getTopSenders: getTopSenders,
-        subscribe: subscribe,
-        unsubscribe: unsubscribe
+        getCurrentUser: getCurrentUser,
+        setCurrentUser: setCurrentUser
     }
     return user;
 
-    /**
-     * V2
-     */
-
     function getCurrentUserProfile() {
-        return $http({
-            method: 'GET',
-            withCredentials: true,
-            url: SERVER.ip + "/user/profile"
-        }).then(function successCallback(response) {
-            return response.data;
-        });
+        var deferred = $q.defer();
+        if (currentUser != null){
+            deferred.resolve();
+        } else {
+            $http({
+                method: 'GET',
+                withCredentials: true,
+                url: SERVER.ip + "/user/profile"
+            }).then(function successCallback(response) {
+                currentUser = response.data;
+                deferred.resolve();
+            });
+        }
+        return deferred.promise;
     }
 
     function updateUserProfile(requestData) {
@@ -45,7 +45,7 @@ function User($http, SERVER) {
             data: requestData,
             withCredentials: true,
             url: SERVER.ip + "/user/update"
-        }).then(function successCallback(response) {
+        }).then(function (response) {
             return response;
         });
     }
@@ -60,88 +60,12 @@ function User($http, SERVER) {
         });
     }
 
-    /**
-     * V2
-     */
-
-    function checkUser() {
-        return $http({
-            method: 'GET',
-            withCredentials: true,
-            url: SERVER.ip + "/"
-        }).then(function successCallback(response) {
-            return response.data.logged;
-        });
+    function getCurrentUser() {
+        return currentUser;
     }
 
-    function disableUser() {
-        return $http({
-            method: 'POST',
-            withCredentials: true,
-            url: SERVER.ip + "/user/disable"
-        }).then(function (response) {
-            return response.data;
-        })
-    }
-
-    function updateUserInfo(userInfo) {
-        return $http({
-            method: 'POST',
-            withCredentials: true,
-            url: SERVER.ip + "/user/update?" + userInfo
-        }).then(function (response) {
-            return response.data;
-        })
-    }
-
-    function listUsers() {
-        return $http({
-            method: 'GET',
-            withCredentials: true,
-            url: SERVER.ip + "/user/confirmedUsers"
-        }).then(function (response) {
-            return response.data;
-        })
-    }
-
-    function getTopReceivers(requestData) {
-        return $http({
-            method: 'GET',
-            withCredentials: true,
-            url: SERVER.ip + "/user/topreceivers?" + requestData
-        }).then(function (response) {
-            return response.data;
-        })
-    }
-
-    function getTopSenders(requestData) {
-        return $http({
-            method: 'GET',
-            withCredentials: true,
-            url: SERVER.ip + "/user/topsenders?" + requestData
-        }).then(function (response) {
-            return response.data;
-        })
-    }
-    
-    function unsubscribe() {
-        return $http({
-            method: 'POST',
-            withCredentials: true,
-            url: SERVER.ip + "/user/unsubscribe"
-        }).then(function (response) {
-            return response.data;
-        })
-    }
-    
-    function subscribe() {
-        return $http({
-            method: 'POST',
-            withCredentials: true,
-            url: SERVER.ip + "/user/subscribe"
-        }).then(function (response) {
-            return response.data;
-        })
+    function setCurrentUser(user) {
+        currentUser = user;
     }
 }
 })();

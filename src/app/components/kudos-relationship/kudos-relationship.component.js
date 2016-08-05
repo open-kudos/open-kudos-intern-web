@@ -7,41 +7,32 @@
             controllerAs: 'relation'
         });
 
-    RelationshipController.$inject = ['$httpParamSerializer', 'RelationService', 'GiveKudosService', 'Resources'];
+    RelationshipController.$inject = ['$httpParamSerializer', 'Relation'];
 
-    function RelationshipController($httpParamSerializer, RelationService, GiveKudosService, Resources) {
+    function RelationshipController($httpParamSerializer, Relation) {
         var vm = this;
 
+        vm.pageParams = {page: 0, size: 5};
         vm.followedCollection = [];
-        vm.followersCollection = [];
+        vm.folllowingCollection = [];
         vm.selectedEmail = "";
         vm.acornsAmount = 1;
         vm.showGiveBox = false;
 
-        vm.addFollower = addFollower;
+        vm.followByEmail = followByEmail;
+        vm.followById = followById;
         vm.removeFollowing = removeFollowing;
+
         vm.addFollowingToCollection = addFollowingToCollection;
         vm.removeFollowingFromCollection = removeFollowingFromCollection;
-        vm.transferDataToParam = transferDataToParam;
-        vm.selectRelationEmail = selectRelationEmail;
-        vm.onModalHideEvent = onModalHideEvent;
         vm.selectAutoText = selectAutoText;
         vm.onInputChange = onInputChange;
 
         vm.$onInit = onInit();
 
         function onInit() {
-            GiveKudosService.listUsers().then(function (val) {
-                vm.usersCollection = val;
-            });
-
-            RelationService.getFollowing().then(function () {
-                vm.followedCollection = RelationService.getFollowingCollection();
-            });
-
-            RelationService.getFollowers().then(function () {
-                vm.followersCollection = RelationService.getFollowers();
-            });
+            getFollowers(vm.pageParams);
+            getFollowing(vm.pageParams);
         }
 
         function selectAutoText(text) {
@@ -55,54 +46,53 @@
                 (vm.followerEmail.length > 1) ? vm.autocompleteHide = false : vm.autocompleteHide = true;
         }
 
-        function onModalHideEvent(whichBox) {
-            whichBox == true ? whichBox = false : whichBox = true;
-            console.log(whichBox);
-            $(document).on('hide.bs.modal','#sendKudosModalSmall', function () {
-                whichBox == true ? whichBox = false : whichBox = true;
-                console.log(whichBox);
-                console.log("hidding");
-            });
-        }
-
-        function addFollower(email) {
-            if (email)
-                if (email == Resources.getCurrentUser().email){
-                    toastr.error("You can't follow yourself");
-                    vm.followerEmail = '';
-                } else {
-                    RelationService.addFollower(transferDataToParam(email)).then(function (response) {
-                        addFollowingToCollection(response.data);
-                        vm.followerEmail = '';
-                        toastr.success("Started to follow " + response.data.userName, 'Following');
-                    })
+        function followByEmail(email) {
+            Relation.followByEmail({userEmail: email}).then(function (response) {
+                if (response.status == 200) {
+                    toastr.success("Started to follow " + email);
+                    getFollowing(vm.pageParams);
                 }
-        }
-
-        function removeFollowing(email, name, index) {
-            RelationService.removeFollowing(transferDataToParam(email)).then(function () {
-                removeFollowingFromCollection(index);
-                toastr.success("Unfollowed " + name);
+            }).catch(function (error) {
+                // TODO Catch errors and show right messages
+                toastr.error("Something went wrong")
             })
         }
-        
+
+        function followById(id) {
+            Relation.followById({userId: id}).then(function (response) {
+                if (response.status == 200) {
+                    toastr.success("Success");
+                }
+            })
+        }
+
+        function removeFollowing(id) {
+            Relation.unfollow(id).then(function (response) {
+                if (response.status == 200) {
+                    getFollowing(vm.pageParams);
+                    toastr.success("Unfollowed");
+                }
+            })
+        }
+
+        function getFollowers(pageParams) {
+            Relation.getFollowers(pageParams).then(function (response) {
+                vm.folllowingCollection = response.content;
+            })
+        }
+
+        function getFollowing(pageParams) {
+            Relation.getFollowing(pageParams).then(function (response) {
+                vm.followedCollection = response.content;
+            })
+        }
+
         function addFollowingToCollection(follower) {
             vm.followedCollection.push(follower);
         }
 
         function removeFollowingFromCollection(followerIndex) {
             vm.followedCollection.splice(followerIndex, 1);
-        }
-        
-        function transferDataToParam(email) {
-            return $httpParamSerializer({
-                email: email
-            });
-        }
-
-        function selectRelationEmail(email) {
-            vm.selectedEmail = email;
-            console.log(email);
         }
 
     }

@@ -28,8 +28,7 @@
         ProfileService.receivedKudos().then(function (val) {
             $scope.userReceivedKudos = val;
         });
-
-
+        
         ProfileService.listUsers().then(function (val) {
             $scope.usersCollection = val.userList;
         });

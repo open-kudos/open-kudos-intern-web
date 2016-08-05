@@ -1,4 +1,3 @@
-
 <h3><span class="glyphicon glyphicon-star acorn-color"></span> Leaderboard</h3>
 
 <div class="dropdown leaderboard-filter">
@@ -14,22 +13,30 @@
     </ul>
 </div>
 
-<ul class="nav nav-pills">
+<ul class="nav nav-tabs nav-justified">
     <li role="presentation" ng-class="leader.receivers ? 'active' : ''">
-        <a href="" ng-click="leader.receivers=true; leader.senders=false;">Top receivers</a></li>
+        <a href="" ng-click="leader.receivers=true; leader.senders=false;">Receivers</a></li>
     <li role="presentation" ng-class="leader.senders ? 'active' : ''">
-        <a href="" ng-click="leader.receivers=false; leader.senders=true;">Top senders</a></li>
+        <a href="" ng-click="leader.receivers=false; leader.senders=true;">Senders</a></li>
 </ul>
 
-<div ng-show="leader.receivers">
-    <div ng-hide="!leader.showLoader" class="loader"></div>
-    <ul class="list-group click-li">
-        <kudos-user-history ng-repeat="receiver in leader.topReceivers" name="receiver.fullName" amount="receiver.kudosAmount" id="receiver.userId"></kudos-user-history>
-    </ul>
-</div>
+<div class="top-margin">
+    <div ng-show="leader.receivers">
+        <div ng-hide="!leader.showLoader" class="loader"></div>
+        <ul class="list-group clickable-list">
+            <li ng-repeat="receiver in leader.topReceivers" class="list-group-item" ng-click="leader.changeLocationToHistory(receiver.userId)">
+                <span class="badge acorn-bg">{{leader.acornPlural(receiver.kudosAmount)}}</span>
+                <span class="bold">{{receiver.fullName}}</span>
+            </li>
+        </ul>
+    </div>
 
-<div ng-show="leader.senders">
-    <ul class="list-group click-li">
-        <kudos-user-history ng-repeat="sender in leader.topSenders" name="sender.fullName" amount="sender.kudosAmount" id="sender.userId"></kudos-user-history>
-    </ul>
+    <div ng-show="leader.senders">
+        <ul class="list-group clickable-list">
+            <li ng-repeat="receiver in leader.topSenders" class="list-group-item" ng-click="leader.changeLocationToHistory(receiver.userId)">
+                <span class="badge acorn-bg">{{leader.acornPlural(receiver.kudosAmount)}}</span>
+                <span class="bold">{{receiver.fullName}}</span>
+            </li>
+        </ul>
+    </div>
 </div>

@@ -1,4 +1,4 @@
-(function() {
+(function () {
     "use strict";
     angular.module("myApp")
         .factory("Relation", Relation);
@@ -9,62 +9,66 @@
     ];
 
     function Relation($http, SERVER) {
-        var relations = {
-            followers: followers,
-            followed: followed,
-            add: add,
-            remove: remove,
-            feed: feed
-        }
-        return relations;
+        var relation = {
+            followById: followById,
+            followByEmail: followByEmail,
+            unfollow: unfollow,
+            getFollowers: getFollowers,
+            getFollowing: getFollowing
+        };
+        return relation;
 
-        function followers() {
-            return $http({
-                method: 'GET',
-                url: SERVER.ip + "/relations/followers",
-                withCredentials: true
-            }).then(function (response) {
-                return response;
-            });
-        }
-        
-        function followed() {
-            return $http({
-                method: 'GET',
-                url: SERVER.ip + "/relations/followed",
-                withCredentials: true
-            }).then(function (response) {
-                return response;
-            });
-        }
-        
-        function add(requestData) {
+        function followById(requestData) {
             return $http({
                 method: 'POST',
-                url: SERVER.ip + "/relations/add?" + requestData,
+                data: requestData,
+                url: SERVER.ip + "/relation/follow",
                 withCredentials: true
             }).then(function (response) {
                 return response;
             });
         }
 
-        function remove(requestData) {
+        function followByEmail(requestParams) {
             return $http({
-                method: 'GET',
-                url: SERVER.ip + "/relations/remove?" + requestData,
+                method: 'POST',
+                params: requestParams,
+                url: SERVER.ip + "/relation/follow",
                 withCredentials: true
             }).then(function (response) {
                 return response;
             });
         }
 
-        function feed(requestData) {
+        function unfollow(userId) {
             return $http({
-                method: 'GET',
-                url: SERVER.ip + "/relations/feed?" + requestData,
+                method: 'POST',
+                url: SERVER.ip + "/relation/unfollow/" + userId,
                 withCredentials: true
             }).then(function (response) {
                 return response;
+            });
+        }
+
+        function getFollowers(pageParams) {
+            return $http({
+                method: 'GET',
+                params: pageParams,
+                url: SERVER.ip + "/relation/followers",
+                withCredentials: true
+            }).then(function (response) {
+                return response.data;
+            });
+        }
+
+        function getFollowing(pageParams) {
+            return $http({
+                method: 'GET',
+                params: pageParams,
+                url: SERVER.ip + "/relation/following",
+                withCredentials: true
+            }).then(function (response) {
+                return response.data;
             });
         }
 

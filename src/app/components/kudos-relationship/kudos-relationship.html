@@ -1,11 +1,9 @@
-<title>Relationship</title>
-
 <h3>Following</h3>
 
 <div class="input-group">
-    <input ng-model="relation.followerEmail"
+    <input ng-model="relation.followedEmail"
            ng-change="relation.onInputChange()"
-           id="followerEmail"
+           id="followedEmail"
            name="followerEmail"
            type="text"
            class="form-control"
@@ -13,44 +11,38 @@
         <span class="input-group-btn">
           <button class="btn btn-success"
                   type="button"
-                  ng-click="relation.addFollower(relation.followerEmail)">Add
+                  ng-click="relation.followByEmail(relation.followedEmail)">Add
           </button>
         </span>
 </div>
 
-<div class="autocomplete" ng-show="relation.autocompleteHide == false">
+<!--<div class="autocomplete" ng-show="relation.autocompleteHide == false">
     <div ng-repeat="autoText in relation.usersCollection | filter:relation.followerEmail"
          ng-click="relation.selectAutoText(autoText.email)">
         <p>{{autoText.firstName}} {{autoText.lastName}}</p>
         <p class="small">{{autoText.email}}</p>
     </div>
-</div>
+</div>-->
 
-<div class="row">
-    <div ng-repeat="item in relation.followedCollection | orderBy:'followerName'"
-         class="col-md-12">
-            <div class="relation">
-                    <h4 class="media-heading">{{ item.userName }}</h4>
-                    <p class="small">{{ item.userEmail }}</p>
+<div ng-repeat="item in relation.followedCollection" class="box4">
+        <div>
+            <h4>{{ item.userFullName }}</h4>
+            <p class="small">{{ item.userEmail }}</p>
 
-                    <kudos-give-kudos email="item.userEmail" index="item.id" template="'button'"></kudos-give-kudos>
+            <kudos-give-kudos email="item.userEmail" index="item.userId" template="'button'"></kudos-give-kudos>
 
-                    <kudos-give-challenge-small email="item.userEmail" index="item.id"></kudos-give-challenge-small>
-
-                    <div class="btn-group pull-right" >
-                        <button type="button"
-                                class="btn btn-sm btn-default dropdown-toggle"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">
-                            <span class="glyphicon glyphicon-option-vertical"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href=""
-                                   ng-click="relation.removeFollowing(item.userEmail, item.userName, $index)"><span class="glyphicon glyphicon-remove"></span> Unfollow</a>
-                            </li>
-                        </ul>
-                    </div>
+            <div class="btn-group pull-right" >
+                <button type="button"
+                        class="btn btn-sm btn-default dropdown-toggle"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                    <span class="glyphicon glyphicon-option-vertical"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="" ng-click="relation.removeFollowing(item.userId)"><span class="glyphicon glyphicon-remove"></span> Unfollow</a>
+                    </li>
+                </ul>
             </div>
-    </div>
+        </div>
 </div>

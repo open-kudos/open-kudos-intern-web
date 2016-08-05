@@ -6,9 +6,9 @@
             controllerAs: 'nav'
         });
 
-    KudosNavbarController.$inject = ['$scope', '$location', '$window', '$cookies', 'Resources', 'User', 'Auth'];
+    KudosNavbarController.$inject = ['$scope', '$location', '$window', '$cookies', 'User', 'Auth'];
 
-    function KudosNavbarController($scope, $location, $window, $cookies, Resources, User, Auth) {
+    function KudosNavbarController($scope, $location, $window, $cookies, UserService, Auth) {
         var vm = this;
 
         vm.selectedHome = false;
@@ -33,13 +33,12 @@
                 vm.selectedShop = true;
             }
 
-            if (vm.user == undefined){
-                User.getCurrentUserProfile().then(function (user) {
-                    Resources.setCurrentUser(user);
-                    vm.user = Resources.getCurrentUser();
-                });
+            if(UserService.getCurrentUser() != null){
+                vm.user = UserService.getCurrentUser();
             } else {
-                vm.user = Resources.getCurrentUser();
+                UserService.getCurrentUserProfile().then(function (profileResponse){
+                    vm.user = profileResponse;
+                });
             }
         }
 
@@ -53,9 +52,8 @@
 
         function logout() {
             clearCookies();
-            Resources.setCurrentUser(null);
-            Resources.setCurrentUserEmail(null);
-            Auth.logout().catch(function () {
+            UserService.setCurrentUser(null);
+            Auth.logout().then(function () {
                 $window.location.href = "#/login";
             });
         }

@@ -1,12 +1,11 @@
 (function () {
-
-    SettingsController.$inject = ['Resources', '$timeout', 'User'];
-    
     angular
         .module('myApp.settings', [])
         .controller('SettingsController', SettingsController);
+
+    SettingsController.$inject = ['User', '$timeout', 'User'];
     
-    function SettingsController(Resources, $timeout, User) {
+    function SettingsController(User, $timeout, User) {
         var vm = this;
 
         vm.subscribed = false;
@@ -20,7 +19,7 @@
 
             // Give small amount of time for Resources to load
             $timeout(function() {
-                vm.subscribed = Resources.getCurrentUser();
+                vm.subscribed = User.getCurrentUser();
 
                 if (typeof vm.subscribed == "undefined") {
                     User.home().then(function (val) {
