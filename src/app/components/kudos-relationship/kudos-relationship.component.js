@@ -7,9 +7,9 @@
             controllerAs: 'relation'
         });
 
-    RelationshipController.$inject = ['Relation'];
+    RelationshipController.$inject = ['$httpParamSerializer', 'Relation'];
 
-    function RelationshipController(Relation) {
+    function RelationshipController($httpParamSerializer, Relation) {
         var vm = this;
 
         vm.pageParams = {page: 0, size: 5};
@@ -45,11 +45,13 @@
             if (vm.followerEmail != undefined)
                 (vm.followerEmail.length > 1) ? vm.autocompleteHide = false : vm.autocompleteHide = true;
         }
-        
+
         function followByEmail(email) {
             Relation.followByEmail({userEmail: email}).then(function (response) {
-                if (response.status == 200)
+                if (response.status == 200) {
                     toastr.success("Started to follow " + email);
+                    getFollowing(vm.pageParams);
+                }
             }).catch(function (error) {
                 // TODO Catch errors and show right messages
                 toastr.error("Something went wrong")
@@ -58,15 +60,16 @@
 
         function followById(id) {
             Relation.followById({userId: id}).then(function (response) {
-                if (response.status == 200){
+                if (response.status == 200) {
                     toastr.success("Success");
                 }
             })
         }
 
         function removeFollowing(id) {
-            Relation.unfollow({userId: id}).then(function (response) {
-                if (response.status == 200){
+            Relation.unfollow(id).then(function (response) {
+                if (response.status == 200) {
+                    getFollowing(vm.pageParams);
                     toastr.success("Unfollowed");
                 }
             })
@@ -83,7 +86,7 @@
                 vm.followedCollection = response.content;
             })
         }
-        
+
         function addFollowingToCollection(follower) {
             vm.followedCollection.push(follower);
         }
@@ -91,6 +94,6 @@
         function removeFollowingFromCollection(followerIndex) {
             vm.followedCollection.splice(followerIndex, 1);
         }
-        
+
     }
 })();

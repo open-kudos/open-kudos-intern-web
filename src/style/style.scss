@@ -1,31 +1,4 @@
-$color-grey-borders:        #c0c0c0;
-$color-grey-borders-light:  #ddd;
-$color-grey:                #777;
-$color-grey-dark:           #222;
-$color-white:               #ffffff;
-$color-clouds:              #ECF0F1;
-$color-emerald:             #1abc9c;
-$color-emerald-dark:        #16a085;
-$color-pomegranate:         #e74c3c;
-$color-pomegranate-dark:    #c0392b;
-$color-swed-orange:         #FF6100;
-$color-orange:              #f1c40f;
-$color-orange-dark:         #f39c12;
-$color-orange-light:        #FF7740;
-
-$color-nav-bg:              #fff;
-
-$bg-image:                  url(../treebg.png);
-
-$padding-small:             10px;
-$padding-medium:            15px;
-
-$margin-small:              10px;
-$margin-medium:             15px;
-
-$border-radius-small:       4px;
-
-$transition-duration-short: 0.2s;
+@import "variables";
 
 body {
   padding-top: 75px;
@@ -37,18 +10,10 @@ body {
 }
 
 a{
-  color: $color-swed-orange;
+  color: $color-primary;
   &:hover{
-    color: $color-orange-light;
+    color: $color-primary-lighter;
   }
-}
-
-.panel, .alert {
-  box-shadow: 1px 1px 2px grey;
-}
-
-.alert {
-  background: white;
 }
 
 .leftAlignment {
@@ -222,9 +187,7 @@ a{
   text-align-all: center;
 }
 
-.btn-more {
-  background: $color-clouds;
-}
+
 
 .loader {
   position: absolute;
@@ -234,7 +197,7 @@ a{
   right: 0;
   z-index: 1001;
   border: 8px solid $color-grey-borders-light;
-  border-top: 8px solid $color-swed-orange;
+  border-top: 8px solid $color-primary;
   border-radius: 50%;
   width: 60px;
   height: 60px;
@@ -327,7 +290,7 @@ input[type="radio"] + label span {
 }
 
 input[type="radio"]:checked + label span{
-  background-color:$color-orange-dark;
+  background-color:$color-primary-light;
 }
 
 input[type="radio"] + label span,
@@ -397,7 +360,7 @@ input[type="radio"]:checked + label span {
 }
 
 input:checked + .slider {
-  background-color: $color-swed-orange;
+  background-color: $color-primary;
 }
 
 input:checked + .slider:before {
@@ -415,14 +378,12 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-
-
 .invalid {
-  border: 1px solid $color-pomegranate;
+  border: 1px solid $color-warning;
 }
 
 .invalid:focus {
-  border: 1px solid $color-pomegranate;
+  border: 1px solid $color-warning;
 }
 
 .notValid {
@@ -475,78 +436,6 @@ input:checked + .slider:before {
 
 .hidden {
   visibility: hidden;
-}
-
-.panel-login {
-  border-color: #ccc;
-  -webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
-  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0.5, 0.5);
-}
-
-.panel-login > .panel-heading {
-  color: #00415d;
-  background-color: #fff;
-  border-color: #fff;
-  text-align: center;
-}
-
-.panel-login > .panel-heading a {
-  text-decoration: none;
-  color: #666;
-  font-weight: bold;
-  font-size: 15px;
-  -webkit-transition: all 0.1s linear;
-  -moz-transition: all 0.1s linear;
-  transition: all 0.1s linear;
-}
-
-.panel-login > .panel-heading a.active {
-  color: #FF6100;
-  font-size: 18px;
-}
-
-.panel-login > .panel-heading hr {
-  margin-top: 10px;
-  margin-bottom: 0px;
-  clear: both;
-  border: 0;
-  height: 1px;
-  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
-  background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
-  background-image: -ms-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
-  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
-}
-
-.panel-login input:hover,
-.panel-login input:focus {
-  outline: none;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  border-color: #ccc;
-}
-
-.btn-login {
-  background-color: #FF6500;
-  outline: none;
-  color: #fff;
-  font-size: 14px;
-  height: auto;
-  font-weight: normal;
-  padding: 14px 0;
-  text-transform: uppercase;
-}
-
-.btn-login:hover,
-.btn-login:focus {
-  color: #fff;
-  background-color: #FF9A09;
-}
-
-.btn-login:disabled {
-  color: #fff;
-  background-color: #f39c12;
 }
 
 .forgot-password {
@@ -768,88 +657,31 @@ input:checked + .slider:before {
   display: block;
 }
 
-.btn-send-kudos {
-  background-color: #FF6100;
-  color: #fff;
-  font-size: 14px;
-  height: auto;
-  font-weight: normal;
-  padding: 14px 0;
-  text-transform: uppercase;
-}
-
-.btn:focus{
-  outline: none;
-}
-
-
-
-.hvr-underline-from-center {
-  display: inline-block;
-  vertical-align: middle;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -moz-osx-font-smoothing: grayscale;
-  position: relative;
-  overflow: hidden;
-}
-
-.hvr-underline-from-center:before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  left: 50%;
-  right: 50%;
-  bottom: 0;
-  background: #FF6100;
-  height: 4px;
-  -webkit-transition-property: left, right;
-  transition-property: left, right;
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-timing-function: ease-out;
-  transition-timing-function: ease-out;
-}
-
-.hvr-underline-from-center:hover:before, .hvr-underline-from-center:focus:before, .hvr-underline-from-center:active:before {
-  left: 0;
-  right: 0;
-}
-
-
-
 .success-message {
-  color: #27ae60;
+  color: $color-success;
 }
 
 .error-message {
-  color: #c0392b;
+  color: $color-warning;
 }
 
 .underline {
   text-decoration: underline;
 }
 
-.bold {
-  font-weight: 700;
-}
-
 .acorn-color {
-  color: #FF6100;
+  color: $color-primary;
 }
 
 .acorn-bg {
-  color: #ffffff;
-  background: #ff822a;
+  color: $color-white;
+  background: $color-primary;
   border-color: transparent;
 }
 
 .acorn-bg-darker {
-  color: #ffffff;
-  background: #FF6100;
+  color: $color-white;
+  background: $color-primary;
   border-color: transparent;
   &:focus{
     color: white;
@@ -864,7 +696,7 @@ input:checked + .slider:before {
 
 .acorn-bg-lost {
   color: #ffffff;
-  background: $color-pomegranate;
+  background: $color-warning;
   border-color: transparent;
 }
 
@@ -899,51 +731,6 @@ div.box4 {
   border-width: 1px;
   background: #FAFAFA;
   border-color: #E1E1E1;
-}
-
-/* ng-animations */
-.animate-repeat {
-  list-style:none;
-  box-sizing:border-box;
-}
-
-.animate-repeat.ng-move,
-.animate-repeat.ng-enter,
-.animate-repeat.ng-leave {
-  transition: ease 0.5s;
-}
-
-.animate-repeat.ng-leave.ng-leave-active,
-.animate-repeat.ng-move,
-.animate-repeat.ng-enter {
-  opacity: 0;
-  max-height: 0;
-}
-
-.animate-repeat.ng-leave,
-.animate-repeat.ng-move.ng-move-active,
-.animate-repeat.ng-enter.ng-enter-active {
-  opacity: 1;
-  overflow: hidden;
-  text-overflow: clip;
-  max-height: 120px;
-}
-
-.fade-modal.ng-hide {
-  opacity: 0;
-}
-
-.fade-modal.ng-hide-remove,
-.fade-modal.ng-hide-add {
-  display: block !important;
-}
-
-.fade-modal.ng-hide-remove {
-  transition: all linear 1000ms;
-}
-
-.fade-modal.ng-hide-add {
-  transition: all linear 500ms;
 }
 
 .kudos-dropdown {
@@ -1008,13 +795,13 @@ div.box4 {
   margin-top: 0;
 }
 
-.click-li li:hover {
-  cursor: pointer;
-  background-color: lightgrey;
+.clickable-list li {
+  background-color: whitesmoke;
 }
 
-.click-li li {
-  background-color: whitesmoke;
+.clickable-list li:hover {
+  cursor: pointer;
+  background-color: lightgrey;
 }
 
 .fade{

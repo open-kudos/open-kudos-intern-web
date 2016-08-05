@@ -53,7 +53,7 @@
         function logout() {
             clearCookies();
             UserService.setCurrentUser(null);
-            Auth.logout().catch(function () {
+            Auth.logout().then(function () {
                 $window.location.href = "#/login";
             });
         }

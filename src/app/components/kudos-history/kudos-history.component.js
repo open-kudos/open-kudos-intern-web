@@ -128,6 +128,8 @@
                     return 'accomplished challenge from';
                 case 'FAILED' :
                     return 'failed challenge from';
+                case 'UNKNOWN' :
+                    return 'received from';
             }
         }
 

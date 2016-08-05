@@ -18,7 +18,7 @@
         vm.convertDate = Utils.convertDate;
         vm.markChallengeAsCompleted = markChallengeAsCompleted;
         vm.markChallengeAsFailed = markChallengeAsFailed;
-        vm.loadPrevousPage = loadPreviousPage;
+        vm.loadPreviousPage = loadPreviousPage;
         vm.loadNextPage = loadNextPage;
 
         vm.$onInit = onInit();

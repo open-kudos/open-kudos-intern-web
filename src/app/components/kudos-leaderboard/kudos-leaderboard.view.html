@@ -23,7 +23,7 @@
 <div class="top-margin">
     <div ng-show="leader.receivers">
         <div ng-hide="!leader.showLoader" class="loader"></div>
-        <ul class="list-group click-li">
+        <ul class="list-group clickable-list">
             <li ng-repeat="receiver in leader.topReceivers" class="list-group-item" ng-click="leader.changeLocationToHistory(receiver.userId)">
                 <span class="badge acorn-bg">{{leader.acornPlural(receiver.kudosAmount)}}</span>
                 <span class="bold">{{receiver.fullName}}</span>
@@ -32,7 +32,7 @@
     </div>
 
     <div ng-show="leader.senders">
-        <ul class="list-group click-li">
+        <ul class="list-group clickable-list">
             <li ng-repeat="receiver in leader.topSenders" class="list-group-item" ng-click="leader.changeLocationToHistory(receiver.userId)">
                 <span class="badge acorn-bg">{{leader.acornPlural(receiver.kudosAmount)}}</span>
                 <span class="bold">{{receiver.fullName}}</span>

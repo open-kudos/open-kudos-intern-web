@@ -65,7 +65,7 @@ function User($http, $q, SERVER) {
     }
 
     function setCurrentUser(user) {
-        this.currentUser = user;
+        currentUser = user;
     }
 }
 })();

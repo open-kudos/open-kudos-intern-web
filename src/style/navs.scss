@@ -1,28 +1,4 @@
-$color-grey-borders:        #c0c0c0;
-$color-grey-borders-light:  #ddd;
-$color-grey:                #777;
-$color-grey-dark:           #222;
-$color-white:               #ffffff;
-$color-clouds:              #ECF0F1;
-$color-emerald:             #1abc9c;
-$color-emerald-dark:        #16a085;
-$color-pomegranate:         #e74c3c;
-$color-pomegranate-dark:    #c0392b;
-$color-swed-orange:         #FF6100;
-$color-orange:              #f1c40f;
-$color-orange-dark:         #FF7740;
-
-$color-nav-bg:              #fff;
-
-$padding-small:             10px;
-$padding-medium:            15px;
-
-$margin-small:              10px;
-$margin-medium:             15px;
-
-$border-radius-small:       4px;
-
-$transition-duration-short: 0.2s;
+@import "variables";
 
 .navbar-toggle {
   margin-top: 15px;
@@ -32,7 +8,7 @@ $transition-duration-short: 0.2s;
 .navbar .nav{
   li {
     position: relative;
-    color: $color-orange-dark;
+    color: $color-primary-lighter;
 
     a {
       -o-transition:color .2s ease-out, background .2s ease-in;
@@ -41,26 +17,22 @@ $transition-duration-short: 0.2s;
       -webkit-transition:color .2s ease-out, background .2s ease-in;
       transition:color .2s ease-out, background .2s ease-in;
       &:hover {
-        color: $color-orange-dark;
+        color: $color-primary-lighter;
       }
     }
   }
+
   .active a{
-    color: $color-swed-orange;
+    color: $color-primary;
     text-decoration: none;
     background-color: #fff;
     font-size: 16px;
     &:hover{
       background-color: #fff;
-      color: $color-orange-dark;
+      color: $color-primary-lighter;
     }
   }
-}
 
-.dropdown-menu li a {
-  line-height: 45px;
-  height: 45px;
-  padding-top: 0;
 }
 
 .kudos-navbar {
@@ -97,9 +69,9 @@ $transition-duration-short: 0.2s;
 
 .nav-tabs.nav-justified>.active>a{
   font-size: 16px;
-  color: $color-swed-orange;
+  color: $color-primary;
   &:hover, &:focus{
-    color: $color-swed-orange;
+    color: $color-primary;
   }
 }
 

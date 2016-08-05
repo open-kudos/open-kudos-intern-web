@@ -97,6 +97,7 @@
                 }
             });
 
+
         $translateProvider.useStaticFilesLoader({
             prefix: 'app/translations/locale-',
             suffix: '.json'

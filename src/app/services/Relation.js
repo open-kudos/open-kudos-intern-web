@@ -40,11 +40,10 @@
             });
         }
 
-        function unfollow(requestData) {
+        function unfollow(userId) {
             return $http({
                 method: 'POST',
-                params: requestData,
-                url: SERVER.ip + "/relation/unfollow/",
+                url: SERVER.ip + "/relation/unfollow/" + userId,
                 withCredentials: true
             }).then(function (response) {
                 return response;
