@@ -6,9 +6,9 @@
         ])
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', 'User'];
+    HomeController.$inject = ['$scope', 'User', 'Utils'];
 
-    function HomeController($scope, UserService) {
+    function HomeController($scope, UserService, Utils) {
         var vm = this;
 
         vm.showLoaderUserAvailableKudos = true;
@@ -32,6 +32,7 @@
         vm.amountErrorMessage = "";
 
         vm.isValid = isValid;
+        vm.isNotMobile = Utils.isNotMobile;
 
         activate();
         

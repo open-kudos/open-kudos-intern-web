@@ -54,7 +54,7 @@ function User($http, $q, SERVER) {
         return $http({
             method: 'GET',
             withCredentials: true,
-            url: SERVER.ip + "/user/profile?" + userId
+            url: SERVER.ip + "/user/profile/" + userId
         }).then(function successCallback(response) {
             return response.data;
         });

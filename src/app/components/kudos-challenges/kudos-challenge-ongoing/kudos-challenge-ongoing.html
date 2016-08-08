@@ -7,24 +7,24 @@
         <p class="card-text" ng-if="!challenge.actions.markAsCompletedAllowed">
             <span class="bold">{{challenge.name}}</span> received from
             <span class="bold">{{challenge.creatorFullName}}</span> for
-            <span class="badge acorn-bg">{{chOngoing.acornPlural(challenge.amount)}}</span>
+            <span class="badge acorn-bg">{{challenge.acornPlural(challenge.amount)}}</span>
         </p>
 
         <p class="card-text" ng-if="challenge.actions.markAsCompletedAllowed">
             <span class="bold">{{challenge.name}}</span> given to
             <span class="bold">{{challenge.participantFullName}}</span> for
-            <span class="badge acorn-bg">{{chOngoing.acornPlural(challenge.amount)}}</span>
+            <span class="badge acorn-bg">{{ongoingChallengesCtrl.acornPlural(challenge.amount)}}</span>
         </p>
 
         <p ng-if="challenge.description">Description: {{challenge.description}}</p>
         <p ng-if="challenge.finishDate">Finish date: {{chOngoing.convertDate(challenge.finishDate)}}</p>
 
-        <p ng-if="challenge.actions.markAsCompletedAllowed">
-            <button class="btn btn-success"
+        <div class="row" ng-if="challenge.actions.markAsCompletedAllowed">
+            <button class="btn btn-success margin-top"
                     ng-click="ongoingChallengesCtrl.markChallengeAsCompleted(challenge.id)">Mark as Completed</button>
-            <button class="btn btn-danger"
+            <button class="btn btn-danger margin-top"
                     ng-click="ongoingChallengesCtrl.markChallengeAsFailed(challenge.id)">Mark as Failed</button>
-        </p>
+        </div>
 
         <kudos-challenge-comment challenge="challenge"></kudos-challenge-comment>
 

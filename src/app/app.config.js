@@ -17,19 +17,10 @@
                 templateUrl: 'app/views/kudos-feed/kudos-feed.html',
                 controller: 'FeedController'
             })
-            .when('/profile', {
+            .when('/home', {
                 templateUrl: 'app/views/home/home.html',
                 controller: 'HomeController',
                 controllerAs: 'home',
-                resolve: {
-                    auth: ['Auth', function (Auth) {return Auth.check();}],
-                    user: ['User', function (User) {return User.getCurrentUserProfile();}]
-                }
-            })
-            .when('/acorns', {
-                templateUrl: 'app//views/acorns/acorns.html',
-                controller: 'AcornController',
-                controllerAs: 'acorn',
                 resolve: {
                     auth: ['Auth', function (Auth) {return Auth.check();}],
                     user: ['User', function (User) {return User.getCurrentUserProfile();}]
