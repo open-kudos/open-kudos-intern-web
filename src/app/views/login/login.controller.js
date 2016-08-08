@@ -42,7 +42,7 @@
             LoginService.login(loginData).then(function (response) {
                 if (responseValidation(response)) {
                     rememberUser();
-                    $location.path("/profile");
+                    $location.path("/home");
                 }
             });
         }
@@ -50,7 +50,7 @@
         function loginWithoutRemember(loginData) {
             LoginService.login(loginData).then(function (response) {
                 if (responseValidation(response)) {
-                    $location.path("/profile");
+                    $location.path("/home");
                 }
             });
         }

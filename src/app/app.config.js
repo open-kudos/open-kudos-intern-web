@@ -17,7 +17,7 @@
                 templateUrl: 'app/views/kudos-feed/kudos-feed.html',
                 controller: 'FeedController'
             })
-            .when('/profile', {
+            .when('/home', {
                 templateUrl: 'app/views/home/home.html',
                 controller: 'HomeController',
                 controllerAs: 'home',

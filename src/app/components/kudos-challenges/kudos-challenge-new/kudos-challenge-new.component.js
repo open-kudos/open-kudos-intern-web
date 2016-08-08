@@ -6,9 +6,9 @@
             controllerAs: 'chNew'
         });
 
-    KudosChallengeNewController.$inject = ['Challenges', 'Resources', 'Utils', 'ChallengesPanelService'];
+    KudosChallengeNewController.$inject = ['Challenges', 'Resources', 'Utils', 'ChallengesPanelService', 'User'];
 
-    function KudosChallengeNewController(Challenges, Resources, Utils, ChallengesPanelService){
+    function KudosChallengeNewController(Challenges, Resources, Utils, ChallengesPanelService, User){
         var vm = this;
         var pageResponse;
 
@@ -64,7 +64,7 @@
         }
 
         function acceptChallenge(id, kudos) {
-            var userAvailableKudos = Resources.getUserAvailableKudos();
+            var userAvailableKudos = User.getCurrentUser().weeklyKudos;
             vm.loading = true;
             if (userAvailableKudos >=  kudos) {
                 Challenges.acceptChallenge(id).then(function (val) {

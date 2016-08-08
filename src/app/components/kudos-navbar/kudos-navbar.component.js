@@ -23,9 +23,9 @@
         activate();
 
         function activate(){
-            if ( $location.path() == '/profile'){
+            if ( $location.path() == '/home'){
                 vm.selectedHome = true;
-            } else if ($location.path() == '/acorns'){
+            } else if ($location.path() == '/history/'+UserService.getCurrentUser().id){
                 vm.selectedAcorns = true;
             } else if ($location.path() == '/following'){
                 vm.selectedFollowing = true;

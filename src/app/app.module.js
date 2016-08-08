@@ -25,7 +25,6 @@
             'myApp.components.relationship.feed',
             'myApp.components.info',
             'myApp.components.feed',
-            'myApp.components.userHistory',
             'myApp.components.leaderboard',
             'myApp.components.following',
             'myApp.components.challenges-panel',
