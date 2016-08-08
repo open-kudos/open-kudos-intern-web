@@ -26,15 +26,6 @@
                     user: ['User', function (User) {return User.getCurrentUserProfile();}]
                 }
             })
-            .when('/acorns', {
-                templateUrl: 'app//views/acorns/acorns.html',
-                controller: 'AcornController',
-                controllerAs: 'acorn',
-                resolve: {
-                    auth: ['Auth', function (Auth) {return Auth.check();}],
-                    user: ['User', function (User) {return User.getCurrentUserProfile();}]
-                }
-            })
             .when('/notifications', {
                 templateUrl: 'app/views/notifications/notification.html',
                 controller: 'NotificationController',

@@ -6,7 +6,6 @@
             'myApp.login',
             'myApp.registration',
             'myApp.profile',
-            'myApp.acorn',
             'myApp.notification',
             'myApp.settings',
             'myApp.edit-user',

@@ -11,7 +11,7 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li class="uppercase" ng-class="nav.selectedHome ? 'selected active' : ''"><a href="#/profile">Home</a></li>
-                <li class="uppercase" ng-class="nav.selectedAcorns ? 'selected active' : ''"><a href="#/acorns">History</a></li>
+                <li class="uppercase" ng-class="nav.selectedAcorns ? 'selected active' : ''"><a href="#/history/{{nav.user.id}}">History</a></li>
                 <li class="uppercase" ng-class="nav.selectedFollowing ? 'selected active' : ''"><a href="#/following">Following</a></li>
                 <li class="uppercase" ng-class="nav.selectedShop ? 'selected active' : ''"><a href="#/shop" class="no-hover">Shop</a></li>
             </ul>
