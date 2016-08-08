@@ -1,7 +1,4 @@
 (function () {
-
-    InfoController.$inject = ['$scope', 'Resources'];
-
     angular.module('myApp.components.info', [])
         .component('kudosInfo', {
             templateUrl: 'app/components/kudos-infobar/kudos-infobar.html',
@@ -9,12 +6,14 @@
             controllerAs: 'info'
         });
 
-    function InfoController($scope, Resources) {
+    InfoController.$inject = ['$scope', 'User'];
+
+    function InfoController($scope, User) {
         var vm = this,
             checkUser;
         
         function checkUserCompleted(){
-            var user = Resources.getCurrentUser();
+            var user = User.getCurrentUser();
             if (user && !checkUser){
                 checkUser = true;
                 vm.isCompleted = user.completed;

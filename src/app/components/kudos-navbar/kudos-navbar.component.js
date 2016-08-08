@@ -1,7 +1,4 @@
 (function () {
-
-    KudosNavbarController.$inject = ['$scope', '$location', '$window', '$cookies', 'Resources', 'ProfileService'];
-
     angular.module('myApp.components.navbar', [])
         .component('kudosNavbar', {
             templateUrl: 'app/components/kudos-navbar/kudos-navbar.html',
@@ -9,7 +6,9 @@
             controllerAs: 'nav'
         });
 
-    function KudosNavbarController($scope, $location, $window, $cookies, Resources, ProfileService) {
+    KudosNavbarController.$inject = ['$scope', '$location', '$window', '$cookies', 'User', 'Auth'];
+
+    function KudosNavbarController($scope, $location, $window, $cookies, UserService, Auth) {
         var vm = this;
 
         vm.selectedHome = false;
@@ -24,9 +23,9 @@
         activate();
 
         function activate(){
-            if ( $location.path() == '/profile'){
+            if ( $location.path() == '/home'){
                 vm.selectedHome = true;
-            } else if ($location.path() == '/acorns'){
+            } else if ($location.path() == '/history/'+UserService.getCurrentUser().id){
                 vm.selectedAcorns = true;
             } else if ($location.path() == '/following'){
                 vm.selectedFollowing = true;
@@ -34,13 +33,12 @@
                 vm.selectedShop = true;
             }
 
-            if (vm.user == undefined){
-                ProfileService.userHome().then(function (user) {
-                    Resources.setCurrentUser(user);
-                    vm.user = Resources.getCurrentUser();
-                });
+            if(UserService.getCurrentUser() != null){
+                vm.user = UserService.getCurrentUser();
             } else {
-                vm.user = Resources.getCurrentUser();
+                UserService.getCurrentUserProfile().then(function (profileResponse){
+                    vm.user = profileResponse;
+                });
             }
         }
 
@@ -54,9 +52,8 @@
 
         function logout() {
             clearCookies();
-            Resources.setCurrentUser(null);
-            Resources.setCurrentUserEmail(null);
-            ProfileService.logout().catch(function () {
+            UserService.setCurrentUser(null);
+            Auth.logout().then(function () {
                 $window.location.href = "#/login";
             });
         }

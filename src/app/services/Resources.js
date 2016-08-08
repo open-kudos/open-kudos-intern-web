@@ -18,7 +18,6 @@
             var ongoingChallenges = [];
             var newChallenges = [];
 
-
             var lastTransactionTimestamp;
             var currentUserEmail;
 

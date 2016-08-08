@@ -13,7 +13,7 @@ var del = require('del');
 var packageOptions = require('./package.json');
 
 gulp.task('serve', ['browserSync', 'sass', 'minify-files'], function () {
-    gulp.watch('src/app/**/*.scss', ['sass']);
+    gulp.watch('src/style/**/*.scss', ['sass']);
     gulp.watch('src/app/**/*.js', ['minify-files']);
     gulp.watch('src/app/**/*.html').on('change', browserSync.reload);
     gulp.watch('src/app/**/*.js').on('change', browserSync.reload);
@@ -28,7 +28,7 @@ gulp.task('browserSync', function () {
 });
 
 gulp.task('sass', function () {
-    var scssStream = gulp.src('src/app/**/*.scss')
+    var scssStream = gulp.src('src/style/**/*.scss')
         .pipe(sass())
         .pipe(concat('scss-files.scss'));
 
@@ -125,7 +125,7 @@ function minifyAndSave(src, finalFolder, finalDist) {
             unused: true,
             if_return: true,
             join_vars: true,
-            drop_console: true
+            drop_console: false
         }
     });
 

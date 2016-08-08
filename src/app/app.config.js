@@ -6,54 +6,88 @@
                 redirectTo: '/login'
             })
             .when('/login', {
-                templateUrl: 'app/login/login.html',
+                templateUrl: 'app/views/login/login.html',
                 controller: 'LoginController'
             })
-            .when('/profile', {
-                templateUrl: 'app/profile/profile-new.html',
-                controller: 'ProfileController',
-                controllerAs: 'profile'
-            })
             .when('/registration', {
-                templateUrl: 'app/registration/registration.html',
+                templateUrl: 'app/views/registration/registration.html',
                 controller: 'registrationController'
             })
             .when('/feed', {
-                templateUrl: 'app/kudos-feed/kudos-feed.html',
+                templateUrl: 'app/views/kudos-feed/kudos-feed.html',
                 controller: 'FeedController'
             })
-            .when('/acorns', {
-                templateUrl: 'app/acorns/acorns.html',
-                controller: 'AcornController'
-            })
-            .when('/leaderboard', {
-                templateUrl: 'app/leaderboard/leaderboard.html',
-                controller: 'LeaderboardController'
+            .when('/home', {
+                templateUrl: 'app/views/home/home.html',
+                controller: 'HomeController',
+                controllerAs: 'home',
+                resolve: {
+                    auth: ['Auth', function (Auth) {return Auth.check();}],
+                    user: ['User', function (User) {return User.getCurrentUserProfile();}]
+                }
             })
             .when('/notifications', {
-                templateUrl: 'app/notifications/notification.html',
-                controller: 'NotificationController'
+                templateUrl: 'app/views/notifications/notification.html',
+                controller: 'NotificationController',
+                resolve: {
+                    auth: ['Auth', function (Auth) {return Auth.check();}],
+                    user: ['User', function (User) {return User.getCurrentUserProfile();}]
+                }
             })
             .when('/me', {
                 templateUrl: 'app/components/kudos-me/me.html',
                 controller: 'MeController',
-                controllerAs: 'me'
+                resolve: {
+                    auth: ['Auth', function (Auth) {return Auth.check();}],
+                    user: ['User', function (User) {return User.getCurrentUserProfile();}]
+                }
             })
             .when('/following', {
-                templateUrl: 'app/components/kudos-following/kudos-following.html',
+                templateUrl: 'app/views/following/following.html',
                 controller: 'FollowingController',
-                controllerAs: 'follow'
+                controllerAs: 'follow',
+                resolve: {
+                    auth: ['Auth', function (Auth) {return Auth.check();}],
+                    user: ['User', function (User) {return User.getCurrentUserProfile();}]
+                }
+            })
+            .when('/history/:userId', {
+                templateUrl: 'app/views/history/history.html',
+                controller: 'HistoryViewController',
+                controllerAs: 'history',
+                resolve: {
+                    auth: ['Auth', function (Auth) {return Auth.check();}],
+                    user: ['User', function (User) {return User.getCurrentUserProfile();}]
+                }
             })
             .when('/shop', {
-                templateUrl: 'app/shop/shop.html',
+                templateUrl: 'app/views/shop/shop.html',
                 controller: 'ShopController',
-                controllerAs: 'shop'
+                controllerAs: 'shop',
+                resolve: {
+                    auth: ['Auth', function (Auth) {return Auth.check();}],
+                    user: ['User', function (User) {return User.getCurrentUserProfile();}]
+                }
             })
             .when('/settings', {
-                templateUrl: 'app/settings/settings.view.html',
+                templateUrl: 'app/views/settings/settings.view.html',
                 controller: 'SettingsController',
-                controllerAs: 'setting'
-        });
+                controllerAs: 'setting',
+                resolve: {
+                    auth: ['Auth', function (Auth) {return Auth.check();}],
+                    user: ['User', function (User) {return User.getCurrentUserProfile();}]
+                }
+            })
+            .when('/edit', {
+                templateUrl: 'app/views/edit-user/edit-user.html',
+                controller: 'EditController',
+                controllerAs: 'editCtrl',
+                resolve: {
+                    auth: ['Auth', function (Auth) {return Auth.check();}],
+                    user: ['User', function (User) {return User.getCurrentUserProfile();}]
+                }
+            });
+
 
         $translateProvider.useStaticFilesLoader({
             prefix: 'app/translations/locale-',

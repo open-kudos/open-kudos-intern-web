@@ -1,0 +1,23 @@
+<div class="panel panel-body">
+    <ul class="nav nav-tabs nav-justified">
+        <h3>Challenges</h3>
+        <li role="presentation" ng-class="panel.newChallengeTab ? 'active' : ''">
+            <a href=""
+               ng-click="panel.ongoingChallengeTab = false;panel.newChallengeTab=true;panel.completedChallengeTab=false">New <span ng-if="panel.newChallengesAmount > 0">({{panel.newChallengesAmount}})</span></a></li>
+        <li role="presentation" ng-class="panel.ongoingChallengeTab ? 'active' : ''">
+            <a href=""
+               ng-click="panel.ongoingChallengeTab = true;panel.newChallengeTab=false;panel.completedChallengeTab=false">Ongoing <span ng-if="panel.ongoingChallengesAmount > 0">({{panel.ongoingChallengesAmount}})</span></a></li>
+        <li role="presentation" ng-class="panel.completedChallengeTab ? 'active' : ''">
+            <a href=""
+               ng-click="panel.ongoingChallengeTab = false;panel.newChallengeTab=false;panel.completedChallengeTab=true">Completed <span ng-if="panel.completedChallengesAmount > 0">({{panel.completedChallengesAmount}})</span></a></li>
+    </ul>
+    <div class="" ng-show="panel.ongoingChallengeTab">
+        <kudos-challenge-ongoing></kudos-challenge-ongoing>
+    </div>
+    <div class="" ng-show="panel.newChallengeTab">
+        <kudos-challenge-new></kudos-challenge-new>
+    </div>
+    <div class="" ng-show="panel.completedChallengeTab">
+        <kudos-challenge-completed></kudos-challenge-completed>
+    </div>
+</div>

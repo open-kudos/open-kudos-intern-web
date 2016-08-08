@@ -1,0 +1,87 @@
+@import "variables";
+
+.navbar-toggle {
+  margin-top: 15px;
+  border-radius: 2px;
+}
+
+.navbar .nav{
+  li {
+    position: relative;
+    color: $color-primary-lighter;
+
+    a {
+      -o-transition:color .2s ease-out, background .2s ease-in;
+      -ms-transition:color .2s ease-out, background .2s ease-in;
+      -moz-transition:color .2s ease-out, background .2s ease-in;
+      -webkit-transition:color .2s ease-out, background .2s ease-in;
+      transition:color .2s ease-out, background .2s ease-in;
+      &:hover {
+        color: $color-primary-lighter;
+      }
+    }
+  }
+
+  .active a{
+    color: $color-primary;
+    text-decoration: none;
+    background-color: #fff;
+    font-size: 16px;
+    &:hover{
+      background-color: #fff;
+      color: $color-primary-lighter;
+    }
+  }
+
+}
+
+.kudos-navbar {
+  background-color: $color-nav-bg;
+
+  .navbar-brand, .navbar-nav li a {
+    line-height: 65px;
+    height: 65px;
+    padding-top: 0;
+  }
+
+  .uppercase {
+    text-transform: uppercase;
+  }
+}
+
+.nav-pills, .nav-tabs{
+  .active{
+
+    &:hover{
+
+    }
+  }
+
+  li{
+    &:hover, &:active{
+      background: $color-clouds;
+      color: $color-grey-dark;
+      border-top-right-radius: $border-radius-small;
+      border-top-left-radius: $border-radius-small;
+    }
+  }
+}
+
+.nav-tabs.nav-justified>.active>a{
+  font-size: 16px;
+  color: $color-primary;
+  &:hover, &:focus{
+    color: $color-primary;
+  }
+}
+
+@media (max-width: 768px) {
+
+}
+
+.nav-pills>li>a {
+  background: transparent;
+  color: $color-grey;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}

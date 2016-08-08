@@ -1,9 +1,12 @@
-<button ng-click="vm.clearSendKudosFormValues()"
-        name="giveKudosButton" id="giveKudosButton"
-        data-toggle="modal" data-target="#sendKudosModal"
-        class="btn profile-buttons hvr-underline-from-center">
-    {{ 'ProfileMeGiveACorn' | translate }}
-</button>
+<div class="btn-action text-center"
+     ng-click="vm.clearSendKudosFormValues()"
+     name="giveKudosButton"
+     id="giveKudosButton"
+     data-toggle="modal"
+     data-target="#sendKudosModal">
+    <span class="glyphicon glyphicon-gift"></span>
+    <p>GIVE ACORN</p>
+</div>
 
 <div id="sendKudosModal" class="modal fade" role="dialog">
     <div class="modal-dialog text-left">

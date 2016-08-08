@@ -7,13 +7,13 @@
             controller: ("GiveChallengeController", GiveChallengeController)
         });
 
-    GiveChallengeController.$inject = ['$httpParamSerializer', 'Resources', 'GiveChallengeService', '$filter', 'Utils'];
+    GiveChallengeController.$inject = ['Resources', 'User', '$filter', 'Utils', 'Challenges'];
 
-    function GiveChallengeController($httpParamSerializer, Resources, GiveChallengeService, $filter, Utils){
+    function GiveChallengeController(Resources, UserService, $filter, Utils, ChallengeService){
         var vm = this;
-        var requestDateFormat = 'yyyy-MM-dd HH:mm:ss,sss';
+        var requestDateFormat = 'yyyy-MM-dd';
 
-        vm.userAvailableKudos = 0;
+        vm.userWeeklyKudos = 0;
         vm.autocompleteHide = true;
         vm.showError = false;
         vm.usersCollection = [];
@@ -29,38 +29,34 @@
         vm.$onInit = onInit();
 
         function onInit() {
-            if(Utils.isEmptyCollection(Resources.getUsersCollection())){
-                GiveChallengeService.listUsers().then(function (val) {
-                    Resources.setUsersCollection(val);
-                    vm.usersCollection = Resources.getUsersCollection();
-                });
-            } else {
-                vm.usersCollection = Resources.getUsersCollection();
-            }
+            vm.userWeeklyKudos = UserService.getCurrentUser().weeklyKudos;
+            console.log(vm.userAvailableKudos);
         }
 
         function giveChallenge() {
             var expirationDate = $filter('date')(vm.giveChallengeExpirationDate, requestDateFormat);
             var currentDate = $filter('date')(new Date(), requestDateFormat);
+            console.log(expirationDate);
             vm.userEmail = Resources.getCurrentUserEmail();
 
-            var giveTo = $httpParamSerializer({
-                participant: vm.giveChallengeTo,
+            var giveTo = {
+                receiverEmail: vm.giveChallengeTo,
                 name: vm.giveChallengeName,
                 description: vm.giveChallengeDescription,
-                finishDate: expirationDate,
+                expirationDate: expirationDate,
                 amount: vm.giveChallengeAmountOfKudos
-            });
+            };
 
             var challengeCall = challengeFormCheck(expirationDate, currentDate);
 
             if (challengeCall)
-                GiveChallengeService.createChallenge(giveTo).then(function (val) {
+                ChallengeService.giveChallenge(giveTo).then(function (val) {
+                    console.log(val);
                     clearChallengeFormValues();
                     $('#giveChallengeModal').modal('hide');
-                    toastr.success('You successfully challenged ' + val.data.participantName + " with " + Utils.acornPlural(val.data.amount) + '.');
-                    Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
-                    Resources.getNewChallenges().push(val.data);
+                    toastr.success('You successfully challenged ' + val.data.participantFullName + " with " + Utils.acornPlural(val.data.amount) + '.');
+                    UserService.getCurrentUser().weeklyKudos = UserService.getCurrentUser().weeklyKudos - val.data.amount;
+                    Resources.getNewChallenges().unshift(val.data);
                 }).catch(function () {
                     showChallengeFormErrorMessage("Challenge receiver does not exist");
                 })
