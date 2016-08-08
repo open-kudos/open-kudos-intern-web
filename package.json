@@ -1,7 +1,7 @@
 {
   "name": "open-kudos",
   "private": true,
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Open Kudos app",
   "repository": "https://github.com/open-kudos/open-kudos-api",
   "license": "MIT",
