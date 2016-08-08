@@ -100,7 +100,7 @@ gulp.task('update-index', function () {
 
 function buildServerFile(url) {
     var serverConstant = '(function() {"use strict";angular.module("myApp").constant("SERVER", {"ip": "' + url + '"})})();';
-    fs.writeFileSync('src/app/services/server.js', serverConstant);
+    fs.writeFileSync('src/app/services/Server.js', serverConstant);
 }
 
 function getPackageJson () {
