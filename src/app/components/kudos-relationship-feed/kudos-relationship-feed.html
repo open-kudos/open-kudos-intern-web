@@ -1,14 +1,13 @@
-<h3>Feed {{feedCtrl.currentUser.email}}</h3>
+<div class="box4" ng-repeat="item in feedCtrl.feedCollection">
 
-<div ng-repeat="feed in feedCtrl.FollowedUsersFeed.data">
-    <div class="">
+    <kudos-feed-challenge action="item" ng-if="item.type == 'CREATED_CHALLENGE'"></kudos-feed-challenge>
 
-    <p>
-        <a class="bold">{{feedCtrl.generateReceiverName(feed)}}</a> {{feedCtrl.generateReceivedWonLostText(feed)}}
-        <span class="badge acorn-bg">{{feedCtrl.acornPlural(feed.amount)}}</span> {{feedCtrl.generateFromAgainstText(feed)}}
-        <a class="bold">{{feedCtrl.generateSenderName(feed)}}</a>
-        <span class="small">{{feedCtrl.splitDate(feed.timestamp)}}</span>
-    </p>
+    <kudos-feed-comment action="item" ng-if="item.type == 'COMMENTED'"></kudos-feed-comment>
 
-    </div>
+    <kudos-feed-new-idea action="item" ng-if="item.type == 'ADDED_NEW_IDEA'"></kudos-feed-new-idea>
+
+    <kudos-feed-new-relation action="item" ng-if="item.type == 'STARTED_TO_FOLLOW'"></kudos-feed-new-relation>
+
+    <kudos-feed-transaction action="item" ng-if="item.type == 'KUDOS_GIVEN'"></kudos-feed-transaction>
+
 </div>

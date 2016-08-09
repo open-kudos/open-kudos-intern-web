@@ -92,8 +92,8 @@
                 <strong>Whoops!</strong> Empty history
             </div>
             <div ng-repeat="item in history.givenKudosCollection">
-                <div class="box4">
-                    <p ng-if="item.type == 'GIVEN' || item.type == 'UNKNOWN'">
+                <div class="box4" ng-if="item.type != 'UNKNOWN'">
+                    <p ng-if="item.type == 'GIVEN'">
                         <span class="bold breakword">{{item.senderFullName}}</span> {{history.changeHistoryString(item.type)}}
                         <span class="bold">{{item.receiverFullName}}</span>
                         <span class="badge acorn-bg">{{history.acornPlural(item.amount)}}</span>

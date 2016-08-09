@@ -1,5 +1,4 @@
 (function () {
-
     angular
         .module('myApp.components.relationship.feed', [])
         .component('kudosRelationshipFeed', {
@@ -8,63 +7,31 @@
             controllerAs: 'feedCtrl'
         });
 
-    RelationshipFeedController.$inject = ['$httpParamSerializer', 'Utils', 'Resources', 'Relation', 'User'];
+    RelationshipFeedController.$inject = ['User', 'Relation'];
 
-    function RelationshipFeedController($httpParamSerializer, Utils, Resources, Relation, User) {
+    function RelationshipFeedController(User, Relation) {
         var vm = this;
 
-        vm.FollowedUsersFeed = [];
-        vm.currentUser = null;
+        vm.defaultPageParams = {page: 0, size: 3};
+        vm.feedCollection = [];
 
-        vm.generateSenderName = generateSenderName;
-        vm.generateReceiverName = generateReceiverName;
-        vm.generateReceivedWonLostText = generateReceivedWonLostText;
-        vm.generateFromAgainstText = generateFromAgainstText;
-        vm.acornPlural = Utils.acornPlural;
-        vm.splitDate = Utils.trimDate;
+        vm.formatDate = formatDate;
 
         vm.$onInit = onInit();
 
         function onInit() {
-            User.home().then(function (user) {
-                vm.currentUser = user;
-                Resources.setCurrentUser(user);
-            });
-
-            Relation.feed(requestData(0, 5)).then(function (feed) {
-                vm.FollowedUsersFeed = feed;
-            });
-        }
-
-        function generateSenderName(feed) {
-            return feed.senderEmail === vm.currentUser.email ? "You" : feed.senderFullName;
-        }
-
-        function generateReceiverName(feed) {
-            return feed.receiverEmail === vm.currentUser.email ? "You" : feed.receiverFullName;
-        }
-
-        function generateFromAgainstText(feed) {
-            return feed.status !== 'COMPLETED' ? 'against' : 'from';
-        }
-
-        function generateReceivedWonLostText(feed) {
-            if (feed.status === 'COMPLETED_CHALLENGE_PARTICIPANT') {
-                return "won";
-            } else if (feed.status === 'COMPLETED_CHALLENGE_CREATOR') {
-                return "lost";
-            } else {
-                return "received";
-            }
-        }
-
-        function requestData(start, end) {
-            return $httpParamSerializer({
-                startIndex: start,
-                endIndex: end
+            Relation.getActionsFeed(vm.defaultPageParams).then(function (feedPageResponse) {
+                vm.feedCollection = feedPageResponse.content;
             })
         }
 
+        function formatDate(commentDate) {
+            var date = new Date(commentDate);
+            return date.getFullYear() + "-" + formatDateNumber(date.getMonth()) + "-" + formatDateNumber(date.getDay())+ "-" + date.getHours() + ":" + date.getMinutes();
+        }
 
+        function formatDateNumber(number) {
+            return number < 10 ? '0' + number : number;
+        }
     }
 })();

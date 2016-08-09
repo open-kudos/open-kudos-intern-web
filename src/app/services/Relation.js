@@ -14,7 +14,8 @@
             followByEmail: followByEmail,
             unfollow: unfollow,
             getFollowers: getFollowers,
-            getFollowing: getFollowing
+            getFollowing: getFollowing,
+            getActionsFeed: getActionsFeed
         };
         return relation;
 
@@ -66,6 +67,17 @@
                 method: 'GET',
                 params: pageParams,
                 url: SERVER.ip + "/relation/following",
+                withCredentials: true
+            }).then(function (response) {
+                return response.data;
+            });
+        }
+
+        function getActionsFeed(pageParams) {
+            return $http({
+                method: 'GET',
+                params: pageParams,
+                url: SERVER.ip + "/relation/feed",
                 withCredentials: true
             }).then(function (response) {
                 return response.data;
