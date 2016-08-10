@@ -1,13 +1,15 @@
 <div class="box4" ng-repeat="item in feedCtrl.feedCollection">
 
-    <kudos-feed-challenge action="item" ng-if="item.type == 'CREATED_CHALLENGE'"></kudos-feed-challenge>
+    <kudos-feed-challenge ng-if="item.type == 'CREATED_CHALLENGE'" action="item" actionIndex="$index"></kudos-feed-challenge>
 
-    <kudos-feed-comment action="item" ng-if="item.type == 'COMMENTED'"></kudos-feed-comment>
+    <kudos-feed-comment action="item" index="$index" ng-if="item.type == 'COMMENTED'"></kudos-feed-comment>
 
-    <kudos-feed-new-idea action="item" ng-if="item.type == 'ADDED_NEW_IDEA'"></kudos-feed-new-idea>
+    <kudos-feed-new-idea action="item" id="$index" ng-if="item.type == 'ADDED_NEW_IDEA'"></kudos-feed-new-idea>
 
     <kudos-feed-new-relation action="item" ng-if="item.type == 'STARTED_TO_FOLLOW'"></kudos-feed-new-relation>
 
     <kudos-feed-transaction action="item" ng-if="item.type == 'KUDOS_GIVEN'"></kudos-feed-transaction>
 
 </div>
+<a href="" class="leftAlignment top-margin" ng-click="feedCtrl.loadActionsFeed(feedCtrl.defaultPageParams)"><span ng-class="feedCtrl.loading ? 'spin' : ''" class="glyphicon glyphicon-refresh"></span> Refresh</a>
+<a href="#/feed" class="rightAlignment top-margin">More</a>

@@ -15,13 +15,20 @@
         vm.defaultPageParams = {page: 0, size: 3};
         vm.feedCollection = [];
 
+        vm.loadActionsFeed = loadActionsFeed;
         vm.formatDate = formatDate;
 
         vm.$onInit = onInit();
 
         function onInit() {
-            Relation.getActionsFeed(vm.defaultPageParams).then(function (feedPageResponse) {
+            loadActionsFeed(vm.defaultPageParams);
+        }
+
+        function loadActionsFeed(pageParams) {
+            vm.loading = true;
+            Relation.getActionsFeed(pageParams).then(function (feedPageResponse) {
                 vm.feedCollection = feedPageResponse.content;
+                vm.loading = false;
             })
         }
 

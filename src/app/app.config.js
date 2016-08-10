@@ -15,7 +15,11 @@
             })
             .when('/feed', {
                 templateUrl: 'app/views/kudos-feed/kudos-feed.html',
-                controller: 'FeedController'
+                controller: 'FeedController',
+                controllerAs: 'feedCtrl',
+                resolve: {
+                    user: ['User', function (User) {return User.getCurrentUserProfile();}]
+                }
             })
             .when('/home', {
                 templateUrl: 'app/views/home/home.html',

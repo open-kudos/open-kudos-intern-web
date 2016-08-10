@@ -11,6 +11,7 @@
     function Challenges($http, SERVER) {
         var challenges = {
             giveChallenge: giveChallenge,
+            getChallenge: getChallenge,
             addComment: addComment,
             getComments: getComments,
             getSentAndReceived: getSentAndReceived,
@@ -39,6 +40,16 @@
                 withCredentials: true
             }).then(function (response) {
                 return response;
+            });
+        }
+
+        function getChallenge(challengeId) {
+            return $http({
+                method: 'GET',
+                url: SERVER.ip + "/challenge/get/" + challengeId,
+                withCredentials: true
+            }).then(function (response) {
+                return response.data;
             });
         }
 

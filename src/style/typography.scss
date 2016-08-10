@@ -24,6 +24,21 @@ strong {
   @extend .bold;
 }
 
+a{
+  color: $color-primary;
+  &:hover{
+    color: $color-primary-lighter;
+  }
+  &:focus{
+    outline:none!important;
+    color: $color-primary-lighter;
+  }
+  &:active{
+    color: $color-primary-lighter;
+    border: 0;
+  }
+}
+
 .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: $heading-font-family;
   font-weight: $light-font-weight;
