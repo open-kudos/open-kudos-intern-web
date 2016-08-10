@@ -112,8 +112,21 @@
         }
 
         function giveToInputChanged() {
-            if (vm.giveChallengeTo != undefined)
-                vm.autocompleteHide = vm.giveChallengeTo.length <= 1;
+            if (vm.searchTermSelected == false) {
+                if (vm.giveChallengeTo != undefined) {
+                    (vm.giveChallengeTo.length > 2) ? loadEmails() : vm.autocompleteHide = true;
+                }
+            } else {
+                vm.searchTermSelected = false;
+            }
         }
+
+        function loadEmails(){
+            UserService.findUsersByNamePredicate(vm.giveChallengeTo).then(function (users) {
+                vm.usersCollection = users;
+                vm.autocompleteHide = false
+            })
+        }
+
     }
 })();

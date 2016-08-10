@@ -45,11 +45,18 @@
         function sendToInputChanged() {
             if (vm.searchTermSelected == false) {
                 if (vm.sendKudosTo != undefined) {
-                    (vm.sendKudosTo.length > 1) ? vm.autocompleteHide = false : vm.autocompleteHide = true;
+                    (vm.sendKudosTo.length > 2) ? loadEmails() : vm.autocompleteHide = true;
                 }
             } else {
                 vm.searchTermSelected = false;
             }
+        }
+
+        function loadEmails(){
+            UserService.findUsersByNamePredicate(vm.sendKudosTo).then(function (users) {
+                vm.usersCollection = users;
+                vm.autocompleteHide = false
+            })
         }
 
         function selectAutoText(text) {
