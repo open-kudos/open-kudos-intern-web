@@ -18,7 +18,8 @@ function User($http, $q, SERVER) {
         updateUserProfile: updateUserProfile,
         getUserProfile: getUserProfile,
         getCurrentUser: getCurrentUser,
-        setCurrentUser: setCurrentUser
+        setCurrentUser: setCurrentUser,
+        findUsersByNamePredicate: findUsersByNamePredicate
     }
     return user;
 
@@ -55,6 +56,16 @@ function User($http, $q, SERVER) {
             method: 'GET',
             withCredentials: true,
             url: SERVER.ip + "/user/profile/" + userId
+        }).then(function successCallback(response) {
+            return response.data;
+        });
+    }
+
+    function findUsersByNamePredicate(predicate){
+        return $http({
+            method: 'GET',
+            withCredentials: true,
+            url: SERVER.ip + "/user/email/" + predicate
         }).then(function successCallback(response) {
             return response.data;
         });

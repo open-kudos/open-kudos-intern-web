@@ -77,10 +77,11 @@
 
         function formatDate(commentDate) {
             var date = new Date(commentDate);
-            return date.getFullYear() + "-" + formatDateNumber(date.getMonth()) + "-" + formatDateNumber(date.getDay())+ "-" + date.getHours() + ":" + date.getMinutes();
+            return date.getFullYear() + "-" + formatDateNumber(date.getMonth()) + "-" + formatDateNumber(date.getDate())+ " " + date.getHours() + ":" + date.getMinutes();
         }
 
         function formatDateNumber(number) {
+            number += 1;
             return number < 10 ? '0' + number : number;
         }
     }

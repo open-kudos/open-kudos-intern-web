@@ -1,9 +1,24 @@
-<div class="container">
-    <div class="row">
+<kudos-navbar></kudos-navbar>
 
-        <div class="col-md-6 col-md-offset-3">
-            <div class="panel panel-login">
-                <h3 class="text-center">Why you are here?</h3>
+<div class="container">
+    <div class="panel panel-body">
+        <div class="row">
+            <div class="col-sm-6 col-md-12 col-lg-6" ng-repeat="item in feedCtrl.feedCollection">
+
+                <div class="box5">
+
+                    <kudos-feed-challenge action="item" index="$index" ng-if="item.type == 'CREATED_CHALLENGE'"></kudos-feed-challenge>
+
+                    <kudos-feed-comment action="item" ng-if="item.type == 'COMMENTED'"></kudos-feed-comment>
+
+                    <kudos-feed-new-idea action="item" id="$index" ng-if="item.type == 'ADDED_NEW_IDEA'"></kudos-feed-new-idea>
+
+                    <kudos-feed-new-relation action="item" ng-if="item.type == 'STARTED_TO_FOLLOW'"></kudos-feed-new-relation>
+
+                    <kudos-feed-transaction action="item" ng-if="item.type == 'KUDOS_GIVEN'"></kudos-feed-transaction>
+
+                </div>
+
             </div>
         </div>
     </div>

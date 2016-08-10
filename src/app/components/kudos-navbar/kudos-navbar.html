@@ -14,6 +14,7 @@
                 <li class="uppercase" ng-class="nav.selectedAcorns ? 'selected active' : ''"><a href="#/history/{{nav.user.id}}">History</a></li>
                 <li class="uppercase" ng-class="nav.selectedFollowing ? 'selected active' : ''"><a href="#/following">Following</a></li>
                 <li class="uppercase" ng-class="nav.selectedShop ? 'selected active' : ''"><a href="#/shop" class="no-hover">Shop</a></li>
+                <li class="uppercase hidden-sm hidden-lg hidden-md" ng-class="nav.selectedFeed ? 'selected active' : ''"><a href="#/feed" class="no-hover">Feed</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a ng-click="nav.logout()" class="" href="#">

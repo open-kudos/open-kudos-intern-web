@@ -7,12 +7,13 @@
             controllerAs: 'relation'
         });
 
-    RelationshipController.$inject = ['$httpParamSerializer', 'Relation'];
+    RelationshipController.$inject = ['Relation', 'User'];
 
-    function RelationshipController($httpParamSerializer, Relation) {
+    function RelationshipController(Relation, UserService) {
         var vm = this;
 
         vm.pageParams = {page: 0, size: 5};
+        vm.usersCollection = [];
         vm.followedCollection = [];
         vm.folllowingCollection = [];
         vm.selectedEmail = "";
@@ -36,14 +37,23 @@
         }
 
         function selectAutoText(text) {
-            vm.followerEmail = text;
+            vm.followedEmail = text;
             vm.autocompleteHide = true;
             vm.text = text;
         }
 
         function onInputChange() {
-            if (vm.followerEmail != undefined)
-                (vm.followerEmail.length > 1) ? vm.autocompleteHide = false : vm.autocompleteHide = true;
+            if (vm.followedEmail !== undefined) {
+                console.log("if");
+                (vm.followedEmail.length > 2) ? loadEmails() : vm.autocompleteHide = true;
+            }
+        }
+
+        function loadEmails(){
+            UserService.findUsersByNamePredicate(vm.followedEmail).then(function (users) {
+                vm.usersCollection = users;
+                vm.autocompleteHide = false
+            })
         }
 
         function followByEmail(email) {

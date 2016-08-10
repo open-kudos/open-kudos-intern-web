@@ -4,7 +4,8 @@
         .component('kudosFeedNewIdea', {
             templateUrl: 'app/components/kudos-relationship-feed/kudos-feed-new-idea/feed-new-idea.html',
             bindings: {
-                action: '='
+                action: '=',
+                id: '='
             },
             controller: ('NewIdeaFeedController', NewIdeaFeedController),
             controllerAs: 'feed'

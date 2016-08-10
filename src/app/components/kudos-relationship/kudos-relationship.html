@@ -18,14 +18,13 @@
                   </button>
                 </span>
         </div>
-
-        <!--<div class="autocomplete" ng-show="relation.autocompleteHide == false">
+        <div class="autocomplete" ng-show="relation.autocompleteHide==false">
             <div ng-repeat="autoText in relation.usersCollection | filter:relation.followerEmail"
                  ng-click="relation.selectAutoText(autoText.email)">
                 <p>{{autoText.firstName}} {{autoText.lastName}}</p>
                 <p class="small">{{autoText.email}}</p>
             </div>
-        </div>-->
+        </div>
 
         <div ng-repeat="item in relation.followedCollection" class="box4">
                 <div>
