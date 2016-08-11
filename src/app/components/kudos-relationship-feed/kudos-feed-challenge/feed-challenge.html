@@ -1,10 +1,11 @@
-<p><span class="glyphicon glyphicon-tower" style="font-size: 16px; padding-right: 5px"></span>
-    <a href="#/history/{{challenge.action.userId}}">{{challenge.action.userFullName}}</a> created a new
-    <a href="" ng-click="challenge.loadComments = true" data-toggle="modal" data-target="#challenge{{challenge.index}}">Challenge</a> for
-    <a href="#/history/{{challenge.action.challengeResponse.participantId}}">{{challenge.action.challengeResponse.participantFullName}}</a>
-</p>
-
-<span class="small">{{challenge.formatDate(challenge.action.timestamp)}}</span>
+<span><span class="glyphicon glyphicon-tower" style="font-size: 16px; padding-right: 5px"></span>
+    <a href="#/history/{{challenge.action.userId}}">{{challenge.action.userFullName}}</a> {{challenge.challengeTypeText}}
+    <a href="" ng-click="challenge.loadComments = true"
+       data-toggle="modal"
+       data-target="#challenge{{challenge.index}}">Challenge</a> {{challenge.fromForText}}
+    <a ng-if="challenge.for" href="#/history/{{challenge.action.challengeResponse.participantId}}">{{challenge.action.challengeResponse.participantFullName}}</a>
+    <a ng-if="challenge.from" href="#/history/{{challenge.action.challengeResponse.creatorId}}">{{challenge.action.challengeResponse.creatorFullName}}</a>
+</span>
 
 <!-- Modal -->
 <div id="challenge{{challenge.index}}" class="modal fade" role="dialog">
@@ -19,11 +20,14 @@
             <div class="modal-body">
                 <div class="box5 text-center">
                     <h4 class="card-title">{{challenge.action.userFullName}} created challenge!</h4>
+
+                    <!-- CREATED_CHALLENGE -->
                     <p class="card-text">
                         <span class="bold">{{challenge.action.challengeResponse.name}}</span> given to
                         <span class="bold">{{challenge.action.challengeResponse.participantFullName}}</span> for
                         <span class="badge acorn-bg">{{challenge.acornPlural(challenge.action.challengeResponse.amount)}}</span>
                     </p>
+
                     <kudos-challenge-comment ng-if="challenge.loadComments" challenge="challenge.action.challengeResponse"></kudos-challenge-comment>
                 </div>
 

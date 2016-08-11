@@ -2,20 +2,31 @@
 
 <div class="container">
     <div class="panel panel-body">
-        <div class="row">
-            <div class="col-sm-6 col-md-12 col-lg-6" ng-repeat="item in feedCtrl.feedCollection">
+        <div class="row-">
+            <div ng-repeat="item in feedCtrl.feedCollection">
 
                 <div class="box5">
 
-                    <kudos-feed-challenge action="item" index="$index" ng-if="item.type == 'CREATED_CHALLENGE'"></kudos-feed-challenge>
+                    <kudos-feed-challenge ng-if="item.type == 'CREATED_CHALLENGE' ||
+                                 item.type == 'CANCELED_CHALLENGE' ||
+                                 item.type == 'DECLINED_CHALLENGE' ||
+                                 item.type == 'ACCEPTED_CHALLENGE' ||
+                                 item.type == 'FAILED_CHALLENGE' ||
+                                 item.type == 'MARKED_AS_COMPLETED' ||
+                                 item.type == 'MARKED_AS_FAILED' ||
+                                 item.type == 'ACCOMPLISHED_CHALLENGE'"
+                                          action="item"
+                                          actionIndex="$index"></kudos-feed-challenge>
 
-                    <kudos-feed-comment action="item" ng-if="item.type == 'COMMENTED'"></kudos-feed-comment>
+                    <kudos-feed-comment action="item" index="$index" ng-if="item.type == 'COMMENTED'"></kudos-feed-comment>
 
                     <kudos-feed-new-idea action="item" id="$index" ng-if="item.type == 'ADDED_NEW_IDEA'"></kudos-feed-new-idea>
 
                     <kudos-feed-new-relation action="item" ng-if="item.type == 'STARTED_TO_FOLLOW'"></kudos-feed-new-relation>
 
                     <kudos-feed-transaction action="item" ng-if="item.type == 'KUDOS_GIVEN'"></kudos-feed-transaction>
+
+                    <span class="text-muted" style="font-size: 11px">{{feedCtrl.formatDate(item.timestamp)}}</span>
 
                 </div>
 
