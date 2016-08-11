@@ -1,6 +1,15 @@
 <div class="box4" ng-repeat="item in feedCtrl.feedCollection">
 
-    <kudos-feed-challenge ng-if="item.type == 'CREATED_CHALLENGE'" action="item" actionIndex="$index"></kudos-feed-challenge>
+    <kudos-feed-challenge ng-if="item.type == 'CREATED_CHALLENGE' ||
+                                 item.type == 'CANCELED_CHALLENGE' ||
+                                 item.type == 'DECLINED_CHALLENGE' ||
+                                 item.type == 'ACCEPTED_CHALLENGE' ||
+                                 item.type == 'FAILED_CHALLENGE' ||
+                                 item.type == 'MARKED_AS_COMPLETED' ||
+                                 item.type == 'MARKED_AS_FAILED' ||
+                                 item.type == 'ACCOMPLISHED_CHALLENGE'"
+                          action="item"
+                          actionIndex="$index"></kudos-feed-challenge>
 
     <kudos-feed-comment action="item" index="$index" ng-if="item.type == 'COMMENTED'"></kudos-feed-comment>
 
@@ -9,6 +18,8 @@
     <kudos-feed-new-relation action="item" ng-if="item.type == 'STARTED_TO_FOLLOW'"></kudos-feed-new-relation>
 
     <kudos-feed-transaction action="item" ng-if="item.type == 'KUDOS_GIVEN'"></kudos-feed-transaction>
+
+    <span class="text-muted" style="font-size: 11px">{{feedCtrl.formatDate(item.timestamp)}}</span>
 
 </div>
 <a href="" class="leftAlignment top-margin" ng-click="feedCtrl.loadActionsFeed(feedCtrl.defaultPageParams)"><span ng-class="feedCtrl.loading ? 'spin' : ''" class="glyphicon glyphicon-refresh"></span> Refresh</a>

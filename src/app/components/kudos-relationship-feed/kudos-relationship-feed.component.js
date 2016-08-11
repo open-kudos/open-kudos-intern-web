@@ -7,16 +7,16 @@
             controllerAs: 'feedCtrl'
         });
 
-    RelationshipFeedController.$inject = ['User', 'Relation'];
+    RelationshipFeedController.$inject = ['User', 'Relation', 'Utils'];
 
-    function RelationshipFeedController(User, Relation) {
+    function RelationshipFeedController(User, Relation, Utils) {
         var vm = this;
 
         vm.defaultPageParams = {page: 0, size: 3};
         vm.feedCollection = [];
 
         vm.loadActionsFeed = loadActionsFeed;
-        vm.formatDate = formatDate;
+        vm.formatDate = Utils.formatDate;
 
         vm.$onInit = onInit();
 
@@ -32,13 +32,5 @@
             })
         }
 
-        function formatDate(commentDate) {
-            var date = new Date(commentDate);
-            return date.getFullYear() + "-" + formatDateNumber(date.getMonth()) + "-" + formatDateNumber(date.getDay())+ "-" + date.getHours() + ":" + date.getMinutes();
-        }
-
-        function formatDateNumber(number) {
-            return number < 10 ? '0' + number : number;
-        }
     }
 })();

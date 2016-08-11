@@ -1,19 +1,4 @@
-<div ng-if="history.isSelectedUserEqualsCurrentUser()" class="panel container">
-    <div class="panel-body">
-        <h4>{{history.selectedUser.firstName}} {{history.selectedUser.lastName}}</h4>
-        <p class="small">{{history.selectedUser.email}}</p>
-        <p href="#">
-            <strong>Total Acorns</strong>
-            <span data-toggle="tooltip" title="These are the points you have received"
-                  class="badge badge-bigger acorn-bg cursor-pointer">{{history.selectedUser.totalKudos}}</span>
-        </p>
-        <p><strong>Weekly Acorns</strong>
-            <span data-toggle="tooltip" title="You can give these points to others during this week"
-                  class="badge badge-bigger acorn-bg cursor-pointer">{{history.selectedUser.weeklyKudos}}</span></p>
-    </div>
-</div>
-
-<div class="container panel">
+<div class="panel">
     <nav class="panel-heading">
         <ul class="nav nav-tabs nav-justified">
             <li ng-class="history.isAcornSelected ? 'active' : ''">

@@ -1,10 +1,8 @@
-<p><span class="glyphicon glyphicon-comment" style="font-size: 16px; padding-right: 5px"></span>
+<span><span class="glyphicon glyphicon-comment" style="font-size: 16px; padding-right: 5px"></span>
     <a href="#/history/{{feed.action.userId}}">{{feed.action.userFullName}}</a> commented on
     <a href="" data-toggle="modal" data-target="#comment{{feed.index}}" ng-click="feed.loadChallenge(feed.action.commentResponse.challengeId)">Challenge</a>
     <a href="#/history/{{feed.action.transactionResponse.receiverId}}">{{feed.action.transactionResponse.receiverFullName}}</a>
-</p>
-
-<span class="small">{{feed.formatDate(feed.action.timestamp)}}</span>
+</span>
 
 <!-- Modal -->
 <div id="comment{{feed.index}}" class="modal fade" role="dialog">
