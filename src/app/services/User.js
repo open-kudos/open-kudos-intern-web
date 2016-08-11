@@ -19,7 +19,9 @@ function User($http, $q, SERVER) {
         getUserProfile: getUserProfile,
         getCurrentUser: getCurrentUser,
         setCurrentUser: setCurrentUser,
-        findUsersByNamePredicate: findUsersByNamePredicate
+        findUsersByNamePredicate: findUsersByNamePredicate,
+        subscribe: subscribe,
+        unsubscribe: unsubscribe
     }
     return user;
 
@@ -68,6 +70,26 @@ function User($http, $q, SERVER) {
             url: SERVER.ip + "/user/email/" + predicate
         }).then(function successCallback(response) {
             return response.data;
+        });
+    }
+
+    function subscribe() {
+        return $http({
+            method: 'POST',
+            withCredentials: true,
+            url: SERVER.ip + "/user/subscribe"
+        }).then(function (response) {
+            return response;
+        });
+    }
+
+    function unsubscribe() {
+        return $http({
+            method: 'POST',
+            withCredentials: true,
+            url: SERVER.ip + "/user/unsubscribe"
+        }).then(function (response) {
+            return response;
         });
     }
 
