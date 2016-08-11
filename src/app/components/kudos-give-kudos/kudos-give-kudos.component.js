@@ -3,7 +3,7 @@
         .component('kudosGiveKudos', {
             template: '<ng-include src="vm.getTemplate(vm.template)"/>' ,
             bindings: {
-                email: '<',
+                email: '=',
                 index: '<',
                 template: '='
             },
@@ -39,6 +39,7 @@
                 vm.sendKudosTo = vm.email;
                 vm.id = vm.index;
             }
+            console.log(vm.email);
             vm.userAvailableKudos = UserService.getCurrentUser().weeklyKudos;
         }
 

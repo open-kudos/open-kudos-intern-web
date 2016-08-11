@@ -37,7 +37,6 @@
         vm.loadNextPage = loadNextPage;
         vm.loadPreviousPage = loadPreviousPage;
         vm.setDefaultPageParams = setDefaultPageParams;
-        vm.isSelectedUserEqualsCurrentUser = isSelectedUserEqualsCurrentUser;
 
         vm.$onInit = onInit();
 
@@ -167,6 +166,7 @@
         function isSelectedUserEqualsCurrentUser() {
             return vm.userId != User.getCurrentUser().id
         }
+
     }
 })();
 

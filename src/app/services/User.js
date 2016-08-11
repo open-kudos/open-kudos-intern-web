@@ -20,6 +20,7 @@ function User($http, $q, SERVER) {
         getCurrentUser: getCurrentUser,
         setCurrentUser: setCurrentUser,
         findUsersByNamePredicate: findUsersByNamePredicate,
+        getUserActions: getUserActions,
         subscribe: subscribe,
         unsubscribe: unsubscribe
     }
@@ -68,6 +69,17 @@ function User($http, $q, SERVER) {
             method: 'GET',
             withCredentials: true,
             url: SERVER.ip + "/user/email/" + predicate
+        }).then(function successCallback(response) {
+            return response.data;
+        });
+    }
+
+    function getUserActions(userId, pageRequest) {
+        return $http({
+            method: 'GET',
+            params: pageRequest,
+            withCredentials: true,
+            url: SERVER.ip + "/user/actions/" + userId
         }).then(function successCallback(response) {
             return response.data;
         });
