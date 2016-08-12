@@ -41,26 +41,18 @@
 .btn-danger {
   background: $color-warning;
   border-color: $color-warning;
-  &:hover {
-    background: $color-warning-dark;
-    border-color: $color-warning-dark;
-  }
-  &:focus {
-    background: $color-warning-dark;
-    border-color: $color-warning-dark;
+  &:hover, &:focus, &:active {
+    background: $color-warning-dark!important;
+    border-color: $color-warning-dark!important;
   }
 }
 
 .btn-success {
   background: $color-success;
   border-color: $color-success;
-  &:hover {
-    background: $color-success-dark;
-    border-color: $color-success-dark;
-  }
-  &:focus {
-    background: $color-success-dark;
-    border-color: $color-success-dark;
+  &:hover, &:focus, &:active {
+    background: $color-success-dark!important;
+    border-color: $color-success-dark!important;
   }
 }
 
@@ -68,15 +60,21 @@
   background: $color-primary-light;
   border-color: $color-primary-light;
   color: $color-white;
-  &:hover {
-    background: $color-primary;
-    border-color: $color-primary;
-    color: $color-white;
+  &:hover, &:focus, &:active {
+    background: $color-primary!important;
+    border-color: $color-primary!important;
+    color: $color-white!important;
   }
-  &:focus {
-    background: $color-primary;
-    border-color: $color-primary;
-    color: $color-white;
+}
+
+.btn-primary {
+  background: $color-primary;
+  border-color: $color-primary;
+  color: $color-white;
+  &:hover, &:focus, &:active{
+    background: $color-primary-light!important;
+    border-color: $color-primary-light!important;
+    color: $color-white!important;
   }
 }
 
@@ -89,7 +87,7 @@
   font-weight: normal;
   padding: 14px 0;
   text-transform: uppercase;
-  &:hover, &:focus{
+  &:hover, &:focus, &:active {
     color: #fff;
     background-color: $color-primary-light;
     outline: none;
@@ -107,7 +105,7 @@
 .profile-buttons {
   background-color: $color-primary;
   color: $color-white;
-  width: 90%;
+  width: 100%;
   height: auto;
   font-weight: normal;
   padding: 10px 0;
@@ -141,4 +139,8 @@
     color: #fff;
     background-color: $color-primary-light
   }
+}
+
+.input-button {
+  padding: $padding-small!important;
 }

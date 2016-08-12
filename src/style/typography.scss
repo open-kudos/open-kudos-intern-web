@@ -49,6 +49,8 @@ a{
 }
 
 .loud {
+  font-size: 16px;
+  display: block;
   color: $loud-color;
 }
 
@@ -65,4 +67,8 @@ a{
     font-family: $heading-font-family;
     font-weight: $regular-font-weight;
   }
+}
+
+.breakword {
+  word-wrap: break-word;
 }

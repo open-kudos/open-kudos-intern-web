@@ -8,13 +8,7 @@
         <div class="col-md-3">
             <kudos-me></kudos-me>
             <kudos-info></kudos-info>
-
-            <div class="panel hidden-xs">
-                <div class="panel-body">
-                    <kudos-relationship-feed></kudos-relationship-feed>
-                </div>
-            </div>
-
+            <kudos-relationship-feed ng-if="home.isNotMobile()"></kudos-relationship-feed>
         </div>
 
         <div class="col-md-6">
@@ -38,18 +32,11 @@
 
         <div class="col-md-3">
 
-            <div class="panel">
-                <div class="panel-body">
-                    <kudos-leaderboard></kudos-leaderboard>
-                </div>
-            </div>
+            <kudos-leaderboard></kudos-leaderboard>
 
-            <div class="panel">
-                <div class="panel-body">
-                    <h3><span class="glyphicon glyphicon-education acorn-color"></span> Wisdom wall</h3>
-                    <wisdom-wall-ideas></wisdom-wall-ideas>
-                </div>
-            </div>
+
+            <wisdom-wall-ideas></wisdom-wall-ideas>
+
 
         </div>
 

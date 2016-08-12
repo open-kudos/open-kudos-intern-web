@@ -1,8 +1,9 @@
-<div class="panel">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>Following</h4>
+    </div>
+
     <div class="panel-body">
-
-        <h3>Following</h3>
-
         <div class="input-group">
             <input ng-model="relation.followedEmail"
                    ng-change="relation.onInputChange()"
@@ -12,7 +13,7 @@
                    class="form-control"
                    placeholder="Search for...">
                 <span class="input-group-btn">
-                  <button class="btn btn-give"
+                  <button class="btn btn-give input-button"
                           type="button"
                           ng-click="relation.followByEmail(relation.followedEmail)">Add
                   </button>
