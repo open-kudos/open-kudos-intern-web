@@ -1,5 +1,18 @@
 @import "variables";
 
+@media screen and (min-width: 960px) {
+  html{
+    overflow-y: scroll;
+  }
+  .modal-open{
+    padding-right: 0!important;
+  }
+}
+
+input[type="text"], input[type="number"], input[type="date"], input[type="password"], input[type="email"], textarea{
+  padding: 20px;
+}
+
 body {
   padding-top: 75px;
   background: $bg-image no-repeat center fixed;
@@ -7,6 +20,23 @@ body {
   -moz-background-size: cover;    /* Mozilla*/
   -o-background-size: cover;      /* Opera*/
   background-size: cover;
+}
+
+blockquote {
+  padding-bottom: 0;
+}
+
+.container {
+  opacity: 1;
+  -webkit-transition: opacity 2s ease-in;
+  -moz-transition: opacity 2s ease-in;
+  -o-transition: opacity 2s ease-in;
+  -ms-transition: opacity 2s ease-in;
+  transition: opacity 2s ease-in;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
 }
 
 .modal-open .modal,.btn:focus{
@@ -485,7 +515,9 @@ input:checked + .slider:before {
 }
 
 .btn-challenge-participated{
-  margin: 3px;
+  margin-left: 1px;
+  margin-right: 1px;
+  margin-bottom: 5px;
 }
 
 .btn-register {
@@ -721,6 +753,9 @@ div.box4 {
   border: 1px solid #E1E1E1;
   border-radius: 4px;
   padding: 10px;
+  &:first-child{
+    margin-top: 0;
+  }
 }
 
 .box5 {
@@ -729,6 +764,9 @@ div.box4 {
   border: 1px solid #E1E1E1;
   border-radius: 4px;
   padding: 10px;
+  &:first-child{
+    margin-top: 0;
+  }
 }
 
 .kudos-dropdown {
@@ -802,19 +840,9 @@ div.box4 {
   background-color: lightgrey;
 }
 
-.fade{
-  -webkit-transition: opacity 1s; /* For Safari 3.1 to 6.0 */
-  transition: opacity 1s;
-  opacity: 0;
-}
-
-.breakword {
-  word-wrap: break-word;
-}
-
 .history-switch-box{
   padding-top: $padding-medium;
-  margin-bottom: -$padding-small;
+  margin-bottom: $padding-small;
 }
 
 .top-margin {

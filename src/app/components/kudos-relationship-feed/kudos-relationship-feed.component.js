@@ -7,9 +7,9 @@
             controllerAs: 'feedCtrl'
         });
 
-    RelationshipFeedController.$inject = ['User', 'Relation', 'Utils'];
+    RelationshipFeedController.$inject = ['$timeout', 'Relation', 'Utils'];
 
-    function RelationshipFeedController(User, Relation, Utils) {
+    function RelationshipFeedController($timeout, Relation, Utils) {
         var vm = this;
 
         vm.defaultPageParams = {page: 0, size: 3};
@@ -26,9 +26,11 @@
 
         function loadActionsFeed(pageParams) {
             vm.loading = true;
+            $timeout(function() {
+                vm.loading = false;
+            }, 1000);
             Relation.getActionsFeed(pageParams).then(function (feedPageResponse) {
                 vm.feedCollection = feedPageResponse.content;
-                vm.loading = false;
             })
         }
 

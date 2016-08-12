@@ -19,10 +19,10 @@
         <p ng-if="challenge.description">Description: {{challenge.description}}</p>
         <p ng-if="challenge.finishDate">Finish date: {{chOngoing.convertDate(challenge.finishDate)}}</p>
 
-        <div class="row" ng-if="challenge.actions.markAsCompletedAllowed">
-            <button class="btn btn-success margin-top"
+        <div ng-if="challenge.actions.markAsCompletedAllowed">
+            <button class="btn btn-success btn-challenge-participated"
                     ng-click="ongoingChallengesCtrl.markChallengeAsCompleted(challenge.id)">Mark as Completed</button>
-            <button class="btn btn-danger margin-top"
+            <button class="btn btn-danger btn-challenge-participated"
                     ng-click="ongoingChallengesCtrl.markChallengeAsFailed(challenge.id)">Mark as Failed</button>
         </div>
 

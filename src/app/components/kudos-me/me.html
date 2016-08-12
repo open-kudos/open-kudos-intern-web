@@ -1,11 +1,14 @@
 <div ng-hide="!me.showLoader" class="loader"></div>
 
-<div class="panel">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4><span class="glyphicon glyphicon-user"></span> Profile</h4>
+    </div>
     <div class="panel-body">
-        <h4>{{me.user.firstName}} {{me.user.lastName}}</h4>
-        <p class="small">{{me.user.email}}</p>
-        <p href="#">
-            <strong>Total Acorns</strong>
+        <p><span class="loud">{{me.user.firstName}} {{me.user.lastName}}</span>
+            <span class="small">{{me.user.email}}</span>
+        </p>
+            <strong>Received Acorns</strong>
             <span data-toggle="tooltip" title="These are the points you have received"
                 class="badge badge-bigger acorn-bg cursor-pointer">{{me.user.totalKudos}}</span>
         </p>

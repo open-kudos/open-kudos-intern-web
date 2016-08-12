@@ -8,6 +8,24 @@
   background: $color-white;
 }
 
+.panel-default {
+  .panel-heading {
+    padding-top: $panel-heading-top-padding;
+    padding-bottom: $panel-heading-bottom-padding;
+  }
+
+  .panel-body {
+    padding: $padding-small $padding-small $padding-small;
+  }
+
+  .panel-footer {
+    background: $color-white;
+    div{
+      min-height: 20px;
+    }
+  }
+}
+
 .panel-login {
   border-color: #ccc;
   -webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);

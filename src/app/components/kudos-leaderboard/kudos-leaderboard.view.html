@@ -1,42 +1,47 @@
-<h3><span class="glyphicon glyphicon-star acorn-color"></span> Leaderboard</h3>
-
-<div class="dropdown leaderboard-filter">
-    <button class="btn btn-default dropdown-toggle" type="button" id="filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-        {{leader.criterion}}
-        <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="filter">
-        <li ng-click="leader.setFilter('all')"><a href="">All over period</a></li>
-        <li role="separator" class="divider"></li>
-        <li ng-click="leader.setFilter('30')"><a href="">Past 30 days</a></li>
-        <li ng-click="leader.setFilter('7')"><a href="">Past 7 days</a></li>
-    </ul>
-</div>
-
-<ul class="nav nav-tabs nav-justified">
-    <li role="presentation" ng-class="leader.receivers ? 'active' : ''">
-        <a href="" ng-click="leader.receivers=true; leader.senders=false;">Receivers</a></li>
-    <li role="presentation" ng-class="leader.senders ? 'active' : ''">
-        <a href="" ng-click="leader.receivers=false; leader.senders=true;">Senders</a></li>
-</ul>
-
-<div class="top-margin">
-    <div ng-show="leader.receivers">
-        <div ng-hide="!leader.showLoader" class="loader"></div>
-        <ul class="list-group clickable-list">
-            <li ng-repeat="receiver in leader.topReceivers" class="list-group-item" ng-click="leader.changeLocationToHistory(receiver.userId)">
-                <span class="badge acorn-bg">{{leader.acornPlural(receiver.kudosAmount)}}</span>
-                <span class="bold">{{receiver.fullName}}</span>
-            </li>
-        </ul>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4><span class="glyphicon glyphicon-star"></span> Leaderboard</h4>
     </div>
+    <div class="panel-body">
+        <div class="dropdown leaderboard-filter">
+            <button class="btn btn-default dropdown-toggle" type="button" id="filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                {{leader.criterion}}
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="filter">
+                <li ng-click="leader.setFilter('all')"><a href="">All over period</a></li>
+                <li role="separator" class="divider"></li>
+                <li ng-click="leader.setFilter('30')"><a href="">Past 30 days</a></li>
+                <li ng-click="leader.setFilter('7')"><a href="">Past 7 days</a></li>
+            </ul>
+        </div>
 
-    <div ng-show="leader.senders">
-        <ul class="list-group clickable-list">
-            <li ng-repeat="receiver in leader.topSenders" class="list-group-item" ng-click="leader.changeLocationToHistory(receiver.userId)">
-                <span class="badge acorn-bg">{{leader.acornPlural(receiver.kudosAmount)}}</span>
-                <span class="bold">{{receiver.fullName}}</span>
-            </li>
+        <ul class="nav nav-tabs nav-justified">
+            <li role="presentation" ng-class="leader.receivers ? 'active' : ''">
+                <a href="" ng-click="leader.receivers=true; leader.senders=false;">Receivers</a></li>
+            <li role="presentation" ng-class="leader.senders ? 'active' : ''">
+                <a href="" ng-click="leader.receivers=false; leader.senders=true;">Senders</a></li>
         </ul>
+
+        <div class="top-margin">
+            <div ng-show="leader.receivers">
+                <div ng-hide="!leader.showLoader" class="loader"></div>
+                <ul class="list-group clickable-list">
+                    <li ng-repeat="receiver in leader.topReceivers" class="list-group-item" ng-click="leader.changeLocationToHistory(receiver.userId)">
+                        <span class="badge acorn-bg">{{leader.acornPlural(receiver.kudosAmount)}}</span>
+                        <span class="bold">{{receiver.fullName}}</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div ng-show="leader.senders">
+                <ul class="list-group clickable-list">
+                    <li ng-repeat="receiver in leader.topSenders" class="list-group-item" ng-click="leader.changeLocationToHistory(receiver.userId)">
+                        <span class="badge acorn-bg">{{leader.acornPlural(receiver.kudosAmount)}}</span>
+                        <span class="bold">{{receiver.fullName}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>

@@ -1,14 +1,22 @@
-<div ng-hide="!wisdom.showLoader" class="loader"></div>
-<blockquote>
-    <p class="breakword">{{wisdom.randomQuote.phrase}}</p>
-    <small class="breakword">{{wisdom.randomQuote.author}}</small>
-</blockquote>
-
-<button name="addIdeaButton" id="addIdeaButton"
-        data-toggle="modal" data-target="#addIdeaModal"
-        class="btn profile-buttons">
-    Add new idea
-</button>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4><span class="glyphicon glyphicon-education"></span> Wisdom wall</h4>
+    </div>
+    <div class="panel-body">
+        <div ng-hide="!wisdom.showLoader" class="loader"></div>
+        <blockquote>
+            <p class="breakword">{{wisdom.randomQuote.phrase}}</p>
+            <small class="breakword">{{wisdom.randomQuote.author}}</small>
+        </blockquote>
+    </div>
+    <div class="panel-footer">
+        <button name="addIdeaButton" id="addIdeaButton"
+                data-toggle="modal" data-target="#addIdeaModal"
+                class="btn btn-primary">
+            Add new idea
+        </button>
+    </div>
+</div>
 
 <div id="addIdeaModal" class="modal fade" role="dialog" data-keyboard="true">
     <div class="modal-dialog">

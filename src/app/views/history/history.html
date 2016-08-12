@@ -6,13 +6,13 @@
 
             <div class="panel panel-default" ng-if="history.isSelectedUserEqualsCurrentUser()">
                 <div class="panel-heading">
-                    <h4>User Information</h4>
+                    <h4><span class="glyphicon glyphicon-user"></span> User Information</h4>
                 </div>
                 <div class="panel-body">
                 <h4>{{history.selectedUser.firstName}} {{history.selectedUser.lastName}}</h4>
                 <p class="small">{{history.selectedUser.email}}</p>
                 <p href="#">
-                    <strong>Total Acorns</strong>
+                    <strong>Received Acorns</strong>
                     <span data-toggle="tooltip" title="These are the points you have received"
                           class="badge badge-bigger acorn-bg cursor-pointer">{{history.selectedUser.totalKudos}}</span>
                 </p>
