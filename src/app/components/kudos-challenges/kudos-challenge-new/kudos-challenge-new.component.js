@@ -72,6 +72,9 @@
                     toastr.success('You accepted ' + val.data.creatorFullName + ' challenge');
                     Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
                     loadSentAndReceivedChallenges(vm.pageParams);
+                }).catch(function (error) {
+                    if (error == 'challenge_expired')
+                        toastr.error('This challenge already expired');
                 })
             } else {toastr.error('You only have ' + ' ' + vm.acornPlural(userAvailableKudos) +
                 '. To accept challenge, you must have at least ' + kudos);
@@ -85,6 +88,9 @@
                 vm.loading = false;
                 toastr.info('You declined ' + val.data.creatorFullName + ' challenge');
                 loadSentAndReceivedChallenges(vm.pageParams);
+            }).catch(function (error) {
+                if (error == 'challenge_expired')
+                    toastr.error('This challenge already expired');
             })
         }
 
@@ -95,6 +101,9 @@
                 Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() + val.data.amount);
                 loadSentAndReceivedChallenges(vm.pageParams);
                 toastr.success("Challenge canceled");
+            }).catch(function (error) {
+                if (error == 'challenge_expired')
+                    toastr.error('This challenge already expired');
             });
         }
         

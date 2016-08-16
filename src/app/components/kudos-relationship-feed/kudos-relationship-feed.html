@@ -1,9 +1,10 @@
 <div class="panel panel-default">
-   <div class="panel-heading">
-       <h4>Users activity</h4>
-   </div>
+    <div class="panel-heading">
+        <h4>Users activity</h4>
+    </div>
     <div class="panel-body">
-        <div class="box4" ng-repeat="item in feedCtrl.feedCollection">
+        <div class="box4"
+             ng-repeat="item in feedCtrl.feedCollection">
 
             <kudos-feed-challenge ng-if="item.type == 'CREATED_CHALLENGE' ||
                                          item.type == 'CANCELED_CHALLENGE' ||
@@ -16,22 +17,35 @@
                                   action="item"
                                   actionIndex="$index"></kudos-feed-challenge>
 
-            <kudos-feed-comment action="item" index="$index" ng-if="item.type == 'COMMENTED'"></kudos-feed-comment>
+            <kudos-feed-comment action="item"
+                                index="$index"
+                                ng-if="item.type == 'COMMENTED'"></kudos-feed-comment>
 
-            <kudos-feed-new-idea action="item" id="$index" ng-if="item.type == 'ADDED_NEW_IDEA'"></kudos-feed-new-idea>
+            <kudos-feed-new-idea action="item"
+                                 id="$index"
+                                 ng-if="item.type == 'ADDED_NEW_IDEA'"></kudos-feed-new-idea>
 
-            <kudos-feed-new-relation action="item" ng-if="item.type == 'STARTED_TO_FOLLOW'"></kudos-feed-new-relation>
+            <kudos-feed-new-relation action="item"
+                                     ng-if="item.type == 'STARTED_TO_FOLLOW'"></kudos-feed-new-relation>
 
-            <kudos-feed-transaction action="item" ng-if="item.type == 'KUDOS_GIVEN'"></kudos-feed-transaction>
+            <kudos-feed-transaction action="item"
+                                    ng-if="item.type == 'KUDOS_GIVEN'"></kudos-feed-transaction>
 
-            <span class="text-muted" style="font-size: 11px">{{feedCtrl.formatDate(item.timestamp)}}</span>
+            <span class="text-muted"
+                  style="font-size: 11px">{{feedCtrl.formatDate(item.timestamp)}}</span>
 
         </div>
     </div>
     <div class="panel-footer">
         <div>
-            <a href="" class="pull-left" ng-click="feedCtrl.loadActionsFeed(feedCtrl.defaultPageParams)"><span ng-class="feedCtrl.loading ? 'spin' : ''" class="glyphicon glyphicon-refresh"></span> Refresh</a>
-            <a href="#/feed" class="pull-right">More</a>
+            <a href=""
+               class="pull-left"
+               ng-click="feedCtrl.loadActionsFeed(feedCtrl.defaultPageParams)">
+                <span ng-class="feedCtrl.loading ? 'spin' : ''"
+                      class="glyphicon glyphicon-refresh"></span>
+                Refresh</a>
+            <a href="#/feed"
+               class="pull-right">More</a>
         </div>
     </div>
 </div>

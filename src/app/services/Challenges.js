@@ -8,6 +8,8 @@
         "SERVER"
     ];
 
+    var noJsonTransform = function(data) { return data; };
+
     function Challenges($http, SERVER) {
         var challenges = {
             giveChallenge: giveChallenge,
@@ -189,7 +191,8 @@
             return $http({
                 method: 'POST',
                 url: SERVER.ip + "/challenge/" + challengeId + "/accept",
-                withCredentials: true
+                withCredentials: true,
+                transformResponse: noJsonTransform
             }).then(function (response) {
                 return response;
             });
@@ -199,7 +202,8 @@
             return $http({
                 method: 'POST',
                 url: SERVER.ip + "/challenge/" + challengeId + "/decline",
-                withCredentials: true
+                withCredentials: true,
+                transformResponse: noJsonTransform
             }).then(function (response) {
                 return response;
             })
@@ -209,7 +213,8 @@
             return $http({
                 method: 'POST',
                 url: SERVER.ip + "/challenge/" + challengeId + "/cancel",
-                withCredentials: true
+                withCredentials: true,
+                transformResponse: noJsonTransform
             }).then(function (response) {
                 return response;
             })
@@ -219,7 +224,8 @@
             return $http({
                 method: 'POST',
                 url: SERVER.ip + "/challenge/" + challengeId + "/markAsCompleted",
-                withCredentials: true
+                withCredentials: true,
+                transformResponse: noJsonTransform
             }).then(function (response) {
                 return response;
             })
@@ -229,7 +235,8 @@
             return $http({
                 method: 'POST',
                 url: SERVER.ip + "/challenge/" + challengeId + "/markAsFailed",
-                withCredentials: true
+                withCredentials: true,
+                transformResponse: noJsonTransform
             }).then(function (response) {
                 return response;
             })

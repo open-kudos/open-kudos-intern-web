@@ -28,8 +28,8 @@
         activate();
 
         function activate(){
-            setAndUpdateTopReceivers(999);
-            setAndUpdateTopSenders(999);
+            setAndUpdateTopReceivers();
+            setAndUpdateTopSenders();
         }
 
         function changeLocationToHistory(userId) {
@@ -39,8 +39,8 @@
         function setFilter(value) {
             if (value == 'all') {
                 vm.criterion = 'All over period';
-                setAndUpdateTopReceivers(999);
-                setAndUpdateTopSenders(999);
+                setAndUpdateTopReceivers();
+                setAndUpdateTopSenders();
             } else if (value == '7'){
                 vm.criterion = 'Past 7 days';
                 setAndUpdateTopReceivers(7);
