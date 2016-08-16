@@ -1,108 +1,103 @@
-(function() {
-"use strict";
-angular.module("myApp")
-    .factory("Kudos", Kudos);
+(function () {
+    "use strict";
+    angular.module("myApp")
+        .factory("Kudos", Kudos);
 
-Kudos.$inject = [
-    "$http",
-    "SERVER"
-];
+    Kudos.$inject = [
+        "$http",
+        "SERVER"
+    ];
 
-function Kudos($http, SERVER) {
+    function Kudos($http, SERVER) {
 
-    var kudos = {
-        send: sendKudos,
-        incoming: getIncomingKudos,
-        outgoing: getOutgoingKudos,
-        remaining: getRemainingKudos,
-        received: getReceivedKudos,
-        feed: getKudosTransactionStream,
-        feedChanged: kudosTransactionListChanged,
-        getCompletedKudosTransactions : getCompletedKudosTransactions
+        var kudos = {
+            send: sendKudos,
+            getSentKudosHistory: getSentKudosHistory,
+            getReceivedKudosHistory: getReceivedKudosHistory,
+            getKudosHistory: getKudosHistory,
+            getUserKudosHistory: getUserKudosHistory,
+            getUserReceivedKudosHistory: getUserReceivedKudosHistory,
+            getUserSentKudosHistory: getUserSentKudosHistory
+        };
+
+        return kudos;
+
+        function sendKudos(requestData) {
+            return $http({
+                method: 'POST',
+                data: requestData,
+                url: SERVER.ip + "/kudos/give",
+                withCredentials: true
+            }).then(function (response) {
+                return response;
+            });
+        }
+
+        function getSentKudosHistory(requestParams) {
+            return $http({
+                method: 'GET',
+                params: requestParams,
+                url: SERVER.ip + "/kudos/history/given",
+                withCredentials: true
+            }).then(function (response) {
+                return response.data;
+            });
+        }
+
+        function getReceivedKudosHistory(requestParams) {
+            return $http({
+                method: 'GET',
+                params: requestParams,
+                url: SERVER.ip + "/kudos/history/received",
+                withCredentials: true
+            }).then(function (response) {
+                return response.data;
+            });
+        }
+
+        function getKudosHistory(requestParams) {
+            return $http({
+                method: 'GET',
+                params: requestParams,
+                url: SERVER.ip + "/kudos/history",
+                withCredentials: true
+            }).then(function (response) {
+                return response.data;
+            });
+        }
+
+        function getUserKudosHistory(userId, requestParams) {
+            return $http({
+                method: 'GET',
+                params: requestParams,
+                url: SERVER.ip + "/kudos/history/" + userId,
+                withCredentials: true
+            }).then(function (response) {
+                return response.data;
+            });
+        }
+
+        function getUserReceivedKudosHistory(userId, requestParams) {
+            return $http({
+                method: 'GET',
+                params: requestParams,
+                url: SERVER.ip + "/kudos/history/received/" + userId,
+                withCredentials: true
+            }).then(function (response) {
+                return response.data;
+            });
+        }
+
+        function getUserSentKudosHistory(userId, requestParams) {
+            return $http({
+                method: 'GET',
+                params: requestParams,
+                url: SERVER.ip + "/kudos/history/given/" + userId,
+                withCredentials: true
+            }).then(function (response) {
+                return response.data;
+            });
+        }
+
     }
-    
-    kudos.outgoingKudosCollection = [];
-
-    return kudos;
-
-    function sendKudos(requestData) {
-        return $http({
-            method: 'POST',
-            url: SERVER.ip + "/kudos/send?" + requestData,
-            withCredentials: true
-        }).then(function (response) {
-            return response;
-        });
-    }
-
-    function getIncomingKudos() {
-        return $http({
-            method: 'GET',
-            url: SERVER.ip + "/kudos/incoming",
-            withCredentials: true
-        }).then(function successCallback(response) {
-            return response.data;
-        });
-    }
-
-    function getOutgoingKudos() {
-        return $http({
-            method: 'GET',
-            url: SERVER.ip + "/kudos/outgoing",
-            withCredentials: true
-        }).then(function (response) {
-            return response.data;
-        });
-    }
-
-    function getRemainingKudos() {
-        return $http({
-            method: 'GET',
-            url: SERVER.ip + "/kudos/remaining",
-            withCredentials: true
-        }).then(function successCallback(response) {
-            return response.data;
-        });
-    }
-
-    function getReceivedKudos() {
-        return $http({
-            method: 'GET',
-            url: SERVER.ip + "/kudos/received",
-            withCredentials: true
-        }).then(function (response) {
-            return response.data;
-        });
-    }
-
-     function getKudosTransactionStream(requestData) {
-        return $http({
-            method: 'GET',
-            url: SERVER.ip + "/transaction/feedPaged?" + requestData,
-            withCredentials: true
-        }).then(function (response) {
-            return response.data;
-        });
-    }
-
-    function getCompletedKudosTransactions() {
-        return $http({
-            method: 'GET',
-            url: SERVER.ip + "/transaction/transactions?status=COMPLETED&page=0&pageSize=10",
-            withCredentials: true
-        }).then(function (response) {
-            return response.data;
-        });
-    }
-
-    function kudosTransactionListChanged(requestData) {
-        return $http({
-            method: 'GET',
-            url: SERVER.ip + "/transaction/kudosFeedPool?" + requestData,
-            withCredentials: true
-        }).then(function (response) {
-            return response.data;
-        });
-    }
-}
 })();

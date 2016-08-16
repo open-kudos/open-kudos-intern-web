@@ -1,0 +1,59 @@
+<kudos-navbar></kudos-navbar>
+
+<div class="container">
+        <div class="col-lg-6 col-sm-6 col-sm-push-3">
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+                    <h4>Edit Profile</h4>
+                </div>
+                <div class="panel-body">
+                    <span class="loud">{{editCtrl.user.firstName}} {{editCtrl.user.lastName}}</span>
+                    <span class="small">{{editCtrl.user.email}}</span>
+
+                    <div class="form-group">
+
+                        <form name="sendKudosForm">
+                            <div class="row">
+                                <div class="form-group col-sm-12">
+                                    <label for="startedToWork">Started to work</label>
+                                    <input ng-model="editCtrl.user.startedToWorkDate"
+                                           value="editCtrl.user.startedToWorkDate"
+                                           class="form-control"
+                                           id="startedToWork"
+                                           name="giveChallengeTo"
+                                           type="date"
+                                           autocomplete="off">
+                                </div>
+
+                                <div class="form-group col-sm-12">
+                                    <label for="birthday">Birthday</label>
+                                    <input ng-model="editCtrl.user.birthday"
+                                           class="form-control"
+                                           id="birthday"
+                                           name="giveChallengeTo"
+                                           type="date"
+                                           autocomplete="off">
+                                </div>
+
+                                <div class="form-group col-sm-12 text-center">
+                                    <div ng-if="editCtrl.showError" class="alert alert-danger" role="alert">
+                                        <strong>Whoops!</strong> {{editCtrl.errorMessage}}
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <button ng-click="editCtrl.editUserProfile()"
+                                name="updateProfile"
+                                id="updateProfile"
+                                class="rightAlignment btn btn-give">Update
+                        </button>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

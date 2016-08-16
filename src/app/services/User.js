@@ -5,111 +5,112 @@ angular.module("myApp")
 
 User.$inject = [
     "$http",
+    '$q',
     "SERVER"
 ];
 
-function User($http, SERVER) {
+function User($http, $q, SERVER) {
+
+    var currentUser = null;
+
     var user = {
-        home: getHomeInfo,
-        check: checkUser,
-        disable: disableUser,
-        update: updateUserInfo,
-        list: listUsers,
-        getTopReceivers: getTopReceivers,
-        getTopSenders: getTopSenders,
+        getCurrentUserProfile: getCurrentUserProfile,
+        updateUserProfile: updateUserProfile,
+        getUserProfile: getUserProfile,
+        getCurrentUser: getCurrentUser,
+        setCurrentUser: setCurrentUser,
+        findUsersByNamePredicate: findUsersByNamePredicate,
+        getUserActions: getUserActions,
         subscribe: subscribe,
         unsubscribe: unsubscribe
     }
     return user;
 
-    function getHomeInfo() {
+    function getCurrentUserProfile() {
+        var deferred = $q.defer();
+        if (currentUser != null){
+            deferred.resolve();
+        } else {
+            $http({
+                method: 'GET',
+                withCredentials: true,
+                url: SERVER.ip + "/user/profile"
+            }).then(function successCallback(response) {
+                currentUser = response.data;
+                deferred.resolve();
+            });
+        }
+        return deferred.promise;
+    }
+
+    function updateUserProfile(requestData) {
         return $http({
-            method: 'GET',
+            method: 'POST',
+            data: requestData,
             withCredentials: true,
-            url: SERVER.ip + "/user/home"
-        }).then(function successCallback(response) {
-            return response.data.userResponse;
+            url: SERVER.ip + "/user/update"
+        }).then(function (response) {
+            return response;
         });
     }
 
-    function checkUser() {
+    function getUserProfile(userId) {
         return $http({
             method: 'GET',
             withCredentials: true,
-            url: SERVER.ip + "/"
+            url: SERVER.ip + "/user/profile/" + userId
         }).then(function successCallback(response) {
             return response.data;
         });
     }
 
-    function disableUser() {
-        return $http({
-            method: 'POST',
-            withCredentials: true,
-            url: SERVER.ip + "/user/disable"
-        }).then(function (response) {
-            return response.data;
-        })
-    }
-
-    function updateUserInfo(userInfo) {
-        return $http({
-            method: 'POST',
-            withCredentials: true,
-            url: SERVER.ip + "/user/update?" + userInfo
-        }).then(function (response) {
-            return response.data;
-        })
-    }
-
-    function listUsers() {
+    function findUsersByNamePredicate(predicate){
         return $http({
             method: 'GET',
             withCredentials: true,
-            url: SERVER.ip + "/user/confirmedUsers"
-        }).then(function (response) {
+            url: SERVER.ip + "/user/email/" + predicate
+        }).then(function successCallback(response) {
             return response.data;
-        })
+        });
     }
 
-    function getTopReceivers(requestData) {
+    function getUserActions(userId, pageRequest) {
         return $http({
             method: 'GET',
+            params: pageRequest,
             withCredentials: true,
-            url: SERVER.ip + "/user/topreceivers?" + requestData
-        }).then(function (response) {
+            url: SERVER.ip + "/user/actions/" + userId
+        }).then(function successCallback(response) {
             return response.data;
-        })
+        });
     }
 
-    function getTopSenders(requestData) {
-        return $http({
-            method: 'GET',
-            withCredentials: true,
-            url: SERVER.ip + "/user/topsenders?" + requestData
-        }).then(function (response) {
-            return response.data;
-        })
-    }
-    
-    function unsubscribe() {
-        return $http({
-            method: 'POST',
-            withCredentials: true,
-            url: SERVER.ip + "/user/unsubscribe"
-        }).then(function (response) {
-            return response.data;
-        })
-    }
-    
     function subscribe() {
         return $http({
             method: 'POST',
             withCredentials: true,
             url: SERVER.ip + "/user/subscribe"
         }).then(function (response) {
-            return response.data;
-        })
+            return response;
+        });
+    }
+
+    function unsubscribe() {
+        return $http({
+            method: 'POST',
+            withCredentials: true,
+            url: SERVER.ip + "/user/unsubscribe"
+        }).then(function (response) {
+            return response;
+        });
+    }
+
+    function getCurrentUser() {
+        return currentUser;
+    }
+
+    function setCurrentUser(user) {
+        currentUser = user;
     }
 }
 })();

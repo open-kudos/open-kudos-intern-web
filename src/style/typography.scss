@@ -1,0 +1,74 @@
+@import "variables";
+
+body {
+  font-family: $heading-font-family;
+  font-weight: $light-font-weight;
+}
+
+h1, h2, h3, h4, h5, h6, .badge {
+  font-family: $heading-font-family;
+  font-weight: $regular-font-weight;
+}
+
+span, label {
+  font-family: $heading-font-family;
+  font-weight: $light-font-weight;
+}
+
+button {
+  font-family: $heading-font-family;
+  font-weight: $regular-font-weight;
+}
+
+strong {
+  @extend .bold;
+}
+
+a{
+  color: $color-primary;
+  &:hover{
+    color: $color-primary-lighter;
+  }
+  &:focus{
+    outline:none!important;
+    color: $color-primary-lighter;
+  }
+  &:active{
+    color: $color-primary-lighter;
+    border: 0;
+  }
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: $heading-font-family;
+  font-weight: $light-font-weight;
+}
+
+.quiet {
+  color: $quiet-color;
+}
+
+.loud {
+  font-size: 16px;
+  display: block;
+  color: $loud-color;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.bold {
+  font-weight: $regular-font-weight;
+}
+
+.btn-action {
+  p {
+    font-family: $heading-font-family;
+    font-weight: $regular-font-weight;
+  }
+}
+
+.breakword {
+  word-wrap: break-word;
+}

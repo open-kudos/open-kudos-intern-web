@@ -1,7 +1,7 @@
 <button name="giveKudosButton" id="giveKudosButton"
         data-toggle="modal" data-target="#modal{{vm.id}}"
         class="btn btn-sm btn-default">
-    <span class="glyphicon glyphicon-tree-deciduous"></span> Give
+    <span class="glyphicon glyphicon-gift"></span> Give
 </button>
 
 <div id="modal{{vm.id}}" class="modal fade" role="dialog" data-keyboard="true">
@@ -33,7 +33,7 @@
                                 <span class="input-group-btn">
                                     <button ng-click="vm.sendKudosAmount > 0 ? vm.sendKudosAmount = vm.sendKudosAmount - 1 : vm.sendKudosAmount = 0"
                                             type="button"
-                                            class="btn btn-default btn-number"><span class="glyphicon glyphicon-minus"></span></button>
+                                            class="btn btn-default btn-number input-button"><span class="glyphicon glyphicon-minus"></span></button>
                                 </span>
                                     <input ng-model="vm.sendKudosAmount"
                                            type="number"
@@ -41,7 +41,7 @@
                                            class="form-control" required>
                                     <div class="input-group-btn">
                                         <button ng-click="vm.sendKudosAmount = vm.sendKudosAmount + 1" type="button"
-                                                class="btn btn-default btn-number"><span class="glyphicon glyphicon-plus"></span></button>
+                                                class="btn btn-default btn-number input-button"><span class="glyphicon glyphicon-plus"></span></button>
                                     </div>
                                 </div>
                             </div>

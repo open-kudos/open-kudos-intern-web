@@ -1,9 +1,12 @@
-<button ng-click="vm.clearSendKudosFormValues()"
-        name="giveKudosButton" id="giveKudosButton"
-        data-toggle="modal" data-target="#sendKudosModal"
-        class="btn profile-buttons hvr-underline-from-center">
-    {{ 'ProfileMeGiveACorn' | translate }}
-</button>
+<div class="btn-action text-center"
+     ng-click="vm.clearSendKudosFormValues()"
+     name="giveKudosButton"
+     id="giveKudosButton"
+     data-toggle="modal"
+     data-target="#sendKudosModal">
+    <span class="glyphicon glyphicon-gift"></span>
+    <p>GIVE ACORN</p>
+</div>
 
 <div id="sendKudosModal" class="modal fade" role="dialog">
     <div class="modal-dialog text-left">
@@ -25,6 +28,7 @@
                                    id="sendKudosTo"
                                    name="giveChallengeTo"
                                    type="text"
+                                   placeholder="Start typing receiver name..."
                                    autocomplete="off"
                                    required>
                             <div class="autocomplete" ng-show="vm.autocompleteHide==false">
@@ -42,7 +46,7 @@
                             <span class="input-group-btn">
                                 <button ng-click="vm.sendKudosAmount > 0 ? vm.sendKudosAmount = vm.sendKudosAmount - 1 : vm.sendKudosAmount = 0"
                                         type="button"
-                                        class="btn btn-default btn-number"><span class="glyphicon glyphicon-minus"></span></button>
+                                        class="btn btn-default btn-number input-button"><span class="glyphicon glyphicon-minus"></span></button>
                             </span>
                                 <input ng-model="vm.sendKudosAmount"
                                        type="number"
@@ -50,7 +54,7 @@
                                        class="form-control" required>
                                 <div class="input-group-btn">
                                     <button ng-click="vm.sendKudosAmount = vm.sendKudosAmount + 1" type="button"
-                                            class="btn btn-default btn-number"><span class="glyphicon glyphicon-plus"></span></button>
+                                            class="btn btn-default btn-number input-button"><span class="glyphicon glyphicon-plus"></span></button>
                                 </div>
                             </div>
                         </div>

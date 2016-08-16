@@ -1,0 +1,66 @@
+<kudos-navbar></kudos-navbar>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+
+            <div class="panel panel-default" ng-if="history.isSelectedUserEqualsCurrentUser()">
+                <div class="panel-heading">
+                    <h4><span class="glyphicon glyphicon-user"></span> User Information</h4>
+                </div>
+                <div class="panel-body">
+                <h4>{{history.selectedUser.firstName}} {{history.selectedUser.lastName}}</h4>
+                <p class="small">{{history.selectedUser.email}}</p>
+                <p href="#">
+                    <strong>Received Acorns</strong>
+                    <span data-toggle="tooltip" title="These are the points you have received"
+                          class="badge badge-bigger acorn-bg cursor-pointer">{{history.selectedUser.totalKudos}}</span>
+                </p>
+                <p><strong>Weekly Acorns</strong>
+                    <span data-toggle="tooltip" title="You can give these points to others during this week"
+                          class="badge badge-bigger acorn-bg cursor-pointer">{{history.selectedUser.weeklyKudos}}</span></p>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Latest activity</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="">
+                        <div ng-repeat="item in history.userActions">
+
+                            <div class="box5">
+
+                                <kudos-feed-challenge ng-if="item.type == 'CREATED_CHALLENGE' ||
+                                 item.type == 'CANCELED_CHALLENGE' ||
+                                 item.type == 'DECLINED_CHALLENGE' ||
+                                 item.type == 'ACCEPTED_CHALLENGE' ||
+                                 item.type == 'FAILED_CHALLENGE' ||
+                                 item.type == 'MARKED_AS_COMPLETED' ||
+                                 item.type == 'MARKED_AS_FAILED' ||
+                                 item.type == 'ACCOMPLISHED_CHALLENGE'" action="item" actionIndex="$index"></kudos-feed-challenge>
+
+                                <kudos-feed-comment action="item" index="$index" ng-if="item.type == 'COMMENTED'"></kudos-feed-comment>
+
+                                <kudos-feed-new-idea action="item" id="$index" ng-if="item.type == 'ADDED_NEW_IDEA'"></kudos-feed-new-idea>
+
+                                <kudos-feed-new-relation action="item" ng-if="item.type == 'STARTED_TO_FOLLOW'"></kudos-feed-new-relation>
+
+                                <kudos-feed-transaction action="item" ng-if="item.type == 'KUDOS_GIVEN'"></kudos-feed-transaction>
+
+                                <span class="text-muted" style="font-size: 11px">{{history.formatDate(item.timestamp)}}</span>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+            <kudos-history id="history.id"></kudos-history>
+        </div>
+    </div>
+</div>

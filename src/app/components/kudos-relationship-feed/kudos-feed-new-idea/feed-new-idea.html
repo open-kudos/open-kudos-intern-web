@@ -1,0 +1,28 @@
+<span><span class="glyphicon glyphicon-education" style="font-size: 16px; padding-right: 5px"></span>
+    <a href="#/history/{{feed.action.userId}}">{{feed.action.userFullName}}</a> added new
+    <a href="" data-toggle="modal" data-target="#{{feed.id}}" aria-expanded="false" aria-controls="collapseExample">Idea</a> to Wisdom Wall
+</span>
+
+<!-- Modal -->
+<div id="{{feed.id}}" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{feed.action.userFullName}} new idea </h4>
+            </div>
+            <div class="modal-body">
+                <blockquote>
+                    <p class="breakword">{{feed.action.ideaResponse.phrase}}</p>
+                    <small class="breakword">{{feed.action.ideaResponse.author}}</small>
+                </blockquote>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

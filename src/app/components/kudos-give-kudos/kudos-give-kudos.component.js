@@ -3,7 +3,7 @@
         .component('kudosGiveKudos', {
             template: '<ng-include src="vm.getTemplate(vm.template)"/>' ,
             bindings: {
-                email: '<',
+                email: '=',
                 index: '<',
                 template: '='
             },
@@ -11,9 +11,9 @@
             controllerAs: "vm"
         });
 
-    GiveKudosController.$inject = ['$httpParamSerializer', 'GiveKudosService', 'Resources', 'Kudos', 'Utils'];
+    GiveKudosController.$inject = ['Resources', 'Kudos', 'Utils', 'User'];
 
-    function GiveKudosController($httpParamSerializer, GiveKudosService, Resources, Kudos, Utils) {
+    function GiveKudosController(Resources, Kudos, Utils, UserService) {
         var vm = this;
 
         vm.showError = false;
@@ -35,39 +35,29 @@
         vm.$onInit = onInit();
 
         function onInit() {
-
             if (vm.email != undefined && vm.index != undefined){
                 vm.sendKudosTo = vm.email;
                 vm.id = vm.index;
             }
-
-            if (Resources.getUserAvailableKudos() == undefined) {
-                Kudos.remaining().then(function (amount) {
-                    Resources.setUserAvailableKudos(amount);
-                    vm.userAvailableKudos = amount;
-                })
-            } else {
-                vm.userAvailableKudos = Resources.getUserAvailableKudos();
-            }
-
-            if (Utils.isEmptyCollection(Resources.getUsersCollection())) {
-                GiveKudosService.listUsers().then(function (val) {
-                    Resources.setUsersCollection(val);
-                    vm.usersCollection = Resources.getUsersCollection();
-                })
-            } else {
-                vm.usersCollection = Resources.getUsersCollection();
-            }
+            console.log(vm.email);
+            vm.userAvailableKudos = UserService.getCurrentUser().weeklyKudos;
         }
 
         function sendToInputChanged() {
             if (vm.searchTermSelected == false) {
                 if (vm.sendKudosTo != undefined) {
-                    (vm.sendKudosTo.length > 1) ? vm.autocompleteHide = false : vm.autocompleteHide = true;
+                    (vm.sendKudosTo.length > 2) ? loadEmails() : vm.autocompleteHide = true;
                 }
             } else {
                 vm.searchTermSelected = false;
             }
+        }
+
+        function loadEmails(){
+            UserService.findUsersByNamePredicate(vm.sendKudosTo).then(function (users) {
+                vm.usersCollection = users;
+                vm.autocompleteHide = false
+            })
         }
 
         function selectAutoText(text) {
@@ -79,30 +69,18 @@
 
         function sendKudos() {
             if (sendKudosValidation()) {
-                GiveKudosService.sendKudos(getSendToRequestData()).then(function (val) {
+                Kudos.send(getSendToRequestData()).then(function (val) {
                     vm.showSendKudosModal = false;
                     vm.showSuccess = true;
-                    Resources.setUserAvailableKudos(Resources.getUserAvailableKudos() - val.data.amount);
+                    UserService.getCurrentUser().weeklyKudos = UserService.getCurrentUser().weeklyKudos - val.data.amount;
                     closeModal();
                     toastr.success('You successfully sent ' + Utils.acornPlural(val.data.amount) + ' to ' + val.data.receiverFullName);
-                    pushOutgoingTransferIntoCollection(val.data);
                     clearSendKudosFormValues();
                     onInit();
                 }).catch(function () {
                     showValidationErrorMessage("Receiver doesn't exist");
                 });
             }
-        }
-
-        function pushOutgoingTransferIntoCollection(val) {
-            var itemToAdd = {
-                receiver: val.receiver,
-                message: val.message,
-                amount: val.amount,
-                timestamp: Utils.trimDate(val.timestamp)
-            };
-            Resources.getOutgoingKudosCollection().push(itemToAdd);
-            Resources.setSentKudosTable();
         }
 
         function sendKudosValidation() {
@@ -145,11 +123,11 @@
         }
 
         function getSendToRequestData() {
-            return $httpParamSerializer({
+            return {
                 receiverEmail: vm.sendKudosTo,
                 amount: vm.sendKudosAmount,
                 message: vm.sendKudosMessage
-            })
+            }
         }
 
         function closeModal() {
@@ -163,8 +141,6 @@
                 return 'app/components/kudos-give-kudos/kudos-give-kudos.html'
             }
         }
-
-
 
     }
 

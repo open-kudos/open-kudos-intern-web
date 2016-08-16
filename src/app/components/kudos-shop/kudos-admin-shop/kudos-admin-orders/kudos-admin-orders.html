@@ -1,0 +1,30 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>Orders</h4>
+    </div>
+
+    <div class="panel-body">
+        <div id="orders" class="table-responsive" >
+            <table class="table table-hover" ng-if="order.ordersCollection.length > 0">
+                <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Email</th>
+                    <th>Item</th>
+                    <th>Date</th>
+                    <th> <!-- Button holder --> </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in order.ordersCollection">
+                    <td>{{ item.userFullName }}</td>
+                    <td>{{ item.userEmail }}</td>
+                    <td>{{ item.orderItem }}</td>
+                    <td>{{ item.orderDate }}</td>
+                    <td><button class="btn btn-primary">Completed</button></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

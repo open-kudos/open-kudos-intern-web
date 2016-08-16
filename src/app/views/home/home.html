@@ -1,0 +1,45 @@
+<kudos-navbar></kudos-navbar>
+
+<div class="container">
+
+    <div class="row">
+
+
+        <div class="col-md-3">
+            <kudos-me></kudos-me>
+            <kudos-info></kudos-info>
+            <kudos-relationship-feed ng-if="home.isNotMobile()"></kudos-relationship-feed>
+        </div>
+
+        <div class="col-md-6">
+            <div class="row">
+                <div class="text-center">
+
+                    <div class="col-xs-6">
+                        <kudos-give-kudos></kudos-give-kudos>
+                    </div>
+
+                    <div class="col-xs-6">
+                        <kudos-give-challenge></kudos-give-challenge>
+                    </div>
+
+                </div>
+            </div>
+
+            <kudos-challenges-panel></kudos-challenges-panel>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <kudos-leaderboard></kudos-leaderboard>
+
+
+            <wisdom-wall-ideas></wisdom-wall-ideas>
+
+
+        </div>
+
+    </div>
+
+</div>

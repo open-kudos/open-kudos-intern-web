@@ -51,10 +51,6 @@ describe('RelationshipComponent', function () {
             comp.removeFollowingFromCollection(1);
             expect(comp.followedCollection.length).toEqual(0);
         });
-
-        it('should ensure that email can be transformed to data params', function () {
-            expect(comp.transferDataToParam("test@test.lt")).toEqual("email=test@test.lt");
-        });
         
     });
 

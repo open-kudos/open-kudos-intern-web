@@ -1,0 +1,58 @@
+<div class="text-center">
+
+    <div class="loader" ng-if="ongoingChallengesCtrl.loading"></div>
+
+    <div class="card box4" ng-repeat="challenge in ongoingChallengesCtrl.ongoingChallengeList">
+
+        <p class="card-text" ng-if="!challenge.actions.markAsCompletedAllowed">
+            <span class="bold">{{challenge.name}}</span> received from
+            <span class="bold">{{challenge.creatorFullName}}</span> for
+            <span class="badge acorn-bg">{{challenge.acornPlural(challenge.amount)}}</span>
+        </p>
+
+        <p class="card-text" ng-if="challenge.actions.markAsCompletedAllowed">
+            <span class="bold">{{challenge.name}}</span> given to
+            <span class="bold">{{challenge.participantFullName}}</span> for
+            <span class="badge acorn-bg">{{ongoingChallengesCtrl.acornPlural(challenge.amount)}}</span>
+        </p>
+
+        <p ng-if="challenge.description">Description: {{challenge.description}}</p>
+        <p ng-if="challenge.finishDate">Finish date: {{chOngoing.convertDate(challenge.finishDate)}}</p>
+
+        <div ng-if="challenge.actions.markAsCompletedAllowed">
+            <button class="btn btn-success btn-challenge-participated"
+                    ng-click="ongoingChallengesCtrl.markChallengeAsCompleted(challenge.id)">Mark as Completed</button>
+            <button class="btn btn-danger btn-challenge-participated"
+                    ng-click="ongoingChallengesCtrl.markChallengeAsFailed(challenge.id)">Mark as Failed</button>
+        </div>
+
+        <kudos-challenge-comment challenge="challenge"></kudos-challenge-comment>
+
+    </div>
+
+    <div class="showMore">
+        <button ng-click="ongoingChallengesCtrl.loadPreviousPage();"
+                ng-show="ongoingChallengesCtrl.showLessButton"
+                ng-disabled="ongoingChallengesCtrl.loading"
+                type="button"
+                class="btn btn-default btn-sm pull-left">
+            Previous
+        </button>
+
+        <button ng-click="ongoingChallengesCtrl.loadNextPage();"
+                ng-show="ongoingChallengesCtrl.showMoreButton"
+                ng-disabled="ongoingChallengesCtrl.loading"
+                type="button"
+                class="btn btn-default btn-sm pull-right">
+            Next
+        </button>
+    </div>
+
+    <div ng-if="ongoingChallengesCtrl.ongoingChallengeList.length === 0">
+        <div class="alert alert-info acorn-bg margin-top">
+            <span class="glyphicon glyphicon-info-sign"></span>
+            You don't have any ongoing challenges
+        </div>
+    </div>
+
+</div>

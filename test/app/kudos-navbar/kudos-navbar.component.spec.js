@@ -26,12 +26,12 @@ describe('KudosNavbarComponent', function() {
         );
 
         location = $location;
-        locationSpy = spyOn(location, 'path', false).and.returnValue("/profile");
+        locationSpy = spyOn(location, 'path', false).and.returnValue("/home");
     }));
 
     describe('KudosNavbarController', function() {
         it('it should check #/profile location path', function() {
-            setLocationSpyPathAndActivateComponent("/profile");
+            setLocationSpyPathAndActivateComponent("/home");
             expect(component.selectedHome).toBe(true);
         });
 
