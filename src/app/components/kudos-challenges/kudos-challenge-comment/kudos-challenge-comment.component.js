@@ -10,9 +10,9 @@
             controllerAs: 'comment'
         });
 
-    ChallengeCommentController.$inject = ['Challenges'];
+    ChallengeCommentController.$inject = ['Challenges', 'Utils'];
 
-    function ChallengeCommentController(Challenges) {
+    function ChallengeCommentController(Challenges, Utils) {
         var vm = this;
         
         var pageParams = {page: 0, size: 5};
@@ -21,8 +21,8 @@
         vm.message = "";
         vm.commentsCollection = [];
 
+        vm.formatDate = Utils.formatDate;
         vm.addComment = addComment;
-        vm.formatDate = formatDate;
         vm.loadNextPage = loadNextPage;
         vm.loadFirstPage = loadFirstPage;
 
@@ -94,15 +94,6 @@
             }else{
                 vm.commentsCollection = vm.commentsCollection.concat(comments);
             }
-        }
-
-        function formatDate(commentDate) {
-            var date = new Date(commentDate);
-            return date.getFullYear() + "-" + formatDateNumber(date.getMonth()) + "-" + formatDateNumber(date.getDay())+ "-" + date.getHours() + ":" + date.getMinutes();
-        }
-
-        function formatDateNumber(number) {
-            return number < 10 ? '0' + number : number;
         }
 
     }

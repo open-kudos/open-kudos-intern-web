@@ -64,15 +64,6 @@
                     user: ['User', function (User) {return User.getCurrentUserProfile();}]
                 }
             })
-            .when('/shop', {
-                templateUrl: 'app/views/shop/shop.html',
-                controller: 'ShopController',
-                controllerAs: 'shop',
-                resolve: {
-                    auth: ['Auth', function (Auth) {return Auth.check();}],
-                    user: ['User', function (User) {return User.getCurrentUserProfile();}]
-                }
-            })
             .when('/settings', {
                 templateUrl: 'app/views/settings/settings.view.html',
                 controller: 'SettingsController',
@@ -91,6 +82,26 @@
                     user: ['User', function (User) {return User.getCurrentUserProfile();}]
                 }
             });
+/*
+            .when('/shop', {
+                templateUrl: 'app/views/shop/shop.html',
+                controller: 'ShopController',
+                controllerAs: 'shop',
+                resolve: {
+                    auth: ['Auth', function (Auth) {return Auth.check();}],
+                    user: ['User', function (User) {return User.getCurrentUserProfile();}]
+                }
+            })
+            .when('/admin/shop', {
+                templateUrl: 'app/views/shop/admin/shop-admin.html',
+                controller: 'AdminShopController',
+                controllerAs: 'shop',
+                resolve: {
+                    auth: ['Auth', function (Auth) {return Auth.check();}],
+                    user: ['User', function (User) {return User.getCurrentUserProfile();}]
+                }
+            });
+*/
 
 
         $translateProvider.useStaticFilesLoader({

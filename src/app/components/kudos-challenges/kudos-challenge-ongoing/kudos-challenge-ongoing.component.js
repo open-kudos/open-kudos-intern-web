@@ -63,6 +63,9 @@
                     getChallengeOngoingList(vm.pageParams);
                     toastr.success("Challenge marked as Completed")
                 }
+            }).catch(function (error) {
+                if (error == 'challenge_expired')
+                    toastr.error('This challenge already expired');
             })
         }
 
@@ -72,6 +75,9 @@
                     getChallengeOngoingList(vm.pageParams);
                     toastr.success("Challenge marked as Failed")
                 }
+            }).catch(function (error) {
+                if (error == 'challenge_expired')
+                    toastr.error('This challenge already expired');
             })
         }
 
